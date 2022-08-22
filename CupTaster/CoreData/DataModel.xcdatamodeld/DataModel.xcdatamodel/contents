@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21223.12" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Cupping" representedClassName="Cupping" syncable="YES">
+        <attribute name="cupsCount" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
+        <attribute name="date" attributeType="Date" defaultDateTimeInterval="-978318000" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String" defaultValueString="New Folder"/>
+        <attribute name="notes" attributeType="String" defaultValueString=""/>
+        <relationship name="form" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CuppingForm" inverseName="cuppings" inverseEntity="CuppingForm"/>
+        <relationship name="samples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sample" inverseName="cupping" inverseEntity="Sample"/>
+    </entity>
+    <entity name="CuppingForm" representedClassName="CuppingForm" syncable="YES">
+        <attribute name="finalScoreFormula" attributeType="String" defaultValueString="0"/>
+        <attribute name="title" attributeType="String" defaultValueString="Cupping Form"/>
+        <attribute name="version" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="cuppings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Cupping" inverseName="form" inverseEntity="Cupping"/>
+        <relationship name="qcGroupConfigurations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QCGroupConfig" inverseName="form" inverseEntity="QCGroupConfig"/>
+    </entity>
+    <entity name="QCConfig" representedClassName="QCConfig" parentEntity="QualityCriteria" syncable="YES">
+        <attribute name="evaluationType" attributeType="String" defaultValueString="none"/>
+        <attribute name="lowerBound" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lowerBoundTitle" optional="YES" attributeType="String"/>
+        <attribute name="ordinalNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="step" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="upperBound" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="upperBoundTitle" optional="YES" attributeType="String"/>
+        <relationship name="groupConfiguration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCGroupConfig" inverseName="qcConfigurations" inverseEntity="QCGroupConfig"/>
+        <relationship name="hints" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QCHint" inverseName="qcConfiguration" inverseEntity="QCHint"/>
+        <relationship name="qualityCriteria" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QualityCriteria" inverseName="configuration" inverseEntity="QualityCriteria"/>
+    </entity>
+    <entity name="QCGroup" representedClassName="QCGroup" syncable="YES">
+        <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="notes" attributeType="String" defaultValueString=""/>
+        <relationship name="configuration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCGroupConfig" inverseName="group" inverseEntity="QCGroupConfig"/>
+        <relationship name="qualityCriteria" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QualityCriteria" inverseName="group" inverseEntity="QualityCriteria"/>
+        <relationship name="sample" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Sample" inverseName="qualityCriteriaGroups" inverseEntity="Sample"/>
+    </entity>
+    <entity name="QCGroupConfig" representedClassName="QCGroupConfig" syncable="YES">
+        <attribute name="ordinalNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String" defaultValueString="Quality Criteria"/>
+        <relationship name="form" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CuppingForm" inverseName="qcGroupConfigurations" inverseEntity="CuppingForm"/>
+        <relationship name="group" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QCGroup" inverseName="configuration" inverseEntity="QCGroup"/>
+        <relationship name="qcConfigurations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QCConfig" inverseName="groupConfiguration" inverseEntity="QCConfig"/>
+    </entity>
+    <entity name="QCHint" representedClassName="QCHint" syncable="YES">
+        <attribute name="lowerBound" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="message" attributeType="String" defaultValueString="hint"/>
+        <attribute name="upperBound" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="qcConfiguration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCConfig" inverseName="hints" inverseEntity="QCConfig"/>
+    </entity>
+    <entity name="QualityCriteria" representedClassName="QualityCriteria" syncable="YES">
+        <attribute name="title" attributeType="String" defaultValueString="title"/>
+        <attribute name="value" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="configuration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCConfig" inverseName="qualityCriteria" inverseEntity="QCConfig"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCGroup" inverseName="qualityCriteria" inverseEntity="QCGroup"/>
+    </entity>
+    <entity name="Sample" representedClassName="Sample" syncable="YES">
+        <attribute name="isFavorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <attribute name="ordinalNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="cupping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Cupping" inverseName="samples" inverseEntity="Cupping"/>
+        <relationship name="generalInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SampleGeneralInfo" inverseName="sample" inverseEntity="SampleGeneralInfo"/>
+        <relationship name="qualityCriteriaGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QCGroup" inverseName="sample" inverseEntity="QCGroup"/>
+    </entity>
+    <entity name="SampleGeneralInfo" representedClassName="SampleGeneralInfo" syncable="YES">
+        <attribute name="ordinalNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String" defaultValueString=""/>
+        <attribute name="value" attributeType="String" defaultValueString=""/>
+        <relationship name="sample" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Sample" inverseName="generalInfo" inverseEntity="Sample"/>
+    </entity>
+    <elements>
+        <element name="Cupping" positionX="1961.097564697265" positionY="2793.647964477537" width="127.0149536132812" height="133"/>
+        <element name="CuppingForm" positionX="2125.941375732423" positionY="3015.408065795899" width="128" height="104"/>
+        <element name="QCConfig" positionX="2289.318496704102" positionY="3146.895309448244" width="132.0628662109375" height="193"/>
+        <element name="QCGroup" positionX="1955.122985839843" positionY="3060.64762878418" width="128" height="118"/>
+        <element name="QCGroupConfig" positionX="2462.401153564454" positionY="3045.588150024413" width="127.7367553710938" height="104"/>
+        <element name="QCHint" positionX="2459.364624023438" positionY="3207.142883300783" width="125.81201171875" height="89"/>
+        <element name="QualityCriteria" positionX="2122.928161621093" positionY="3183.671264648437" width="128" height="103"/>
+        <element name="Sample" positionX="1789.266479492188" positionY="2927.789215087893" width="128" height="133"/>
+        <element name="SampleGeneralInfo" positionX="1955.832489013673" positionY="2942.760681152342" width="128.4488525390625" height="103"/>
+    </elements>
+</model>

@@ -1,0 +1,595 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6306C6C928AD0F1600A1C90A /* Cupping Samples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6306C6C828AD0F1600A1C90A /* Cupping Samples.swift */; };
+		63072EF62869B94700F540E5 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63072EF52869B94700F540E5 /* Entities.swift */; };
+		630DE7B62869C99500D026A4 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630DE7B52869C99500D026A4 /* Sample.swift */; };
+		63195CB3287D8C01005B70D8 /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63195CB2287D8C01005B70D8 /* Evaluation.swift */; };
+		631C108028B0528F00620637 /* Cupping Form Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C107F28B0528F00620637 /* Cupping Form Model.swift */; };
+		6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */; };
+		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
+		633C5037287090C6006B398E /* Cupping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C5036287090C6006B398E /* Cupping.swift */; };
+		633FBD5F28A2597100A93781 /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FBD5E28A2597100A93781 /* Stopwatch.swift */; };
+		6344E7A228AB6E23007DE8D4 /* New Cupping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6344E7A128AB6E23007DE8D4 /* New Cupping.swift */; };
+		634E5EFD287BF042004A9A76 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634E5EFC287BF042004A9A76 /* Settings.swift */; };
+		635AFC4328A913A1007B78C0 /* Sample Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AFC4228A913A1007B78C0 /* Sample Name Generator.swift */; };
+		635AFC4528A913F5007B78C0 /* Inset Form Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AFC4428A913F5007B78C0 /* Inset Form Section.swift */; };
+		636857FF28593EDB0076E780 /* Slider View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636857FE28593EDB0076E780 /* Slider View.swift */; };
+		6371088E28803E4C0073348C /* SCA Cupping Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6371088D28803E4C0073348C /* SCA Cupping Form.swift */; };
+		637348D2288D7FD700689C96 /* Slider Header View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637348D1288D7FD700689C96 /* Slider Header View.swift */; };
+		63742D15287EA8A1001E8DAB /* Generated Accessors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D14287EA8A1001E8DAB /* Generated Accessors.swift */; };
+		63742D18287EA998001E8DAB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D17287EA998001E8DAB /* Persistence.swift */; };
+		63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
+		637D8E7328ABB3E200AE377B /* Temp Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637D8E7228ABB3E200AE377B /* Temp Sample.swift */; };
+		63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63842F08288301FC0014E2C5 /* Evaluation Types.swift */; };
+		63842F0B288302DC0014E2C5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63842F0A288302DC0014E2C5 /* Extensions.swift */; };
+		639FD0A1287B534700FA19A0 /* Sample Selector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639FD0A0287B534700FA19A0 /* Sample Selector.swift */; };
+		63B8690328831C08005A0656 /* SCA Evaluations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B8690228831C08005A0656 /* SCA Evaluations.swift */; };
+		63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A552801BE7800010318 /* CupTasterApp.swift */; };
+		63DC7A582801BE7800010318 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A572801BE7800010318 /* ContentView.swift */; };
+		63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A592801BE7A00010318 /* Assets.xcassets */; };
+		63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A5C2801BE7A00010318 /* Preview Assets.xcassets */; };
+		63DC7A642801C7D500010318 /* Etc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A632801C7D500010318 /* Etc.swift */; };
+		63DCCE1B28B1C3CA00B72AEB /* Checkboxes Header View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCCE1A28B1C3CA00B72AEB /* Checkboxes Header View.swift */; };
+		63E0131D289431B300AC4645 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E0131C289431B300AC4645 /* Onboarding.swift */; };
+		63E6B7C22886E470001A312F /* Evaluation View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E6B7C12886E470001A312F /* Evaluation View.swift */; };
+		63E6B7C62886FEAC001A312F /* Evaluation Header View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E6B7C52886FEAC001A312F /* Evaluation Header View.swift */; };
+		63E6B7CB2886FFAA001A312F /* Radio View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E6B7CA2886FFAA001A312F /* Radio View.swift */; };
+		63E6B7CD2886FFBD001A312F /* Checkboxes View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E6B7CC2886FFBD001A312F /* Checkboxes View.swift */; };
+		63F8DE0128B367DE00A8EB80 /* Final Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F8DE0028B367DE00A8EB80 /* Final Score.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6306C6C828AD0F1600A1C90A /* Cupping Samples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Samples.swift"; sourceTree = "<group>"; };
+		63072EF52869B94700F540E5 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		630DE7B52869C99500D026A4 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
+		63195CB2287D8C01005B70D8 /* Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
+		631C107F28B0528F00620637 /* Cupping Form Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Form Model.swift"; sourceTree = "<group>"; };
+		6327BEB728609432000CB3AB /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		633C5036287090C6006B398E /* Cupping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cupping.swift; sourceTree = "<group>"; };
+		633FBD5E28A2597100A93781 /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
+		6344E7A128AB6E23007DE8D4 /* New Cupping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Cupping.swift"; sourceTree = "<group>"; };
+		634E5EFC287BF042004A9A76 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		635AFC4228A913A1007B78C0 /* Sample Name Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Name Generator.swift"; sourceTree = "<group>"; };
+		635AFC4428A913F5007B78C0 /* Inset Form Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inset Form Section.swift"; sourceTree = "<group>"; };
+		636857FE28593EDB0076E780 /* Slider View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider View.swift"; sourceTree = "<group>"; };
+		6371088A288032F60073348C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6371088D28803E4C0073348C /* SCA Cupping Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCA Cupping Form.swift"; sourceTree = "<group>"; };
+		637348D1288D7FD700689C96 /* Slider Header View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider Header View.swift"; sourceTree = "<group>"; };
+		63742D14287EA8A1001E8DAB /* Generated Accessors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generated Accessors.swift"; sourceTree = "<group>"; };
+		63742D17287EA998001E8DAB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		63742D6328801CF5001E8DAB /* CupTaster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CupTaster.entitlements; sourceTree = "<group>"; };
+		63742D6528801D02001E8DAB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		637D8E7228ABB3E200AE377B /* Temp Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Temp Sample.swift"; sourceTree = "<group>"; };
+		63842F08288301FC0014E2C5 /* Evaluation Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Evaluation Types.swift"; sourceTree = "<group>"; };
+		63842F0A288302DC0014E2C5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		639FD0A0287B534700FA19A0 /* Sample Selector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Selector.swift"; sourceTree = "<group>"; };
+		63B8690228831C08005A0656 /* SCA Evaluations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCA Evaluations.swift"; sourceTree = "<group>"; };
+		63DC7A522801BE7800010318 /* CupTaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CupTaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		63DC7A552801BE7800010318 /* CupTasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupTasterApp.swift; sourceTree = "<group>"; };
+		63DC7A572801BE7800010318 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		63DC7A592801BE7A00010318 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		63DC7A5C2801BE7A00010318 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		63DC7A632801C7D500010318 /* Etc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Etc.swift; sourceTree = "<group>"; };
+		63DCCE1A28B1C3CA00B72AEB /* Checkboxes Header View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkboxes Header View.swift"; sourceTree = "<group>"; };
+		63E0131C289431B300AC4645 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		63E6B7C12886E470001A312F /* Evaluation View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Evaluation View.swift"; sourceTree = "<group>"; };
+		63E6B7C52886FEAC001A312F /* Evaluation Header View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Evaluation Header View.swift"; sourceTree = "<group>"; };
+		63E6B7CA2886FFAA001A312F /* Radio View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radio View.swift"; sourceTree = "<group>"; };
+		63E6B7CC2886FFBD001A312F /* Checkboxes View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkboxes View.swift"; sourceTree = "<group>"; };
+		63F8DE0028B367DE00A8EB80 /* Final Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Final Score.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		63DC7A4F2801BE7800010318 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		635AFC4128A9138E007B78C0 /* Cupping */ = {
+			isa = PBXGroup;
+			children = (
+				6344E7A128AB6E23007DE8D4 /* New Cupping.swift */,
+				633C5036287090C6006B398E /* Cupping.swift */,
+				6306C6C828AD0F1600A1C90A /* Cupping Samples.swift */,
+				637D8E7228ABB3E200AE377B /* Temp Sample.swift */,
+				635AFC4228A913A1007B78C0 /* Sample Name Generator.swift */,
+				635AFC4428A913F5007B78C0 /* Inset Form Section.swift */,
+			);
+			path = Cupping;
+			sourceTree = "<group>";
+		};
+		6371088F28803E520073348C /* Cupping Forms */ = {
+			isa = PBXGroup;
+			children = (
+				631C107F28B0528F00620637 /* Cupping Form Model.swift */,
+				6371089028803E610073348C /* SCA */,
+			);
+			path = "Cupping Forms";
+			sourceTree = "<group>";
+		};
+		6371089028803E610073348C /* SCA */ = {
+			isa = PBXGroup;
+			children = (
+				6371088D28803E4C0073348C /* SCA Cupping Form.swift */,
+				63B8690228831C08005A0656 /* SCA Evaluations.swift */,
+			);
+			path = SCA;
+			sourceTree = "<group>";
+		};
+		637348D0288D7F9F00689C96 /* Evaluation Header */ = {
+			isa = PBXGroup;
+			children = (
+				63E6B7C52886FEAC001A312F /* Evaluation Header View.swift */,
+				637348D1288D7FD700689C96 /* Slider Header View.swift */,
+				63DCCE1A28B1C3CA00B72AEB /* Checkboxes Header View.swift */,
+			);
+			path = "Evaluation Header";
+			sourceTree = "<group>";
+		};
+		63742D16287EA8AB001E8DAB /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				63742D17287EA998001E8DAB /* Persistence.swift */,
+				63072EF52869B94700F540E5 /* Entities.swift */,
+				63742D14287EA8A1001E8DAB /* Generated Accessors.swift */,
+				63842F0A288302DC0014E2C5 /* Extensions.swift */,
+				6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		63742D6428801D02001E8DAB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				63742D6528801D02001E8DAB /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		638E124328A0FD8B00F30B01 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				63DC7A572801BE7800010318 /* ContentView.swift */,
+				635AFC4128A9138E007B78C0 /* Cupping */,
+				63BDE1E128B128DB000D99A5 /* Sample */,
+				634E5EFC287BF042004A9A76 /* Settings.swift */,
+				633FBD5E28A2597100A93781 /* Stopwatch.swift */,
+				63E0131C289431B300AC4645 /* Onboarding.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		63BDE1E128B128DB000D99A5 /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				630DE7B52869C99500D026A4 /* Sample.swift */,
+				639FD0A0287B534700FA19A0 /* Sample Selector.swift */,
+				63F8DE0028B367DE00A8EB80 /* Final Score.swift */,
+				63E6B7C32886E4DE001A312F /* Evaluation */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		63DC7A492801BE7800010318 = {
+			isa = PBXGroup;
+			children = (
+				63DC7A542801BE7800010318 /* CupTaster */,
+				63DC7A532801BE7800010318 /* Products */,
+				63742D6428801D02001E8DAB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		63DC7A532801BE7800010318 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				63DC7A522801BE7800010318 /* CupTaster.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		63DC7A542801BE7800010318 /* CupTaster */ = {
+			isa = PBXGroup;
+			children = (
+				63DC7A632801C7D500010318 /* Etc.swift */,
+				638E124328A0FD8B00F30B01 /* Views */,
+				6371088F28803E520073348C /* Cupping Forms */,
+				63742D16287EA8AB001E8DAB /* CoreData */,
+				63FE777028A4EF0E005CAB53 /* Support Files */,
+			);
+			path = CupTaster;
+			sourceTree = "<group>";
+		};
+		63DC7A5B2801BE7A00010318 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				63DC7A5C2801BE7A00010318 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		63E6B7C32886E4DE001A312F /* Evaluation */ = {
+			isa = PBXGroup;
+			children = (
+				63195CB2287D8C01005B70D8 /* Evaluation.swift */,
+				63842F08288301FC0014E2C5 /* Evaluation Types.swift */,
+				63E6B7C12886E470001A312F /* Evaluation View.swift */,
+				637348D0288D7F9F00689C96 /* Evaluation Header */,
+				63E6B7C92886FF8F001A312F /* Evaluation Subviews */,
+			);
+			path = Evaluation;
+			sourceTree = "<group>";
+		};
+		63E6B7C92886FF8F001A312F /* Evaluation Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				636857FE28593EDB0076E780 /* Slider View.swift */,
+				63E6B7CC2886FFBD001A312F /* Checkboxes View.swift */,
+				63E6B7CA2886FFAA001A312F /* Radio View.swift */,
+			);
+			path = "Evaluation Subviews";
+			sourceTree = "<group>";
+		};
+		63FE777028A4EF0E005CAB53 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				63DC7A552801BE7800010318 /* CupTasterApp.swift */,
+				63742D6328801CF5001E8DAB /* CupTaster.entitlements */,
+				633B68C828916F77005D32C0 /* Launch Screen.storyboard */,
+				63DC7A592801BE7A00010318 /* Assets.xcassets */,
+				6371088A288032F60073348C /* Info.plist */,
+				63DC7A5B2801BE7A00010318 /* Preview Content */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		63DC7A512801BE7800010318 /* CupTaster */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63DC7A602801BE7A00010318 /* Build configuration list for PBXNativeTarget "CupTaster" */;
+			buildPhases = (
+				63DC7A4E2801BE7800010318 /* Sources */,
+				63DC7A4F2801BE7800010318 /* Frameworks */,
+				63DC7A502801BE7800010318 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CupTaster;
+			productName = CupTaster;
+			productReference = 63DC7A522801BE7800010318 /* CupTaster.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		63DC7A4A2801BE7800010318 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1330;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					63DC7A512801BE7800010318 = {
+						CreatedOnToolsVersion = 13.3;
+					};
+				};
+			};
+			buildConfigurationList = 63DC7A4D2801BE7800010318 /* Build configuration list for PBXProject "CupTaster" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 63DC7A492801BE7800010318;
+			productRefGroup = 63DC7A532801BE7800010318 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				63DC7A512801BE7800010318 /* CupTaster */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		63DC7A502801BE7800010318 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */,
+				63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */,
+				63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		63DC7A4E2801BE7800010318 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6371088E28803E4C0073348C /* SCA Cupping Form.swift in Sources */,
+				63742D15287EA8A1001E8DAB /* Generated Accessors.swift in Sources */,
+				63E6B7C62886FEAC001A312F /* Evaluation Header View.swift in Sources */,
+				63842F0B288302DC0014E2C5 /* Extensions.swift in Sources */,
+				63DC7A642801C7D500010318 /* Etc.swift in Sources */,
+				63072EF62869B94700F540E5 /* Entities.swift in Sources */,
+				63E6B7CD2886FFBD001A312F /* Checkboxes View.swift in Sources */,
+				637D8E7328ABB3E200AE377B /* Temp Sample.swift in Sources */,
+				63F8DE0128B367DE00A8EB80 /* Final Score.swift in Sources */,
+				63DC7A582801BE7800010318 /* ContentView.swift in Sources */,
+				635AFC4528A913F5007B78C0 /* Inset Form Section.swift in Sources */,
+				63195CB3287D8C01005B70D8 /* Evaluation.swift in Sources */,
+				6344E7A228AB6E23007DE8D4 /* New Cupping.swift in Sources */,
+				63DCCE1B28B1C3CA00B72AEB /* Checkboxes Header View.swift in Sources */,
+				6306C6C928AD0F1600A1C90A /* Cupping Samples.swift in Sources */,
+				6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */,
+				631C108028B0528F00620637 /* Cupping Form Model.swift in Sources */,
+				63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */,
+				630DE7B62869C99500D026A4 /* Sample.swift in Sources */,
+				637348D2288D7FD700689C96 /* Slider Header View.swift in Sources */,
+				633FBD5F28A2597100A93781 /* Stopwatch.swift in Sources */,
+				635AFC4328A913A1007B78C0 /* Sample Name Generator.swift in Sources */,
+				636857FF28593EDB0076E780 /* Slider View.swift in Sources */,
+				63E6B7CB2886FFAA001A312F /* Radio View.swift in Sources */,
+				639FD0A1287B534700FA19A0 /* Sample Selector.swift in Sources */,
+				63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */,
+				63E6B7C22886E470001A312F /* Evaluation View.swift in Sources */,
+				634E5EFD287BF042004A9A76 /* Settings.swift in Sources */,
+				63742D18287EA998001E8DAB /* Persistence.swift in Sources */,
+				63E0131D289431B300AC4645 /* Onboarding.swift in Sources */,
+				633C5037287090C6006B398E /* Cupping.swift in Sources */,
+				63B8690328831C08005A0656 /* SCA Evaluations.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		63DC7A5E2801BE7A00010318 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		63DC7A5F2801BE7A00010318 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		63DC7A612801BE7A00010318 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "CupTaster/Support Files/CupTaster.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Support Files/Preview Content\"";
+				DEVELOPMENT_TEAM = XW6LRWG87C;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "CupTaster/Support Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = CupTaster;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nnnkbrrr.CupTaster;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		63DC7A622801BE7A00010318 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "CupTaster/Support Files/CupTaster.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Support Files/Preview Content\"";
+				DEVELOPMENT_TEAM = XW6LRWG87C;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "CupTaster/Support Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = CupTaster;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nnnkbrrr.CupTaster;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		63DC7A4D2801BE7800010318 /* Build configuration list for PBXProject "CupTaster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63DC7A5E2801BE7A00010318 /* Debug */,
+				63DC7A5F2801BE7A00010318 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63DC7A602801BE7A00010318 /* Build configuration list for PBXNativeTarget "CupTaster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63DC7A612801BE7A00010318 /* Debug */,
+				63DC7A622801BE7A00010318 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6327BEB728609432000CB3AB /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 6327BEB728609432000CB3AB /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 63DC7A4A2801BE7800010318 /* Project object */;
+}
