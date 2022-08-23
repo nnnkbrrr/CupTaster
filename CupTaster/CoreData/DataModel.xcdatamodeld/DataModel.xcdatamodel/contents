@@ -17,11 +17,11 @@
     </entity>
     <entity name="QCConfig" representedClassName="QCConfig" parentEntity="QualityCriteria" syncable="YES">
         <attribute name="evaluationType" attributeType="String" defaultValueString="none"/>
-        <attribute name="lowerBound" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lowerBound" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="lowerBoundTitle" optional="YES" attributeType="String"/>
         <attribute name="ordinalNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="step" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
-        <attribute name="upperBound" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="step" optional="YES" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="upperBound" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="upperBoundTitle" optional="YES" attributeType="String"/>
         <relationship name="groupConfiguration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCGroupConfig" inverseName="qcConfigurations" inverseEntity="QCGroupConfig"/>
         <relationship name="hints" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QCHint" inverseName="qcConfiguration" inverseEntity="QCHint"/>
@@ -70,7 +70,7 @@
     <elements>
         <element name="Cupping" positionX="1961.097564697265" positionY="2793.647964477537" width="127.0149536132812" height="133"/>
         <element name="CuppingForm" positionX="2125.941375732423" positionY="3015.408065795899" width="128" height="104"/>
-        <element name="QCConfig" positionX="2289.318496704102" positionY="3146.895309448244" width="132.0628662109375" height="193"/>
+        <element name="QCConfig" positionX="2289.318496704102" positionY="3146.895309448244" width="132.0628662109375" height="179"/>
         <element name="QCGroup" positionX="1955.122985839843" positionY="3060.64762878418" width="128" height="118"/>
         <element name="QCGroupConfig" positionX="2462.401153564454" positionY="3045.588150024413" width="127.7367553710938" height="104"/>
         <element name="QCHint" positionX="2459.364624023438" positionY="3207.142883300783" width="125.81201171875" height="89"/>

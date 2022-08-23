@@ -28,14 +28,9 @@ struct EvaluationView: View {
                             configuration: qcConfig.sliderConfiguration
                         )
                     case .checkboxes:
-                        let minUpperBound: Double =
-                        [qcConfig.upperBound, Double(qualityCriteria.group.sample.cupping.cupsCount)].min() ?? 5
-                        
                         CheckboxesView(
                             value: $qualityCriteria.value,
-                            lowerBound: qcConfig.lowerBound,
-                            upperBound: minUpperBound,
-                            step: qcConfig.step
+                            cuppingCupsCount: Int(qualityCriteria.group.sample.cupping.cupsCount)
                         )
                     case .radio:
                         RadioView(

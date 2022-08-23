@@ -21,10 +21,10 @@ struct StopwatchView: View {
     
     var body: some View {
         ZStack {
-            if let timeSince {
+            if let timeSince = timeSince {
                 Menu {
                     Button(action: {
-                        if let timeTill {
+                        if let timeTill = timeTill {
                             self.timeSince = Date(timeIntervalSinceNow: timeSince.timeIntervalSince(timeTill))
                             self.timeTill = nil
                         } else {
@@ -74,7 +74,7 @@ struct StopwatchView: View {
         let formatter: DateFormatter = DateFormatter()
         formatter.dateFormat = "mm:ss.SS"
         
-        if let timeSince {
+        if let timeSince = timeSince {
             return formatter.string(
                 from: Date(
                     timeIntervalSince1970: Double((timeTill ?? Date()).timeIntervalSince(timeSince))

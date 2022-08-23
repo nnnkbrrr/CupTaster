@@ -15,7 +15,7 @@ class SampleEvaluation: SliderConfiguration {
         evaluationType: EvaluationType,
         defaultValue: Double,
         
-        bounds: ClosedRange<CGFloat>,
+        bounds: ClosedRange<CGFloat> = 0...0,
         step: Double = 1.0,
         upperBoundTitle: String? = nil,
         lowerBoundTitle: String? = nil

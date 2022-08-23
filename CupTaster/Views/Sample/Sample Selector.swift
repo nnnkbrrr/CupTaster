@@ -7,53 +7,59 @@
 
 import SwiftUI
 
-struct SampleSelector: ViewModifier {
+struct SampleSelectorView: View {
     @ObservedObject var cupping: Cupping
-    @Binding var selectedSample: Sample
+    @State var selectedSample: Sample
     
-    func body(content: Content) -> some View {
+    var body: some View {
         ZStack(alignment: .top) {
-            NavigationView {
-                content
-                    .navigationBarTitle(" ", displayMode: .inline)
+            TabView {
+                ForEach(cupping.getSortedSamples()) { sample in
+                    VStack(spacing: 0) {
+                        SampleSelectorHeaderView(sample: sample)
+                        
+                        SampleView(sample: sample)
+                        
+                        Text("FinalScore: 0")
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 44)
+                            .background(Color(uiColor: .systemGray4))
+                    }
+                    .cornerRadius(10)
+                    .padding(15)
+                }
             }
-            .navigationViewStyle(.stack)
-            
-            sampleSelector
+            .tabViewStyle(.page(indexDisplayMode: .never))
         }
         .toolbar { StopwatchToolbarItem() }
     }
     
-    private var sampleSelector: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 0) {
-                ForEach(cupping.getSortedSamples()) { sample in
-                    Button {
-                        selectedSample = sample
-                    } label: {
-                        Text(sample.name)
-                            .font(.caption)
-                            .bold()
-                            .frame(height: 44)
-                            .padding(.horizontal, 20)
-                    }
-                    .disabled(selectedSample.id == sample.id)
-                    
-                    Capsule()
-                        .frame(width: 1, height: 15)
-                        .opacity(0.1)
+    public var preview: some View {
+        NavigationLink(destination: self) {
+            Text(selectedSample.name)
+        }
+    }
+}
+
+struct SampleSelectorHeaderView: View {
+    @Environment(\.managedObjectContext) private var moc
+    @ObservedObject var sample: Sample
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "chevron.left")
+                .padding(.leading, 20)
+            TextField("", text: $sample.name)
+                .multilineTextAlignment(.center)
+                .submitLabel(.done)
+                .onSubmit {
+                    sample.cupping.objectWillChange.send()
+                    try? moc.save()
                 }
-                
-                Button {
-#warning("pass")
-                } label: {
-                    Image(systemName: "plus")
-                        .frame(height: 44)
-                        .padding(.horizontal)
-                }
-            }
-            .padding(.horizontal)
+            Image(systemName: "chevron.right")
+                .padding(.trailing, 20)
         }
         .frame(height: 44)
+        .background(Color(uiColor: .systemGray4))
     }
 }

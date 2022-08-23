@@ -76,7 +76,7 @@ struct TempSampleEditorView: View {
                     .focused($isFocused, equals: .row(id: tempSample.defaultName))
                     .submitLabel(.done)
                     .keyboardType(.webSearch)
-                    .autocorrectionDisabled()
+//                    .autocorrectionDisabled()
                 
                 Button {
                     addToSamples()

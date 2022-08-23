@@ -12,7 +12,7 @@ struct CuppingView: View {
     @Environment(\.managedObjectContext) private var moc
     @ObservedObject var cupping: Cupping
     
-    @FocusState var notesTextEditorActive: Bool
+    @FocusState var notesTextEditorFocused: Bool
     @FetchRequest(
         entity: CuppingForm.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: true)]
@@ -31,7 +31,7 @@ struct CuppingView: View {
                         Spacer()
                         if cupping.notes == "" {
                             Button("Notes") {
-                                notesTextEditorActive = true
+                                notesTextEditorFocused = true
                             }
                             .transition(.opacity)
                         }
@@ -44,46 +44,22 @@ struct CuppingView: View {
                     .font(.caption)
                     .foregroundColor(.gray)
                     .padding(.horizontal, 35)
-                    .focused($notesTextEditorActive)
-                    .frame(height: cupping.notes == "" && !notesTextEditorActive ? 0 : nil)
+                    .focused($notesTextEditorFocused)
+                    .frame(height: cupping.notes == "" && !notesTextEditorFocused ? 0 : nil)
                     .submitLabel(.done)
                     .onSubmit { try? moc.save() }
                     .onChange(of: cupping.notes) { text in
                         if !text.filter({ $0.isNewline }).isEmpty {
                             cupping.notes.removeLast()
-                            notesTextEditorActive = false
+                            notesTextEditorFocused = false
                         }
                     }
                 
-                InsetFormSection("General Information") {
-                    DatePicker("Date", selection: $cupping.date, displayedComponents: [.date])
-                    
-#warning("pick cupping form")
-                    HStack {
-                        Text("Cupping form")
-                        Spacer()
-                        Picker("", selection: $cupping.form) {
-                            Text("SCA").tag(cupping.form)
-                        }
-                        .pickerStyle(MenuPickerStyle())
-                        .labelsHidden()
-                        .background(Color(uiColor: .systemGray5), in: RoundedRectangle(cornerRadius: 10))
-                    }
-                    
-                    HStack {
-                        Text("Cups count")
-                        Spacer()
-                        Picker("", selection: $cupping.cupsCount) {
-                            ForEach(1...5, id: \.self) { cupsCout in
-                                Text("\(cupsCout)").tag(Int16(cupsCout))
-                            }
-                        }
-                        .labelsHidden()
-                        .background(Color(uiColor: .systemGray5), in: RoundedRectangle(cornerRadius: 10))
-#warning("select cups count")
-                    }
+                if cupping.form != nil {
+                    generalInformationCompact
+                } else {
+                    generalInformation
                 }
-                .disabled(cupping.form != nil)
                 
                 if cupping.form == nil {
                     InsetFormSection("Finish setting up") {
@@ -102,7 +78,7 @@ struct CuppingView: View {
             .padding(.bottom)
             .animation(.default, value: cupping.samples)
             .animation(.default, value: cupping.form)
-            .animation(.default, value: notesTextEditorActive)
+            .animation(.default, value: notesTextEditorFocused)
         }
         .background(Color(uiColor: .systemGroupedBackground))
         .navigationBarTitle(cupping.name, displayMode: .inline)
@@ -112,6 +88,53 @@ struct CuppingView: View {
             }
             
             StopwatchToolbarItem()
+        }
+    }
+    
+    private var generalInformation: some View {
+        InsetFormSection("General Information") {
+            DatePicker("Date", selection: $cupping.date, displayedComponents: [.date])
+            
+#warning("pick cupping form")
+            HStack {
+                Text("Cupping form")
+                Spacer()
+                Picker("", selection: $cupping.form) {
+                    Text("SCA").tag(cupping.form)
+                }
+                .pickerStyle(MenuPickerStyle())
+                .labelsHidden()
+                .background(Color(uiColor: .systemGray5), in: RoundedRectangle(cornerRadius: 10))
+            }
+            
+            HStack {
+                Text("Cups count")
+                Spacer()
+                Picker("", selection: $cupping.cupsCount) {
+                    ForEach(1...5, id: \.self) { cupsCout in
+                        Text("\(cupsCout)").tag(Int16(cupsCout))
+                    }
+                }
+                .labelsHidden()
+                .background(Color(uiColor: .systemGray5), in: RoundedRectangle(cornerRadius: 10))
+            }
+        }
+        .disabled(cupping.form != nil)
+    }
+    
+    private var generalInformationCompact: some View {
+        InsetFormSection("General Information") {
+            HStack(spacing: 5) {
+                if let cuppingForm = cupping.form {
+                    Group {
+                        Text(cupping.date, style: .date)
+                        Text(cuppingForm.title)
+                        Label("x \(cupping.cupsCount)", systemImage: "cup.and.saucer")
+                    }
+                    .padding(5)
+                    .background(Color(uiColor: .systemGray5), in: RoundedRectangle(cornerRadius: 10))
+                }
+            }
         }
     }
     

@@ -21,12 +21,8 @@ struct CuppingSamplesView: View {
         ZStack(alignment: .top) {
             InsetFormSection {
                 ForEach(cupping.getSortedSamples()) { sample in
-                    SampleView(
-                        cupping: cupping,
-                        sample: sample
-                    )
-                    .preview
-                    .buttonStyle(InsetFormLinkStyle())
+                    SampleSelectorView(cupping: cupping, selectedSample: sample).preview
+                        .buttonStyle(InsetFormLinkStyle())
                 }
                 
                 if cupping.samples.count < 1 {

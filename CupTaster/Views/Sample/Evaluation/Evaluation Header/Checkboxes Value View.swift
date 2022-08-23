@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct CheckboxesEvaluationHeaderView: View {
+struct CheckboxesEvaluationValueView: View {
     @ObservedObject var qualityCriteria: QualityCriteria
     
     var body: some View {
         HStack {
+            let cuppingCupsCount: Int = Int(qualityCriteria.group.sample.cupping.cupsCount)
             let qcRepresentationValue: String = getCheckboxesRepresentationValue(
                 value: qualityCriteria.value,
-                cupsCount: Int(qualityCriteria.group.sample.cupping.cupsCount)
+                cupsCount: cuppingCupsCount
             )
-            let cuppingCupsCount: Int = Int(qualityCriteria.group.sample.cupping.cupsCount)
             let fractionValues: [String] = Array(0...cuppingCupsCount).map {
                 let value: CGFloat = 10.0 - (10.0 * CGFloat($0)) / CGFloat(cuppingCupsCount)
                 switch value.truncatingRemainder(dividingBy: 1) {
@@ -33,23 +33,7 @@ struct CheckboxesEvaluationHeaderView: View {
                         .transition(.opacity.combined(with: .scale))
                 }
             }
-            
-            Divider()
-            Text(qualityCriteria.title)
-                .bold()
-            Spacer()
-            Button {
-                withAnimation(.spring()) {
-                    qualityCriteria.group.isCompleted.toggle()
-                    qualityCriteria.group.objectWillChange.send()
-                }
-            } label: {
-                Image(systemName: qualityCriteria.group.isCompleted ? "pencil" : "checkmark")
-            }
         }
-        .animation(
-            .interpolatingSpring(stiffness: 100, damping: 10),
-            value: qualityCriteria.value
-        )
+        .contentShape(Rectangle())
     }
 }

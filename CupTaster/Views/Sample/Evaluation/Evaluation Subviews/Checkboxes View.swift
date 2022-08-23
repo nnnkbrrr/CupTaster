@@ -10,29 +10,17 @@ import SwiftUI
 struct CheckboxesView: View {
     #warning("Based on cups count")
     @Binding var value: Double
-    let lowerBound: CGFloat
-    let upperBound: CGFloat
-    let step: CGFloat
+    let cuppingCupsCount: Int
     
     var body: some View {
         HStack {
-            let checkboxes: [CGFloat] = Array(
-                stride(
-                    from: lowerBound,
-                    through: upperBound,
-                    by: step
-                )
-            )
+            let checkboxes: [Int] = Array(1...cuppingCupsCount)
             
-            ForEach(checkboxes.dropFirst(), id: \.self) { checkbox in
+            ForEach(checkboxes, id: \.self) { checkbox in
                 let checkboxIndex: Int = Int(checkbox - 1)
                 Button {
-                    let power: Double = upperBound - checkbox
-                    if checkboxValue(index: checkboxIndex) {
-                        value -= pow(10, power)
-                    } else {
-                        value += pow(10, power)
-                    }
+                    let power: Double = Double(cuppingCupsCount - checkbox)
+                    value += pow(10, power) * (checkboxValue(index: checkboxIndex) ? -1 : 1)
                 } label: {
                     ZStack {
                         Image(systemName: checkboxValue(index: checkboxIndex) ? "cup.and.saucer" : "cup.and.saucer.fill")
@@ -63,7 +51,7 @@ struct CheckboxesView: View {
     
     func checkboxValue(index: Int) -> Bool {
         let stringValue: String = String(Int(value))
-        let fullBinaryString: String = String(repeating: "0", count: Int(upperBound) - stringValue.count) + stringValue
+        let fullBinaryString: String = String(repeating: "0", count: cuppingCupsCount - stringValue.count) + stringValue
         let values: [Bool] = fullBinaryString.map { $0 == "1" }
         
         return values[index]

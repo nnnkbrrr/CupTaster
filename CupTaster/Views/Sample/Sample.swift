@@ -7,24 +7,18 @@
 
 import SwiftUI
 
+private struct DisableScrollBounceModifier: ViewModifier {
+    init() { UIScrollView.appearance().bounces = false }
+    func body(content: Content) -> some View { return content }
+}
+
 struct SampleView: View {
     @Environment(\.managedObjectContext) private var moc
-    @ObservedObject var cupping: Cupping
     @State var sample: Sample
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                TextField("Sample name", text: $sample.name)
-                    .padding()
-                    .background(Color.gray.opacity(0.25))
-                    .cornerRadius(10)
-                    .submitLabel(.done)
-                    .onSubmit {
-                        cupping.objectWillChange.send()
-                        try? moc.save()
-                    }
-                
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
                 ForEach(
                     sample.qualityCriteriaGroups
                         .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
@@ -32,27 +26,20 @@ struct SampleView: View {
                     QCGroupView(qcGroup: qcGroup)
                 }
             }
-            .padding()
-        }
-        .modifier(SampleSelector(cupping: cupping, selectedSample: $sample))
-    }
-    
-    public var preview: some View {
-        NavigationLink(destination: self) {
-                Text(sample.name)
         }
     }
 }
 
 struct QCGroupView: View {
+    @Environment(\.managedObjectContext) private var moc
     @ObservedObject var qcGroup: QCGroup
     
     var body: some View {
-        VStack {
-            EvaluationHeaderView(qcGroup: qcGroup)
+        VStack(spacing: 3) {
+            EvaluationHeaderView(qcGroup: qcGroup, isCompleted: $qcGroup.isCompleted)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical)
-                .background(Color.gray.opacity(0.25))
+                .padding(.vertical, qcGroup.isCompleted ? 0 : 15)
+                .background(qcGroup.isCompleted ? Color.clear : Color(uiColor: .secondarySystemGroupedBackground))
                 .cornerRadius(10)
             
             if !qcGroup.isCompleted {
@@ -63,13 +50,40 @@ struct QCGroupView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(Color.gray.opacity(0.25))
+                .background(Color(uiColor: .secondarySystemGroupedBackground))
                 .cornerRadius(10)
                 .transition(
                     .scale(scale: 0, anchor: .top)
                     .combined(with: .opacity)
                 )
             }
+            
+            if !qcGroup.isCompleted || qcGroup.notes != "" {
+                TextField("Notes", text: $qcGroup.notes)
+                    .font(.caption)
+                    .opacity(qcGroup.isCompleted ? 0.5 : 1)
+                    .padding(.vertical, qcGroup.isCompleted ? 0 : 15)
+                    .padding(.horizontal, 20)
+                    .background(qcGroup.isCompleted ? Color.clear : Color(uiColor: .secondarySystemGroupedBackground))
+                    .cornerRadius(10)
+                    .submitLabel(.done)
+                    .onSubmit { try? moc.save() }
+                    .transition(
+                        .scale(scale: 0, anchor: .top)
+                        .combined(with: .opacity)
+                    )
+                    .disabled(qcGroup.isCompleted)
+            }
+            
+            if qcGroup.isCompleted {
+                Capsule()
+                    .foregroundColor(Color(uiColor: .systemGray5))
+                    .frame(height: 1)
+                    .padding(.top, 15)
+            }
         }
+        .padding(.top)
+        .padding(.bottom, qcGroup.isCompleted ? 0 : 15)
+        .background(qcGroup.isCompleted ? Color(uiColor: .secondarySystemGroupedBackground) : Color.clear)
     }
 }

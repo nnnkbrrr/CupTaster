@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SliderEvaluationHeaderView: View {
+struct SliderEvaluationValueView: View {
     @ObservedObject var qualityCriteria: QualityCriteria
     
     var body: some View {
@@ -23,24 +23,12 @@ struct SliderEvaluationHeaderView: View {
                         .transition(.opacity.combined(with: .scale))
                 }
             }
-            
-            Divider()
-            Text(qualityCriteria.title)
-                .bold()
-            Spacer()
-            Button {
-                withAnimation(.spring()) {
-                    qualityCriteria.group.isCompleted.toggle()
-                    qualityCriteria.group.objectWillChange.send()
-                }
-            } label: {
-                Image(systemName: qualityCriteria.group.isCompleted ? "pencil" : "checkmark")
-            }
         }
         .animation(
             .interpolatingSpring(stiffness: 100, damping: 10),
             value: qualityCriteria.value
         )
+        .contentShape(Rectangle())
     }
     
     func formatValue(value: CGFloat) -> String {

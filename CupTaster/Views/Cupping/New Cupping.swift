@@ -16,7 +16,7 @@ struct NewCuppingView: View {
     @State var cuppingName: String = ""
     
     var body: some View {
-        if let cupping {
+        if let cupping = cupping {
             CuppingView(cupping: cupping)
                 .transition(.opacity)
         } else {
@@ -31,7 +31,7 @@ struct NewCuppingView: View {
                         self.cuppingNameFieldFocused = false
                         try? moc.save()
                     }
-                    .autocorrectionDisabled()
+//                    .autocorrectionDisabled()
                     .submitLabel(.done)
                     .focused($cuppingNameFieldFocused, equals: true)
                     .onAppear {

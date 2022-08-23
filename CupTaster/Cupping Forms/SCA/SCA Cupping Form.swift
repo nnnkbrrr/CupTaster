@@ -175,14 +175,14 @@ extension SCACuppingFormModel {
         let numOfCups: SampleEvaluation = SampleEvaluation(
             evaluationType: .radio,
             defaultValue: 0,
-            bounds: 0...5
+            bounds: 1...5
         )
         
         // Intensity
         let intensity: SampleEvaluation = SampleEvaluation(
             evaluationType: .radio,
             defaultValue: 0,
-            bounds: 0...4,
+            bounds: 2...4,
             step: 2
         )
         

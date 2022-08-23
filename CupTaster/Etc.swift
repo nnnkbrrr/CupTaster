@@ -23,7 +23,7 @@ struct Blur: UIViewRepresentable {
 // MARK: Text editor background
 
 extension View {
-    func textEditorBackgroundColor(_ color: UIColor) -> some View{
+    func textEditorBackgroundColor(_ color: UIColor) -> some View {
         self.onAppear { UITextView.appearance().backgroundColor = color }
     }
 }
@@ -71,7 +71,7 @@ extension Date: RawRepresentable {
 
 extension Optional: RawRepresentable where Wrapped == Date {
     public var rawValue: String {
-        if let self {
+        if let self = self {
             return Date.formatter.string(from: self)
         } else {
             return ""

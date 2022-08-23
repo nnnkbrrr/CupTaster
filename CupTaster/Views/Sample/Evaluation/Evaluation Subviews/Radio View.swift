@@ -32,7 +32,7 @@ struct RadioView: View {
             ).map{ Int($0) }
             
             HStack {
-                ForEach(values.dropFirst(), id: \.self) { value in
+                ForEach(values, id: \.self) { value in
                     Button {
                         if self.value == Double(value) {
                             self.value = 0
