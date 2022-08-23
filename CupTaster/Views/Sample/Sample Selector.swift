@@ -12,32 +12,28 @@ struct SampleSelectorView: View {
     @State var selectedSample: Sample
     
     var body: some View {
-        ZStack(alignment: .top) {
-            TabView {
-                ForEach(cupping.getSortedSamples()) { sample in
+        TabView {
+            ForEach(cupping.getSortedSamples()) { sample in
+                ZStack {
+                    SampleView(sample: sample).padding(.vertical, 44)
                     VStack(spacing: 0) {
                         SampleSelectorHeaderView(sample: sample)
-                        
-                        SampleView(sample: sample)
-                        
-                        Text("FinalScore: 0")
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 44)
-                            .background(Color(uiColor: .systemGray4))
+                        Divider()
+                        Spacer()
+                        Divider()
+                        FinalScoreView(sample: sample)
                     }
-                    .cornerRadius(10)
-                    .padding(15)
                 }
+                .cornerRadius(10)
+                .padding(15)
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
         }
+        .tabViewStyle(.page(indexDisplayMode: .never))
         .toolbar { StopwatchToolbarItem() }
     }
     
     public var preview: some View {
-        NavigationLink(destination: self) {
-            Text(selectedSample.name)
-        }
+        NavigationLink(destination: self) { Text(selectedSample.name) }
     }
 }
 
@@ -60,6 +56,6 @@ struct SampleSelectorHeaderView: View {
                 .padding(.trailing, 20)
         }
         .frame(height: 44)
-        .background(Color(uiColor: .systemGray4))
+        .background(Blur(style: .systemMaterial))
     }
 }

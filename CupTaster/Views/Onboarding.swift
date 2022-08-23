@@ -45,6 +45,7 @@ struct OnboardingSheet: ViewModifier {
             ScrollView {
                 Group {
                     if cuppingForms.count == 0 {
+                        #warning("something important")
                         OnboardingFeaturesView(featuresVersion: featuresVersion)
                         //            } else if featuresVersion != Features.currentVersion {
                         //
@@ -161,6 +162,8 @@ struct OnboardingFeaturesView: View {
             }
             .font(.largeTitle)
             
+            
+            #warning("icloud sync between devices")
             feature(
                 image: Image(systemName: "doc.on.clipboard"),
                 title: "Cuppings",

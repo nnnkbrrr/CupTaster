@@ -26,6 +26,7 @@ struct SampleView: View {
                     QCGroupView(qcGroup: qcGroup)
                 }
             }
+            .resignKeyboardOnDragGesture()
         }
     }
 }
@@ -36,6 +37,13 @@ struct QCGroupView: View {
     
     var body: some View {
         VStack(spacing: 3) {
+            if qcGroup.isCompleted {
+                Capsule()
+                    .foregroundColor(Color(uiColor: .systemGray5))
+                    .frame(height: 0.5)
+                    .padding(.bottom, 15)
+            }
+            
             EvaluationHeaderView(qcGroup: qcGroup, isCompleted: $qcGroup.isCompleted)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, qcGroup.isCompleted ? 0 : 15)
@@ -78,12 +86,11 @@ struct QCGroupView: View {
             if qcGroup.isCompleted {
                 Capsule()
                     .foregroundColor(Color(uiColor: .systemGray5))
-                    .frame(height: 1)
+                    .frame(height: 0.5)
                     .padding(.top, 15)
             }
         }
-        .padding(.top)
-        .padding(.bottom, qcGroup.isCompleted ? 0 : 15)
-        .background(qcGroup.isCompleted ? Color(uiColor: .secondarySystemGroupedBackground) : Color.clear)
+        .padding(.vertical, qcGroup.isCompleted ? 0 : 15)
+//        .background(qcGroup.isCompleted ? Color(uiColor: .secondarySystemGroupedBackground) : Color.clear)
     }
 }

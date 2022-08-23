@@ -24,9 +24,10 @@ struct SCACuppingFormModel {
         
         form.addToQcGroupConfigurations([aromaGroup, flavorGroup, aftertasteGroup, acidityGroup, bodyGroup, uniformityGroup, balanceGroup, cleanCupGroup, sweetnessGroup, overallGroup, defectsGroup])
         
-        form.finalScoreFormula = "Aroma + Flavor + Aftertaste + Acidity + Body + " +
-        "Uniformity + Balance + Clean_Cup + Sweetness + Overall - " +
-        "(Num_of_cups * Intensity)"
+    //    ["FragranceAroma_Aroma": 6.0, "Aftertaste_Aftertaste": 8.0, "Uniformity_Uniformity": 8.0, "Acidity_Intensity": 0.0, "Flavor_Flavor": 8.0, "Balance_Balance": 8.0, "FragranceAroma_Break": 3.0, "FragranceAroma_Dry": 0.0, "Body_Level": 0.0, "Acidity_Acidity": 8.0, "CleanCup_CleanCup": 10.0, "Sweetness_Sweetness": 10.0, "Body_Body": 8.0, "Defects_Numofcups": 5.0, "Overall_Overall": 6.0, "Defects_Intensity": 2.0]
+        
+        
+        form.finalScoreFormula = "FragranceAroma_Aroma + Flavor_Flavor + Aftertaste_Aftertaste + Acidity_Acidity + Body_Body + Uniformity_Uniformity + Balance_Balance + CleanCup_CleanCup + Sweetness_Sweetness + Overall_Overall - (Defects_Numofcups * Defects_Intensity)"
         
         try? context.save()
         
