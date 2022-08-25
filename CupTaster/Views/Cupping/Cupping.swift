@@ -87,7 +87,7 @@ struct CuppingView: View {
             .animation(.default, value: notesTextEditorFocused)
         }
         .background(Color(uiColor: .systemGroupedBackground))
-        .navigationBarTitle(cupping.name)
+        .navigationBarTitle(cupping.name, displayMode: .inline)
         .toolbar {
             ToolbarItem(placement: .principal) { Text(" ") }
             StopwatchToolbarItem()

@@ -18,6 +18,7 @@ struct SampleSelectorView: View {
             }
         }
         .tabViewStyle(.page)
+        .navigationBarTitle("", displayMode: .inline)
         .toolbar { StopwatchToolbarItem() }
     }
     
