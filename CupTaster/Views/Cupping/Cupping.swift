@@ -108,7 +108,7 @@ struct CuppingView: View {
     private var generalInformation: some View {
         InsetFormSection("General Information") {
             if !cupping.isFault {
-                DatePicker("Date", selection: $cupping.date, displayedComponents: [.date])
+                DatePicker("Date", selection: $cupping.date, in: ...Date(), displayedComponents: [.date])
             }
             
 #warning("pick cupping form")
