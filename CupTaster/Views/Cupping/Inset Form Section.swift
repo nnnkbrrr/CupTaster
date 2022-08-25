@@ -38,6 +38,7 @@ struct InsetFormSection<Header, Content>: View where Header: View, Content: View
         content()
             .textCase(.uppercase)
             .foregroundColor(.gray)
+            .frame(maxWidth: .infinity)
             .buttonStyle(AccentForegroundButtonStyle())
             .font(.system(size: 13))
             .padding(.horizontal, 20)

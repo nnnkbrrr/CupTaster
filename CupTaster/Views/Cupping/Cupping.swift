@@ -18,23 +18,32 @@ struct CuppingView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: true)]
     ) var cuppingForms: FetchedResults<CuppingForm>
     
+    @State private var confirmDeleteAction: Bool = false
+    
     var body: some View {
         ScrollView {
             LazyVStack {
                 InsetFormSection {
-                    TextField("", text: $cupping.name)
+                    TextField("Cupping name", text: $cupping.name)
                         .submitLabel(.done)
                         .onSubmit { try? moc.save() }
                 } header: {
                     HStack {
-                        Text("Cupping Name")
-                        Spacer()
-                        if cupping.notes == "" {
-                            Button("Notes") {
-                                notesTextEditorFocused = true
+                        ZStack {
+                            if cupping.notes == "" {
+                                Button("Add Notes") {
+                                    notesTextEditorFocused = true
+                                }
+                                .transition(.opacity)
                             }
-                            .transition(.opacity)
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text("Cupping")
+                        
+                        Button("Delete") { confirmDeleteAction = true }
+                            .transition(.opacity)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                     .animation(.default, value: cupping.notes)
                 }
@@ -55,11 +64,8 @@ struct CuppingView: View {
                         }
                     }
                 
-                if cupping.form != nil {
-                    generalInformationCompact
-                } else {
-                    generalInformation
-                }
+                if cupping.form != nil { generalInformationCompact }
+                else { generalInformation }
                 
                 if cupping.form == nil {
                     InsetFormSection("Finish setting up") {
@@ -75,25 +81,35 @@ struct CuppingView: View {
                     CuppingSamplesView(cupping: cupping)
                 }
             }
-            .padding(.bottom)
+            .padding(.vertical)
             .animation(.default, value: cupping.samples)
             .animation(.default, value: cupping.form)
             .animation(.default, value: notesTextEditorFocused)
         }
         .background(Color(uiColor: .systemGroupedBackground))
-        .navigationBarTitle(cupping.name, displayMode: .inline)
+        .navigationBarTitle(cupping.name)
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text(" ")
-            }
-            
+            ToolbarItem(placement: .principal) { Text(" ") }
             StopwatchToolbarItem()
+        }
+        .confirmationDialog(
+            "Are you sure you want to delete cupping and all relative samples?",
+            isPresented: $confirmDeleteAction,
+            titleVisibility: .visible
+        ) {
+            Button("Delete", role: .destructive) {
+                cupping.objectWillChange.send()
+                moc.delete(cupping)
+                try? moc.save()
+            }
         }
     }
     
     private var generalInformation: some View {
         InsetFormSection("General Information") {
-            DatePicker("Date", selection: $cupping.date, displayedComponents: [.date])
+            if !cupping.isFault {
+                DatePicker("Date", selection: $cupping.date, displayedComponents: [.date])
+            }
             
 #warning("pick cupping form")
             HStack {
@@ -122,24 +138,41 @@ struct CuppingView: View {
         .disabled(cupping.form != nil)
     }
     
+    let dateFormatter : DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.doesRelativeDateFormatting = true
+        formatter.dateStyle = .short
+        return formatter
+    }()
+    
     private var generalInformationCompact: some View {
-        InsetFormSection("General Information") {
-            HStack(spacing: 5) {
-                if let cuppingForm = cupping.form {
-                    Group {
-                        Text(cupping.date, style: .date)
-                        Text(cuppingForm.title)
-                        Label("x \(cupping.cupsCount)", systemImage: "cup.and.saucer")
-                    }
-                    .padding(5)
-                    .background(Color(uiColor: .systemGray5), in: RoundedRectangle(cornerRadius: 10))
+        HStack(spacing: 5) {
+            if let cuppingForm = cupping.form {
+                Group {
+                    Text(dateFormatter.string(from: cupping.date))
+                        .padding(.horizontal, 10)
+                        .frame(height: 44)
+                        .background(
+                            Color(uiColor: .secondarySystemGroupedBackground),
+                            in: RoundedRectangle(cornerRadius: 10)
+                        )
+                    Text(cuppingForm.title)
+                    Label("x  \(cupping.cupsCount)", systemImage: "cup.and.saucer")
                 }
+                .frame(maxWidth: .infinity)
+                .frame(height: 44)
+                .background(
+                    Color(uiColor: .secondarySystemGroupedBackground),
+                    in: RoundedRectangle(cornerRadius: 10)
+                )
             }
         }
+        .padding(.horizontal, 20)
+        .padding(.bottom, 10)
     }
     
-    public var preview: some View {
-        NavigationLink(destination: self) {
+    public func preview(selection: Binding<ObjectIdentifier?>) -> some View {
+        NavigationLink(destination: self, tag: cupping.id, selection: selection) {
             VStack(alignment: .leading) {
                 Text(cupping.name)
                 Text(cupping.date, style: .date)

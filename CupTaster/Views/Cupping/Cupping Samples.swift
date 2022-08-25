@@ -37,9 +37,7 @@ struct CuppingSamplesView: View {
         if tempSamples.count > 0 {
             InsetFormSection.header {
                 HStack {
-                    Button("Clear") {
-                        tempSamples.removeAll()
-                    }
+                    Button("Clear") { tempSamples.removeAll() }
                     
                     Spacer()
                     
@@ -49,6 +47,7 @@ struct CuppingSamplesView: View {
                                 tempSample.addToCupping(cupping: cupping, context: moc)
                                 tempSamples.removeAll(where: { $0.id == tempSample.id })
                             }
+                            try? moc.save()
                         }
                     }
                 }
@@ -116,17 +115,12 @@ extension CuppingSamplesView {
                         .combined(with: .move(edge: .trailing))
                 )
             } else {
+                Button("Add") { withAnimation { addingTempSamples = true } }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
                 Text("Samples")
                 
-                Spacer()
-                
-                Button {
-                    addingTempSamples = true
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.system(size: 15, weight: .semibold))
-                        .frame(width: 40, height: 20, alignment: .trailing)
-                }
+                Spacer().frame(maxWidth: .infinity)
             }
         }
     }

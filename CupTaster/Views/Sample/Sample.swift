@@ -17,17 +17,31 @@ struct SampleView: View {
     @State var sample: Sample
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
-                ForEach(
-                    sample.qualityCriteriaGroups
-                        .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
-                ) { qcGroup in
-                    QCGroupView(qcGroup: qcGroup)
+        ZStack {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    ForEach(
+                        sample.qualityCriteriaGroups
+                            .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
+                    ) { qcGroup in
+                        QCGroupView(qcGroup: qcGroup)
+                    }
                 }
+                .padding(.vertical, 44) // header and footer
+                .resignKeyboardOnDragGesture()
             }
-            .resignKeyboardOnDragGesture()
+            
+            VStack(spacing: 0) {
+                SampleHeaderView(sample: sample)
+                Divider()
+                Spacer()
+                Divider()
+                SampleFooterView(sample: sample)
+            }
         }
+        .cornerRadius(10)
+        .padding(15)
+        .padding(.bottom, 30)
     }
 }
 
@@ -91,6 +105,5 @@ struct QCGroupView: View {
             }
         }
         .padding(.vertical, qcGroup.isCompleted ? 0 : 15)
-//        .background(qcGroup.isCompleted ? Color(uiColor: .secondarySystemGroupedBackground) : Color.clear)
     }
 }

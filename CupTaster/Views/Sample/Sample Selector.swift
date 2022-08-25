@@ -14,48 +14,21 @@ struct SampleSelectorView: View {
     var body: some View {
         TabView {
             ForEach(cupping.getSortedSamples()) { sample in
-                ZStack {
-                    SampleView(sample: sample).padding(.vertical, 44)
-                    VStack(spacing: 0) {
-                        SampleSelectorHeaderView(sample: sample)
-                        Divider()
-                        Spacer()
-                        Divider()
-                        FinalScoreView(sample: sample)
-                    }
-                }
-                .cornerRadius(10)
-                .padding(15)
+                SampleView(sample: sample)
             }
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
+        .tabViewStyle(.page)
         .toolbar { StopwatchToolbarItem() }
     }
     
     public var preview: some View {
-        NavigationLink(destination: self) { Text(selectedSample.name) }
-    }
-}
-
-struct SampleSelectorHeaderView: View {
-    @Environment(\.managedObjectContext) private var moc
-    @ObservedObject var sample: Sample
-    
-    var body: some View {
-        HStack {
-            Image(systemName: "chevron.left")
-                .padding(.leading, 20)
-            TextField("", text: $sample.name)
-                .multilineTextAlignment(.center)
-                .submitLabel(.done)
-                .onSubmit {
-                    sample.cupping.objectWillChange.send()
-                    try? moc.save()
-                }
-            Image(systemName: "chevron.right")
-                .padding(.trailing, 20)
+        NavigationLink(destination: self) {
+            HStack {
+                Image(systemName: "heart" + (selectedSample.isFavorite ? ".fill" : ""))
+                    .foregroundColor(selectedSample.isFavorite ? .red : .gray)
+                    .scaleEffect(selectedSample.isFavorite ? 1 : 0.75)
+                Text(selectedSample.name)
+            }
         }
-        .frame(height: 44)
-        .background(Blur(style: .systemMaterial))
     }
 }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6306C6C928AD0F1600A1C90A /* Cupping Samples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6306C6C828AD0F1600A1C90A /* Cupping Samples.swift */; };
 		63072EF62869B94700F540E5 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63072EF52869B94700F540E5 /* Entities.swift */; };
+		63083BFE28B7A78900874926 /* Sample Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63083BFD28B7A78900874926 /* Sample Header.swift */; };
+		63083C0028B7A79C00874926 /* Sample Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63083BFF28B7A79C00874926 /* Sample Footer.swift */; };
 		630DE7B62869C99500D026A4 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630DE7B52869C99500D026A4 /* Sample.swift */; };
 		63195CB3287D8C01005B70D8 /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63195CB2287D8C01005B70D8 /* Evaluation.swift */; };
 		631C108028B0528F00620637 /* Cupping Form Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C107F28B0528F00620637 /* Cupping Form Model.swift */; };
@@ -16,7 +18,6 @@
 		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
 		633C5037287090C6006B398E /* Cupping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C5036287090C6006B398E /* Cupping.swift */; };
 		633FBD5F28A2597100A93781 /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FBD5E28A2597100A93781 /* Stopwatch.swift */; };
-		6344E7A228AB6E23007DE8D4 /* New Cupping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6344E7A128AB6E23007DE8D4 /* New Cupping.swift */; };
 		634E5EFD287BF042004A9A76 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634E5EFC287BF042004A9A76 /* Settings.swift */; };
 		635AFC4328A913A1007B78C0 /* Sample Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AFC4228A913A1007B78C0 /* Sample Name Generator.swift */; };
 		635AFC4528A913F5007B78C0 /* Inset Form Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AFC4428A913F5007B78C0 /* Inset Form Section.swift */; };
@@ -42,12 +43,13 @@
 		63E6B7C62886FEAC001A312F /* Evaluation Header View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E6B7C52886FEAC001A312F /* Evaluation Header View.swift */; };
 		63E6B7CB2886FFAA001A312F /* Radio View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E6B7CA2886FFAA001A312F /* Radio View.swift */; };
 		63E6B7CD2886FFBD001A312F /* Checkboxes View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E6B7CC2886FFBD001A312F /* Checkboxes View.swift */; };
-		63F8DE0128B367DE00A8EB80 /* Final Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F8DE0028B367DE00A8EB80 /* Final Score.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6306C6C828AD0F1600A1C90A /* Cupping Samples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Samples.swift"; sourceTree = "<group>"; };
 		63072EF52869B94700F540E5 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		63083BFD28B7A78900874926 /* Sample Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Header.swift"; sourceTree = "<group>"; };
+		63083BFF28B7A79C00874926 /* Sample Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Footer.swift"; sourceTree = "<group>"; };
 		630DE7B52869C99500D026A4 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		63195CB2287D8C01005B70D8 /* Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
 		631C107F28B0528F00620637 /* Cupping Form Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Form Model.swift"; sourceTree = "<group>"; };
@@ -55,7 +57,6 @@
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		633C5036287090C6006B398E /* Cupping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cupping.swift; sourceTree = "<group>"; };
 		633FBD5E28A2597100A93781 /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
-		6344E7A128AB6E23007DE8D4 /* New Cupping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Cupping.swift"; sourceTree = "<group>"; };
 		634E5EFC287BF042004A9A76 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		635AFC4228A913A1007B78C0 /* Sample Name Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Name Generator.swift"; sourceTree = "<group>"; };
 		635AFC4428A913F5007B78C0 /* Inset Form Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inset Form Section.swift"; sourceTree = "<group>"; };
@@ -84,7 +85,6 @@
 		63E6B7C52886FEAC001A312F /* Evaluation Header View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Evaluation Header View.swift"; sourceTree = "<group>"; };
 		63E6B7CA2886FFAA001A312F /* Radio View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radio View.swift"; sourceTree = "<group>"; };
 		63E6B7CC2886FFBD001A312F /* Checkboxes View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkboxes View.swift"; sourceTree = "<group>"; };
-		63F8DE0028B367DE00A8EB80 /* Final Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Final Score.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +102,6 @@
 		635AFC4128A9138E007B78C0 /* Cupping */ = {
 			isa = PBXGroup;
 			children = (
-				6344E7A128AB6E23007DE8D4 /* New Cupping.swift */,
 				633C5036287090C6006B398E /* Cupping.swift */,
 				6306C6C828AD0F1600A1C90A /* Cupping Samples.swift */,
 				637D8E7228ABB3E200AE377B /* Temp Sample.swift */,
@@ -178,7 +177,8 @@
 			children = (
 				630DE7B52869C99500D026A4 /* Sample.swift */,
 				639FD0A0287B534700FA19A0 /* Sample Selector.swift */,
-				63F8DE0028B367DE00A8EB80 /* Final Score.swift */,
+				63083BFD28B7A78900874926 /* Sample Header.swift */,
+				63083BFF28B7A79C00874926 /* Sample Footer.swift */,
 				63E6B7C32886E4DE001A312F /* Evaluation */,
 			);
 			path = Sample;
@@ -334,12 +334,11 @@
 				63DC7A642801C7D500010318 /* Etc.swift in Sources */,
 				63072EF62869B94700F540E5 /* Entities.swift in Sources */,
 				63E6B7CD2886FFBD001A312F /* Checkboxes View.swift in Sources */,
+				63083C0028B7A79C00874926 /* Sample Footer.swift in Sources */,
 				637D8E7328ABB3E200AE377B /* Temp Sample.swift in Sources */,
-				63F8DE0128B367DE00A8EB80 /* Final Score.swift in Sources */,
 				63DC7A582801BE7800010318 /* ContentView.swift in Sources */,
 				635AFC4528A913F5007B78C0 /* Inset Form Section.swift in Sources */,
 				63195CB3287D8C01005B70D8 /* Evaluation.swift in Sources */,
-				6344E7A228AB6E23007DE8D4 /* New Cupping.swift in Sources */,
 				63DCCE1B28B1C3CA00B72AEB /* Checkboxes Value View.swift in Sources */,
 				6306C6C928AD0F1600A1C90A /* Cupping Samples.swift in Sources */,
 				6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */,
@@ -347,6 +346,7 @@
 				63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */,
 				630DE7B62869C99500D026A4 /* Sample.swift in Sources */,
 				637348D2288D7FD700689C96 /* Slider Value View.swift in Sources */,
+				63083BFE28B7A78900874926 /* Sample Header.swift in Sources */,
 				633FBD5F28A2597100A93781 /* Stopwatch.swift in Sources */,
 				635AFC4328A913A1007B78C0 /* Sample Name Generator.swift in Sources */,
 				636857FF28593EDB0076E780 /* Slider View.swift in Sources */,

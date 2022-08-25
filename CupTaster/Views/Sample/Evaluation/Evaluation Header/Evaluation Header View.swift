@@ -29,7 +29,7 @@ struct EvaluationHeaderView: View {
                 }
                 .scaleEffect(qcGroup.isCompleted ? 0.75 : 1)
                 .padding(.vertical, 3)
-                .background(Color(uiColor: .systemGray5))
+                .background(Color(uiColor: .secondarySystemGroupedBackground))
                 .clipShape(Capsule())
                 
                 Divider()
@@ -54,14 +54,12 @@ struct EvaluationHeaderView: View {
     }
     
     var qcRepresentations: some View {
-        VStack(spacing: 3) {
+        VStack(alignment: .leading, spacing: 3) {
             let allQC: [QualityCriteria] =
             qcGroup.qualityCriteria.sorted()
             
-            VStack(alignment: .leading) {
-                ForEach(allQC) { qualityCriteria in
-                    QCRepresentation(qualityCriteria: qualityCriteria)
-                }
+            ForEach(allQC) { qualityCriteria in
+                QCRepresentation(qualityCriteria: qualityCriteria)
             }
         }
         .padding(.leading, 5)
@@ -74,7 +72,7 @@ struct QCRepresentation: View {
     var body: some View {
         if let qcConfiguration: QCConfig = qualityCriteria.configuration {
             if qcConfiguration.evaluationType.unwrappedEvaluationType == .radio {
-                HStack(spacing: 1) {
+                HStack(spacing: 3) {
                     ForEach(
                         Array(stride(
                             from: qcConfiguration.lowerBound,
@@ -85,12 +83,13 @@ struct QCRepresentation: View {
                     ) { fractionValue in
                         Image(systemName: "circle" + (Int(qualityCriteria.value) >= Int(fractionValue) ? ".fill" : ""))
                             .resizable()
-                            .frame(width: 5, height: 5)
+                            .frame(width: 6, height: 6)
                             .foregroundColor(.gray)
                     }
                 }
                 .animation(.spring(), value: qualityCriteria.value)
             }
+            
             if qcConfiguration.evaluationType.unwrappedEvaluationType == .checkboxes {
                 let qcStringValue: String = String(Int(qualityCriteria.value))
                 let fullBinaryString: String = String(
@@ -107,17 +106,17 @@ struct QCRepresentation: View {
                             Image(systemName: "minus")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 10, height: 10)
+                                .frame(width: 7, height: 7)
                                 .rotationEffect(Angle(degrees: checkboxMarked ? -45 : 0))
                             Image(systemName: "minus")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 10, height: 10)
+                                .frame(width: 7, height: 7)
                                 .rotationEffect(Angle(degrees: checkboxMarked ? -135 : 0))
                         }
                     }
                 }
-                .animation(.interpolatingSpring(stiffness: 150, damping: 17), value: qualityCriteria.value)
+                .animation(.spring(), value: qualityCriteria.value)
                 .foregroundColor(.gray)
             }
         }
