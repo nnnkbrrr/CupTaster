@@ -107,7 +107,7 @@ struct CuppingView: View {
     
     private var generalInformation: some View {
         InsetFormSection("General Information") {
-            if !cupping.isFault {
+            if !cupping.isFault && !cupping.isDeleted {
                 DatePicker("Date", selection: $cupping.date, in: ...Date(), displayedComponents: [.date])
             }
             
@@ -138,16 +138,16 @@ struct CuppingView: View {
         .disabled(cupping.form != nil)
     }
     
-    let dateFormatter : DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.doesRelativeDateFormatting = true
-        formatter.dateStyle = .short
-        return formatter
-    }()
-    
     private var generalInformationCompact: some View {
         HStack(spacing: 5) {
             if let cuppingForm = cupping.form {
+                let dateFormatter: DateFormatter = {
+                    let formatter = DateFormatter()
+                    formatter.doesRelativeDateFormatting = true
+                    formatter.dateStyle = .short
+                    return formatter
+                }()
+                
                 Group {
                     Text(dateFormatter.string(from: cupping.date))
                         .padding(.horizontal, 10)

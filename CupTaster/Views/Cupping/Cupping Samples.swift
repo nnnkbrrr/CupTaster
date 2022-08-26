@@ -25,9 +25,7 @@ struct CuppingSamplesView: View {
                         .buttonStyle(InsetFormLinkStyle())
                 }
                 
-                if cupping.samples.count < 1 {
-                    Text("No samples yet")
-                }
+                if cupping.samples.count < 1 { Text("No samples yet") }
             } header: {
                 tempSamplesCountPicker
             }

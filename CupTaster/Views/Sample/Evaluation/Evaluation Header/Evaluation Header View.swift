@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EvaluationHeaderView: View {
+    @Environment(\.managedObjectContext) private var moc
     @ObservedObject var qcGroup: QCGroup
     @Binding var isCompleted: Bool
     
@@ -47,7 +48,16 @@ struct EvaluationHeaderView: View {
             .onTapGesture {
                 withAnimation(.interpolatingSpring(stiffness: 250, damping: 250)) {
                     isCompleted.toggle()
+                    if isCompleted {
+                        if qcGroup.sample.isCompleted {
+                            qcGroup.sample.calculateFinalScore()
+                        }
+                    } else {
+                        qcGroup.sample.finalScore = 0
+                        qcGroup.sample.cupping.objectWillChange.send()
+                    }
                     qcGroup.objectWillChange.send()
+                    try? moc.save()
                 }
             }
         }

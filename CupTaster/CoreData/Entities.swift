@@ -7,8 +7,6 @@
 
 import CoreData
 
-#warning("add cascade to entities deletion")
-
 @objc(Cupping)
 public class Cupping: NSManagedObject, Identifiable {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Cupping> {
@@ -30,9 +28,10 @@ public class Sample: NSManagedObject, Identifiable {
         return NSFetchRequest<Sample>(entityName: "Sample")
     }
     
+    @NSManaged public var name: String
     @NSManaged public var ordinalNumber: Int16
     @NSManaged public var isFavorite: Bool
-    @NSManaged public var name: String
+    @NSManaged public var finalScore: Double
     
     @NSManaged public var cupping: Cupping
     @NSManaged public var generalInfo: Set<SampleGeneralInfo>

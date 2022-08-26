@@ -15,6 +15,37 @@ extension Cupping {
     }
 }
 
+extension Sample {
+    public var isCompleted: Bool {
+        return !self.qualityCriteriaGroups.contains(where: { $0.isCompleted == false } )
+    }
+    
+    private func getValues() -> [String: Double] {
+        let criteria: [QualityCriteria] = self.qualityCriteriaGroups.map { qcGroup in
+            qcGroup.qualityCriteria
+        }.flatMap { criteria in criteria }
+
+        let cuppingCupsCount: Int = Int(self.cupping.cupsCount)
+        return Dictionary(uniqueKeysWithValues: criteria.map {(
+            $0.group.configuration.title.filter { $0.isLetter }
+            + "_" +  $0.title.filter { $0.isLetter },
+
+            $0.configuration!.evaluationType == EvaluationType.checkboxes.stringValue ?
+            Double(getCheckboxesRepresentationValue(value: $0.value, cupsCount: cuppingCupsCount))! : $0.value
+        )})
+    }
+    
+    public func calculateFinalScore() {
+        if let formula: String = self.cupping.form?.finalScoreFormula {
+            let expression = NSExpression(format: formula)
+            let values = getValues()
+            let expressionValue = expression.expressionValue(with: values, context: nil)
+            self.finalScore = expressionValue as? Double ?? 0
+            self.cupping.objectWillChange.send()
+        }
+    }
+}
+
 extension QualityCriteria: Comparable {
     public static func < (lhs: QualityCriteria, rhs: QualityCriteria) -> Bool {
         if let lhsConfiguration = lhs.configuration, let rhsConfiguration = rhs.configuration {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21223.12" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Cupping" representedClassName="Cupping" syncable="YES">
         <attribute name="cupsCount" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="-978318000" usesScalarValueType="NO"/>
@@ -54,6 +54,7 @@
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCGroup" inverseName="qualityCriteria" inverseEntity="QCGroup"/>
     </entity>
     <entity name="Sample" representedClassName="Sample" syncable="YES">
+        <attribute name="finalScore" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="isFavorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <attribute name="ordinalNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -75,7 +76,7 @@
         <element name="QCGroupConfig" positionX="2462.401153564454" positionY="3045.588150024413" width="127.7367553710938" height="118"/>
         <element name="QCHint" positionX="2461.065124511719" positionY="3222.141113281252" width="125.81201171875" height="103"/>
         <element name="QualityCriteria" positionX="2123.433288574218" positionY="3192.403930664062" width="128" height="103"/>
-        <element name="Sample" positionX="1789.266479492188" positionY="2927.789215087893" width="128" height="133"/>
+        <element name="Sample" positionX="1789.266479492188" positionY="2927.789215087893" width="128" height="134"/>
         <element name="SampleGeneralInfo" positionX="1955.832489013673" positionY="2942.760681152342" width="128.4488525390625" height="103"/>
     </elements>
 </model>

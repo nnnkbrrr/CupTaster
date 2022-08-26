@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CheckboxesView: View {
-    #warning("Based on cups count")
     @Binding var value: Double
     let cuppingCupsCount: Int
     

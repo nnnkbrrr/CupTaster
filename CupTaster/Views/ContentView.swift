@@ -10,8 +10,6 @@ import CoreData
 
 // MARK: Content View
 
-#warning("пересмотреть структуру в Cupping папке (ВСЮ!)")
-
 struct ContentView: View {
     var body: some View {
         TabView {
@@ -38,6 +36,7 @@ struct AllCuppingsView: View {
     @FetchRequest(entity: Sample.entity(), sortDescriptors: []) var samples: FetchedResults<Sample>
     
     @State private var newCuppingName: String = ""
+    @State private var newCuppingNameVisible: Bool = false
     @FocusState private var newCuppingNameFocused: Bool
     @State var activeCupping: ObjectIdentifier? = nil
     
@@ -45,12 +44,11 @@ struct AllCuppingsView: View {
         NavigationView {
             List {
                 Section {
-                    ZStack {
+                    if newCuppingNameVisible {
                         HStack {
                             Button {
                                 newCuppingName = ""
-                                withAnimation { newCuppingNameFocused = false }
-                                
+                                withAnimation { newCuppingNameVisible = false }
                             } label: {
                                 Image(systemName: "xmark.circle.fill")
                                     .contentShape(Rectangle())
@@ -67,39 +65,28 @@ struct AllCuppingsView: View {
                                     .contentShape(Rectangle())
                             }
                         }
-                        .opacity(newCuppingNameFocused ? 1 : 0)
                         .buttonStyle(BorderlessButtonStyle())
-                        
-                        if !newCuppingNameFocused {
-                            Button {
-                                withAnimation { newCuppingNameFocused = true }
-                            } label: {
-                                HStack {
-                                    Image(systemName: "plus.circle.fill")
-                                    Text("New cupping")
-                                }
-                                .frame(maxWidth: .infinity)
-                            }
-                        }
+                        .onAppear { newCuppingNameFocused = true }
                     }
-                }
-                
-                Section {
+                    
                     ForEach(cuppings) { cupping in
                         CuppingView(cupping: cupping).preview(selection: $activeCupping)
                     }
+                } header: {
+                    Text("\(cuppings.count) cuppings, \(samples.count) samples")
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Text("\(cuppings.count) cuppings, \(samples.count) samples")
-                        .fontWeight(.bold)
-                }
-                ToolbarItem(placement: .principal) { Text(" ") }
                 StopwatchToolbarItem()
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        withAnimation { newCuppingNameVisible = true }
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
             }
             .navigationTitle("All Сuppings")
-            .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(.stack)
     }
@@ -111,6 +98,7 @@ struct AllCuppingsView: View {
         
         newCuppingName = ""
         newCuppingNameFocused = false
+        newCuppingNameVisible = false
         try? moc.save()
         
         activeCupping = newCupping.id

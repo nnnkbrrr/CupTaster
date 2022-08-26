@@ -12,14 +12,15 @@ struct SampleSelectorView: View {
     @State var selectedSample: Sample
     
     var body: some View {
-        TabView {
+        TabView(selection: $selectedSample) {
             ForEach(cupping.getSortedSamples()) { sample in
                 SampleView(sample: sample)
+                    .tag(sample)
             }
         }
         .tabViewStyle(.page)
-        .navigationBarTitle("", displayMode: .inline)
         .toolbar { StopwatchToolbarItem() }
+        .navigationBarTitle("", displayMode: .inline)
     }
     
     public var preview: some View {
@@ -28,6 +29,15 @@ struct SampleSelectorView: View {
                 Image(systemName: "heart" + (selectedSample.isFavorite ? ".fill" : ""))
                     .foregroundColor(selectedSample.isFavorite ? .red : .gray)
                     .scaleEffect(selectedSample.isFavorite ? 1 : 0.75)
+                
+                if selectedSample.finalScore != 0 {
+                    Text(String(format: "%.1f", selectedSample.finalScore))
+                        .font(.caption)
+                        .padding(5)
+                        .frame(width: 50)
+                        .background(Color(uiColor: .systemGray3), in: Capsule())
+                }
+                
                 Text(selectedSample.name)
             }
         }
