@@ -120,39 +120,6 @@ func getCheckboxesRepresentationValue(value: CGFloat, cupsCount: Int) -> String 
     }
 }
 
-// MARK: Navigation Button
-
-struct NavigationButton<Destination: View, Label: View>: View {
-    var action: () -> Void
-    var destination: () -> Destination
-    var label: () -> Label
-    
-    @State private var isActive: Bool = false
-    
-    var body: some View {
-        Button(action: {
-            self.action()
-            self.isActive.toggle()
-        }) {
-            self.label()
-                .background(
-                    ScrollView {
-                        NavigationLink(
-                            destination: LazyDestination { self.destination() },
-                            isActive: self.$isActive) { EmptyView() }
-                    }
-                )
-        }
-    }
-}
-
-struct LazyDestination<Destination: View>: View {
-    var destination: () -> Destination
-    var body: some View {
-        self.destination()
-    }
-}
-
 // MARK: Transparent Navigation Bar Background
 
 extension UINavigationBar {

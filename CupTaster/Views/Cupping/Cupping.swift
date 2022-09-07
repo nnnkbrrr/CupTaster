@@ -70,7 +70,7 @@ struct CuppingView: View {
                 if cupping.form == nil {
                     InsetFormSection("Finish setting up") {
                         Button {
-                            cupping.form = CuppingFormsModel().getCurrentCuppingForm(cuppingForms: cuppingForms)
+                            cupping.form = CuppingFormsModel().getDefaultCuppingForm(from: cuppingForms)
                             try? moc.save()
                         } label: {
                             Text("Done")

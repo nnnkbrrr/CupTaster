@@ -1,0 +1,296 @@
+{
+    "qcGroupConfigurations": [
+        {
+            "title": "Defects",
+            "ordinalNumber": 11,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Num of cups",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 2,
+                    "title": "Intensity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 2,
+                    "lowerBound": 2,
+                    "upperBound": 4
+                }
+            ]
+        },
+        {
+            "title": "Fragrance/Aroma",
+            "ordinalNumber": 1,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 2,
+                    "title": "Dry",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Aroma",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 9.75
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 3,
+                    "title": "Break",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Body",
+            "ordinalNumber": 5,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": "Thin",
+                    "upperBoundTitle": "Heavy",
+                    "ordinalNumber": 2,
+                    "title": "Level",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Body",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 9.75
+                }
+            ]
+        },
+        {
+            "title": "Uniformity",
+            "ordinalNumber": 6,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Uniformity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 0
+                }
+            ]
+        },
+        {
+            "title": "Sweetness",
+            "ordinalNumber": 9,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Sweetness",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 0
+                }
+            ]
+        },
+        {
+            "title": "Flavor",
+            "ordinalNumber": 2,
+            "hint": {
+                "message": "Flavor represents the coffee’s principal character from beginning to end. This is the result of your entire flavor experience, including gustatory sensations or taste and retro-nasal aromas. A helpful way to look at it is: the more ‘tasting notes’ you can come up with, coupled with a variety of flavors would result in a high score (i.e. if your notes are: peach, nectarine, stone-fruit that would not be considered a variety of flavors.)"
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Flavor",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "the drink is similar to coffee, without any notes and flavors"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "outstanding coffee that tastes more like juice than coffee"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "coffee that you want to drink, it has a simple bouquet, for example, notes of chocolate and an even, clear taste"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "very tasty coffee, with a bright and memorable, clear bouquet, pleasant sweetness and acidity"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 9.75
+                }
+            ]
+        },
+        {
+            "title": "Balance",
+            "ordinalNumber": 7,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Balance",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 9.75
+                }
+            ]
+        },
+        {
+            "title": "Acidity",
+            "ordinalNumber": 4,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Acidity",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 9.75
+                },
+                {
+                    "lowerBoundTitle": "Low",
+                    "upperBoundTitle": "High",
+                    "ordinalNumber": 2,
+                    "title": "Intensity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Overall",
+            "ordinalNumber": 10,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Overall",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 9.75
+                }
+            ]
+        },
+        {
+            "title": "Aftertaste",
+            "ordinalNumber": 3,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Aftertaste",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 9.75
+                }
+            ]
+        },
+        {
+            "title": "Clean Cup",
+            "ordinalNumber": 8,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Clean Cup",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 0
+                }
+            ]
+        }
+    ],
+    "title": "SCA",
+    "finalScoreFormula": "FragranceAroma_Aroma + Flavor_Flavor + Aftertaste_Aftertaste + Acidity_Acidity + Body_Body + Uniformity_Uniformity + Balance_Balance + CleanCup_CleanCup + Sweetness_Sweetness + Overall_Overall - (Defects_Numofcups * Defects_Intensity)",
+    "languageCode": "en",
+    "version": "0.0"
+}

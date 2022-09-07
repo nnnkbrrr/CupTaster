@@ -48,7 +48,6 @@ extension QCGroupConfig {
 }
 
 extension CuppingForm {
-
     @objc(addCuppingsObject:)
     @NSManaged public func addToCuppings(_ value: Cupping)
 

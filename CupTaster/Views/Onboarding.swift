@@ -58,9 +58,8 @@ struct OnboardingSheet: ViewModifier {
             }
             
             Button(action: {
+                CuppingFormsModel().updateForms(context: moc, storedCuppingForms: cuppingForms)
                 isActive = false
-                CuppingFormsModel().createSCACuppingForm(context: moc)
-                try? moc.save()
             }, label: {
                 Text("Get Started")
                     .padding(.vertical)

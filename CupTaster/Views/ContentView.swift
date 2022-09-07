@@ -14,18 +14,17 @@ struct ContentView: View {
     var body: some View {
         TabView {
             AllCuppingsView()
-                .tabItem {
-                    Label("Cuppings", systemImage: "cup.and.saucer")
-                }
+                .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
             
             SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gearshape")
-                }
+                .tabItem { Label("Settings", systemImage: "gearshape") }
         }
         .modifier(OnboardingSheet())
     }
 }
+
+#warning("Возможные unit тесты")
+// Проверить соответствие версий установленной и актуальной каппинговой
 
 struct AllCuppingsView: View {
     @Environment(\.managedObjectContext) private var moc

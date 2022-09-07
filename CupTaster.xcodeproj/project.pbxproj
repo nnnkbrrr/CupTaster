@@ -22,7 +22,6 @@
 		635AFC4328A913A1007B78C0 /* Sample Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AFC4228A913A1007B78C0 /* Sample Name Generator.swift */; };
 		635AFC4528A913F5007B78C0 /* Inset Form Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AFC4428A913F5007B78C0 /* Inset Form Section.swift */; };
 		636857FF28593EDB0076E780 /* Slider View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636857FE28593EDB0076E780 /* Slider View.swift */; };
-		6371088E28803E4C0073348C /* SCA Cupping Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6371088D28803E4C0073348C /* SCA Cupping Form.swift */; };
 		637348D2288D7FD700689C96 /* Slider Value View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637348D1288D7FD700689C96 /* Slider Value View.swift */; };
 		63742D15287EA8A1001E8DAB /* Generated Accessors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D14287EA8A1001E8DAB /* Generated Accessors.swift */; };
 		63742D18287EA998001E8DAB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D17287EA998001E8DAB /* Persistence.swift */; };
@@ -30,8 +29,8 @@
 		637D8E7328ABB3E200AE377B /* Temp Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637D8E7228ABB3E200AE377B /* Temp Sample.swift */; };
 		63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63842F08288301FC0014E2C5 /* Evaluation Types.swift */; };
 		63842F0B288302DC0014E2C5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63842F0A288302DC0014E2C5 /* Extensions.swift */; };
+		638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */ = {isa = PBXBuildFile; fileRef = 638CBE9B28C23BBF00B05A03 /* SCA.json */; };
 		639FD0A1287B534700FA19A0 /* Sample Selector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639FD0A0287B534700FA19A0 /* Sample Selector.swift */; };
-		63B8690328831C08005A0656 /* SCA Evaluations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B8690228831C08005A0656 /* SCA Evaluations.swift */; };
 		63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A552801BE7800010318 /* CupTasterApp.swift */; };
 		63DC7A582801BE7800010318 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A572801BE7800010318 /* ContentView.swift */; };
 		63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A592801BE7A00010318 /* Assets.xcassets */; };
@@ -62,7 +61,6 @@
 		635AFC4428A913F5007B78C0 /* Inset Form Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inset Form Section.swift"; sourceTree = "<group>"; };
 		636857FE28593EDB0076E780 /* Slider View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider View.swift"; sourceTree = "<group>"; };
 		6371088A288032F60073348C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6371088D28803E4C0073348C /* SCA Cupping Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCA Cupping Form.swift"; sourceTree = "<group>"; };
 		637348D1288D7FD700689C96 /* Slider Value View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider Value View.swift"; sourceTree = "<group>"; };
 		63742D14287EA8A1001E8DAB /* Generated Accessors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generated Accessors.swift"; sourceTree = "<group>"; };
 		63742D17287EA998001E8DAB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -71,8 +69,8 @@
 		637D8E7228ABB3E200AE377B /* Temp Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Temp Sample.swift"; sourceTree = "<group>"; };
 		63842F08288301FC0014E2C5 /* Evaluation Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Evaluation Types.swift"; sourceTree = "<group>"; };
 		63842F0A288302DC0014E2C5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		638CBE9B28C23BBF00B05A03 /* SCA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SCA.json; sourceTree = "<group>"; };
 		639FD0A0287B534700FA19A0 /* Sample Selector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Selector.swift"; sourceTree = "<group>"; };
-		63B8690228831C08005A0656 /* SCA Evaluations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCA Evaluations.swift"; sourceTree = "<group>"; };
 		63DC7A522801BE7800010318 /* CupTaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CupTaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DC7A552801BE7800010318 /* CupTasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupTasterApp.swift; sourceTree = "<group>"; };
 		63DC7A572801BE7800010318 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; wrapsLines = 1; };
@@ -115,18 +113,9 @@
 			isa = PBXGroup;
 			children = (
 				631C107F28B0528F00620637 /* Cupping Form Model.swift */,
-				6371089028803E610073348C /* SCA */,
+				638CBE9B28C23BBF00B05A03 /* SCA.json */,
 			);
 			path = "Cupping Forms";
-			sourceTree = "<group>";
-		};
-		6371089028803E610073348C /* SCA */ = {
-			isa = PBXGroup;
-			children = (
-				6371088D28803E4C0073348C /* SCA Cupping Form.swift */,
-				63B8690228831C08005A0656 /* SCA Evaluations.swift */,
-			);
-			path = SCA;
 			sourceTree = "<group>";
 		};
 		637348D0288D7F9F00689C96 /* Evaluation Header */ = {
@@ -208,7 +197,7 @@
 				638E124328A0FD8B00F30B01 /* Views */,
 				6371088F28803E520073348C /* Cupping Forms */,
 				63742D16287EA8AB001E8DAB /* CoreData */,
-				63FE777028A4EF0E005CAB53 /* Support Files */,
+				63FE777028A4EF0E005CAB53 /* Resources */,
 			);
 			path = CupTaster;
 			sourceTree = "<group>";
@@ -243,7 +232,7 @@
 			path = "Evaluation Subviews";
 			sourceTree = "<group>";
 		};
-		63FE777028A4EF0E005CAB53 /* Support Files */ = {
+		63FE777028A4EF0E005CAB53 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				63DC7A552801BE7800010318 /* CupTasterApp.swift */,
@@ -253,7 +242,7 @@
 				6371088A288032F60073348C /* Info.plist */,
 				63DC7A5B2801BE7A00010318 /* Preview Content */,
 			);
-			path = "Support Files";
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,7 +272,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1330;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					63DC7A512801BE7800010318 = {
@@ -316,6 +305,7 @@
 			files = (
 				633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */,
 				63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */,
+				638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */,
 				63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,7 +317,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6371088E28803E4C0073348C /* SCA Cupping Form.swift in Sources */,
 				63742D15287EA8A1001E8DAB /* Generated Accessors.swift in Sources */,
 				63E6B7C62886FEAC001A312F /* Evaluation Header View.swift in Sources */,
 				63842F0B288302DC0014E2C5 /* Extensions.swift in Sources */,
@@ -358,7 +347,6 @@
 				63742D18287EA998001E8DAB /* Persistence.swift in Sources */,
 				63E0131D289431B300AC4645 /* Onboarding.swift in Sources */,
 				633C5037287090C6006B398E /* Cupping.swift in Sources */,
-				63B8690328831C08005A0656 /* SCA Evaluations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,14 +472,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "CupTaster/Support Files/CupTaster.entitlements";
+				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
-				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Support Files/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "CupTaster/Support Files/Info.plist";
+				INFOPLIST_FILE = CupTaster/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CupTaster;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -522,14 +510,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "CupTaster/Support Files/CupTaster.entitlements";
+				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
-				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Support Files/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "CupTaster/Support Files/Info.plist";
+				INFOPLIST_FILE = CupTaster/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CupTaster;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
