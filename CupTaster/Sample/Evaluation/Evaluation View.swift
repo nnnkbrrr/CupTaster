@@ -11,16 +11,24 @@ import CoreData
 struct EvaluationView: View {
     @Environment(\.managedObjectContext) private var moc
     @ObservedObject var qualityCriteria: QualityCriteria
+    @State var currentQCHint: String?
     
     var body: some View {
         VStack {
-            Text(qualityCriteria.title)
-                .padding(.leading, 5)
+            HStack {
+                Group {
+                    Text(qualityCriteria.configuration?.lowerBoundTitle ?? "")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(qualityCriteria.title)
+                    Text(qualityCriteria.configuration?.upperBoundTitle ?? "")
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
                 .font(.caption2)
                 .foregroundColor(.gray)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(.horizontal, 5)
             
-            if let qcConfig = qualityCriteria.configuration {
+            if let qcConfig: QCConfig = qualityCriteria.configuration {
                 switch qcConfig.evaluationType.unwrappedEvaluationType {
                     case .slider:
                         SliderView(
@@ -43,10 +51,35 @@ struct EvaluationView: View {
                         EmptyView()
                             .frame(height: 40)
                 }
+                
+                if let currentQCHint = currentQCHint {
+                    Text(currentQCHint)
+                        .font(.caption)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(.gray)
+                        .padding(5)
+                        .background(Color(uiColor: .systemGray4))
+                        .cornerRadius(5)
+                }
             }
         }
         .onChange(of: qualityCriteria.value) { _ in
+            withAnimation(.easeInOut(duration: 0.2)) { currentQCHint = getCurrentQCHint() }
             try? moc.save()
         }
+        .onAppear() {
+            currentQCHint = getCurrentQCHint()
+        }
+    }
+    
+    func getCurrentQCHint() -> String? {
+        if let qcConfig: QCConfig = qualityCriteria.configuration {
+            for hint in qcConfig.hints.sorted(by: { $0.lowerBound > $1.lowerBound }) {
+                if qualityCriteria.value >= hint.lowerBound {
+                    return hint.message
+                }
+            }
+        }
+        return nil
     }
 }

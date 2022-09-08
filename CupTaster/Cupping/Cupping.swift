@@ -107,10 +107,7 @@ struct CuppingView: View {
     
     private var generalInformation: some View {
         InsetFormSection("General Information") {
-            if !cupping.isFault && !cupping.isDeleted {
-                DatePicker("Date", selection: $cupping.date, in: ...Date(), displayedComponents: [.date])
-            }
-            
+            DatePicker("Date", selection: $cupping.date, in: ...Date(), displayedComponents: [.date])
 #warning("pick cupping form")
             HStack {
                 Text("Cupping form")
@@ -175,9 +172,9 @@ struct CuppingView: View {
         NavigationLink(destination: self, tag: cupping.id, selection: selection) {
             VStack(alignment: .leading) {
                 Text(cupping.name)
-                Text(cupping.date, style: .date)
-                    .font(.caption)
-                    .foregroundColor(.gray)
+//                Text(cupping.date, style: .date)
+//                    .font(.caption)
+//                    .foregroundColor(.gray)
             }
             .padding(.vertical, 5)
         }

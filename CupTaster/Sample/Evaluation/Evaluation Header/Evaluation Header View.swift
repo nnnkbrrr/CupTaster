@@ -13,52 +13,63 @@ struct EvaluationHeaderView: View {
     @Binding var isCompleted: Bool
     
     var body: some View {
-        if let firstQualityCriteria: QualityCriteria = qcGroup.qualityCriteria.sorted().first,
-           let qcConfiguration: QCConfig = firstQualityCriteria.configuration {
-            HStack {
-                ZStack {
-                    switch qcConfiguration.evaluationType.unwrappedEvaluationType {
-                        case .slider:
-                            SliderEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .radio:
-                            CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .checkboxes:
-                            CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .none:
-                            EmptyView().frame(height: 40)
-                    }
-                }
-                .scaleEffect(qcGroup.isCompleted ? 0.75 : 1)
-                .padding(.vertical, 3)
-                .background(Color(uiColor: .secondarySystemGroupedBackground))
-                .clipShape(Capsule())
-                
-                Divider()
-                Text(qcGroup.configuration.title).bold()
-                qcRepresentations
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .rotationEffect(Angle(degrees: isCompleted ? 0 : 90))
-                    .padding(.trailing)
-            }
-            .padding(.horizontal, 10)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .animation(.spring(), value: isCompleted)
-            .contentShape(Rectangle())
-            .onTapGesture {
-                withAnimation(.interpolatingSpring(stiffness: 250, damping: 250)) {
-                    isCompleted.toggle()
-                    if isCompleted {
-                        if qcGroup.sample.isCompleted {
-                            qcGroup.sample.calculateFinalScore()
+        VStack(spacing: 0) {
+            if let firstQualityCriteria: QualityCriteria = qcGroup.qualityCriteria.sorted().first,
+               let qcConfiguration: QCConfig = firstQualityCriteria.configuration {
+                HStack {
+                    ZStack {
+                        switch qcConfiguration.evaluationType.unwrappedEvaluationType {
+                            case .slider:
+                                SliderEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                            case .radio:
+                                CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                            case .checkboxes:
+                                CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                            case .none:
+                                EmptyView().frame(height: 40)
                         }
-                    } else {
-                        qcGroup.sample.finalScore = 0
-                        qcGroup.sample.cupping.objectWillChange.send()
                     }
-                    qcGroup.objectWillChange.send()
-                    try? moc.save()
+                    .scaleEffect(qcGroup.isCompleted ? 0.75 : 1)
+                    .padding(.vertical, 3)
+                    .background(Color(uiColor: .secondarySystemGroupedBackground))
+                    .clipShape(Capsule())
+                    
+                    Divider()
+                    Text(qcGroup.configuration.title).bold()
+                    qcRepresentations
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .rotationEffect(Angle(degrees: isCompleted ? 0 : 90))
+                        .padding(.trailing)
                 }
+                .padding(.horizontal, 10)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .animation(.spring(), value: isCompleted)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    withAnimation(.interpolatingSpring(stiffness: 250, damping: 250)) {
+                        isCompleted.toggle()
+                        if isCompleted {
+                            if qcGroup.sample.isCompleted {
+                                qcGroup.sample.calculateFinalScore()
+                            }
+                        } else {
+                            qcGroup.sample.finalScore = 0
+                            qcGroup.sample.cupping.objectWillChange.send()
+                        }
+                        qcGroup.objectWillChange.send()
+                        try? moc.save()
+                    }
+                }
+            }
+            
+            if let qcGroupHint: String = qcGroup.configuration.hint?.message, !qcGroup.isCompleted {
+                Text(qcGroupHint)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(.gray)
+                    .padding([.horizontal, .top])
             }
         }
     }
