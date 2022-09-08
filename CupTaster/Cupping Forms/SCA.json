@@ -292,5 +292,5 @@
     "title": "SCA",
     "finalScoreFormula": "FragranceAroma_Aroma + Flavor_Flavor + Aftertaste_Aftertaste + Acidity_Acidity + Body_Body + Uniformity_Uniformity + Balance_Balance + CleanCup_CleanCup + Sweetness_Sweetness + Overall_Overall - (Defects_Numofcups * Defects_Intensity)",
     "languageCode": "en",
-    "version": "0.0"
+    "version": "beta 1.0 (8)"
 }

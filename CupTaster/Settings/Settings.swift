@@ -88,7 +88,7 @@ struct AboutCuppingFormView: View {
             }
             .buttonStyle(.plain)
             
-            NavigationLinkButton(destination: self) {
+            NavigationLink(destination: self) {
                 Image(systemName: "info.circle")
                     .resizable()
                     .frame(width: 20, height: 20)
