@@ -10,13 +10,13 @@ import SwiftUI
 #warning("This called 'Settings'?????")
 
 struct SettingsView: View {
-//    @AppStorage("selected-cupping-form") var selectedCuppingForm: String = ""
+    @Binding var selectedCuppingForm: Int
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    NavigationLink(destination: CuppingFormSelectionView()) {
+                    NavigationLink(destination: SettingsCuppingFormsView()) {
                         Text("Cupping Form - (SCA)")
                     }
                     Toggle("Cupping hints", isOn: .constant(true))
@@ -31,70 +31,6 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
-        }
-    }
-}
-
-struct CuppingFormSelectionView: View {
-//    @AppStorage("selected-cupping-form") var currentCuppingForm: String = ""
-    @State var currentCuppingForm: String = ""
-    
-    var body: some View {
-        List {
-            Section {
-                AboutCuppingFormView(currentCuppingForm: $currentCuppingForm, title: "SCA").preview
-            } header: {
-                Text("Global Standart")
-            }
-            Section {
-                AboutCuppingFormView(currentCuppingForm: $currentCuppingForm, title: "SCI").preview
-                AboutCuppingFormView(currentCuppingForm: $currentCuppingForm, title: "COE").preview
-            } header: {
-                Text("Based on SCA")
-            }
-            
-            Section {
-                Text("Available soon")
-                    .foregroundColor(.gray)
-            } header: {
-                Text("User created")
-            }
-        }
-        .navigationBarTitle("Cupping Form", displayMode: .inline)
-    }
-}
-
-struct AboutCuppingFormView: View {
-    @Binding var currentCuppingForm: String
-    let title: String
-    
-    var body: some View {
-        Text("\(title) is a cupping form.")
-    }
-    
-    var preview: some View {
-        ZStack(alignment: .trailing) {
-            Button {
-//                currentCuppingForm = title
-            } label: {
-                HStack {
-                    Image(systemName: "checkmark")
-                        .opacity(currentCuppingForm == title ? 1 : 0)
-                        .foregroundColor(.accentColor)
-                    Text(title)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            
-            NavigationLink(destination: self) {
-                Image(systemName: "info.circle")
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .foregroundColor(.accentColor)
-            }
-            .buttonStyle(.plain)
         }
     }
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 import CoreData
 
+#warning("все сущности выделить отдельными файлами и добавить расширения в них")
+
 extension Cupping {
     public func getSortedSamples() -> [Sample] {
         return self.samples
@@ -43,6 +45,18 @@ extension Sample {
             self.finalScore = expressionValue as? Double ?? 0
             self.cupping.objectWillChange.send()
         }
+    }
+}
+
+extension CuppingForm {
+    var isDeprecated: Bool {
+        return !CFManager().allCFModels.contains { cfModel in
+            self.title == cfModel.title && self.version == cfModel.version
+        }
+    }
+    
+    func isSelected(defaultCF_hashedID: Int) -> Bool {
+        return self.id.hashValue == defaultCF_hashedID
     }
 }
 

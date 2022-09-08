@@ -31,7 +31,7 @@ final class SCACuppingFormTests: XCTestCase {
     private var cuppingForm: CuppingForm!
     
     override func setUpWithError() throws {
-        cuppingFormModel = CFManager().cfModel_SCA
+        cuppingFormModel = CFManager().sca_CFModel
         cuppingForm = cuppingFormModel.createCuppingForm(context: moc)
     }
     

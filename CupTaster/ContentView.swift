@@ -11,20 +11,21 @@ import CoreData
 // MARK: Content View
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) private var moc
+    let sfManager: CFManager = .init()
+    
     var body: some View {
         TabView {
             AllCuppingsView()
                 .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
             
-            SettingsView()
+            SettingsView(selectedCuppingForm: sfManager.$defaultCF_hashedID)
                 .tabItem { Label("Settings", systemImage: "gearshape") }
         }
+        .onAppear() { moc.reset() }
         .modifier(OnboardingSheet())
     }
 }
-
-#warning("Возможные unit тесты")
-// Проверить соответствие версий установленной и актуальной каппинговой
 
 struct AllCuppingsView: View {
     @Environment(\.managedObjectContext) private var moc

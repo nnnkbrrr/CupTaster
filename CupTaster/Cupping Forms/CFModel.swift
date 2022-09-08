@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 extension CFManager {
-    class CFModel {
+    class CFModel: Identifiable {
         let title: String
         let version: String
         
@@ -28,14 +28,13 @@ extension CFManager {
             return form
         }
         
-        func isAdded(storedCuppingForms: FetchedResults<CuppingForm>) -> Bool {
+        func getCF_ifAdded(storedCuppingForms: FetchedResults<CuppingForm>) -> CuppingForm? {
             for cuppingForm in storedCuppingForms {
-                if cuppingForm.languageCode != Locale.current.languageCode { continue }
                 if cuppingForm.title != self.title { continue }
                 if cuppingForm.version != self.version { continue }
-                return true
+                return cuppingForm
             }
-            return false
+            return nil
         }
     }
 }
