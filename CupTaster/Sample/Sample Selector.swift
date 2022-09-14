@@ -14,6 +14,13 @@ struct SampleSelectorView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
+            Spacer()
+                .safeAreaInset(edge: .bottom) {
+                    Color(uiColor: .systemGray6)
+                        .frame(height: 1)
+                        .background(Color(uiColor: .systemGray6))
+                }
+            
             TabView(selection: $selectedSample) {
                 ForEach(cupping.getSortedSamples()) { sample in
                     ZStack(alignment: .bottom) {
@@ -29,7 +36,6 @@ struct SampleSelectorView: View {
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
-            
             
             HStack(spacing: 0) {
 #warning("should be info")
