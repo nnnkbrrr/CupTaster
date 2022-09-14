@@ -31,10 +31,9 @@ struct StopwatchView: View {
                             self.timeTill = Date()
                         }
                     }) {
-                        if timeTill == nil {
-                            Label("Stop", systemImage: "pause.fill")
-                        } else {
-                            Label("Start", systemImage: "play")
+                        switch timeTill {
+                            case .none: Label("Stop", systemImage: "pause.fill")
+                            case .some: Label("Start", systemImage: "play")
                         }
                     }
                     Button(action: {
@@ -55,16 +54,12 @@ struct StopwatchView: View {
     private var label: some View {
         ZStack(alignment: .trailing) {
             TimelineView(.animation) { context in
-                let timeToDisplay: String? = getTimeToDisplay()
-                
-                Text(timeToDisplay ?? "")
-                    .font(.custom("Menlo-Regular", size: 17))
-                    .frame(width: 100, alignment: .trailing)
-            }
-            
-            if timeSince == nil {
-                Image(systemName: "stopwatch")
-                    .frame(width: 100, alignment: .trailing)
+                if let timeToDisplay: String = getTimeToDisplay() {
+                    Text(timeToDisplay)
+                        .monospacedDigit()
+                } else {
+                    Image(systemName: "stopwatch")
+                }
             }
         }
         .contentShape(Rectangle())
@@ -75,11 +70,7 @@ struct StopwatchView: View {
         formatter.dateFormat = "mm:ss.SS"
         
         if let timeSince = timeSince {
-            return formatter.string(
-                from: Date(
-                    timeIntervalSince1970: Double((timeTill ?? Date()).timeIntervalSince(timeSince))
-                )
-            )
+            return formatter.string(from: Date(timeIntervalSince1970: Double((timeTill ?? Date()).timeIntervalSince(timeSince))))
         } else {
             return nil
         }

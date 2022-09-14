@@ -8,38 +8,60 @@
 import SwiftUI
 
 struct SampleSelectorView: View {
+    @Environment(\.managedObjectContext) private var moc
     @ObservedObject var cupping: Cupping
-    @State var selectedSample: Sample
+    @Binding var selectedSample: Sample?
     
     var body: some View {
-        TabView(selection: $selectedSample) {
-            ForEach(cupping.getSortedSamples()) { sample in
-                SampleView(sample: sample)
-                    .tag(sample)
-            }
-        }
-        .tabViewStyle(.page)
-        .toolbar { StopwatchToolbarItem() }
-        .navigationBarTitle("", displayMode: .inline)
-    }
-    
-    public var preview: some View {
-        NavigationLink(destination: self) {
-            HStack {
-                Image(systemName: "heart" + (selectedSample.isFavorite ? ".fill" : ""))
-                    .foregroundColor(selectedSample.isFavorite ? .red : .gray)
-                    .scaleEffect(selectedSample.isFavorite ? 1 : 0.75)
-                
-                if selectedSample.finalScore != 0 {
-                    Text(String(format: "%.1f", selectedSample.finalScore))
-                        .font(.caption)
-                        .padding(5)
-                        .frame(width: 50)
-                        .background(Color(uiColor: .systemGray3), in: Capsule())
+        ZStack(alignment: .bottom) {
+            TabView(selection: $selectedSample) {
+                ForEach(cupping.getSortedSamples()) { sample in
+                    ZStack(alignment: .bottom) {
+                        SampleView(sample: sample)
+                        
+                        Blur(style: .systemUltraThinMaterial)
+                            .frame(height: 100)
+                        
+                        SampleSelectorMenuView(cupping: cupping, sample: sample, selectedSample: $selectedSample)
+                            .padding(.bottom, 47)
+                    }
+                    .tag(Optional(sample))
                 }
-                
-                Text(selectedSample.name)
             }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            
+            
+            HStack(spacing: 0) {
+#warning("should be info")
+                Button {
+                    if let selectedSample = selectedSample {
+                        moc.delete(selectedSample)
+                        try? moc.save()
+                    }
+                } label: {
+                    Image(systemName: "trash")
+                        .padding(10)
+                        .contentShape(Rectangle())
+                }
+
+                Spacer()
+
+                StopwatchView()
+
+                Spacer()
+
+                Button {
+                    selectedSample = nil
+                } label: {
+                    Image(systemName: "square.on.square")
+                        .padding(10)
+                        .contentShape(Rectangle())
+                }
+            }
+            .font(.title2)
+            .frame(height: 44)
+            .padding(.horizontal, 10)
+            .zIndex(3)
         }
     }
 }

@@ -16,7 +16,7 @@ public class CFManager: ObservableObject {
     let sca_CFModel: CFModel
     
     init() {
-        sca_CFModel = .init(title: "SCA", version: "beta 1.0 (8)")
+        sca_CFModel = .init(title: "SCA", version: "beta 1.0 (10.0)")
         allCFModels = [sca_CFModel]
     }
     

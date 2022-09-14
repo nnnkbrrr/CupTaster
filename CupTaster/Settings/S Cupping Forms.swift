@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct NavigationLinkButton<Label: View, Destination: View>: View {
     let destination: Destination
@@ -61,7 +62,10 @@ struct SettingsCuppingFormsView: View {
                             }
                             .frame(maxWidth: .infinity)
                             
-                            NavigationLinkButton(destination: Text("Cupping form info"), label: { Image(systemName: "info.circle") })
+                            NavigationLinkButton(
+                                destination: CuppingFormInfoView(moc: moc, cuppingForm: cuppingForm),
+                                label: { Image(systemName: "info.circle") }
+                            )
                         }
                     }
                 } header: {
@@ -75,13 +79,17 @@ struct SettingsCuppingFormsView: View {
                     ForEach(availableCFsModels) { cfModel in
                         HStack {
                             Button {
-                                withAnimation {
-                                    if let addedForm = cfModel.createCuppingForm(context: moc) {
+                                if let addedForm = cfModel.createCuppingForm(context: moc) {
+                                    withAnimation {
                                         cfManager.defaultCF_hashedID = addedForm.id.hashValue
                                     }
                                 }
                             } label: {
                                 HStack {
+                                    Image(systemName: "plus")
+                                        .frame(width: 30)
+                                    Divider()
+                                        .padding(.vertical, 5)
                                     Text(cfModel.title)
                                     Spacer()
                                 }
@@ -102,7 +110,9 @@ struct SettingsCuppingFormsView: View {
                 Section {
                     ForEach(deprecatedCuppingForms) { cuppingForm in
                         Button {
-                            cfManager.defaultCF_hashedID = cuppingForm.id.hashValue
+                            withAnimation {
+                                cfManager.defaultCF_hashedID = cuppingForm.id.hashValue
+                            }
                         } label: {
                             HStack {
                                 Image(systemName: "checkmark")
@@ -110,7 +120,7 @@ struct SettingsCuppingFormsView: View {
                                     .opacity(cuppingForm.isSelected(defaultCF_hashedID: cfManager.defaultCF_hashedID) ? 1 : 0)
                                 Divider()
                                     .padding(.vertical, 5)
-                                Text(cuppingForm.title)
+                                Text("\(cuppingForm.title) v. \(cuppingForm.version) - \(cuppingForm.languageCode)")
                                 Spacer()
                             }
                         }
@@ -122,5 +132,30 @@ struct SettingsCuppingFormsView: View {
         }
         .buttonStyle(BorderlessButtonStyle())
         .navigationBarTitle("Cupping forms")
+    }
+}
+
+#warning("cf navigation link page")
+struct CuppingFormInfoView: View {
+    let moc: NSManagedObjectContext
+    let cuppingForm: CuppingForm
+    
+    var body: some View {
+        VStack {
+            Text("this is \(cuppingForm.title)")
+            Text("v. \(cuppingForm.version) - \(cuppingForm.languageCode)")
+            Button {
+                moc.delete(cuppingForm)
+                try? moc.save()
+            } label: {
+                Text("Delete")
+                    .foregroundColor(.red)
+                    .padding()
+                    .padding(.horizontal)
+                    .background(Color(uiColor: .systemGray5))
+                    .cornerRadius(10)
+            }
+            .padding(.top, 50)
+        }
     }
 }

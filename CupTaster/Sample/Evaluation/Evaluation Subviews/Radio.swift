@@ -51,8 +51,6 @@ struct RadioView: View {
                                 .bold()
                                 .transition(.scale)
                                 .foregroundColor(self.value == Double(value) ? .accentColor : .primary)
-                                .opacity(self.value >= Double(value) ? 1 : 0.5)
-                                .scaleEffect(self.value == Double(value) || self.value == 0 ? 1 : 0.5)
                                 .frame(width: 40, height: 40)
                         }
                         .contentShape(Rectangle())

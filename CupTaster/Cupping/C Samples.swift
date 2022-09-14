@@ -11,9 +11,10 @@ struct CuppingSamplesView: View {
     @Environment(\.managedObjectContext) private var moc
     @ObservedObject var cupping: Cupping
     
+    @Binding var selectedSample: Sample?
+    
     @State private var tempSamples: [TempSample] = []
     @State private var addingTempSamples: Bool = false
-    
     @FocusState var focusedTempSample: Focusable?
     
     var body: some View {
@@ -21,8 +22,33 @@ struct CuppingSamplesView: View {
         ZStack(alignment: .top) {
             InsetFormSection {
                 ForEach(cupping.getSortedSamples()) { sample in
-                    SampleSelectorView(cupping: cupping, selectedSample: sample).preview
-                        .buttonStyle(InsetFormLinkStyle())
+                    Button {
+                        selectedSample = sample
+                    } label: {
+                        HStack {
+                            ZStack {
+                                if sample.finalScore != 0 { Text(String(format: "%.1f", sample.finalScore)) }
+                                else { Text("-") }
+                                
+                                if sample.isFavorite {
+                                    ZStack {
+                                        Image(systemName: "heart.fill")
+                                            .foregroundColor(.red)
+                                        Image(systemName: "heart")
+                                            .foregroundColor(Color(uiColor: .systemGroupedBackground))
+                                    }
+                                    .font(.system(size: 15, weight: .bold))
+                                    .offset(x: 17, y: 10)
+                                }
+                            }
+                            .font(.caption)
+                            .frame(width: 50, height: 30)
+                            .background(Color(uiColor: .systemGray3), in: Capsule())
+                            
+                            Text(sample.name)
+                        }
+                    }
+                    .buttonStyle(InsetFormLinkStyle())
                 }
                 
                 if cupping.samples.count < 1 { Text("No samples yet") }
@@ -36,9 +62,7 @@ struct CuppingSamplesView: View {
             InsetFormSection.header {
                 HStack {
                     Button("Clear") { tempSamples.removeAll() }
-                    
                     Spacer()
-                    
                     if tempSamples.count > 1 {
                         Button("Add All") {
                             for tempSample in tempSamples {

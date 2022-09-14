@@ -101,24 +101,4 @@ extension QCConfig {
 
         return criteria
     }
-
-    static func new(
-        context: NSManagedObjectContext,
-        title: String,
-        sampleEvaluation: SampleEvaluation,
-        ordinalNumber: Int,
-        upperBoundTitle: String? = nil,
-        lowerBoundTitle: String? = nil
-    ) -> QCConfig {
-        let criteria: QCConfig = QCConfig(context: context)
-        criteria.title = title
-        criteria.evaluationType = sampleEvaluation.evaluationType
-        criteria.ordinalNumber = Int16(ordinalNumber)
-        criteria.lowerBound = sampleEvaluation.bounds.lowerBound
-        criteria.upperBound = sampleEvaluation.bounds.upperBound
-        criteria.step = sampleEvaluation.step
-        criteria.value = sampleEvaluation.defaultValue
-
-        return criteria
-    }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EvaluationHeaderView: View {
     @Environment(\.managedObjectContext) private var moc
+    @AppStorage("use-cupping-hints") var useCuppingHints: Bool = true
     @ObservedObject var qcGroup: QCGroup
     @Binding var isCompleted: Bool
     
@@ -63,7 +64,7 @@ struct EvaluationHeaderView: View {
                 }
             }
             
-            if let qcGroupHint: String = qcGroup.configuration.hint?.message, !qcGroup.isCompleted {
+            if let qcGroupHint: String = qcGroup.configuration.hint?.message, !qcGroup.isCompleted && useCuppingHints {
                 Text(qcGroupHint)
                     .fixedSize(horizontal: false, vertical: true)
                     .font(.caption)

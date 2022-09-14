@@ -11,24 +11,37 @@ import SwiftUI
 
 struct SettingsView: View {
     @Binding var selectedCuppingForm: Int
+    @AppStorage("use-cupping-hints") var useCuppingHints: Bool = false
+    
+    #warning("developer tools")
+    @AppStorage("onboarding-completed") var onboardingCompleted: Bool = false
     
     var body: some View {
         NavigationView {
             Form {
-                Section {
+                Section("Cuppings") {
                     NavigationLink(destination: SettingsCuppingFormsView()) {
                         Text("Cupping Form - (SCA)")
                     }
-                    Toggle("Cupping hints", isOn: .constant(true))
+                    Toggle("Cupping hints", isOn: $useCuppingHints)
                 }
                 
-                Section {
-                    Text("Tip jar")
-                    Text("Contact")
-                    Text("Help with translation")
-                    Text("Share app")
-                    Text("version 1.0")
+                Section("Test tools") {
+                    Button {
+                        onboardingCompleted = false
+                    } label: {
+                        Text("Show onboarding on next launch")
+                    }
                 }
+                
+#warning("in future")
+//                Section {
+//                    Text("Tip jar")
+//                    Text("Contact")
+//                    Text("Help with translation")
+//                    Text("Share app")
+//                    Text("version 1.0")
+//                }
             }
             .navigationTitle("Settings")
         }
