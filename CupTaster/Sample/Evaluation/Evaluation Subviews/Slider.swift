@@ -29,6 +29,8 @@ class SliderConfiguration {
     }
 }
 
+#warning("breaks on rotation")
+
 struct SliderView: View {
     @Binding var value: Double
     let configuration: SliderConfiguration

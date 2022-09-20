@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CuppingSamplesView: View {
     @Environment(\.managedObjectContext) private var moc
+    
+    var namespace: Namespace.ID
     @ObservedObject var cupping: Cupping
     
     @Binding var selectedSample: Sample?
@@ -23,7 +25,7 @@ struct CuppingSamplesView: View {
             InsetFormSection {
                 ForEach(cupping.getSortedSamples()) { sample in
                     Button {
-                        selectedSample = sample
+                        withAnimation { selectedSample = sample }
                     } label: {
                         HStack {
                             ZStack {
@@ -49,6 +51,7 @@ struct CuppingSamplesView: View {
                         }
                     }
                     .buttonStyle(InsetFormLinkStyle())
+                    .matchedGeometryEffect(id: sample.id, in: namespace)
                 }
                 
                 if cupping.samples.count < 1 { Text("No samples yet") }

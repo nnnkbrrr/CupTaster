@@ -11,6 +11,7 @@ import CoreData
 struct CuppingView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) private var moc
+    @Namespace var namespace
     @ObservedObject var cupping: Cupping
     
     @FetchRequest( entity: CuppingForm.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: true)])
@@ -77,7 +78,9 @@ struct CuppingView: View {
                         }
                     } else {
                         generalInformationCompact
-                        CuppingSamplesView(cupping: cupping, selectedSample: $selectedSample)
+                        if selectedSample == nil {
+                            CuppingSamplesView(namespace: namespace, cupping: cupping, selectedSample: $selectedSample)
+                        }
                     }
                 }
                 .padding(.vertical)
@@ -104,8 +107,11 @@ struct CuppingView: View {
             }
             
             if selectedSample != nil {
-                SampleSelectorView(cupping: cupping, selectedSample: $selectedSample)
-                    .background(Color(uiColor: .systemBackground), ignoresSafeAreaEdges: .all)
+                SampleSelectorView(cupping: cupping, selectedSample: $selectedSample, namespace: namespace)
+                    .background(
+                        .ultraThinMaterial,
+                        ignoresSafeAreaEdges: .all
+                    )
             }
         }
         .confirmationDialog(
