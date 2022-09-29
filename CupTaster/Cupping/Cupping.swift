@@ -7,187 +7,92 @@
 
 import SwiftUI
 import CoreData
+import UIKit
 
 struct CuppingView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) private var moc
+    
+    @ObservedObject var cuppingModel: CuppingModel
+    @FetchRequest var samples: FetchedResults<Sample>
+    
     @Namespace var namespace
-    @ObservedObject var cupping: Cupping
-    
-    @FetchRequest( entity: CuppingForm.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: true)])
-    var cuppingForms: FetchedResults<CuppingForm>
     @FocusState var notesTextEditorFocused: Bool
-    @State var selectedSample: Sample?
     
-    @State private var confirmDeleteAction: Bool = false
+    init(cupping: Cupping) {
+        self.cuppingModel = CuppingModel(cupping: cupping)
+        self._samples = FetchRequest(
+            entity: Sample.entity(),
+            sortDescriptors: [NSSortDescriptor(keyPath: \Sample.ordinalNumber, ascending: true)],
+            predicate: NSPredicate(format: "cupping == %@", cupping)
+        )
+    }
     
     var body: some View {
-        ZStack {
-            ScrollView {
-                LazyVStack {
-                    InsetFormSection {
-                        TextField("Cupping name", text: $cupping.name)
-                            .submitLabel(.done)
-                            .onSubmit { try? moc.save() }
-                    } header: {
-                        HStack {
-                            ZStack {
-                                if cupping.notes == "" {
-                                    Button("Add Notes") {
-                                        notesTextEditorFocused = true
+        GeometryReader { geometry in
+            ZStack(alignment: .bottom) {
+                if cuppingModel.selectedSample == nil {
+                    ScrollView {
+                        VStack {
+                            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2)) {
+                                ForEach(samples) { sample in
+                                    Button {
+                                        withAnimation {
+                                            cuppingModel.selectedSample = sample
+                                            cuppingModel.selectedSampleIndex = cuppingModel.sortedSamples.firstIndex(of: sample)!
+                                            cuppingModel.samplesAppearance = .criteria
+                                        }
+                                    } label: {
+                                        SampleView(cuppingModel: cuppingModel, sample: sample, appearance: .preview)
                                     }
-                                    .transition(.opacity)
+                                    .matchedGeometryEffect(id: sample.id, in: namespace)
                                 }
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
                             
-                            Text("Cupping")
+                            Divider()
                             
-                            Button("Delete") { confirmDeleteAction = true }
-                                .transition(.opacity)
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                        }
-                        .animation(.default, value: cupping.notes)
-                    }
-                    
-                    TextEditor(text: $cupping.notes)
-                        .textEditorBackgroundColor(.clear)
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .padding(.horizontal, 35)
-                        .focused($notesTextEditorFocused)
-                        .frame(height: cupping.notes == "" && !notesTextEditorFocused ? 0 : nil)
-                        .submitLabel(.done)
-                        .onSubmit { try? moc.save() }
-                        .onChange(of: cupping.notes) { text in
-                            if !text.filter({ $0.isNewline }).isEmpty {
-                                cupping.notes.removeLast()
-                                notesTextEditorFocused = false
+                            ZStack {
+                                if cuppingModel.cupping.notes == "" {
+                                    Text("Add notes")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .onTapGesture { notesTextEditorFocused = true }
+                                }
+                                
+                                TextEditor(text: $cuppingModel.cupping.notes)
+                                    .focused($notesTextEditorFocused)
+                                    .frame(height: cuppingModel.cupping.notes == "" && !notesTextEditorFocused ? 0 : nil)
+                                    .submitLabel(.done)
+                                    .onSubmit { try? moc.save() }
+                                    .onChange(of: cuppingModel.cupping.notes) { text in
+                                        if !text.filter({ $0.isNewline }).isEmpty {
+                                            cuppingModel.cupping.notes.removeLast()
+                                            notesTextEditorFocused = false
+                                        }
+                                    }
                             }
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                            .padding(.horizontal, 35)
+                            .animation(.default, value: notesTextEditorFocused)
                         }
-                    
-                    if cupping.form == nil {
-                        generalInformation
-                        
-                        InsetFormSection("Finish setting up") {
-                            Button {
-                                cupping.form = CFManager().getDefaultCuppingForm(from: cuppingForms)
-                                try? moc.save()
-                            } label: { Text("Done") }
-                            .buttonStyle(InsetFormButtonStyle())
-                        }
-                    } else {
-                        generalInformationCompact
-                        if selectedSample == nil {
-                            CuppingSamplesView(namespace: namespace, cupping: cupping, selectedSample: $selectedSample)
-                        }
+                        .padding(.vertical)
+                        .padding(.bottom, 50) // toolbar
                     }
+                } else {
+                    SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace)
                 }
-                .padding(.vertical)
-                .animation(.default, value: cupping.samples)
-                .animation(.default, value: cupping.form)
-                .animation(.default, value: notesTextEditorFocused)
-            }
-            .background(Color(uiColor: .systemGroupedBackground))
-            .safeAreaInset(edge: .top) {
-                HStack {
-                    StopwatchView()
-                    
-                    Spacer()
-                    
-                    Button {
-                        presentationMode.wrappedValue.dismiss()
-                    } label: {
-                        Text("Done")
-                    }
-                }
-                .padding(.horizontal, 40)
-                .padding(.vertical, 10)
-                .background(Color(uiColor: .systemGray6))
-            }
-            
-            if selectedSample != nil {
-                SampleSelectorView(cupping: cupping, selectedSample: $selectedSample, namespace: namespace)
-                    .background(
-                        .ultraThinMaterial,
-                        ignoresSafeAreaEdges: .all
-                    )
-            }
-        }
-        .confirmationDialog(
-            "Are you sure you want to delete cupping and all relative samples?",
-            isPresented: $confirmDeleteAction,
-            titleVisibility: .visible
-        ) {
-            Button("Delete", role: .destructive) {
-                cupping.objectWillChange.send()
-                moc.delete(cupping)
-                try? moc.save()
-            }
-        }
-    }
-    
-    private var generalInformation: some View {
-        InsetFormSection("General Information") {
-//            DatePicker("Date", selection: $cupping.date, in: ...Date(), displayedComponents: [.date])
-#warning("pick cupping form")
-            HStack {
-                Text("Cupping form")
-                Spacer()
-                Picker("", selection: $cupping.form) {
-                    Text("SCA").tag(cupping.form)
-                }
-                .pickerStyle(MenuPickerStyle())
-                .labelsHidden()
-                .background(Color(uiColor: .systemGray5), in: RoundedRectangle(cornerRadius: 10))
-                .disabled(true)
-            }
-            
-            HStack {
-                Text("Cups count")
-                Spacer()
-                Picker("", selection: $cupping.cupsCount) {
-                    ForEach(1...5, id: \.self) { cupsCout in
-                        Text("\(cupsCout)").tag(Int16(cupsCout))
-                    }
-                }
-                .labelsHidden()
-                .background(Color(uiColor: .systemGray5), in: RoundedRectangle(cornerRadius: 10))
-            }
-        }
-        .disabled(cupping.form != nil)
-    }
-    
-    private var generalInformationCompact: some View {
-        HStack(spacing: 5) {
-            if let cuppingForm = cupping.form {
-                let dateFormatter: DateFormatter = {
-                    let formatter = DateFormatter()
-                    formatter.doesRelativeDateFormatting = true
-                    formatter.dateStyle = .short
-                    return formatter
-                }()
                 
-                Group {
-                    Text(dateFormatter.string(from: cupping.date))
-                        .padding(.horizontal, 10)
-                        .frame(height: 44)
-                        .background(
-                            Color(uiColor: .secondarySystemGroupedBackground),
-                            in: RoundedRectangle(cornerRadius: 10)
-                        )
-                    Text(cuppingForm.title)
-                    Label("x  \(cupping.cupsCount)", systemImage: "cup.and.saucer")
+                if !notesTextEditorFocused {
+                    CuppingToolbarView(presentationMode: _presentationMode, cuppingModel: cuppingModel, namespace: namespace)
                 }
-                .frame(maxWidth: .infinity)
-                .frame(height: 44)
-                .background(
-                    Color(uiColor: .secondarySystemGroupedBackground),
-                    in: RoundedRectangle(cornerRadius: 10)
-                )
             }
         }
-        .padding(.horizontal, 20)
-        .padding(.bottom, 10)
+        .halfSheet(
+            isPresented: $cuppingModel.settingsSheetIsPresented,
+            interactiveDismissDisabled: $cuppingModel.settingsSheetDissmissDisabled
+        ) {
+            CuppingSettingsView(presentationMode: _presentationMode, cuppingModel: cuppingModel)
+        }
     }
 }

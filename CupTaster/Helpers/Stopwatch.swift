@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct StopwatchToolbarItem: ToolbarContent {
+    var placement: ToolbarItemPlacement = .confirmationAction
+    
     var body: some ToolbarContent {
-        ToolbarItem(placement: .confirmationAction) {
+        ToolbarItem(placement: placement) {
             StopwatchView()
         }
     }

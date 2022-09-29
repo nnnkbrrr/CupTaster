@@ -53,7 +53,7 @@ struct EvaluationView: View {
                             .frame(height: 40)
                 }
                 
-                if let currentQCHint = currentQCHint {
+                if let currentQCHint {
                     if useCuppingHints {
                         Text(currentQCHint)
                             .font(.caption)

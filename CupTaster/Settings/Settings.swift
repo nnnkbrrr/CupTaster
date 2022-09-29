@@ -13,9 +13,6 @@ struct SettingsView: View {
     @Binding var selectedCuppingForm: Int
     @AppStorage("use-cupping-hints") var useCuppingHints: Bool = false
     
-    #warning("developer tools")
-    @AppStorage("onboarding-completed") var onboardingCompleted: Bool = false
-    
     var body: some View {
         NavigationView {
             Form {
@@ -24,14 +21,6 @@ struct SettingsView: View {
                         Text("Cupping Form - (SCA)")
                     }
                     Toggle("Cupping hints", isOn: $useCuppingHints)
-                }
-                
-                Section("Test tools") {
-                    Button {
-                        onboardingCompleted = false
-                    } label: {
-                        Text("Show onboarding on next launch")
-                    }
                 }
                 
 #warning("in future")

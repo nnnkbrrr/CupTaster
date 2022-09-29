@@ -16,7 +16,7 @@ struct InsetFormSection<Header, Content>: View where Header: View, Content: View
     
     // Initialization
     
-    public init(@ViewBuilder content: @escaping () -> Content, @ViewBuilder  header: @escaping () -> Header) {
+    public init(@ViewBuilder content: @escaping () -> Content, @ViewBuilder header: @escaping () -> Header) {
         self.content = content
         self.header = header
     }

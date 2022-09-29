@@ -56,6 +56,12 @@ struct AllCuppingsView: View {
                             Text(cupping.name)
                         }
                     }
+                    .onDelete { offsets in
+                        for index in offsets {
+                            moc.delete(cuppings[index])
+                            try? moc.save()
+                        }
+                    }
                 } header: {
                     Text("\(cuppings.count) cuppings, \(samples.count) samples")
                 }

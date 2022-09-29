@@ -8,7 +8,6 @@
 import SwiftUI
 import CoreData
 
-
 public class CFManager: ObservableObject {
     @AppStorage("default-cupping-form-hashed-id") var defaultCF_hashedID: Int = 0
     
