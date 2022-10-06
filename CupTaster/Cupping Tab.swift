@@ -18,7 +18,7 @@ struct AllCuppingsView: View {
     @State private var newCuppingName: String = ""
     @State private var newCuppingNameVisible: Bool = false
     @FocusState private var newCuppingNameFocused: Bool
-    @State var selectedCupping: Cupping? = nil
+    @State var activeCuppingModel: CuppingModel? = nil
     
     var body: some View {
         NavigationView {
@@ -59,30 +59,30 @@ struct AllCuppingsView: View {
                 Section {
                     ForEach(cuppings) { cupping in
                         Button {
-                            selectedCupping = cupping
+                            activeCuppingModel = CuppingModel(cupping: cupping)
                         } label: {
                             VStack(spacing: 5) {
-                                HStack {
-                                    Text(cupping.name)
-                                    Spacer()
-                                }
+                                Text(cupping.name)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 
-                                HStack(spacing: 0) {
+                                HStack {
+                                    HStack {
+                                        Text("\(cupping.form?.title ?? "-")")
+                                        Divider()
+                                            .frame(height: 15)
+                                        Text("\(cupping.samples.count) samples x \(cupping.cupsCount) cups")
+                                        let favoritesCount: Int = cupping.samples.filter{ $0.isFavorite }.count
+                                        if favoritesCount > 0 {
+                                            Divider()
+                                                .frame(height: 15)
+                                            Text("\(favoritesCount)")
+                                            Image(systemName: "heart.fill")
+                                        }
+                                    }
+                                    
+                                    Spacer()
+                                    
                                     Text(cupping.date, style: .date)
-                                        .foregroundColor(.gray)
-                                        .font(.caption)
-                                    
-                                    Spacer()
-                                    
-                                    Text("\(cupping.samples.count) samples x \(cupping.cupsCount) cups")
-                                    
-                                    Spacer()
-                                    
-                                    Text("\(cupping.form?.title ?? "-")")
-                                        .padding(.vertical, 5)
-                                        .padding(.horizontal, 10)
-                                        .background(Color(uiColor: .systemGray5))
-                                        .cornerRadius(5)
                                 }
                                 .foregroundColor(.gray)
                                 .font(.caption)
@@ -104,7 +104,7 @@ struct AllCuppingsView: View {
             }
             .navigationTitle("All Сuppings")
         }
-        .fullScreenCover(item: $selectedCupping, content: { CuppingView(cupping: $0) })
+        .fullScreenCover(item: $activeCuppingModel, content: { CuppingView(cuppingModel: $0) })
     }
     
     func addNewCupping() {
@@ -117,6 +117,6 @@ struct AllCuppingsView: View {
         newCuppingNameVisible = false
         try? moc.save()
         
-        selectedCupping = newCupping
+        activeCuppingModel = CuppingModel(cupping: newCupping)
     }
 }

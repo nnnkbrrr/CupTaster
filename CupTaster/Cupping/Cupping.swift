@@ -18,21 +18,25 @@ struct CuppingView: View {
     
     @Namespace var namespace
     
-    init(cupping: Cupping) {
-        self.cuppingModel = CuppingModel(cupping: cupping)
+    init(cuppingModel: CuppingModel) {
+        self.cuppingModel = cuppingModel
         self._samples = FetchRequest(
             entity: Sample.entity(),
             sortDescriptors: [NSSortDescriptor(keyPath: \Sample.ordinalNumber, ascending: true)],
-            predicate: NSPredicate(format: "cupping == %@", cupping)
+            predicate: NSPredicate(format: "cupping == %@", cuppingModel.cupping)
         )
     }
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .bottom) {
+            ZStack {
                 if cuppingModel.selectedSample == nil {
                     if cuppingModel.samplesEditorActive {
                         Form {
+                            Section {
+                                TextField("Cupping name", text: $cuppingModel.cupping.name)
+                            }
+                            
                             Section {
                                 ForEach(samples) { sample in
                                     SampleFormRowView(sample: sample)
@@ -88,6 +92,12 @@ struct CuppingView: View {
                         .resignKeyboardOnDragGesture() { try? moc.save() }
                     } else {
                         ScrollView {
+                            Text(cuppingModel.cupping.name)
+                                .font(.largeTitle)
+                                .fontWeight(.heavy)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding([.top, .horizontal], 20)
+                            
                             LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2)) {
                                 ForEach(samples) { sample in
                                     Button {
@@ -102,7 +112,7 @@ struct CuppingView: View {
                                     .matchedGeometryEffect(id: sample.id, in: namespace)
                                 }
                             }
-                            .padding()
+                            .padding([.bottom, .horizontal])
                             .padding(.bottom, 44) // toolbar
                         }
                     }
@@ -110,7 +120,26 @@ struct CuppingView: View {
                     SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace)
                 }
                 
-                CuppingToolbarView(presentationMode: _presentationMode, cuppingModel: cuppingModel, namespace: namespace)
+                VStack {
+                    Rectangle()
+                        .foregroundColor(Color(uiColor: .systemBackground))
+                        .frame(height: 15 + geometry.safeAreaInsets.top)
+                        .mask {
+                            VStack(spacing: 0) {
+                                LinearGradient(
+                                    colors: [Color.black.opacity(0), Color.black],
+                                    startPoint: .bottom,
+                                    endPoint: .top
+                                )
+                                .frame(height: 15 + geometry.safeAreaInsets.top)
+                            }
+                        }
+                    
+                    Spacer()
+                    
+                    CuppingToolbarView(presentationMode: _presentationMode, cuppingModel: cuppingModel, namespace: namespace)
+                }
+                .edgesIgnoringSafeArea(.top)
             }
         }
         .halfSheet(

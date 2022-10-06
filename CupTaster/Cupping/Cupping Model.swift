@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class CuppingModel: ObservableObject {
+class CuppingModel: ObservableObject, Identifiable {
     @Published var cupping: Cupping
     
     // Cupping Settings
