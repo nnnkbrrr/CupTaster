@@ -11,7 +11,6 @@ class CuppingModel: ObservableObject {
     @Published var cupping: Cupping
     
     // Cupping Settings
-    
     @Published var settingsSheetIsPresented: Bool
     @Published var settingsSheetDissmissDisabled: Bool
     
@@ -21,10 +20,11 @@ class CuppingModel: ObservableObject {
     
     // Gestures
     @Published var offset: CGSize = .zero
-    @Published var switchingSamplesAppearance: Bool = false
+    @Published var switchingSamplesAppearance: Bool
     
-    // Sample View Style
+    // Samples style
     @Published var samplesAppearance: SampleAppearance
+    @Published var samplesEditorActive: Bool
     
     init(cupping: Cupping) {
         self.cupping = cupping
@@ -35,6 +35,7 @@ class CuppingModel: ObservableObject {
         self.selectedSampleIndex = nil
         self.offset = .zero
         self.switchingSamplesAppearance = false
+        self.samplesEditorActive = false
         self.samplesAppearance = .criteria
     }
 }
@@ -51,6 +52,5 @@ extension CuppingModel {
             selectedSample = nil
             selectedSampleIndex = nil
         }
-        samplesAppearance = .preview
     }
 }

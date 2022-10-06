@@ -72,7 +72,7 @@ struct OnboardingView: View {
                 .background(Color.accentColor)
                 .cornerRadius(15)
             }
-            .disabled(currentPage == .forms && cfManager.defaultCF_hashedID == 0)
+            .disabled(currentPage == .forms && cfManager.defaultCFDescription == "")
             .padding(50)
             .background(
                 LinearGradient(

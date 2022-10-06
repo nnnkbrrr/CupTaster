@@ -17,7 +17,6 @@ struct CuppingView: View {
     @FetchRequest var samples: FetchedResults<Sample>
     
     @Namespace var namespace
-    @FocusState var notesTextEditorFocused: Bool
     
     init(cupping: Cupping) {
         self.cuppingModel = CuppingModel(cupping: cupping)
@@ -32,8 +31,63 @@ struct CuppingView: View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
                 if cuppingModel.selectedSample == nil {
-                    ScrollView {
-                        VStack {
+                    if cuppingModel.samplesEditorActive {
+                        Form {
+                            Section {
+                                ForEach(samples) { sample in
+                                    SampleFormRowView(sample: sample)
+                                }
+                                .onMove { indexSet, offset in
+                                    var revisedItems: [Sample] = cuppingModel.sortedSamples
+                                    revisedItems.move(fromOffsets: indexSet, toOffset: offset)
+                                    
+                                    for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
+                                        revisedItems[reverseIndex].ordinalNumber = Int16(reverseIndex)
+                                    }
+                                }
+                                .onDelete { offsets in
+                                    for index in offsets {
+                                        moc.delete(samples[index])
+                                    }
+                                }
+                            }
+                            
+                            Section {
+                                Button {
+                                    let usedNames: [String] = cuppingModel.cupping.samples.map { $0.name }
+                                    let defaultName: String = SampleNameGenerator().generateSampleDefaultName(usedNames: usedNames)
+                                    
+                                    let sample: Sample = Sample(context: moc)
+                                    
+                                    sample.name = defaultName
+                                    sample.ordinalNumber = Int16(cuppingModel.cupping.samples.count)
+                                    
+                                    if let cuppingForm = cuppingModel.cupping.form {
+                                        for groupConfig in cuppingForm.qcGroupConfigurations {
+                                            let qcGroup: QCGroup = QCGroup(context: moc)
+                                            qcGroup.sample = sample
+                                            qcGroup.configuration = groupConfig
+                                            for qcConfig in groupConfig.qcConfigurations {
+                                                let qualityCriteria = QualityCriteria(context: moc)
+                                                qualityCriteria.title = qcConfig.title
+                                                qualityCriteria.value = qcConfig.value
+                                                qualityCriteria.group = qcGroup
+                                                qualityCriteria.configuration = qcConfig
+                                            }
+                                        }
+                                    }
+                                    
+                                    cuppingModel.cupping.addToSamples(sample)
+                                } label: {
+                                    Label("Add sample", systemImage: "plus")
+                                }
+                            }
+                        }
+                        .environment(\.editMode, .constant(.active))
+                        .padding(.bottom, 44) // toolbar
+                        .resignKeyboardOnDragGesture() { try? moc.save() }
+                    } else {
+                        ScrollView {
                             LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2)) {
                                 ForEach(samples) { sample in
                                     Button {
@@ -43,49 +97,20 @@ struct CuppingView: View {
                                             cuppingModel.samplesAppearance = .criteria
                                         }
                                     } label: {
-                                        SampleView(cuppingModel: cuppingModel, sample: sample, appearance: .preview)
+                                        SampleView(cuppingModel: cuppingModel, sample: sample).preview
                                     }
                                     .matchedGeometryEffect(id: sample.id, in: namespace)
                                 }
                             }
                             .padding()
-                            
-                            Divider()
-                            
-                            ZStack {
-                                if cuppingModel.cupping.notes == "" {
-                                    Text("Add notes")
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .onTapGesture { notesTextEditorFocused = true }
-                                }
-                                
-                                TextEditor(text: $cuppingModel.cupping.notes)
-                                    .focused($notesTextEditorFocused)
-                                    .frame(height: cuppingModel.cupping.notes == "" && !notesTextEditorFocused ? 0 : nil)
-                                    .submitLabel(.done)
-                                    .onSubmit { try? moc.save() }
-                                    .onChange(of: cuppingModel.cupping.notes) { text in
-                                        if !text.filter({ $0.isNewline }).isEmpty {
-                                            cuppingModel.cupping.notes.removeLast()
-                                            notesTextEditorFocused = false
-                                        }
-                                    }
-                            }
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                            .padding(.horizontal, 35)
-                            .animation(.default, value: notesTextEditorFocused)
+                            .padding(.bottom, 44) // toolbar
                         }
-                        .padding(.vertical)
-                        .padding(.bottom, 50) // toolbar
                     }
                 } else {
                     SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace)
                 }
                 
-                if !notesTextEditorFocused {
-                    CuppingToolbarView(presentationMode: _presentationMode, cuppingModel: cuppingModel, namespace: namespace)
-                }
+                CuppingToolbarView(presentationMode: _presentationMode, cuppingModel: cuppingModel, namespace: namespace)
             }
         }
         .halfSheet(

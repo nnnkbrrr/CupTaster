@@ -28,16 +28,14 @@ struct SampleView: View {
     
     var body: some View {
         switch appearance {
-            case .preview:
-                previewAppearance
-            case .criteria:
-                criteriaAppearance
-                    .padding(.bottom, 100) // toolbar
-                    .resignKeyboardOnDragGesture()
-            case .info:
-                infoAppearance
-                    .padding(.bottom, 100) // toolbar
-                    .resignKeyboardOnDragGesture()
+        case .criteria:
+            criteriaAppearance
+                .padding(.bottom, 100) // toolbar
+                .resignKeyboardOnDragGesture() { try? moc.save() }
+        case .info:
+            infoAppearance
+                .padding(.bottom, 100) // toolbar
+                .resignKeyboardOnDragGesture() { try? moc.save() }
         }
     }
 }
@@ -45,54 +43,15 @@ struct SampleView: View {
 // MARK: Change appearance
 
 enum SampleAppearance {
-    case preview, criteria, info
+    case criteria, info
 }
 
 // MARK: All appearances
 
 extension SampleView {
-    private var previewAppearance: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            ZStack(alignment: .topTrailing) {
-                RadarChart(sample: sample, useShortLabels: true)
-                Image(systemName: "ellipsis.circle")
-                    .onTapGesture {
-#warning("pass")
-                    }
-            }
-            
-            HStack {
-                ZStack {
-                    if sample.finalScore != 0 { Text(String(format: "%.1f", sample.finalScore)) }
-                    else { Text("-") }
-                }
-                .frame(width: 30)
-                
-                Divider()
-                    .frame(height: 15)
-                
-                Text(sample.name)
-                    .fixedSize(horizontal: true, vertical: true)
-                
-                if sample.isFavorite {
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.red)
-                }
-            }
-            .font(.caption)
-        }
-        .padding(10)
-        .background(.ultraThinMaterial)
-        .cornerRadius(15)
-    }
-}
-
-
-extension SampleView {
     private var criteriaAppearance: some View {
         ScrollView(showsIndicators: false) {
-            LazyVStack(spacing: 0) {
+            VStack(spacing: 0) {
                 ForEach(
                     sample.qualityCriteriaGroups
                         .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
@@ -134,5 +93,50 @@ extension SampleView {
                 }
             }
         }
+    }
+}
+
+// MARK: Extra
+
+extension SampleView {
+    public var preview: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            RadarChart(sample: sample, useShortLabels: true)
+            
+            HStack {
+                ZStack {
+                    if sample.finalScore != 0 { Text(String(format: "%.1f", sample.finalScore)) }
+                    else { Text("-") }
+                }
+                .frame(width: 30)
+                
+                Divider()
+                    .frame(height: 15)
+                
+                Text(sample.name)
+                    .fixedSize(horizontal: true, vertical: true)
+                
+                if sample.isFavorite {
+                    Spacer()
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.red)
+                }
+            }
+            .font(.caption)
+        }
+        .padding(10)
+        .background(.ultraThinMaterial)
+        .cornerRadius(15)
+    }
+}
+
+struct SampleFormRowView: View {
+    @Environment(\.managedObjectContext) private var moc
+    @ObservedObject var sample: Sample
+    
+    var body: some View {
+        TextField("Sample name", text: $sample.name)
+            .submitLabel(.done)
+            .onSubmit { try? moc.save() }
     }
 }

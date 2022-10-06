@@ -12,7 +12,7 @@ private class HalfSheetController<Content>: UIHostingController<Content> where C
         super.viewWillAppear(animated)
         
         if let presentation = sheetPresentationController {
-            presentation.detents = [.medium(), .large()]
+            presentation.detents = [.medium()]
         }
     }
 }

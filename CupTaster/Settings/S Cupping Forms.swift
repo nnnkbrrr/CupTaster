@@ -45,14 +45,20 @@ struct SettingsCuppingFormsView: View {
                     ForEach(addedCuppingForms) { cuppingForm in
                         HStack {
                             Button {
+                                print("-------------------------------------")
+                                print(cfManager.defaultCFDescription)
+                                print("-------------------------------------")
+                                print(cuppingForm.shortDescription)
+                                print("-------------------------------------")
+                                
                                 withAnimation {
-                                    cfManager.defaultCF_hashedID = cuppingForm.id.hashValue
+                                    cfManager.defaultCFDescription = cuppingForm.shortDescription
                                 }
                             } label: {
                                 HStack {
                                     Image(systemName: "checkmark")
                                         .frame(width: 30)
-                                        .opacity(cuppingForm.isSelected(defaultCF_hashedID: cfManager.defaultCF_hashedID) ? 1 : 0)
+                                        .opacity(cuppingForm.isSelected(defaultCFDescription: cfManager.defaultCFDescription) ? 1 : 0)
                                     Divider()
                                         .padding(.vertical, 5)
                                     Text(cuppingForm.title)
@@ -81,7 +87,7 @@ struct SettingsCuppingFormsView: View {
                             Button {
                                 if let addedForm = cfModel.createCuppingForm(context: moc) {
                                     withAnimation {
-                                        cfManager.defaultCF_hashedID = addedForm.id.hashValue
+                                        cfManager.defaultCFDescription = addedForm.shortDescription
                                     }
                                 }
                             } label: {
@@ -111,13 +117,13 @@ struct SettingsCuppingFormsView: View {
                     ForEach(deprecatedCuppingForms) { cuppingForm in
                         Button {
                             withAnimation {
-                                cfManager.defaultCF_hashedID = cuppingForm.id.hashValue
+                                cfManager.defaultCFDescription = cuppingForm.shortDescription
                             }
                         } label: {
                             HStack {
                                 Image(systemName: "checkmark")
                                     .frame(width: 30)
-                                    .opacity(cuppingForm.isSelected(defaultCF_hashedID: cfManager.defaultCF_hashedID) ? 1 : 0)
+                                    .opacity(cuppingForm.isSelected(defaultCFDescription: cfManager.defaultCFDescription) ? 1 : 0)
                                 Divider()
                                     .padding(.vertical, 5)
                                 Text("\(cuppingForm.title) v. \(cuppingForm.version) - \(cuppingForm.languageCode)")

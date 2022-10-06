@@ -17,7 +17,6 @@ struct CuppingToolbarView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            
             let sortedSamples: [Sample] = cuppingModel.sortedSamples
             
             VStack(spacing: 3) {
@@ -57,49 +56,19 @@ struct CuppingToolbarView: View {
                     // MARK: BP Leading
                     
                     Group {
-                        if cuppingModel.selectedSample == nil {
-                            Menu {
-                                ForEach(1...10, id: \.self) { samplesCount in
-                                    Button {
-                                        let cupping: Cupping = cuppingModel.cupping
-                                        
-                                        for _ in 1...samplesCount {
-                                            let sample = Sample(context: moc)
-                                            
-                                            let usedNames: [String] = cupping.samples.map { $0.name }
-                                            sample.name = SampleNameGenerator().generateSampleDefaultName(usedNames: usedNames)
-                                            sample.ordinalNumber = Int16(cupping.samples.count)
-                                            
-                                            if let cuppingForm = cupping.form {
-                                                for groupConfig in cuppingForm.qcGroupConfigurations {
-                                                    let qcGroup: QCGroup = QCGroup(context: moc)
-                                                    qcGroup.sample = sample
-                                                    qcGroup.configuration = groupConfig
-                                                    for qcConfig in groupConfig.qcConfigurations {
-                                                        let qualityCriteria = QualityCriteria(context: moc)
-                                                        qualityCriteria.title = qcConfig.title
-                                                        qualityCriteria.value = qcConfig.value
-                                                        qualityCriteria.group = qcGroup
-                                                        qualityCriteria.configuration = qcConfig
-                                                    }
-                                                }
-                                            }
-                                            
-                                            cupping.addToSamples(sample)
-                                        }
-                                        
-                                        try? moc.save()
-#warning("pass")
-                                    } label: {
-                                        Text("\(samplesCount)")
-                                    }
-                                }
+                        if cuppingModel.samplesEditorActive {
+                            Button {
+                                moc.rollback()
+                                cuppingModel.samplesEditorActive = false
                             } label: {
-                                Image(systemName: "plus")
-                                    .frame(width: 44, height: 44)
-                                    .contentShape(Rectangle())
+                                Text("Cancel")
                             }
-                            .disabled(cuppingModel.cupping.form == nil)
+                        } else if cuppingModel.selectedSample == nil {
+                            Button {
+                                cuppingModel.samplesEditorActive = true
+                            } label: {
+                                Text("Edit")
+                            }
                         } else if !cuppingModel.switchingSamplesAppearance {
                             Image(systemName: "info.circle")
                                 .font(.title2)
@@ -119,40 +88,24 @@ struct CuppingToolbarView: View {
                     
                     // MARK: BP Center
                     
-                    Group {
-                        VStack(spacing: 0) {
-                            if cuppingModel.selectedSample == nil {
-                                HStack {
-                                    Text(cuppingModel.cupping.name)
-                                        .lineLimit(1)
-                                        .frame(maxWidth: 200)
-                                        .fixedSize()
-                                    Image(systemName: "chevron.down")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                }
-                                .onTapGesture {
-                                    cuppingModel.settingsSheetIsPresented = true
-                                }
-                            }
-                            
-                            if StopwatchView().timeSince != nil || cuppingModel.selectedSample != nil  {
-                                StopwatchView()
-                                    .scaleEffect(cuppingModel.switchingSamplesAppearance || cuppingModel.selectedSample == nil ? 0.75 : 1.25)
-                                    .disabled(cuppingModel.selectedSample == nil ? true : false)
-                            }
-                        }
+                    if StopwatchView().timeSince != nil || cuppingModel.selectedSample != nil  {
+                        StopwatchView()
+                            .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
                     
                     // MARK: BP Trailing
                     
                     Group {
-                        if cuppingModel.selectedSample == nil {
+                        if cuppingModel.samplesEditorActive {
                             Button {
-                                presentationMode.wrappedValue.dismiss()
+                                try? moc.save()
+                                cuppingModel.samplesEditorActive = false
                             } label: {
-                                Text("Done")
+                                Text("Save")
+                            }
+                        } else if cuppingModel.selectedSample == nil {
+                            Button("Done") {
+                                presentationMode.wrappedValue.dismiss()
                             }
                         } else if !cuppingModel.switchingSamplesAppearance {
                             Image(systemName: "square.on.square")
@@ -168,7 +121,7 @@ struct CuppingToolbarView: View {
                 .padding(.horizontal, 20)
                 .frame(height: 44)
             }
-            .frame(height: cuppingModel.switchingSamplesAppearance || cuppingModel.selectedSample == nil ? 50 : 100, alignment: .bottom)
+            .frame(height: cuppingModel.switchingSamplesAppearance || cuppingModel.selectedSample == nil ? 44 : 100, alignment: .bottom)
             .contentShape(Rectangle())
             // MARK: Gestures
             .gesture(
@@ -203,7 +156,7 @@ struct CuppingToolbarView: View {
                     }
             )
         }
-        .frame(height: cuppingModel.switchingSamplesAppearance || cuppingModel.selectedSample == nil ? 50 : 100, alignment: .bottom)
+        .frame(height: cuppingModel.switchingSamplesAppearance || cuppingModel.selectedSample == nil ? 44 : 100, alignment: .bottom)
         .background(.bar)
     }
 }

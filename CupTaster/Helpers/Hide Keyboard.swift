@@ -15,18 +15,26 @@ extension UIApplication {
         window?.endEditing(force)
     }
 }
-    
+
 struct ResignKeyboardOnDragGesture: ViewModifier {
-    var gesture = DragGesture().onChanged{_ in
-        UIApplication.shared.endEditing(true)
-    }
+    var onResign: () -> ()
+    
     func body(content: Content) -> some View {
-        content.gesture(gesture)
+        content.gesture(
+            DragGesture().onChanged {_ in
+                UIApplication.shared.endEditing(true)
+                onResign()
+            }
+        )
     }
 }
     
 extension View {
     func resignKeyboardOnDragGesture() -> some View {
-        return modifier(ResignKeyboardOnDragGesture())
+        return modifier(ResignKeyboardOnDragGesture() { } )
+    }
+    
+    func resignKeyboardOnDragGesture(onResign: @escaping () -> ()) -> some View {
+        return modifier(ResignKeyboardOnDragGesture() { onResign() } )
     }
 }

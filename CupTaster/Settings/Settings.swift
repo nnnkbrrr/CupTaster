@@ -7,20 +7,33 @@
 
 import SwiftUI
 
-#warning("This called 'Settings'?????")
-
 struct SettingsView: View {
-    @Binding var selectedCuppingForm: Int
-    @AppStorage("use-cupping-hints") var useCuppingHints: Bool = false
+    @Binding var selectedCuppingFormID: String
+    
+    @AppStorage("use-cupping-hints")
+    var useCuppingHints: Bool = false
+    
+    @AppStorage("sample-name-generator-method")
+    var sampleNameGenerationMethod: SampleNameGenerator.GenerationMethod = .alphabetical
     
     var body: some View {
         NavigationView {
             Form {
-                Section("Cuppings") {
+                Section {
                     NavigationLink(destination: SettingsCuppingFormsView()) {
-                        Text("Cupping Form - (SCA)")
+                        Text("Cupping form: SCA")
                     }
-                    Toggle("Cupping hints", isOn: $useCuppingHints)
+                    
+                    Picker("Sample name generation", selection: $sampleNameGenerationMethod) {
+                        Text("alphabetical").tag(SampleNameGenerator.GenerationMethod.alphabetical)
+                        Text("numerical").tag(SampleNameGenerator.GenerationMethod.numerical)
+                    }
+                    
+                    Toggle("Use hints", isOn: $useCuppingHints)
+                } header: {
+                    Text("Cuppings")
+                } footer: {
+                    Text("app version: \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-")")
                 }
                 
 #warning("in future")
@@ -29,7 +42,6 @@ struct SettingsView: View {
 //                    Text("Contact")
 //                    Text("Help with translation")
 //                    Text("Share app")
-//                    Text("version 1.0")
 //                }
             }
             .navigationTitle("Settings")

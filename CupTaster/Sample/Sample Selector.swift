@@ -24,15 +24,13 @@ struct SampleSelectorView: View {
                     ForEach(cuppingModel.sortedSamples) { sample in
                         SampleView(cuppingModel: cuppingModel, sample: sample, appearance: $cuppingModel.samplesAppearance)
                             .frame(width: geometry.size.width)
-                            .frame(width: geometry.size.width)
-                            .background(Color(uiColor: .systemBackground))
-                            .cornerRadius(cuppingModel.switchingSamplesAppearance ? 25 : 0)
                             .matchedGeometryEffect(id: sample.id, in: namespace)
+                            .opacity(cuppingModel.switchingSamplesAppearance && cuppingModel.selectedSample != sample ? 0 : 1)
+                            .scaleEffect(cuppingModel.switchingSamplesAppearance && cuppingModel.selectedSample == sample ? 0.7 + (cuppingModel.offset.height/(geometry.size.height*2)) : 1)
                     }
                 }
                 .offset(x: cuppingModel.offset.width - (geometry.size.width + (cuppingModel.switchingSamplesAppearance ? 50 : 0)) * CGFloat(cuppingModel.selectedSampleIndex ?? 0))
                 .frame(width: geometry.size.width, alignment: .leading)
-                .scaleEffect(cuppingModel.switchingSamplesAppearance ? 0.7 + (cuppingModel.offset.height/(geometry.size.height*2)) : 1)
             }
         }
     }

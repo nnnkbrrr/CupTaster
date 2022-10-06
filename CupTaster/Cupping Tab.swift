@@ -47,13 +47,46 @@ struct AllCuppingsView: View {
                         }
                         .buttonStyle(BorderlessButtonStyle())
                         .onAppear { newCuppingNameFocused = true }
+                    } else {
+                        Button {
+                            withAnimation { newCuppingNameVisible = true }
+                        } label: {
+                            Label("New cupping", systemImage: "plus")
+                        }
                     }
-                    
+                }
+                
+                Section {
                     ForEach(cuppings) { cupping in
                         Button {
                             selectedCupping = cupping
                         } label: {
-                            Text(cupping.name)
+                            VStack(spacing: 5) {
+                                HStack {
+                                    Text(cupping.name)
+                                    Spacer()
+                                }
+                                
+                                HStack(spacing: 0) {
+                                    Text(cupping.date, style: .date)
+                                        .foregroundColor(.gray)
+                                        .font(.caption)
+                                    
+                                    Spacer()
+                                    
+                                    Text("\(cupping.samples.count) samples x \(cupping.cupsCount) cups")
+                                    
+                                    Spacer()
+                                    
+                                    Text("\(cupping.form?.title ?? "-")")
+                                        .padding(.vertical, 5)
+                                        .padding(.horizontal, 10)
+                                        .background(Color(uiColor: .systemGray5))
+                                        .cornerRadius(5)
+                                }
+                                .foregroundColor(.gray)
+                                .font(.caption)
+                            }
                         }
                     }
                     .onDelete { offsets in
@@ -68,17 +101,9 @@ struct AllCuppingsView: View {
             }
             .toolbar {
                 StopwatchToolbarItem()
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        withAnimation { newCuppingNameVisible = true }
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
             }
             .navigationTitle("All Сuppings")
         }
-        .navigationViewStyle(.stack)
         .fullScreenCover(item: $selectedCupping, content: { CuppingView(cupping: $0) })
     }
     

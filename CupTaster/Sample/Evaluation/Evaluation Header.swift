@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EvaluationHeaderView: View {
     @Environment(\.managedObjectContext) private var moc
-    @AppStorage("use-cupping-hints") var useCuppingHints: Bool = true
+    @AppStorage("use-cupping-hints") var useCuppingHints: Bool = false
     @ObservedObject var qcGroup: QCGroup
     @Binding var isCompleted: Bool
     
@@ -56,9 +56,9 @@ struct EvaluationHeaderView: View {
                             }
                         } else {
                             qcGroup.sample.finalScore = 0
-                            qcGroup.sample.cupping.objectWillChange.send()
+//                            qcGroup.sample.cupping.objectWillChange.send()
                         }
-                        qcGroup.objectWillChange.send()
+//                        qcGroup.objectWillChange.send()
                         try? moc.save()
                     }
                 }

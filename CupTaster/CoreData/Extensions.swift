@@ -43,20 +43,24 @@ extension Sample {
             let values = getValues()
             let expressionValue = expression.expressionValue(with: values, context: nil)
             self.finalScore = expressionValue as? Double ?? 0
-            self.cupping.objectWillChange.send()
+//            self.cupping.objectWillChange.send()
         }
     }
 }
 
 extension CuppingForm {
+    var shortDescription: String {
+        return "\(self.title).v.\(self.version).\(self.languageCode)"
+    }
+    
     var isDeprecated: Bool {
         return !CFManager().allCFModels.contains { cfModel in
             self.title == cfModel.title && self.version == cfModel.version
         }
     }
     
-    func isSelected(defaultCF_hashedID: Int) -> Bool {
-        return self.id.hashValue == defaultCF_hashedID
+    func isSelected(defaultCFDescription: String) -> Bool {
+        return self.shortDescription == defaultCFDescription
     }
 }
 

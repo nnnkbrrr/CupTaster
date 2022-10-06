@@ -17,6 +17,8 @@ struct StopwatchToolbarItem: ToolbarContent {
     }
 }
 
+#warning("сбрасывать после часа")
+
 struct StopwatchView: View {
     @AppStorage("stopwatch-time-since") var timeSince: Date? = nil
     @AppStorage("stopwatch-time-till") var timeTill: Date? = nil

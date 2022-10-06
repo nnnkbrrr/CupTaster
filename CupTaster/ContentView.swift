@@ -20,7 +20,7 @@ struct ContentView: View {
             AllCuppingsView()
                 .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
             
-            SettingsView(selectedCuppingForm: sfManager.$defaultCF_hashedID)
+            SettingsView(selectedCuppingFormID: sfManager.$defaultCFDescription)
                 .tabItem { Label("Settings", systemImage: "gearshape") }
             
 #warning("test tools")

@@ -9,27 +9,28 @@ import SwiftUI
 import CoreData
 
 public class CFManager: ObservableObject {
-    @AppStorage("default-cupping-form-hashed-id") var defaultCF_hashedID: Int = 0
+    @AppStorage("default-cupping-form-description") var defaultCFDescription: String = ""
     
     let allCFModels: [CFModel]
     let sca_CFModel: CFModel
     
     init() {
+        #warning("version - beta")
         sca_CFModel = .init(title: "SCA", version: "beta 1.0 (10.0)")
         allCFModels = [sca_CFModel]
     }
     
     public func getDefaultCuppingForm(from cuppingForms: FetchedResults<CuppingForm>) -> CuppingForm? {
-        if let defaultCuppingForm = cuppingForms.first(where: { $0.id.hashValue == defaultCF_hashedID }) {
+        if let defaultCuppingForm = cuppingForms.first(where: { $0.description == defaultCFDescription }) {
             return defaultCuppingForm
         } else if let firstCuppingForm = cuppingForms.first {
-            defaultCF_hashedID = firstCuppingForm.id.hashValue
+            defaultCFDescription = firstCuppingForm.shortDescription
             return firstCuppingForm
         }
         return nil
     }
     
     public func setDefaultCuppingForm(cuppingForm: CuppingForm) {
-        defaultCF_hashedID = cuppingForm.hashValue
+        defaultCFDescription = cuppingForm.shortDescription
     }
 }

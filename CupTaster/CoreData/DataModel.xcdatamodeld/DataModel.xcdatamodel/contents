@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21223.12" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Cupping" representedClassName="Cupping" syncable="YES">
         <attribute name="cupsCount" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="-978318000" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString="New Folder"/>
-        <attribute name="notes" attributeType="String" defaultValueString=""/>
         <relationship name="form" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CuppingForm" inverseName="cuppings" inverseEntity="CuppingForm"/>
         <relationship name="samples" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Sample" inverseName="cupping" inverseEntity="Sample"/>
     </entity>
@@ -72,16 +71,4 @@
         <attribute name="value" attributeType="String" defaultValueString=""/>
         <relationship name="sample" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Sample" inverseName="generalInfo" inverseEntity="Sample"/>
     </entity>
-    <elements>
-        <element name="Cupping" positionX="1851.596252441406" positionY="2800.091033935545" width="127.0149536132812" height="133"/>
-        <element name="CuppingForm" positionX="2016.158996582032" positionY="2959.526916503906" width="128" height="133"/>
-        <element name="QCConfig" positionX="2181.063522338868" positionY="3109.672805786135" width="132.0628662109375" height="193"/>
-        <element name="QCGHint" positionX="2510.641052246094" positionY="3049.428009033203" width="128" height="59"/>
-        <element name="QCGroup" positionX="1847.188751220702" positionY="3060.113510131836" width="128" height="118"/>
-        <element name="QCGroupConfig" positionX="2356.05892944336" positionY="3004.412384033202" width="127.7367553710938" height="133"/>
-        <element name="QCHint" positionX="2513.994689941407" positionY="3139.489959716799" width="125.81201171875" height="73"/>
-        <element name="QualityCriteria" positionX="2014.561553955077" positionY="3154.381530761719" width="128" height="103"/>
-        <element name="Sample" positionX="1678.235748291016" positionY="2913.726318359377" width="128" height="148"/>
-        <element name="SampleGeneralInfo" positionX="1846.260955810548" positionY="2943.557464599608" width="128.4488525390625" height="103"/>
-    </elements>
 </model>

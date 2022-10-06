@@ -6,14 +6,17 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct CuppingSettingsView: View {
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) var presentationMode
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     @ObservedObject var cuppingModel: CuppingModel
+    @ObservedObject var cfManager: CFManager = CFManager()
     
-    @State var confirmDeleteAction: Bool = false
+    @State var samplesCount: Int = 1
+    @State var cupsCount: Int = 5
     
     var body: some View {
         NavigationView {
@@ -24,31 +27,20 @@ struct CuppingSettingsView: View {
                         .onSubmit { try? moc.save() }
                 }
                 
-                Section {
-                    if !cuppingModel.cupping.isFault {
-                        DatePicker("Date", selection: $cuppingModel.cupping.date, in: ...Date(), displayedComponents: [.date])
+                Section("General Information") {
+                    Picker("Samples count", selection: $samplesCount) {
+                        ForEach(1...20, id: \.self) { samplesCount in
+                            Text("\(samplesCount)").tag(samplesCount)
+                        }
                     }
-                    Picker("Cups per sample", selection: $cuppingModel.cupping.cupsCount) {
+                    Picker("Cups per sample", selection: $cupsCount) {
                         ForEach(1...5, id: \.self) { cupsCount in
-                            Text("\(cupsCount)").tag(Int16(cupsCount))
+                            Text("\(cupsCount)").tag(cupsCount)
                         }
                     }
-                    Picker("CuppingForm", selection: $cuppingModel.cupping.form) {
+                    Picker("CuppingForm", selection: $cfManager.defaultCFDescription) {
                         ForEach(cuppingForms) { cuppingForm in
-                            Text(cuppingForm.title).tag(cuppingForm)
-                        }
-                    }
-                    .disabled(cuppingModel.cupping.samples.count != 0)
-                } header: {
-                    Text("General Information")
-                } footer: {
-                    Text("NOTE: You cannot edit the cupping form when samples are added")
-                }
-                
-                if cuppingModel.cupping.form != nil {
-                    Section {
-                        Button("Delete", role: .destructive) {
-                            confirmDeleteAction = true
+                            Text(cuppingForm.title).tag(cuppingForm.shortDescription)
                         }
                     }
                 }
@@ -73,30 +65,50 @@ struct CuppingSettingsView: View {
                 StopwatchToolbarItem(placement: .principal)
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if cuppingModel.cupping.form == nil {
-                        Button("Save") {
+                    Button("Save") {
+                        if cuppingModel.cupping.form == nil {
+                            cuppingModel.cupping.cupsCount = Int16(cupsCount)
                             cuppingModel.cupping.form = CFManager().getDefaultCuppingForm(from: cuppingForms)
+                            
+                            for _ in 1...samplesCount {
+                                let usedNames: [String] = cuppingModel.cupping.samples.map { $0.name }
+                                let defaultName: String = SampleNameGenerator().generateSampleDefaultName(usedNames: usedNames)
+
+                                let sample: Sample = Sample(context: moc)
+
+                                sample.name = defaultName
+                                sample.ordinalNumber = Int16(cuppingModel.cupping.samples.count)
+
+                                if let cuppingForm = cuppingModel.cupping.form {
+                                    for groupConfig in cuppingForm.qcGroupConfigurations {
+                                        let qcGroup: QCGroup = QCGroup(context: moc)
+                                        qcGroup.sample = sample
+                                        qcGroup.configuration = groupConfig
+                                        for qcConfig in groupConfig.qcConfigurations {
+                                            let qualityCriteria = QualityCriteria(context: moc)
+                                            qualityCriteria.title = qcConfig.title
+                                            qualityCriteria.value = qcConfig.value
+                                            qualityCriteria.group = qcGroup
+                                            qualityCriteria.configuration = qcConfig
+                                        }
+                                    }
+                                }
+
+                                cuppingModel.cupping.addToSamples(sample)
+                            }
+                            
                             try? moc.save()
+                            
+                            cuppingModel.selectedSample = cuppingModel.sortedSamples.first
+                            cuppingModel.selectedSampleIndex = 0
+                            cuppingModel.samplesAppearance = .criteria
+                            
                             cuppingModel.settingsSheetDissmissDisabled = false
                             cuppingModel.settingsSheetIsPresented = false
+                        } else {
+                            cuppingModel.settingsSheetIsPresented = false
                         }
-                    } else {
-                        Button("Done") { cuppingModel.settingsSheetIsPresented = false }
                     }
-                }
-            }
-            .confirmationDialog(
-                "Are you sure you want to delete cupping and all relative samples?",
-                isPresented: $confirmDeleteAction,
-                titleVisibility: .visible
-            ) {
-                Button("Delete", role: .destructive) {
-                    confirmDeleteAction = false
-                    cuppingModel.settingsSheetIsPresented = false
-                    presentationMode.wrappedValue.dismiss()
-                    
-                    moc.delete(cuppingModel.cupping)
-                    try? moc.save()
                 }
             }
         }
