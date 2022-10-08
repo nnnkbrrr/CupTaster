@@ -25,6 +25,7 @@ class CuppingModel: ObservableObject, Identifiable {
     // Samples style
     @Published var samplesAppearance: SampleAppearance
     @Published var samplesEditorActive: Bool
+    @Published var selectedHintsQCGConfig: QCGroupConfig?
     
     init(cupping: Cupping) {
         self.cupping = cupping
@@ -37,6 +38,7 @@ class CuppingModel: ObservableObject, Identifiable {
         self.switchingSamplesAppearance = false
         self.samplesEditorActive = false
         self.samplesAppearance = .criteria
+        self.selectedHintsQCGConfig = nil
     }
 }
 

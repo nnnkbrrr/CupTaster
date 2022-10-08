@@ -56,21 +56,10 @@ struct EvaluationHeaderView: View {
                             }
                         } else {
                             qcGroup.sample.finalScore = 0
-//                            qcGroup.sample.cupping.objectWillChange.send()
                         }
-//                        qcGroup.objectWillChange.send()
                         try? moc.save()
                     }
                 }
-            }
-            
-            if let qcGroupHint: String = qcGroup.configuration.hint?.message, !qcGroup.isCompleted && useCuppingHints {
-                Text(qcGroupHint)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .font(.caption)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundColor(.gray)
-                    .padding([.horizontal, .top])
             }
         }
     }

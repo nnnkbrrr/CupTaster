@@ -50,16 +50,18 @@ enum SampleAppearance {
 
 extension SampleView {
     private var criteriaAppearance: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
-                ForEach(
-                    sample.qualityCriteriaGroups
-                        .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
-                ) { qcGroup in
-                    EvaluationGroupView(qcGroup: qcGroup)
+        ZStack {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    ForEach(
+                        sample.qualityCriteriaGroups
+                            .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
+                    ) { qcGroup in
+                        EvaluationGroupView(cuppingModel: cuppingModel, qcGroup: qcGroup)
+                    }
                 }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
         }
     }
 }

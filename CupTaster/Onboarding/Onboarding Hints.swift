@@ -22,7 +22,7 @@ struct OnboardingHintsView: View {
                     Text("No")
                         .font(.title2)
                         .fontWeight(.black)
-                        .scaleEffect(useCuppingHints ? 0.5 : 1.5)
+                        .scaleEffect(useCuppingHints ? 0.75 : 1.0)
                         .opacity(useCuppingHints ? 0.5 : 1.0)
                     
                     Toggle("", isOn: $useCuppingHints)
@@ -31,7 +31,7 @@ struct OnboardingHintsView: View {
                     Text("Yes")
                         .font(.title2)
                         .fontWeight(.black)
-                        .scaleEffect(useCuppingHints ? 1.5 : 0.5)
+                        .scaleEffect(useCuppingHints ? 1.0 : 0.75)
                         .opacity(useCuppingHints ? 1.0 : 0.5)
                 }
             }

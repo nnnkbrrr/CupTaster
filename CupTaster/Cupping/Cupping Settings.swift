@@ -38,9 +38,10 @@ struct CuppingSettingsView: View {
                             Text("\(cupsCount)").tag(cupsCount)
                         }
                     }
-                    Picker("CuppingForm", selection: $cfManager.defaultCFDescription) {
+                    Picker("Cupping Form", selection: $cfManager.defaultCFDescription) {
                         ForEach(cuppingForms) { cuppingForm in
-                            Text(cuppingForm.title).tag(cuppingForm.shortDescription)
+                            #warning("version")
+                            Text(cuppingForm.title + "\(cuppingForm.version)").tag(cuppingForm.shortDescription)
                         }
                     }
                 }

@@ -7,7 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		63072EF62869B94700F540E5 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63072EF52869B94700F540E5 /* Entities.swift */; };
+		22242C7328EF106D00138494 /* EmailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C7228EF106D00138494 /* EmailHelper.swift */; };
+		22242C7628EF263B00138494 /* Cupping Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C7528EF263B00138494 /* Cupping Entity.swift */; };
+		22242C7828EF267500138494 /* Sample Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C7728EF267500138494 /* Sample Entity.swift */; };
+		22242C7A28EF26A300138494 /* QCGroup Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C7928EF26A300138494 /* QCGroup Entity.swift */; };
+		22242C7C28EF273700138494 /* SampleGeneralInfo Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C7B28EF273700138494 /* SampleGeneralInfo Entity.swift */; };
+		22242C7E28EF274900138494 /* QualityCriteria Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C7D28EF274900138494 /* QualityCriteria Entity.swift */; };
+		22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C8128EF27DD00138494 /* CuppingForm Entity.swift */; };
+		22242C8428EF27FF00138494 /* QCGroupConfig Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C8328EF27FF00138494 /* QCGroupConfig Entity.swift */; };
+		22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C8528EF281200138494 /* QCConfig Entity.swift */; };
+		22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C8728EF282900138494 /* QCGHint Entity.swift */; };
+		2247D98E28F1928000DD6678 /* Sample Hints Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2247D98D28F1928000DD6678 /* Sample Hints Menu.swift */; };
+		226CF02428F19FAF00F853B9 /* QCHint Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CF02328F19FAF00F853B9 /* QCHint Entity.swift */; };
 		63083C0028B7A79C00874926 /* Sample Selector Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63083BFF28B7A79C00874926 /* Sample Selector Tools.swift */; };
 		630DE7B62869C99500D026A4 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630DE7B52869C99500D026A4 /* Sample.swift */; };
 		631C108028B0528F00620637 /* CFManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C107F28B0528F00620637 /* CFManager.swift */; };
@@ -22,12 +33,10 @@
 		6360D51A28CF3FD700D51D0D /* Cupping Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D51928CF3FD700D51D0D /* Cupping Tab.swift */; };
 		636857FF28593EDB0076E780 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636857FE28593EDB0076E780 /* Slider.swift */; };
 		637348D2288D7FD700689C96 /* Slider Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637348D1288D7FD700689C96 /* Slider Value.swift */; };
-		63742D15287EA8A1001E8DAB /* Generated Accessors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D14287EA8A1001E8DAB /* Generated Accessors.swift */; };
 		63742D18287EA998001E8DAB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D17287EA998001E8DAB /* Persistence.swift */; };
 		63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
 		6381530528C8DE00008816C9 /* CuppingFormsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381530428C8DE00008816C9 /* CuppingFormsTests.swift */; };
 		63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63842F08288301FC0014E2C5 /* Evaluation Types.swift */; };
-		63842F0B288302DC0014E2C5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63842F0A288302DC0014E2C5 /* Extensions.swift */; };
 		638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */ = {isa = PBXBuildFile; fileRef = 638CBE9B28C23BBF00B05A03 /* SCA.json */; };
 		639FD0A1287B534700FA19A0 /* Sample Selector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639FD0A0287B534700FA19A0 /* Sample Selector.swift */; };
 		63BCCE9328DF834700BD3FB9 /* Cupping Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */; };
@@ -39,8 +48,8 @@
 		63D892E628C9EED600F68505 /* Hide Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892E528C9EED600F68505 /* Hide Keyboard.swift */; };
 		63D892E828C9EF5C00F68505 /* AppStorage extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892E728C9EF5C00F68505 /* AppStorage extensions.swift */; };
 		63D892ED28CA068500F68505 /* ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892EC28CA068500F68505 /* ViewModifier.swift */; };
-		63D892EF28CA06B800F68505 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892EE28CA06B800F68505 /* Features.swift */; };
-		63D892F128CA243F00F68505 /* Hints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892F028CA243F00F68505 /* Hints.swift */; };
+		63D892EF28CA06B800F68505 /* Onboarding Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892EE28CA06B800F68505 /* Onboarding Features.swift */; };
+		63D892F128CA243F00F68505 /* Onboarding Hints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892F028CA243F00F68505 /* Onboarding Hints.swift */; };
 		63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A552801BE7800010318 /* CupTasterApp.swift */; };
 		63DC7A582801BE7800010318 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A572801BE7800010318 /* ContentView.swift */; };
 		63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A592801BE7A00010318 /* Assets.xcassets */; };
@@ -65,7 +74,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		63072EF52869B94700F540E5 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		22242C7228EF106D00138494 /* EmailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailHelper.swift; sourceTree = "<group>"; };
+		22242C7528EF263B00138494 /* Cupping Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Entity.swift"; sourceTree = "<group>"; };
+		22242C7728EF267500138494 /* Sample Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Entity.swift"; sourceTree = "<group>"; };
+		22242C7928EF26A300138494 /* QCGroup Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCGroup Entity.swift"; sourceTree = "<group>"; };
+		22242C7B28EF273700138494 /* SampleGeneralInfo Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SampleGeneralInfo Entity.swift"; sourceTree = "<group>"; };
+		22242C7D28EF274900138494 /* QualityCriteria Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QualityCriteria Entity.swift"; sourceTree = "<group>"; };
+		22242C8128EF27DD00138494 /* CuppingForm Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CuppingForm Entity.swift"; sourceTree = "<group>"; };
+		22242C8328EF27FF00138494 /* QCGroupConfig Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCGroupConfig Entity.swift"; sourceTree = "<group>"; };
+		22242C8528EF281200138494 /* QCConfig Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCConfig Entity.swift"; sourceTree = "<group>"; };
+		22242C8728EF282900138494 /* QCGHint Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCGHint Entity.swift"; sourceTree = "<group>"; };
+		2247D98D28F1928000DD6678 /* Sample Hints Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Hints Menu.swift"; sourceTree = "<group>"; };
+		226CF02328F19FAF00F853B9 /* QCHint Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCHint Entity.swift"; sourceTree = "<group>"; };
 		63083BFF28B7A79C00874926 /* Sample Selector Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Selector Tools.swift"; sourceTree = "<group>"; };
 		630DE7B52869C99500D026A4 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		631C107F28B0528F00620637 /* CFManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFManager.swift; sourceTree = "<group>"; };
@@ -81,14 +101,12 @@
 		636857FE28593EDB0076E780 /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		6371088A288032F60073348C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		637348D1288D7FD700689C96 /* Slider Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider Value.swift"; sourceTree = "<group>"; };
-		63742D14287EA8A1001E8DAB /* Generated Accessors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generated Accessors.swift"; sourceTree = "<group>"; };
 		63742D17287EA998001E8DAB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		63742D6328801CF5001E8DAB /* CupTaster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CupTaster.entitlements; sourceTree = "<group>"; };
 		63742D6528801D02001E8DAB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		6381530228C8DE00008816C9 /* CupTasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CupTasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6381530428C8DE00008816C9 /* CuppingFormsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuppingFormsTests.swift; sourceTree = "<group>"; };
 		63842F08288301FC0014E2C5 /* Evaluation Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Evaluation Types.swift"; sourceTree = "<group>"; };
-		63842F0A288302DC0014E2C5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		638CBE9B28C23BBF00B05A03 /* SCA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SCA.json; sourceTree = "<group>"; };
 		639FD0A0287B534700FA19A0 /* Sample Selector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Selector.swift"; sourceTree = "<group>"; };
 		63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Model.swift"; sourceTree = "<group>"; };
@@ -100,8 +118,8 @@
 		63D892E528C9EED600F68505 /* Hide Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hide Keyboard.swift"; sourceTree = "<group>"; };
 		63D892E728C9EF5C00F68505 /* AppStorage extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage extensions.swift"; sourceTree = "<group>"; };
 		63D892EC28CA068500F68505 /* ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifier.swift; sourceTree = "<group>"; };
-		63D892EE28CA06B800F68505 /* Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features.swift; sourceTree = "<group>"; };
-		63D892F028CA243F00F68505 /* Hints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hints.swift; sourceTree = "<group>"; };
+		63D892EE28CA06B800F68505 /* Onboarding Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Features.swift"; sourceTree = "<group>"; };
+		63D892F028CA243F00F68505 /* Onboarding Hints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Hints.swift"; sourceTree = "<group>"; };
 		63DC7A522801BE7800010318 /* CupTaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CupTaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DC7A552801BE7800010318 /* CupTasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupTasterApp.swift; sourceTree = "<group>"; };
 		63DC7A572801BE7800010318 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; wrapsLines = 1; };
@@ -135,6 +153,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22242C7428EF262B00138494 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		22242C8A28EF290F00138494 /* Codable Entities */ = {
+			isa = PBXGroup;
+			children = (
+				22242C8128EF27DD00138494 /* CuppingForm Entity.swift */,
+				22242C8528EF281200138494 /* QCConfig Entity.swift */,
+				22242C8328EF27FF00138494 /* QCGroupConfig Entity.swift */,
+				22242C8728EF282900138494 /* QCGHint Entity.swift */,
+				226CF02328F19FAF00F853B9 /* QCHint Entity.swift */,
+			);
+			path = "Codable Entities";
+			sourceTree = "<group>";
+		};
+		22242C8B28EF291B00138494 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				22242C7528EF263B00138494 /* Cupping Entity.swift */,
+				22242C7728EF267500138494 /* Sample Entity.swift */,
+				22242C7B28EF273700138494 /* SampleGeneralInfo Entity.swift */,
+				22242C7D28EF274900138494 /* QualityCriteria Entity.swift */,
+				22242C7928EF26A300138494 /* QCGroup Entity.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		635AFC4128A9138E007B78C0 /* Cupping */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,10 +217,10 @@
 		63742D16287EA8AB001E8DAB /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				22242C8B28EF291B00138494 /* Entities */,
+				22242C8A28EF290F00138494 /* Codable Entities */,
 				63742D17287EA998001E8DAB /* Persistence.swift */,
-				63072EF52869B94700F540E5 /* Entities.swift */,
-				63742D14287EA8A1001E8DAB /* Generated Accessors.swift */,
-				63842F0A288302DC0014E2C5 /* Extensions.swift */,
+				22242C7428EF262B00138494 /* New Group */,
 				6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -199,6 +248,7 @@
 				630DE7B52869C99500D026A4 /* Sample.swift */,
 				639FD0A0287B534700FA19A0 /* Sample Selector.swift */,
 				63083BFF28B7A79C00874926 /* Sample Selector Tools.swift */,
+				2247D98D28F1928000DD6678 /* Sample Hints Menu.swift */,
 				63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */,
 				635AFC4228A913A1007B78C0 /* Name Generator.swift */,
 				63E6B7C32886E4DE001A312F /* Evaluation */,
@@ -224,6 +274,7 @@
 				63842F08288301FC0014E2C5 /* Evaluation Types.swift */,
 				63D892E728C9EF5C00F68505 /* AppStorage extensions.swift */,
 				6324CE8A28E1E53F003E6088 /* Half Sheet.swift */,
+				22242C7228EF106D00138494 /* EmailHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -233,8 +284,8 @@
 			children = (
 				63D892EC28CA068500F68505 /* ViewModifier.swift */,
 				63E0131C289431B300AC4645 /* Onboarding.swift */,
-				63D892EE28CA06B800F68505 /* Features.swift */,
-				63D892F028CA243F00F68505 /* Hints.swift */,
+				63D892EE28CA06B800F68505 /* Onboarding Features.swift */,
+				63D892F028CA243F00F68505 /* Onboarding Hints.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -430,23 +481,26 @@
 			files = (
 				63CE1B7D28DD9C4D0035171A /* Radar Chart.swift in Sources */,
 				63D892E228C9EE5E00F68505 /* Blur.swift in Sources */,
-				63742D15287EA8A1001E8DAB /* Generated Accessors.swift in Sources */,
+				22242C7A28EF26A300138494 /* QCGroup Entity.swift in Sources */,
 				63E6B7C62886FEAC001A312F /* Evaluation Header.swift in Sources */,
-				63842F0B288302DC0014E2C5 /* Extensions.swift in Sources */,
-				63072EF62869B94700F540E5 /* Entities.swift in Sources */,
+				22242C7328EF106D00138494 /* EmailHelper.swift in Sources */,
 				63E6B7CD2886FFBD001A312F /* Checkboxes.swift in Sources */,
 				63083C0028B7A79C00874926 /* Sample Selector Tools.swift in Sources */,
 				63BCCE9328DF834700BD3FB9 /* Cupping Model.swift in Sources */,
 				63BCCE9528DF896900BD3FB9 /* Cupping Toolbar.swift in Sources */,
+				22242C7628EF263B00138494 /* Cupping Entity.swift in Sources */,
 				6360D51A28CF3FD700D51D0D /* Cupping Tab.swift in Sources */,
 				63DC7A582801BE7800010318 /* ContentView.swift in Sources */,
-				63D892EF28CA06B800F68505 /* Features.swift in Sources */,
+				63D892EF28CA06B800F68505 /* Onboarding Features.swift in Sources */,
 				63D892ED28CA068500F68505 /* ViewModifier.swift in Sources */,
-				63D892F128CA243F00F68505 /* Hints.swift in Sources */,
+				63D892F128CA243F00F68505 /* Onboarding Hints.swift in Sources */,
 				63D892E828C9EF5C00F68505 /* AppStorage extensions.swift in Sources */,
 				63D892DF28C9EC3400F68505 /* S Cupping Forms.swift in Sources */,
 				63DCCE1B28B1C3CA00B72AEB /* Checkboxes Value.swift in Sources */,
 				6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */,
+				22242C7C28EF273700138494 /* SampleGeneralInfo Entity.swift in Sources */,
+				22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */,
+				22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */,
 				6324CE8B28E1E53F003E6088 /* Half Sheet.swift in Sources */,
 				631C108028B0528F00620637 /* CFManager.swift in Sources */,
 				63D892DC28C9E75800F68505 /* CFModel.swift in Sources */,
@@ -454,19 +508,25 @@
 				63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */,
 				630DE7B62869C99500D026A4 /* Sample.swift in Sources */,
 				6324CE8D28E20D95003E6088 /* Cupping Settings.swift in Sources */,
+				22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */,
 				637348D2288D7FD700689C96 /* Slider Value.swift in Sources */,
+				22242C8428EF27FF00138494 /* QCGroupConfig Entity.swift in Sources */,
 				633FBD5F28A2597100A93781 /* Stopwatch.swift in Sources */,
 				635AFC4328A913A1007B78C0 /* Name Generator.swift in Sources */,
+				22242C7E28EF274900138494 /* QualityCriteria Entity.swift in Sources */,
 				636857FF28593EDB0076E780 /* Slider.swift in Sources */,
 				63E6B7CB2886FFAA001A312F /* Radio.swift in Sources */,
 				639FD0A1287B534700FA19A0 /* Sample Selector.swift in Sources */,
 				63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */,
 				63E6B7C22886E470001A312F /* Evaluation.swift in Sources */,
+				2247D98E28F1928000DD6678 /* Sample Hints Menu.swift in Sources */,
 				634E5EFD287BF042004A9A76 /* Settings.swift in Sources */,
 				63742D18287EA998001E8DAB /* Persistence.swift in Sources */,
 				63E0131D289431B300AC4645 /* Onboarding.swift in Sources */,
 				63D892E628C9EED600F68505 /* Hide Keyboard.swift in Sources */,
 				633C5037287090C6006B398E /* Cupping.swift in Sources */,
+				226CF02428F19FAF00F853B9 /* QCHint Entity.swift in Sources */,
+				22242C7828EF267500138494 /* Sample Entity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,7 +700,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
@@ -679,7 +739,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;

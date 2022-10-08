@@ -120,26 +120,51 @@ struct CuppingView: View {
                     SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace)
                 }
                 
-                VStack {
-                    Rectangle()
-                        .foregroundColor(Color(uiColor: .systemBackground))
-                        .frame(height: 15 + geometry.safeAreaInsets.top)
-                        .mask {
-                            VStack(spacing: 0) {
-                                LinearGradient(
-                                    colors: [Color.black.opacity(0), Color.black],
-                                    startPoint: .bottom,
-                                    endPoint: .top
-                                )
-                                .frame(height: 15 + geometry.safeAreaInsets.top)
+                CuppingToolbarView(presentationMode: _presentationMode, cuppingModel: cuppingModel, namespace: namespace)
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+                
+                if let qcGroupConfig = cuppingModel.selectedHintsQCGConfig {
+                    ScrollView(showsIndicators: false) {
+                        HintsMenuView(qcGroupConfig: qcGroupConfig)
+                            .padding(50)
+                    }
+                    .background(.ultraThinMaterial)
+                    .safeAreaInset(edge: .bottom) {
+                        Button {
+                            withAnimation {
+                                cuppingModel.selectedHintsQCGConfig = nil
                             }
+                        } label: {
+                            Text("Done")
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.accentColor)
+                                .cornerRadius(15)
+                                .shadow(radius: 15)
+                                .padding([.horizontal, .bottom], 50)
                         }
-                    
-                    Spacer()
-                    
-                    CuppingToolbarView(presentationMode: _presentationMode, cuppingModel: cuppingModel, namespace: namespace)
+                    }
+                    .transition(.move(edge: .bottom))
+                    .zIndex(2)
                 }
-                .edgesIgnoringSafeArea(.top)
+                
+                Rectangle()
+                    .foregroundColor(Color(uiColor: .systemBackground))
+                    .frame(height: 15 + geometry.safeAreaInsets.top)
+                    .mask {
+                        VStack(spacing: 0) {
+                            LinearGradient(
+                                colors: [Color.black.opacity(0), Color.black],
+                                startPoint: .bottom,
+                                endPoint: .top
+                            )
+                            .frame(height: 15 + geometry.safeAreaInsets.top)
+                        }
+                    }
+                    .edgesIgnoringSafeArea(.top)
+                    .frame(maxHeight: .infinity, alignment: .top)
+                    .zIndex(3)
             }
         }
         .halfSheet(

@@ -45,12 +45,6 @@ struct SettingsCuppingFormsView: View {
                     ForEach(addedCuppingForms) { cuppingForm in
                         HStack {
                             Button {
-                                print("-------------------------------------")
-                                print(cfManager.defaultCFDescription)
-                                print("-------------------------------------")
-                                print(cuppingForm.shortDescription)
-                                print("-------------------------------------")
-                                
                                 withAnimation {
                                     cfManager.defaultCFDescription = cuppingForm.shortDescription
                                 }
@@ -115,20 +109,28 @@ struct SettingsCuppingFormsView: View {
             if deprecatedCuppingForms.count > 0 {
                 Section {
                     ForEach(deprecatedCuppingForms) { cuppingForm in
-                        Button {
-                            withAnimation {
-                                cfManager.defaultCFDescription = cuppingForm.shortDescription
+                        HStack {
+                            Button {
+                                withAnimation {
+                                    cfManager.defaultCFDescription = cuppingForm.shortDescription
+                                }
+                            } label: {
+                                HStack {
+                                    Image(systemName: "checkmark")
+                                        .frame(width: 30)
+                                        .opacity(cuppingForm.isSelected(defaultCFDescription: cfManager.defaultCFDescription) ? 1 : 0)
+                                    Divider()
+                                        .padding(.vertical, 5)
+                                    Text("\(cuppingForm.title) v. \(cuppingForm.version) - \(cuppingForm.languageCode)")
+                                    Spacer()
+                                }
                             }
-                        } label: {
-                            HStack {
-                                Image(systemName: "checkmark")
-                                    .frame(width: 30)
-                                    .opacity(cuppingForm.isSelected(defaultCFDescription: cfManager.defaultCFDescription) ? 1 : 0)
-                                Divider()
-                                    .padding(.vertical, 5)
-                                Text("\(cuppingForm.title) v. \(cuppingForm.version) - \(cuppingForm.languageCode)")
-                                Spacer()
-                            }
+                            .frame(maxWidth: .infinity)
+                            
+                            NavigationLinkButton(
+                                destination: CuppingFormInfoView(moc: moc, cuppingForm: cuppingForm),
+                                label: { Image(systemName: "info.circle") }
+                            )
                         }
                     }
                 } header: {

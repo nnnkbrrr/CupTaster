@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EvaluationGroupView: View {
     @Environment(\.managedObjectContext) private var moc
+    @ObservedObject var cuppingModel: CuppingModel
     @ObservedObject var qcGroup: QCGroup
     
     var body: some View {
@@ -29,7 +30,7 @@ struct EvaluationGroupView: View {
             if !qcGroup.isCompleted {
                 VStack(spacing: 15) {
                     ForEach(qcGroup.qualityCriteria.sorted()) { qualityCriteria in
-                        EvaluationView(qualityCriteria: qualityCriteria)
+                        EvaluationView(cuppingModel: cuppingModel, qualityCriteria: qualityCriteria)
                     }
                 }
                 .padding()

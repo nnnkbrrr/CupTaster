@@ -26,3 +26,15 @@ struct PersistenceController {
     }
 }
 
+// MARK: Codable Entities
+
+extension CodingUserInfoKey {
+    static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")!
+}
+
+extension JSONDecoder {
+    convenience init(context: NSManagedObjectContext) {
+        self.init()
+        self.userInfo[.managedObjectContext] = context
+    }
+}

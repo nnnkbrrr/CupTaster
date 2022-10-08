@@ -31,8 +31,6 @@ struct ContentView: View {
     }
 }
 
-
-#warning("test tools")
 struct TesterView: View {
     @AppStorage("onboarding-completed") var onboardingCompleted: Bool = false
     @FetchRequest(entity: Cupping.entity(), sortDescriptors: []) var cuppings: FetchedResults<Cupping>

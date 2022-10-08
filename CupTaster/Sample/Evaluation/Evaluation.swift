@@ -11,6 +11,7 @@ import CoreData
 struct EvaluationView: View {
     @Environment(\.managedObjectContext) private var moc
     @AppStorage("use-cupping-hints") var useCuppingHints: Bool = true
+    @ObservedObject var cuppingModel: CuppingModel
     @ObservedObject var qualityCriteria: QualityCriteria
     @State var currentQCHint: String?
     
@@ -55,14 +56,24 @@ struct EvaluationView: View {
                 
                 if let currentQCHint {
                     if useCuppingHints {
-                        Text(currentQCHint)
-                            .font(.caption)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .foregroundColor(.gray)
-                            .padding(5)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .background(Color(uiColor: .systemGray4))
-                            .cornerRadius(5)
+                        VStack(alignment: .leading) {
+                            Text(currentQCHint)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .fixedSize(horizontal: false, vertical: true)
+                            
+                            Text("Tap for more")
+                                .foregroundColor(.gray)
+                                .padding(.top, 5)
+                        }
+                        .font(.caption)
+                        .padding(5)
+                        .background(Color(uiColor: .systemGray4))
+                        .cornerRadius(5)
+                        .onTapGesture {
+                            withAnimation {
+                                cuppingModel.selectedHintsQCGConfig = qualityCriteria.configuration!.groupConfiguration
+                            }
+                        }
                     }
                 }
             }
