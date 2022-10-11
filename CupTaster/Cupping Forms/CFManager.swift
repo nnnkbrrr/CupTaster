@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 
 public class CFManager: ObservableObject {
-    @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     @AppStorage("default-cupping-form-description") var defaultCFDescription: String = "" {
         didSet {
             objectWillChange.send()
@@ -45,7 +44,15 @@ extension CFManager {
     public func newerVersionsAvailability(from cuppingForms: FetchedResults<CuppingForm>) -> Int {
         var count: Int = 0
         for cfModel in allCFModels {
-            if !cuppingForms.filter({ $0.title == cfModel.title }).contains(where: { $0.version == cfModel.version }) {
+            let anyVersionAdded: Bool = cuppingForms.filter({
+                $0.title == cfModel.title
+            }).count > 0
+            
+            let latestVersionAdded: Bool = cuppingForms.filter({
+                $0.title == cfModel.title
+            }).contains(where: { $0.version == cfModel.version })
+            
+            if anyVersionAdded && !latestVersionAdded {
                 count += 1
             }
         }

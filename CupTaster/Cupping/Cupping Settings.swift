@@ -14,7 +14,7 @@ struct CuppingSettingsView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     @ObservedObject var cuppingModel: CuppingModel
     
-//    @State var selectedCuppingForm: CuppingForm = CFManager.shared.getDefaultCuppingForm(from: <#T##FetchedResults<CuppingForm>#>)
+    @State var selectedCuppingForm: CuppingForm? = nil
     @StateObject private var cfManager = CFManager.shared
     
     @State var samplesCount: Int = 1
@@ -42,7 +42,7 @@ struct CuppingSettingsView: View {
                         }
                     }
                     
-                    Picker("Cupping Form", selection: cfManager.$defaultCFDescription) {
+                    Picker("Cupping Form", selection: $selectedCuppingForm) {
                         ForEach(cuppingForms) { cuppingForm in
                             #warning("version")
                             Text(cuppingForm.title + "\(cuppingForm.version)").tag(cuppingForm.shortDescription)
@@ -66,10 +66,6 @@ struct CuppingSettingsView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
-#warning("---")
-                        print(cfManager.getDefaultCuppingForm(from: cuppingForms))
-                        
-                        
                         cuppingModel.cupping.cupsCount = Int16(cupsCount)
                         cuppingModel.cupping.form = cfManager.getDefaultCuppingForm(from: cuppingForms)
                         

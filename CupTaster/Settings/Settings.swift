@@ -25,7 +25,8 @@ struct SettingsView: View {
                         if let defaultCuppingTitle {
                             Text("Cupping form: \(defaultCuppingTitle.title)")
                         } else {
-                            Text("Cupping form is not selected")
+                            Label("Cupping form need to be added", systemImage: "exclamationmark.triangle")
+                                .foregroundColor(.red)
                         }
                     }
                     

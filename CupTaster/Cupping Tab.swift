@@ -13,6 +13,7 @@ struct AllCuppingsView: View {
         entity: Cupping.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Cupping.date, ascending: false)]
     ) var cuppings: FetchedResults<Cupping>
+    @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     @FetchRequest(entity: Sample.entity(), sortDescriptors: []) var samples: FetchedResults<Sample>
     
     @State private var newCuppingName: String = ""
@@ -21,90 +22,102 @@ struct AllCuppingsView: View {
     @State var activeCuppingModel: CuppingModel? = nil
     
     var body: some View {
-        NavigationView {
-            List {
-                Section {
-                    if newCuppingNameVisible {
-                        HStack {
-                            Button {
-                                newCuppingName = ""
-                                withAnimation { newCuppingNameVisible = false }
-                            } label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .contentShape(Rectangle())
+        if CFManager.shared.getDefaultCuppingForm(from: cuppingForms) == nil {
+            VStack(spacing: 30) {
+                Text("No cupping forms are available")
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
+                
+                Text("Please add at least one cupping form in settings")
+            }
+            .multilineTextAlignment(.center)
+            .padding(30)
+        } else {
+            NavigationView {
+                List {
+                    Section {
+                        if newCuppingNameVisible {
+                            HStack {
+                                Button {
+                                    newCuppingName = ""
+                                    withAnimation { newCuppingNameVisible = false }
+                                } label: {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .contentShape(Rectangle())
+                                }
+                                
+                                TextField("New cupping name", text: $newCuppingName) { addNewCupping() }
+                                    .submitLabel(.done)
+                                    .focused($newCuppingNameFocused, equals: true)
+                                
+                                Button {
+                                    addNewCupping()
+                                } label: {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .contentShape(Rectangle())
+                                }
                             }
-                            
-                            TextField("New cupping name", text: $newCuppingName) { addNewCupping() }
-                                .submitLabel(.done)
-                                .focused($newCuppingNameFocused, equals: true)
-                            
+                            .buttonStyle(BorderlessButtonStyle())
+                            .onAppear { newCuppingNameFocused = true }
+                        } else {
                             Button {
-                                addNewCupping()
+                                withAnimation { newCuppingNameVisible = true }
                             } label: {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .contentShape(Rectangle())
+                                Label("New cupping", systemImage: "plus")
                             }
-                        }
-                        .buttonStyle(BorderlessButtonStyle())
-                        .onAppear { newCuppingNameFocused = true }
-                    } else {
-                        Button {
-                            withAnimation { newCuppingNameVisible = true }
-                        } label: {
-                            Label("New cupping", systemImage: "plus")
                         }
                     }
-                }
-                
-                Section {
-                    ForEach(cuppings) { cupping in
-                        Button {
-                            activeCuppingModel = CuppingModel(cupping: cupping)
-                        } label: {
-                            VStack(spacing: 5) {
-                                Text(cupping.name)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                HStack {
+                    
+                    Section {
+                        ForEach(cuppings) { cupping in
+                            Button {
+                                activeCuppingModel = CuppingModel(cupping: cupping)
+                            } label: {
+                                VStack(spacing: 5) {
+                                    Text(cupping.name)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
                                     HStack {
-                                        Text("\(cupping.form?.title ?? "-")")
-                                        Divider()
-                                            .frame(height: 15)
-                                        Text("\(cupping.samples.count) samples x \(cupping.cupsCount) cups")
-                                        let favoritesCount: Int = cupping.samples.filter{ $0.isFavorite }.count
-                                        if favoritesCount > 0 {
+                                        HStack {
+                                            Text("\(cupping.form?.title ?? "-")")
                                             Divider()
                                                 .frame(height: 15)
-                                            Text("\(favoritesCount)")
-                                            Image(systemName: "heart.fill")
+                                            Text("\(cupping.samples.count) samples x \(cupping.cupsCount) cups")
+                                            let favoritesCount: Int = cupping.samples.filter{ $0.isFavorite }.count
+                                            if favoritesCount > 0 {
+                                                Divider()
+                                                    .frame(height: 15)
+                                                Text("\(favoritesCount)")
+                                                Image(systemName: "heart.fill")
+                                            }
                                         }
+                                        
+                                        Spacer()
+                                        
+                                        Text(cupping.date, style: .date)
                                     }
-                                    
-                                    Spacer()
-                                    
-                                    Text(cupping.date, style: .date)
+                                    .foregroundColor(.gray)
+                                    .font(.caption)
                                 }
-                                .foregroundColor(.gray)
-                                .font(.caption)
                             }
                         }
-                    }
-                    .onDelete { offsets in
-                        for index in offsets {
-                            moc.delete(cuppings[index])
-                            try? moc.save()
+                        .onDelete { offsets in
+                            for index in offsets {
+                                moc.delete(cuppings[index])
+                                try? moc.save()
+                            }
                         }
+                    } header: {
+                        Text("\(cuppings.count) cuppings, \(samples.count) samples")
                     }
-                } header: {
-                    Text("\(cuppings.count) cuppings, \(samples.count) samples")
                 }
+                .toolbar {
+                    StopwatchToolbarItem()
+                }
+                .navigationTitle("All Сuppings")
             }
-            .toolbar {
-                StopwatchToolbarItem()
-            }
-            .navigationTitle("All Сuppings")
+            .fullScreenCover(item: $activeCuppingModel, content: { CuppingView(cuppingModel: $0) })
         }
-        .fullScreenCover(item: $activeCuppingModel, content: { CuppingView(cuppingModel: $0) })
     }
     
     func addNewCupping() {
