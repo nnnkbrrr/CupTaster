@@ -19,6 +19,7 @@
 		22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C8728EF282900138494 /* QCGHint Entity.swift */; };
 		2247D98E28F1928000DD6678 /* Sample Hints Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2247D98D28F1928000DD6678 /* Sample Hints Menu.swift */; };
 		226CF02428F19FAF00F853B9 /* QCHint Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CF02328F19FAF00F853B9 /* QCHint Entity.swift */; };
+		22B1905A28F3129500D79ABE /* Tester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B1905928F3129400D79ABE /* Tester.swift */; };
 		63083C0028B7A79C00874926 /* Sample Selector Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63083BFF28B7A79C00874926 /* Sample Selector Tools.swift */; };
 		630DE7B62869C99500D026A4 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630DE7B52869C99500D026A4 /* Sample.swift */; };
 		631C108028B0528F00620637 /* CFManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C107F28B0528F00620637 /* CFManager.swift */; };
@@ -86,6 +87,7 @@
 		22242C8728EF282900138494 /* QCGHint Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCGHint Entity.swift"; sourceTree = "<group>"; };
 		2247D98D28F1928000DD6678 /* Sample Hints Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Hints Menu.swift"; sourceTree = "<group>"; };
 		226CF02328F19FAF00F853B9 /* QCHint Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCHint Entity.swift"; sourceTree = "<group>"; };
+		22B1905928F3129400D79ABE /* Tester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tester.swift; sourceTree = "<group>"; };
 		63083BFF28B7A79C00874926 /* Sample Selector Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Selector Tools.swift"; sourceTree = "<group>"; };
 		630DE7B52869C99500D026A4 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		631C107F28B0528F00620637 /* CFManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFManager.swift; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				63DC7A572801BE7800010318 /* ContentView.swift */,
+				22B1905928F3129400D79ABE /* Tester.swift */,
 				6360D51928CF3FD700D51D0D /* Cupping Tab.swift */,
 				63D892EB28CA066200F68505 /* Onboarding */,
 				635AFC4128A9138E007B78C0 /* Cupping */,
@@ -486,6 +489,7 @@
 				22242C7328EF106D00138494 /* EmailHelper.swift in Sources */,
 				63E6B7CD2886FFBD001A312F /* Checkboxes.swift in Sources */,
 				63083C0028B7A79C00874926 /* Sample Selector Tools.swift in Sources */,
+				22B1905A28F3129500D79ABE /* Tester.swift in Sources */,
 				63BCCE9328DF834700BD3FB9 /* Cupping Model.swift in Sources */,
 				63BCCE9528DF896900BD3FB9 /* Cupping Toolbar.swift in Sources */,
 				22242C7628EF263B00138494 /* Cupping Entity.swift in Sources */,

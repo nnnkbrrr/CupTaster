@@ -27,32 +27,28 @@ struct NavigationLinkButton<Label: View, Destination: View>: View {
     }
 }
 
-#warning("notification if new cupping form is available")
-
 struct SettingsCuppingFormsView: View {
     @Environment(\.managedObjectContext) private var moc
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     
-    @ObservedObject var cfManager: CFManager = .init()
-    
     var body: some View {
-        let allCFModels = cfManager.allCFModels
+        let allCFModels = CFManager.shared.allCFModels
         
         List {
-            let addedCuppingForms = cfManager.allCFModels.compactMap { $0.getCF_ifAdded(storedCuppingForms: cuppingForms) }
+            let addedCuppingForms = CFManager.shared.allCFModels.compactMap { $0.getCF_ifAdded(storedCuppingForms: cuppingForms) }
             if addedCuppingForms.count > 0 {
                 Section {
                     ForEach(addedCuppingForms) { cuppingForm in
                         HStack {
                             Button {
                                 withAnimation {
-                                    cfManager.defaultCFDescription = cuppingForm.shortDescription
+                                    CFManager.shared.defaultCFDescription = cuppingForm.shortDescription
                                 }
                             } label: {
                                 HStack {
                                     Image(systemName: "checkmark")
                                         .frame(width: 30)
-                                        .opacity(cuppingForm.isSelected(defaultCFDescription: cfManager.defaultCFDescription) ? 1 : 0)
+                                        .opacity(cuppingForm.isSelected(defaultCFDescription: CFManager.shared.defaultCFDescription) ? 1 : 0)
                                     Divider()
                                         .padding(.vertical, 5)
                                     Text(cuppingForm.title)
@@ -81,7 +77,7 @@ struct SettingsCuppingFormsView: View {
                             Button {
                                 if let addedForm = cfModel.createCuppingForm(context: moc) {
                                     withAnimation {
-                                        cfManager.defaultCFDescription = addedForm.shortDescription
+                                        CFManager.shared.defaultCFDescription = addedForm.shortDescription
                                     }
                                 }
                             } label: {
@@ -112,13 +108,13 @@ struct SettingsCuppingFormsView: View {
                         HStack {
                             Button {
                                 withAnimation {
-                                    cfManager.defaultCFDescription = cuppingForm.shortDescription
+                                    CFManager.shared.defaultCFDescription = cuppingForm.shortDescription
                                 }
                             } label: {
                                 HStack {
                                     Image(systemName: "checkmark")
                                         .frame(width: 30)
-                                        .opacity(cuppingForm.isSelected(defaultCFDescription: cfManager.defaultCFDescription) ? 1 : 0)
+                                        .opacity(cuppingForm.isSelected(defaultCFDescription: CFManager.shared.defaultCFDescription) ? 1 : 0)
                                     Divider()
                                         .padding(.vertical, 5)
                                     Text("\(cuppingForm.title) v. \(cuppingForm.version) - \(cuppingForm.languageCode)")

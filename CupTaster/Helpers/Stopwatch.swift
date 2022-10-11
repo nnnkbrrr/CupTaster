@@ -17,8 +17,6 @@ struct StopwatchToolbarItem: ToolbarContent {
     }
 }
 
-#warning("сбрасывать после часа")
-
 struct StopwatchView: View {
     @AppStorage("stopwatch-time-since") var timeSince: Date? = nil
     @AppStorage("stopwatch-time-till") var timeTill: Date? = nil
@@ -74,6 +72,12 @@ struct StopwatchView: View {
         formatter.dateFormat = "mm:ss.SS"
         
         if let timeSince = timeSince {
+            if Date(timeIntervalSince1970:
+                        Double((timeTill ?? Date()).timeIntervalSince(timeSince))
+            ) > Date(timeIntervalSince1970: 3600) {
+                self.timeSince = nil
+                self.timeTill = nil
+            }
             return formatter.string(from: Date(timeIntervalSince1970: Double((timeTill ?? Date()).timeIntervalSince(timeSince))))
         } else {
             return nil

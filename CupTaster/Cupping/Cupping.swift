@@ -109,7 +109,7 @@ struct CuppingView: View {
                                     } label: {
                                         SampleView(cuppingModel: cuppingModel, sample: sample).preview
                                     }
-                                    .matchedGeometryEffect(id: sample.id, in: namespace)
+                                    .matchedGeometryEffect(id: "\(sample.id)", in: namespace)
                                 }
                             }
                             .padding([.bottom, .horizontal])

@@ -58,7 +58,7 @@ extension CuppingForm {
     }
     
     var isDeprecated: Bool {
-        return !CFManager().allCFModels.contains { cfModel in
+        return !CFManager.shared.allCFModels.contains { cfModel in
             self.title == cfModel.title && self.version == cfModel.version
         }
     }

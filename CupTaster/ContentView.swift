@@ -11,51 +11,26 @@ import CoreData
 // MARK: Content View
 
 #warning("внешний вид на айпадах")
+#warning("внешний вид на светлой теме")
+#warning("формы для каппинга сбрасываются если их несколько")
+#warning("анимации закрытия образца лагают")
+#warning("если образкоы много, то приложение сильно зависает")
 
 struct ContentView: View {
-    let sfManager: CFManager = .init()
-    
+    @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     var body: some View {
         TabView {
             AllCuppingsView()
                 .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
             
-            SettingsView(selectedCuppingFormID: sfManager.$defaultCFDescription)
+            SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape") }
+                .badge(CFManager.shared.newerVersionsAvailability(from: cuppingForms))
             
 #warning("test tools")
             TesterView()
                 .tabItem { Label("Тестировщик", systemImage: "wrench.and.screwdriver") }
         }
         .modifier(OnboardingSheet())
-    }
-}
-
-struct TesterView: View {
-    @AppStorage("onboarding-completed") var onboardingCompleted: Bool = false
-    @FetchRequest(entity: Cupping.entity(), sortDescriptors: []) var cuppings: FetchedResults<Cupping>
-    var body: some View {
-        Form {
-            Section("") {
-                Button {
-                    onboardingCompleted = false
-                } label: {
-                    Text("Показать приветствие при следующем запуске")
-                }
-            }
-            
-            let samPerCpg: [Int] = cuppings.map { $0.samples.count }
-            let minSamPerCpg: Int = samPerCpg.min()!
-            let avgSamPerCpg: Int = Int(CGFloat(samPerCpg.reduce(0, +))/CGFloat(cuppings.count))
-            let maxSamPerCpg: Int = samPerCpg.max()!
-            
-            Section("Статистика") {
-                Text("Каппингов всего: \(cuppings.count)")
-                Text("Образцов всего: \(samPerCpg.reduce(0, +))")
-                Text("Минимум образцов: \(minSamPerCpg)")
-                Text("В среднем образцов: \(avgSamPerCpg)")
-                Text("Максимум образцов: \(maxSamPerCpg)")
-            }
-        }
     }
 }

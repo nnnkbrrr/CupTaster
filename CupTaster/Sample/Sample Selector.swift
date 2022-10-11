@@ -24,7 +24,7 @@ struct SampleSelectorView: View {
                     ForEach(cuppingModel.sortedSamples) { sample in
                         SampleView(cuppingModel: cuppingModel, sample: sample, appearance: $cuppingModel.samplesAppearance)
                             .frame(width: geometry.size.width)
-                            .matchedGeometryEffect(id: sample.id, in: namespace)
+                            .matchedGeometryEffect(id: (cuppingModel.selectedSample == sample ? "" : "not selected") + "\(sample.id)", in: namespace)
                             .opacity(cuppingModel.switchingSamplesAppearance && cuppingModel.selectedSample != sample ? 0 : 1)
                             .scaleEffect(cuppingModel.switchingSamplesAppearance && cuppingModel.selectedSample == sample ? 0.7 + (cuppingModel.offset.height/(geometry.size.height*2)) : 1)
                     }

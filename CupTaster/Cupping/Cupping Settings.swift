@@ -13,7 +13,9 @@ struct CuppingSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     @ObservedObject var cuppingModel: CuppingModel
-    @ObservedObject var cfManager: CFManager = CFManager()
+    
+//    @State var selectedCuppingForm: CuppingForm = CFManager.shared.getDefaultCuppingForm(from: <#T##FetchedResults<CuppingForm>#>)
+    @StateObject private var cfManager = CFManager.shared
     
     @State var samplesCount: Int = 1
     @State var cupsCount: Int = 5
@@ -33,12 +35,14 @@ struct CuppingSettingsView: View {
                             Text("\(samplesCount)").tag(samplesCount)
                         }
                     }
+                    
                     Picker("Cups per sample", selection: $cupsCount) {
                         ForEach(1...5, id: \.self) { cupsCount in
                             Text("\(cupsCount)").tag(cupsCount)
                         }
                     }
-                    Picker("Cupping Form", selection: $cfManager.defaultCFDescription) {
+                    
+                    Picker("Cupping Form", selection: cfManager.$defaultCFDescription) {
                         ForEach(cuppingForms) { cuppingForm in
                             #warning("version")
                             Text(cuppingForm.title + "\(cuppingForm.version)").tag(cuppingForm.shortDescription)
@@ -50,16 +54,11 @@ struct CuppingSettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
-                        if cuppingModel.cupping.form == nil {
-                            cuppingModel.settingsSheetIsPresented = false
-                            presentationMode.wrappedValue.dismiss()
-                            
-                            moc.delete(cuppingModel.cupping)
-                            try? moc.save()
-                        } else {
-                            moc.rollback()
-                            cuppingModel.settingsSheetIsPresented = false
-                        }
+                        cuppingModel.settingsSheetIsPresented = false
+                        presentationMode.wrappedValue.dismiss()
+                        
+                        moc.delete(cuppingModel.cupping)
+                        try? moc.save()
                     }
                 }
                 
@@ -67,48 +66,48 @@ struct CuppingSettingsView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
-                        if cuppingModel.cupping.form == nil {
-                            cuppingModel.cupping.cupsCount = Int16(cupsCount)
-                            cuppingModel.cupping.form = CFManager().getDefaultCuppingForm(from: cuppingForms)
+#warning("---")
+                        print(cfManager.getDefaultCuppingForm(from: cuppingForms))
+                        
+                        
+                        cuppingModel.cupping.cupsCount = Int16(cupsCount)
+                        cuppingModel.cupping.form = cfManager.getDefaultCuppingForm(from: cuppingForms)
+                        
+                        for _ in 1...samplesCount {
+                            let usedNames: [String] = cuppingModel.cupping.samples.map { $0.name }
+                            let defaultName: String = SampleNameGenerator().generateSampleDefaultName(usedNames: usedNames)
                             
-                            for _ in 1...samplesCount {
-                                let usedNames: [String] = cuppingModel.cupping.samples.map { $0.name }
-                                let defaultName: String = SampleNameGenerator().generateSampleDefaultName(usedNames: usedNames)
-
-                                let sample: Sample = Sample(context: moc)
-
-                                sample.name = defaultName
-                                sample.ordinalNumber = Int16(cuppingModel.cupping.samples.count)
-
-                                if let cuppingForm = cuppingModel.cupping.form {
-                                    for groupConfig in cuppingForm.qcGroupConfigurations {
-                                        let qcGroup: QCGroup = QCGroup(context: moc)
-                                        qcGroup.sample = sample
-                                        qcGroup.configuration = groupConfig
-                                        for qcConfig in groupConfig.qcConfigurations {
-                                            let qualityCriteria = QualityCriteria(context: moc)
-                                            qualityCriteria.title = qcConfig.title
-                                            qualityCriteria.value = qcConfig.value
-                                            qualityCriteria.group = qcGroup
-                                            qualityCriteria.configuration = qcConfig
-                                        }
+                            let sample: Sample = Sample(context: moc)
+                            
+                            sample.name = defaultName
+                            sample.ordinalNumber = Int16(cuppingModel.cupping.samples.count)
+                            
+                            if let cuppingForm = cuppingModel.cupping.form {
+                                for groupConfig in cuppingForm.qcGroupConfigurations {
+                                    let qcGroup: QCGroup = QCGroup(context: moc)
+                                    qcGroup.sample = sample
+                                    qcGroup.configuration = groupConfig
+                                    for qcConfig in groupConfig.qcConfigurations {
+                                        let qualityCriteria = QualityCriteria(context: moc)
+                                        qualityCriteria.title = qcConfig.title
+                                        qualityCriteria.value = qcConfig.value
+                                        qualityCriteria.group = qcGroup
+                                        qualityCriteria.configuration = qcConfig
                                     }
                                 }
-
-                                cuppingModel.cupping.addToSamples(sample)
                             }
                             
-                            try? moc.save()
-                            
-                            cuppingModel.selectedSample = cuppingModel.sortedSamples.first
-                            cuppingModel.selectedSampleIndex = 0
-                            cuppingModel.samplesAppearance = .criteria
-                            
-                            cuppingModel.settingsSheetDissmissDisabled = false
-                            cuppingModel.settingsSheetIsPresented = false
-                        } else {
-                            cuppingModel.settingsSheetIsPresented = false
+                            cuppingModel.cupping.addToSamples(sample)
                         }
+                        
+                        try? moc.save()
+                        
+                        cuppingModel.selectedSample = cuppingModel.sortedSamples.first
+                        cuppingModel.selectedSampleIndex = 0
+                        cuppingModel.samplesAppearance = .criteria
+                        
+                        cuppingModel.settingsSheetDissmissDisabled = false
+                        cuppingModel.settingsSheetIsPresented = false
                     }
                 }
             }

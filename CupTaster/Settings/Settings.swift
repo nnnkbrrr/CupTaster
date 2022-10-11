@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SettingsView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
-    @Binding var selectedCuppingFormID: String
     
     @AppStorage("use-cupping-hints")
     var useCuppingHints: Bool = false
@@ -22,7 +21,7 @@ struct SettingsView: View {
             Form {
                 Section {
                     NavigationLink(destination: SettingsCuppingFormsView()) {
-                        let defaultCuppingTitle: CuppingForm? = CFManager().getDefaultCuppingForm(from: cuppingForms)
+                        let defaultCuppingTitle: CuppingForm? = CFManager.shared.getDefaultCuppingForm(from: cuppingForms)
                         if let defaultCuppingTitle {
                             Text("Cupping form: \(defaultCuppingTitle.title)")
                         } else {
@@ -40,9 +39,10 @@ struct SettingsView: View {
                     Text("Cuppings")
                 }
                 
-#warning("in future")
                 Section {
+#warning("in future")
                     //Text("Tip jar")
+                    
                     Button("Contact") { EmailHelper.shared.send(to: "support-cuptaster@nnnkbrrr.space") }
                     Button("Help with translation") { EmailHelper.shared.send(
                         subject: "Cuptaster localization",

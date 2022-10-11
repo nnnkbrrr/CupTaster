@@ -16,8 +16,6 @@ struct OnboardingView: View {
         case features, forms, hints
     }
     
-    @ObservedObject var cfManager: CFManager = .init()
-    
     var body: some View {
         ZStack(alignment: .bottom) {
             Group {
@@ -32,7 +30,7 @@ struct OnboardingView: View {
                                     .multilineTextAlignment(.center)
                                     .padding([.top, .horizontal], 20)
                                 
-                                SettingsCuppingFormsView(cfManager: cfManager)
+                                SettingsCuppingFormsView()
                             }
                             .padding(30)
                             .navigationBarHidden(true)
@@ -72,7 +70,7 @@ struct OnboardingView: View {
                 .background(Color.accentColor)
                 .cornerRadius(15)
             }
-            .disabled(currentPage == .forms && cfManager.defaultCFDescription == "")
+            .disabled(currentPage == .forms && CFManager.shared.defaultCFDescription == "")
             .padding(50)
             .background(
                 LinearGradient(
