@@ -8,49 +8,76 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
-    
-    @AppStorage("use-cupping-hints")
-    var useCuppingHints: Bool = false
-    
     @AppStorage("sample-name-generator-method")
     var sampleNameGenerationMethod: SampleNameGenerator.GenerationMethod = .alphabetical
+    
+    @State var cuppingFormInfo: CuppingForm? = nil
+    @State var cfModelInfo: CFManager.CFModel? = nil
     
     var body: some View {
         NavigationView {
             Form {
+                Settings_CFSelectorFormSectionsView(cuppingFormInfo: $cuppingFormInfo)
+                    .sheet(item: $cuppingFormInfo) { cuppingForm in
+                        CFManager.CuppingFormInfoView(cuppingForm: cuppingForm)
+                    }
+                    .sheet(item: $cfModelInfo) { cfModel in
+                        CFManager.CuppingFormInfoView(cfModel: cfModel)
+                    }
+                
                 Section {
-                    NavigationLink(destination: SettingsCuppingFormsView()) {
-                        let defaultCuppingTitle: CuppingForm? = CFManager.shared.getDefaultCuppingForm(from: cuppingForms)
-                        if let defaultCuppingTitle {
-                            Text("Cupping form: \(defaultCuppingTitle.title)")
-                        } else {
-                            Label("Cupping form need to be added", systemImage: "exclamationmark.triangle")
-                                .foregroundColor(.red)
-                        }
+                    Label(
+                        "Sample name generation",
+                        systemImage: sampleNameGenerationMethod == .alphabetical ?
+                        "abc" : "textformat.123"
+                    )
+                    .foregroundColor(.primary)
+                    
+                    Button {
+                        sampleNameGenerationMethod = .alphabetical
+                    } label: {
+                        Label(
+                            "alphabetical",
+                            systemImage: sampleNameGenerationMethod == .alphabetical ?
+                            "checkmark" : ""
+                        )
                     }
                     
-                    Toggle("Use hints", isOn: $useCuppingHints)
-                    
-                    Picker("Sample name generation", selection: $sampleNameGenerationMethod) {
-                        Text("alphabetical").tag(SampleNameGenerator.GenerationMethod.alphabetical)
-                        Text("numerical").tag(SampleNameGenerator.GenerationMethod.numerical)
+                    Button {
+                        sampleNameGenerationMethod = .numerical
+                    } label: {
+                        Label(
+                            "numerical",
+                            systemImage: sampleNameGenerationMethod == .numerical ?
+                            "checkmark" : ""
+                        )
                     }
-                } header: {
-                    Text("Cuppings")
                 }
                 
                 Section {
-#warning("in future")
-                    //Text("Tip jar")
+                    Button {
+                        EmailHelper.shared.send(to: "support-cuptaster@nnnkbrrr.space")
+                    } label: {
+                        Label("Contact", systemImage: "envelope")
+                    }
                     
-                    Button("Contact") { EmailHelper.shared.send(to: "support-cuptaster@nnnkbrrr.space") }
-                    Button("Help with translation") { EmailHelper.shared.send(
-                        subject: "Cuptaster localization",
-                        to: "support-cuptaster@nnnkbrrr.space"
-                    ) }
-                } footer: {
-                    Text("app version: \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-")")
+                    Button {
+                        EmailHelper.shared.send(
+                            subject: "Cuptaster localization",
+                            to: "support-cuptaster@nnnkbrrr.space"
+                        )
+                    } label: {
+                        Label("Help with translation", systemImage: "globe")
+                    }
+                }
+                
+                Section {
+                    let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
+                    HStack {
+                        Text("Version")
+                        Spacer()
+                        Text(appVersion)
+                    }
                 }
             }
             .navigationTitle("Settings")

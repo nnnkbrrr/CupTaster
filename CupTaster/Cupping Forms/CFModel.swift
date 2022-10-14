@@ -12,10 +12,12 @@ extension CFManager {
     class CFModel: Identifiable {
         let title: String
         let version: String
+        let info: String
         
-        init(title: String, version: String) {
+        init(title: String, version: String, info: String) {
             self.title = title
             self.version = version
+            self.info = info
         }
         
         func createCuppingForm(context: NSManagedObjectContext) -> CuppingForm? {
@@ -28,7 +30,7 @@ extension CFManager {
             return form
         }
         
-        func getCF_ifAdded(storedCuppingForms: FetchedResults<CuppingForm>) -> CuppingForm? {
+        func getCuppingForm(storedCuppingForms: FetchedResults<CuppingForm>) -> CuppingForm? {
             for cuppingForm in storedCuppingForms {
                 if cuppingForm.title != self.title { continue }
                 if cuppingForm.version != self.version { continue }

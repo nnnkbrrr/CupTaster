@@ -30,7 +30,8 @@ struct OnboardingView: View {
                                     .multilineTextAlignment(.center)
                                     .padding([.top, .horizontal], 20)
                                 
-                                SettingsCuppingFormsView()
+                                Settings_CFSelectorFormSectionsView(cuppingFormInfo: .constant(nil))
+#warning("cupping form info ^^^^^^^^^^^^^^^^")
                             }
                             .padding(30)
                             .navigationBarHidden(true)

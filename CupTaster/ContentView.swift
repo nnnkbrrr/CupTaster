@@ -15,6 +15,7 @@ import CoreData
 #warning("формы для каппинга сбрасываются если их несколько")
 #warning("анимации закрытия образца лагают")
 #warning("если образкоы много, то приложение сильно зависает")
+#warning("добавить формы SCI COE")
 
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>

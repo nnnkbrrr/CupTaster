@@ -111,9 +111,7 @@ struct AllCuppingsView: View {
                         Text("\(cuppings.count) cuppings, \(samples.count) samples")
                     }
                 }
-                .toolbar {
-                    StopwatchToolbarItem()
-                }
+                .toolbar { StopwatchToolbarItem() }
                 .navigationTitle("All Сuppings")
             }
             .fullScreenCover(item: $activeCuppingModel, content: { CuppingView(cuppingModel: $0) })
