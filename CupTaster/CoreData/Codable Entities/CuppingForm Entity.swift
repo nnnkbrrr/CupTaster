@@ -63,8 +63,8 @@ extension CuppingForm {
         }
     }
     
-    func isSelected(defaultCFDescription: String) -> Bool {
-        return self.shortDescription == defaultCFDescription
+    var isDefault: Bool {
+        return self.shortDescription == CFManager.shared.defaultCFDescription
     }
 }
 

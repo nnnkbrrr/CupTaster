@@ -15,88 +15,21 @@ struct Settings_CFSelectorFormSectionsView: View {
     @AppStorage("use-cupping-hints")
     var useCuppingHints: Bool = false
     
-    @Binding var cuppingFormInfo: CuppingForm?
-    
     var body: some View {
-        let allCFModels = CFManager.shared.allCFModels
-        let addedCuppingForms = CFManager.shared.allCFModels.compactMap { $0.getCuppingForm(storedCuppingForms: cuppingForms) }
-        if addedCuppingForms.count > 0 {
-            Section {
-                ForEach(addedCuppingForms) { cuppingForm in
-                    HStack {
-                        Button {
-                            withAnimation {
-                                cuppingFormInfo = cuppingForm
-                            }
-                        } label: {
-                            HStack {
-                                Image(systemName: "checkmark")
-                                    .frame(width: 30)
-                                    .opacity(cuppingForm.isSelected(defaultCFDescription: CFManager.shared.defaultCFDescription) ? 1 : 0)
-                                Divider()
-                                    .padding(.vertical, 5)
-                                Text(cuppingForm.title)
-                                Spacer()
-                            }
-                            .contentShape(Rectangle())
+        if cuppingForms.count > 0 {
+            Section("Default cupping form") {
+                ForEach(cuppingForms) { cuppingForm in
+                    Button {
+                        withAnimation {
+                            CFManager.shared.setDefaultCuppingForm(cuppingForm: cuppingForm)
                         }
-                        .frame(maxWidth: .infinity)
-                    }
-                }
-            } header: {
-                Text("Added")
-            }
-        }
-        
-        let availableCFsModels = allCFModels.filter { $0.getCuppingForm(storedCuppingForms: cuppingForms) == nil }
-        if availableCFsModels.count > 0 {
-            Section {
-                ForEach(availableCFsModels) { cfModel in
-                    HStack {
-                        Button {
-                            if let addedForm = cfModel.createCuppingForm(context: moc) {
-                                cuppingFormInfo = addedForm
-                            }
-                        } label: {
-                            HStack {
-                                Image(systemName: "plus")
-                                    .frame(width: 30)
-                                Divider()
-                                    .padding(.vertical, 5)
-                                Text(cfModel.title)
-                                Spacer()
-                            }
-                            .contentShape(Rectangle())
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                }
-            } header: {
-                Text("Available")
-            }
-        }
-        
-        let deprecatedCuppingForms = cuppingForms.filter { $0.isDeprecated }
-        if deprecatedCuppingForms.count > 0 {
-            Section {
-                ForEach(deprecatedCuppingForms) { cuppingForm in
-                    HStack {
-                        Button {
-                            withAnimation {
-                                CFManager.shared.setDefaultCuppingForm(cuppingForm: cuppingForm)
-                            }
-                        } label: {
-                            HStack {
-                                Image(systemName: "checkmark")
-                                    .frame(width: 30)
-                                    .opacity(cuppingForm.isSelected(defaultCFDescription: CFManager.shared.defaultCFDescription) ? 1 : 0)
-                                Divider()
-                                    .padding(.vertical, 5)
-                                Text("\(cuppingForm.title) v. \(cuppingForm.version) - \(cuppingForm.languageCode)")
-                                Spacer()
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
+                    } label: {
+                        let isDeprecated: Bool = cuppingForm.isDeprecated
+                        Label(
+                            isDeprecated ? "\(cuppingForm.shortDescription) (deprecated)" : cuppingForm.title,
+                            systemImage: cuppingForm.isDefault ? "checkmark" : ""
+                        )
+                        .foregroundColor(isDeprecated ? .red : .accentColor)
                     }
                 }
                 .onDelete { offsets in
@@ -104,22 +37,44 @@ struct Settings_CFSelectorFormSectionsView: View {
                         moc.delete(cuppingForms[index])
                         try? moc.save()
                     }
+                    
+                    CFManager.shared.setDefaultCuppingForm(cuppingForm: cuppingForms.first)
                 }
-            } header: {
-                Label("Deprecated", systemImage: "exclamationmark.triangle")
-                    .foregroundColor(.red)
             }
         }
         
-        Section {
-            if CFManager.shared.defaultCFHintsAreAvailable(from: cuppingForms) {
-                Toggle(isOn: $useCuppingHints) {
-                    Label("Display hints", systemImage: "person.fill.questionmark")
+        let availableCFsModels = CFManager.shared.allCFModels.filter {
+            $0.getCuppingForm(storedCuppingForms: cuppingForms) == nil
+        }
+        if availableCFsModels.count > 0 {
+            Section("Available cupping forms") {
+                ForEach(availableCFsModels) { cfModel in
+                    Button {
+                        if let addedForm = cfModel.createCuppingForm(context: moc) {
+                            withAnimation {
+                                CFManager.shared.setDefaultCuppingForm(cuppingForm: addedForm)
+                            }
+                        }
+                    } label: {
+                        Label(cfModel.title, systemImage: "plus")
+                    }
                 }
-            } else {
-                Label("Hints are unavailable in this cupping form", systemImage: "person.fill.questionmark")
-                    .font(.caption)
-                    .foregroundColor(.gray)
+            }
+        }
+        
+        if CFManager.shared.defaultCFDescription != "" {
+            Section {
+                if CFManager.shared.defaultCFHintsAreAvailable(from: cuppingForms) {
+                    Toggle(isOn: $useCuppingHints) {
+                        Label("Display cupping hints", systemImage: "person.fill.questionmark")
+                    }
+                } else {
+                    Label("Hints are unavailable in this cupping form", systemImage: "person.fill.questionmark")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+            } header: {
+                Text("Hints")
             }
         }
     }

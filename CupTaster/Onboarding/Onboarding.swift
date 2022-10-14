@@ -12,9 +12,7 @@ struct OnboardingView: View {
     @Binding var isActive: Bool
     
     @State var currentPage: OnboardingPages = .features
-    enum OnboardingPages {
-        case features, forms, hints
-    }
+    enum OnboardingPages { case features, forms }
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -30,13 +28,15 @@ struct OnboardingView: View {
                                     .multilineTextAlignment(.center)
                                     .padding([.top, .horizontal], 20)
                                 
-                                Settings_CFSelectorFormSectionsView(cuppingFormInfo: .constant(nil))
-#warning("cupping form info ^^^^^^^^^^^^^^^^")
+                                List {
+                                    Settings_CFSelectorFormSectionsView()
+                                }
                             }
                             .padding(30)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(Color(uiColor: .systemGroupedBackground))
                             .navigationBarHidden(true)
                         }
-                    case .hints: OnboardingHintsView()
                 }
             }
             .transition(
@@ -50,18 +50,16 @@ struct OnboardingView: View {
                 withAnimation {
                     switch currentPage {
                         case .features: currentPage = .forms
-                        case .forms: currentPage = .hints
-                        case .hints:
-                            onboardingCompleted = true
-                            isActive = false
+                        case .forms:
+                        onboardingCompleted = true
+                        isActive = false
                     }
                 }
             } label: {
                 Group {
                     switch currentPage {
                         case .features: Text("Get Started")
-                        case .forms: Text("Next")
-                        case .hints: Text("Finish")
+                        case .forms: Text("Finish")
                     }
                 }
                 .padding(.vertical)

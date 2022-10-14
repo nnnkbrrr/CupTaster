@@ -11,28 +11,12 @@ struct SettingsView: View {
     @AppStorage("sample-name-generator-method")
     var sampleNameGenerationMethod: SampleNameGenerator.GenerationMethod = .alphabetical
     
-    @State var cuppingFormInfo: CuppingForm? = nil
-    @State var cfModelInfo: CFManager.CFModel? = nil
-    
     var body: some View {
         NavigationView {
             Form {
-                Settings_CFSelectorFormSectionsView(cuppingFormInfo: $cuppingFormInfo)
-                    .sheet(item: $cuppingFormInfo) { cuppingForm in
-                        CFManager.CuppingFormInfoView(cuppingForm: cuppingForm)
-                    }
-                    .sheet(item: $cfModelInfo) { cfModel in
-                        CFManager.CuppingFormInfoView(cfModel: cfModel)
-                    }
+                Settings_CFSelectorFormSectionsView()
                 
                 Section {
-                    Label(
-                        "Sample name generation",
-                        systemImage: sampleNameGenerationMethod == .alphabetical ?
-                        "abc" : "textformat.123"
-                    )
-                    .foregroundColor(.primary)
-                    
                     Button {
                         sampleNameGenerationMethod = .alphabetical
                     } label: {
@@ -52,6 +36,8 @@ struct SettingsView: View {
                             "checkmark" : ""
                         )
                     }
+                } header: {
+                    Text("Sample name generation method")
                 }
                 
                 Section {
