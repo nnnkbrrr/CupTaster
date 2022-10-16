@@ -11,7 +11,8 @@ import CoreData
 struct Settings_CFSelectorFormSectionsView: View {
     @Environment(\.managedObjectContext) private var moc
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
-
+    @StateObject var cfManager = CFManager.shared
+    
     @AppStorage("use-cupping-hints")
     var useCuppingHints: Bool = false
     
@@ -20,7 +21,7 @@ struct Settings_CFSelectorFormSectionsView: View {
             Section("Default cupping form") {
                 ForEach(cuppingForms) { cuppingForm in
                     Button {
-                        CFManager.shared.setDefaultCuppingForm(cuppingForm: cuppingForm)
+                        cfManager.setDefaultCuppingForm(cuppingForm: cuppingForm)
                     } label: {
                         let isDeprecated: Bool = cuppingForm.isDeprecated
                         Label(
@@ -36,12 +37,12 @@ struct Settings_CFSelectorFormSectionsView: View {
                         try? moc.save()
                     }
                     #warning("alert - all cuppings will be deleted!")
-                    CFManager.shared.setDefaultCuppingForm(cuppingForm: cuppingForms.first)
+                    cfManager.setDefaultCuppingForm(cuppingForm: cuppingForms.first)
                 }
             }
         }
         
-        let availableCFsModels = CFManager.shared.allCFModels.filter {
+        let availableCFsModels = cfManager.allCFModels.filter {
             $0.getCuppingForm(storedCuppingForms: cuppingForms) == nil
         }
         if availableCFsModels.count > 0 {
@@ -49,7 +50,7 @@ struct Settings_CFSelectorFormSectionsView: View {
                 ForEach(availableCFsModels) { cfModel in
                     Button {
                         if let addedForm = cfModel.createCuppingForm(context: moc) {
-                            CFManager.shared.setDefaultCuppingForm(cuppingForm: addedForm)
+                            cfManager.setDefaultCuppingForm(cuppingForm: addedForm)
                         }
                     } label: {
                         Label(cfModel.title, systemImage: "plus")
@@ -58,9 +59,9 @@ struct Settings_CFSelectorFormSectionsView: View {
             }
         }
         
-        if CFManager.shared.defaultCFDescription != "" {
+        if cfManager.defaultCFDescription != "" {
             Section {
-                if CFManager.shared.defaultCFHintsAreAvailable(from: cuppingForms) {
+                if cfManager.defaultCFHintsAreAvailable(from: cuppingForms) {
                     Toggle(isOn: $useCuppingHints) {
                         Label("Display cupping hints", systemImage: "person.fill.questionmark")
                     }

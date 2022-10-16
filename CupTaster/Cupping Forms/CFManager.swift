@@ -29,8 +29,7 @@ public class CFManager: ObservableObject {
 extension CFManager {
     public func setDefaultCuppingForm(cuppingForm: CuppingForm?) {
         if let cuppingForm {
-//            defaultCFDescription = cuppingForm.shortDescription
-            UserDefaults.standard.setValue(cuppingForm.shortDescription, forKey: "default-cupping-form-description")
+            defaultCFDescription = cuppingForm.shortDescription
         } else {
             defaultCFDescription = ""
         }

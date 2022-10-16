@@ -12,11 +12,12 @@ import UIKit
 struct CuppingView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) private var moc
+    @Namespace var namespace
+    
+    @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     
     @ObservedObject var cuppingModel: CuppingModel
     @FetchRequest var samples: FetchedResults<Sample>
-    
-    @Namespace var namespace
     
     init(cuppingModel: CuppingModel) {
         self.cuppingModel = cuppingModel
@@ -171,7 +172,11 @@ struct CuppingView: View {
             isPresented: $cuppingModel.settingsSheetIsPresented,
             interactiveDismissDisabled: $cuppingModel.settingsSheetDissmissDisabled
         ) {
-            CuppingSettingsView(presentationMode: _presentationMode, cuppingModel: cuppingModel)
+            CuppingSettingsView(
+                presentationMode: _presentationMode,
+                cuppingModel: cuppingModel,
+                selectedCuppingForm: CFManager.shared.getDefaultCuppingForm(from: cuppingForms)!
+            )
         }
     }
 }

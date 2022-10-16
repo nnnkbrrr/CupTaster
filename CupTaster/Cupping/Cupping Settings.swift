@@ -14,11 +14,9 @@ struct CuppingSettingsView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     @ObservedObject var cuppingModel: CuppingModel
     
-    @State var selectedCuppingForm: CuppingForm? = nil
-    @StateObject private var cfManager = CFManager.shared
-    
-    @State var samplesCount: Int = 1
-    @State var cupsCount: Int = 5
+    @State var selectedCuppingForm: CuppingForm
+    @State var selectedSamplesCount: Int = 1
+    @State var selectedCupsCount: Int = 5
     
     var body: some View {
         NavigationView {
@@ -30,13 +28,13 @@ struct CuppingSettingsView: View {
                 }
                 
                 Section("General Information") {
-                    Picker("Samples count", selection: $samplesCount) {
+                    Picker("Samples count", selection: $selectedSamplesCount) {
                         ForEach(1...20, id: \.self) { samplesCount in
                             Text("\(samplesCount)").tag(samplesCount)
                         }
                     }
                     
-                    Picker("Cups per sample", selection: $cupsCount) {
+                    Picker("Cups per sample", selection: $selectedCupsCount) {
                         ForEach(1...5, id: \.self) { cupsCount in
                             Text("\(cupsCount)").tag(cupsCount)
                         }
@@ -44,8 +42,11 @@ struct CuppingSettingsView: View {
                     
                     Picker("Cupping Form", selection: $selectedCuppingForm) {
                         ForEach(cuppingForms) { cuppingForm in
-                            #warning("version")
-                            Text(cuppingForm.title + "\(cuppingForm.version)").tag(cuppingForm.shortDescription)
+                            Text(
+                                cuppingForm.isDeprecated ?
+                                "\(cuppingForm.shortDescription) (deprecated)" : cuppingForm.title
+                            )
+                            .tag(cuppingForm)
                         }
                     }
                 }
@@ -66,10 +67,10 @@ struct CuppingSettingsView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
-                        cuppingModel.cupping.cupsCount = Int16(cupsCount)
-                        cuppingModel.cupping.form = cfManager.getDefaultCuppingForm(from: cuppingForms)
+                        cuppingModel.cupping.cupsCount = Int16(selectedCupsCount)
+                        cuppingModel.cupping.form = selectedCuppingForm
                         
-                        for _ in 1...samplesCount {
+                        for _ in 1...selectedCupsCount {
                             let usedNames: [String] = cuppingModel.cupping.samples.map { $0.name }
                             let defaultName: String = SampleNameGenerator().generateSampleDefaultName(usedNames: usedNames)
                             
