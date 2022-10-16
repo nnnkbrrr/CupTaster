@@ -12,10 +12,10 @@ import CoreData
 
 #warning("внешний вид на айпадах")
 #warning("внешний вид на светлой теме")
-#warning("формы для каппинга сбрасываются если их несколько при создании")
-#warning("анимации закрытия образца лагают")
 #warning("если образков много, то приложение сильно зависает")
+#warning("подсказки не написаны")
 #warning("добавить формы SCI COE")
+#warning("Показывать предупреждение что все образцы/каппинги будут удалены при удалении каппинга/формы")
 
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>

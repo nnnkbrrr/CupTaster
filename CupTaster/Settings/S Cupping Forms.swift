@@ -36,7 +36,6 @@ struct Settings_CFSelectorFormSectionsView: View {
                         moc.delete(cuppingForms[index])
                         try? moc.save()
                     }
-                    #warning("alert - all cuppings will be deleted!")
                     cfManager.setDefaultCuppingForm(cuppingForm: cuppingForms.first)
                 }
             }
