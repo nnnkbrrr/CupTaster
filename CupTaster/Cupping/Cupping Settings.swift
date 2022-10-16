@@ -103,8 +103,9 @@ struct CuppingSettingsView: View {
                         cuppingModel.selectedSampleIndex = 0
                         cuppingModel.samplesAppearance = .criteria
                         
-                        cuppingModel.settingsSheetDissmissDisabled = false
+                        cuppingModel.settingsSheetDismissDisabled = false
                         cuppingModel.settingsSheetIsPresented = false
+                        cuppingModel.sampleViewVisible = true
                     }
                 }
             }

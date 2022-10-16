@@ -12,9 +12,10 @@ class CuppingModel: ObservableObject, Identifiable {
     
     // Cupping Settings
     @Published var settingsSheetIsPresented: Bool
-    @Published var settingsSheetDissmissDisabled: Bool
+    @Published var settingsSheetDismissDisabled: Bool
     
     // Sample View + Gestures
+    @Published var sampleViewVisible: Bool = false
     @Published var selectedSample: Sample?
     @Published var selectedSampleIndex: Int?
     
@@ -31,7 +32,7 @@ class CuppingModel: ObservableObject, Identifiable {
         self.cupping = cupping
         
         self.settingsSheetIsPresented = cupping.form == nil
-        self.settingsSheetDissmissDisabled = cupping.form == nil
+        self.settingsSheetDismissDisabled = cupping.form == nil
         self.selectedSample = nil
         self.selectedSampleIndex = nil
         self.offset = .zero
@@ -45,14 +46,5 @@ class CuppingModel: ObservableObject, Identifiable {
 extension CuppingModel {
     var sortedSamples: [Sample] {
         return cupping.getSortedSamples()
-    }
-}
-
-extension CuppingModel {
-    func switchToPreviews() {
-        withAnimation {
-            selectedSample = nil
-            selectedSampleIndex = nil
-        }
     }
 }

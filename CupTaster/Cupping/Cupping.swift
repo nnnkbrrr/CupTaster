@@ -31,94 +31,104 @@ struct CuppingView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                if cuppingModel.selectedSample == nil {
-                    if cuppingModel.samplesEditorActive {
-                        Form {
-                            Section {
-                                TextField("Cupping name", text: $cuppingModel.cupping.name)
+                if cuppingModel.sampleViewVisible {
+                    SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace)
+                        .zIndex(1)
+                } else if cuppingModel.samplesEditorActive {
+                    Form {
+                        Section {
+                            TextField("Cupping name", text: $cuppingModel.cupping.name)
+                        }
+                        
+                        Section {
+                            ForEach(samples) { sample in
+                                SampleFormRowView(sample: sample)
                             }
-                            
-                            Section {
-                                ForEach(samples) { sample in
-                                    SampleFormRowView(sample: sample)
-                                }
-                                .onMove { indexSet, offset in
-                                    var revisedItems: [Sample] = cuppingModel.sortedSamples
-                                    revisedItems.move(fromOffsets: indexSet, toOffset: offset)
-                                    
-                                    for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
-                                        revisedItems[reverseIndex].ordinalNumber = Int16(reverseIndex)
-                                    }
-                                }
-                                .onDelete { offsets in
-                                    for index in offsets {
-                                        moc.delete(samples[index])
-                                    }
+                            .onMove { indexSet, offset in
+                                var revisedItems: [Sample] = cuppingModel.sortedSamples
+                                revisedItems.move(fromOffsets: indexSet, toOffset: offset)
+                                
+                                for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
+                                    revisedItems[reverseIndex].ordinalNumber = Int16(reverseIndex)
                                 }
                             }
-                            
-                            Section {
-                                Button {
-                                    let usedNames: [String] = cuppingModel.cupping.samples.map { $0.name }
-                                    let defaultName: String = SampleNameGenerator().generateSampleDefaultName(usedNames: usedNames)
-                                    
-                                    let sample: Sample = Sample(context: moc)
-                                    
-                                    sample.name = defaultName
-                                    sample.ordinalNumber = Int16(cuppingModel.cupping.samples.count)
-                                    
-                                    if let cuppingForm = cuppingModel.cupping.form {
-                                        for groupConfig in cuppingForm.qcGroupConfigurations {
-                                            let qcGroup: QCGroup = QCGroup(context: moc)
-                                            qcGroup.sample = sample
-                                            qcGroup.configuration = groupConfig
-                                            for qcConfig in groupConfig.qcConfigurations {
-                                                let qualityCriteria = QualityCriteria(context: moc)
-                                                qualityCriteria.title = qcConfig.title
-                                                qualityCriteria.value = qcConfig.value
-                                                qualityCriteria.group = qcGroup
-                                                qualityCriteria.configuration = qcConfig
-                                            }
-                                        }
-                                    }
-                                    
-                                    cuppingModel.cupping.addToSamples(sample)
-                                } label: {
-                                    Label("Add sample", systemImage: "plus")
+                            .onDelete { offsets in
+                                for index in offsets {
+                                    moc.delete(samples[index])
                                 }
                             }
                         }
-                        .environment(\.editMode, .constant(.active))
-                        .padding(.bottom, 44) // toolbar
-                        .resignKeyboardOnDragGesture() { try? moc.save() }
-                    } else {
-                        ScrollView {
-                            Text(cuppingModel.cupping.name)
-                                .font(.largeTitle)
-                                .fontWeight(.heavy)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding([.top, .horizontal], 20)
-                            
-                            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2)) {
-                                ForEach(samples) { sample in
-                                    Button {
-                                        withAnimation {
-                                            cuppingModel.selectedSample = sample
-                                            cuppingModel.selectedSampleIndex = cuppingModel.sortedSamples.firstIndex(of: sample)!
-                                            cuppingModel.samplesAppearance = .criteria
+                        
+                        Section {
+                            Button {
+                                let usedNames: [String] = cuppingModel.cupping.samples.map { $0.name }
+                                let defaultName: String = SampleNameGenerator().generateSampleDefaultName(usedNames: usedNames)
+                                
+                                let sample: Sample = Sample(context: moc)
+                                
+                                sample.name = defaultName
+                                sample.ordinalNumber = Int16(cuppingModel.cupping.samples.count)
+                                
+                                if let cuppingForm = cuppingModel.cupping.form {
+                                    for groupConfig in cuppingForm.qcGroupConfigurations {
+                                        let qcGroup: QCGroup = QCGroup(context: moc)
+                                        qcGroup.sample = sample
+                                        qcGroup.configuration = groupConfig
+                                        for qcConfig in groupConfig.qcConfigurations {
+                                            let qualityCriteria = QualityCriteria(context: moc)
+                                            qualityCriteria.title = qcConfig.title
+                                            qualityCriteria.value = qcConfig.value
+                                            qualityCriteria.group = qcGroup
+                                            qualityCriteria.configuration = qcConfig
                                         }
-                                    } label: {
-                                        SampleView(cuppingModel: cuppingModel, sample: sample).preview
                                     }
-                                    .matchedGeometryEffect(id: "\(sample.id)", in: namespace)
                                 }
+                                
+                                cuppingModel.cupping.addToSamples(sample)
+                            } label: {
+                                Label("Add sample", systemImage: "plus")
                             }
-                            .padding([.bottom, .horizontal])
-                            .padding(.bottom, 44) // toolbar
                         }
                     }
+                    .environment(\.editMode, .constant(.active))
+                    .padding(.bottom, 44) // toolbar
+                    .resignKeyboardOnDragGesture() { try? moc.save() }
                 } else {
-                    SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace)
+                    ScrollView {
+                        Text(cuppingModel.cupping.name)
+                            .font(.largeTitle)
+                            .fontWeight(.heavy)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding([.top, .horizontal], 20)
+                        
+                        LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2)) {
+                            ForEach(samples) { sample in
+                                Button {
+                                    cuppingModel.selectedSample = sample
+                                    cuppingModel.selectedSampleIndex = cuppingModel.sortedSamples.firstIndex(of: sample)!
+                                    cuppingModel.samplesAppearance = .criteria
+                                    cuppingModel.offset = .zero
+                                    cuppingModel.switchingSamplesAppearance = false
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                                        withAnimation {
+                                            cuppingModel.sampleViewVisible = true
+                                        }
+                                    }
+                                } label: {
+                                    SampleView(cuppingModel: cuppingModel, sample: sample).preview
+                                }
+                                .matchedGeometryEffect(
+                                    id: cuppingModel.selectedSample?.id == sample.id ?
+                                    "\(sample.id)" : "unselected \(sample.id)",
+                                    in: namespace
+                                )
+                                .zIndex(cuppingModel.selectedSample?.id == sample.id ? 1 : 0)
+                            }
+                        }
+                        .padding([.bottom, .horizontal])
+                        .padding(.bottom, 44) // toolbar
+                    }
                 }
                 
                 CuppingToolbarView(presentationMode: _presentationMode, cuppingModel: cuppingModel, namespace: namespace)
@@ -170,7 +180,7 @@ struct CuppingView: View {
         }
         .halfSheet(
             isPresented: $cuppingModel.settingsSheetIsPresented,
-            interactiveDismissDisabled: $cuppingModel.settingsSheetDissmissDisabled
+            interactiveDismissDisabled: $cuppingModel.settingsSheetDismissDisabled
         ) {
             CuppingSettingsView(
                 presentationMode: _presentationMode,

@@ -10,7 +10,6 @@ import SwiftUI
 struct TesterView: View {
     @AppStorage("onboarding-completed") var onboardingCompleted: Bool = false
     @FetchRequest(entity: Cupping.entity(), sortDescriptors: []) var cuppings: FetchedResults<Cupping>
-    
     @State var addingBlankForm: Bool = false
     
     var body: some View {

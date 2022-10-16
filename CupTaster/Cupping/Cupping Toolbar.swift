@@ -20,11 +20,10 @@ struct CuppingToolbarView: View {
             let sortedSamples: [Sample] = cuppingModel.sortedSamples
             
             VStack(spacing: 3) {
-                if cuppingModel.selectedSample != nil &&
-                    (!cuppingModel.switchingSamplesAppearance || cuppingModel.offset.height > -150) {
-                    
-                    // MARK: Top part
-                    
+                let sampleViewVisible: Bool = cuppingModel.sampleViewVisible
+                let validPosition: Bool = !cuppingModel.switchingSamplesAppearance || cuppingModel.offset.height > -150
+                
+                if sampleViewVisible && validPosition {
                     HStack(spacing: 0) {
                         ForEach(sortedSamples) { sample in
                             let gsw: CGFloat = geometry.size.width
@@ -38,7 +37,6 @@ struct CuppingToolbarView: View {
                                 )
                                 .background(Color(uiColor: .systemGray3), in: RoundedRectangle(cornerRadius: 12))
                                 .frame(width: geometry.size.width)
-                                .matchedGeometryEffect(id: "\(sample.id) tools", in: namespace)
                                 .zIndex(2)
                         }
                     }
@@ -49,12 +47,7 @@ struct CuppingToolbarView: View {
                     .frame(width: geometry.size.width, alignment: .leading)
                 }
                 
-                // MARK: Bottom part
-                
                 HStack {
-                    
-                    // MARK: BP Leading
-                    
                     Group {
                         if cuppingModel.samplesEditorActive {
                             Button {
@@ -63,7 +56,7 @@ struct CuppingToolbarView: View {
                             } label: {
                                 Text("Cancel")
                             }
-                        } else if cuppingModel.selectedSample == nil {
+                        } else if !cuppingModel.sampleViewVisible {
                             Button {
                                 cuppingModel.samplesEditorActive = true
                             } label: {
@@ -86,14 +79,9 @@ struct CuppingToolbarView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    // MARK: BP Center
-                    
-                    if StopwatchView().timeSince != nil || cuppingModel.selectedSample != nil  {
-                        StopwatchView()
-                            .frame(maxWidth: .infinity)
-                    }
-                    
-                    // MARK: BP Trailing
+                    StopwatchView()
+                        .font(.title2)
+                        .frame(maxWidth: .infinity)
                     
                     Group {
                         if cuppingModel.samplesEditorActive {
@@ -103,7 +91,7 @@ struct CuppingToolbarView: View {
                             } label: {
                                 Text("Save")
                             }
-                        } else if cuppingModel.selectedSample == nil {
+                        } else if !cuppingModel.sampleViewVisible {
                             Button("Done") {
                                 presentationMode.wrappedValue.dismiss()
                             }
@@ -113,7 +101,11 @@ struct CuppingToolbarView: View {
                                 .foregroundColor(.accentColor)
                                 .padding(10)
                                 .contentShape(Rectangle())
-                                .onTapGesture { cuppingModel.switchToPreviews() }
+                                .onTapGesture {
+                                    withAnimation {
+                                        cuppingModel.sampleViewVisible = false
+                                    }
+                                }
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -121,13 +113,15 @@ struct CuppingToolbarView: View {
                 .padding(.horizontal, 20)
                 .frame(height: 44)
             }
-            .frame(height: cuppingModel.switchingSamplesAppearance || cuppingModel.selectedSample == nil ? 44 : 100, alignment: .bottom)
+            .frame(
+                height: cuppingModel.sampleViewVisible ? 100 : 44,
+                alignment: .bottom
+            )
             .contentShape(Rectangle())
-            // MARK: Gestures
             .gesture(
                 DragGesture()
                     .onChanged { gesture in
-                        if cuppingModel.selectedSample != nil {
+                        if cuppingModel.sampleViewVisible {
                             withAnimation(.interpolatingSpring(stiffness: 400, damping: 100)) {
                                 cuppingModel.offset = gesture.translation
                                 cuppingModel.switchingSamplesAppearance = gesture.translation.height < -50 && abs(gesture.translation.height) > abs(gesture.translation.width)
@@ -135,10 +129,12 @@ struct CuppingToolbarView: View {
                         }
                     }
                     .onEnded { gesture in
-                        if cuppingModel.selectedSample != nil {
+                        if cuppingModel.sampleViewVisible {
                             withAnimation(.interpolatingSpring(stiffness: 400, damping: 100)) {
                                 if cuppingModel.switchingSamplesAppearance {
-                                    cuppingModel.switchToPreviews()
+                                    withAnimation {
+                                        cuppingModel.sampleViewVisible = false
+                                    }
                                 } else {
                                     let longGesture: Bool = abs(gesture.translation.width) > geometry.size.width / 3
                                     let fastGesture: Bool = abs(gesture.predictedEndTranslation.width) > 150
@@ -148,15 +144,18 @@ struct CuppingToolbarView: View {
                                         cuppingModel.selectedSampleIndex = min(max(Int(newIndex), 0), sortedSamples.count - 1)
                                         cuppingModel.selectedSample = sortedSamples[cuppingModel.selectedSampleIndex!]
                                     }
+                                    cuppingModel.offset = .zero
+                                    cuppingModel.switchingSamplesAppearance = false
                                 }
-                                cuppingModel.offset = .zero
-                                cuppingModel.switchingSamplesAppearance = false
                             }
                         }
                     }
             )
         }
-        .frame(height: cuppingModel.switchingSamplesAppearance || cuppingModel.selectedSample == nil ? 44 : 100, alignment: .bottom)
+        .frame(
+            height: cuppingModel.sampleViewVisible ? 100 : 44,
+            alignment: .bottom
+        )
         .background(.bar)
     }
 }

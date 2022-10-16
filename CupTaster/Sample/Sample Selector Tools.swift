@@ -34,7 +34,6 @@ struct SampleToolsView: View {
                 .multilineTextAlignment(.center)
                 .submitLabel(.done)
                 .onSubmit {
-//                    sample.cupping.objectWillChange.send()
                     try? moc.save()
                 }
                 .padding(.horizontal)
@@ -45,7 +44,6 @@ struct SampleToolsView: View {
                 .contentShape(Rectangle())
                 .onTapGesture {
                     sample.isFavorite.toggle()
-//                    sample.cupping.objectWillChange.send()
                     try? moc.save()
                 }
         }

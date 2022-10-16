@@ -23,8 +23,8 @@ struct SampleSelectorView: View {
                 HStack(spacing: cuppingModel.switchingSamplesAppearance ? 50 : 0) {
                     ForEach(cuppingModel.sortedSamples) { sample in
                         SampleView(cuppingModel: cuppingModel, sample: sample, appearance: $cuppingModel.samplesAppearance)
+                            .matchedGeometryEffect(id: "\(sample.id)", in: namespace)
                             .frame(width: geometry.size.width)
-                            .matchedGeometryEffect(id: (cuppingModel.selectedSample == sample ? "" : "not selected") + "\(sample.id)", in: namespace)
                             .opacity(cuppingModel.switchingSamplesAppearance && cuppingModel.selectedSample != sample ? 0 : 1)
                             .scaleEffect(cuppingModel.switchingSamplesAppearance && cuppingModel.selectedSample == sample ? 0.7 + (cuppingModel.offset.height/(geometry.size.height*2)) : 1)
                     }

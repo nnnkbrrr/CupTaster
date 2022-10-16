@@ -88,6 +88,7 @@ extension SampleView {
                         } else {
                             self.cuppingModel.selectedSampleIndex = 0
                             self.cuppingModel.selectedSample = nil
+                            self.cuppingModel.sampleViewVisible = false
                         }
                         
                         try? moc.save()
