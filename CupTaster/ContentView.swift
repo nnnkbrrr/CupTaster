@@ -12,7 +12,7 @@ import CoreData
 
 #warning("внешний вид на айпадах")
 #warning("внешний вид на светлой теме")
-#warning("формы для каппинга сбрасываются если их несколько")
+#warning("формы для каппинга сбрасываются если их несколько при создании")
 #warning("анимации закрытия образца лагают")
 #warning("если образков много, то приложение сильно зависает")
 #warning("добавить формы SCI COE")
@@ -23,7 +23,7 @@ struct ContentView: View {
         TabView {
             AllCuppingsView()
                 .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
-            
+
             SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape") }
                 .badge(CFManager.shared.newerVersionsAvailability(from: cuppingForms))
