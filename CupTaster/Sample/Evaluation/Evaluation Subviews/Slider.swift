@@ -29,54 +29,70 @@ class SliderConfiguration {
     }
 }
 
-#warning("breaks on rotation")
-
 struct SliderView: View {
+    @State var orientation = UIDevice.current.orientation
+    
+    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
+        .makeConnectable()
+        .autoconnect()
+    
     @Binding var value: Double
     let configuration: SliderConfiguration
     
     var body: some View {
         ZStack(alignment: .top) {
-            GeometryReader { geometry in
-                SliderScrollReader(configuration: configuration, frameWidth: geometry.size.width, value: $value) {
-                    HStack(alignment: .top, spacing: 0) {
-                        ForEach(configuration.fractionValues, id: \.self) { fractionValue in
-                            let isCeil: Bool = fractionValue.truncatingRemainder(dividingBy: 1) == 0
-                            
-                            VStack(spacing: 0) {
-                                Capsule()
-                                    .fill(.gray)
-                                    .frame(width: isCeil ? 3 : 1, height: 20)
-                                
-                                if isCeil {
-                                    Text("\(Int(fractionValue))")
-                                        .font(.caption2)
-                                        .foregroundColor(.gray)
-                                        .frame(height: 20)
-                                }
-                            }
-                            .frame(width: configuration.spacing)
-                        }
-                    }
-                }
+            if orientation.isPortrait {
+                slider
+            } else {
+                slider
             }
-            .frame(height: 40)
-            .padding(.top, 10)
             
             Capsule()
                 .foregroundColor(.accentColor)
                 .frame(width: 3, height: 30)
-        }.mask(
+        }
+        .mask(
             LinearGradient(
                 gradient: Gradient(colors: [.clear, .black, .clear]),
                 startPoint: .leading,
                 endPoint: .trailing)
         )
+        .onReceive(orientationChanged) { _ in
+            self.orientation = UIDevice.current.orientation
+        }
+    }
+    
+    var slider: some View {
+        GeometryReader { geometry in
+            SliderScrollReader(configuration: configuration, frameWidth: geometry.size.width, value: $value) {
+                HStack(alignment: .top, spacing: 0) {
+                    ForEach(configuration.fractionValues, id: \.self) { fractionValue in
+                        let isCeil: Bool = fractionValue.truncatingRemainder(dividingBy: 1) == 0
+                        
+                        VStack(spacing: 0) {
+                            Capsule()
+                                .fill(.gray)
+                                .frame(width: isCeil ? 3 : 1, height: 20)
+                            
+                            if isCeil {
+                                Text("\(Int(fractionValue))")
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .frame(height: 20)
+                            }
+                        }
+                        .frame(width: configuration.spacing)
+                    }
+                }
+            }
+        }
+        .frame(height: 40)
+        .padding(.top, 10)
     }
 }
 
 
-fileprivate struct SliderScrollReader<Content: View> : UIViewRepresentable {
+fileprivate struct SliderScrollReader<Content: View>: UIViewRepresentable {
     let configuration: SliderConfiguration
     var content: Content
     var frameWidth: CGFloat
