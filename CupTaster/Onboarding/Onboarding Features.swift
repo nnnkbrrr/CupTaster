@@ -49,11 +49,11 @@ struct OnboardingFeaturesView: View {
                     title: "Stopwatch",
                     description: "Track brewing time with stopwatch."
                 )
-                FeatureView(
-                    image: Image(systemName: "lightbulb.fill"),
-                    title: "Hints",
-                    description: "Use hints to fully understand quality criteria scale."
-                )
+//                FeatureView(
+//                    image: Image(systemName: "lightbulb.fill"),
+//                    title: "Hints",
+//                    description: "Use hints to fully understand quality criteria scale."
+//                )
             }
             .padding(50)
             .padding(.bottom, 50)

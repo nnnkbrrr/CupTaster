@@ -1,0 +1,430 @@
+{
+    "title": "SCI",
+    "finalScoreFormula": "Fragrance_Fragrance + Aroma_Aroma + Flavor_Flavor + Acidity_Acidity + Body_Body + Sweetness_Sweetness + Aftertaste_Aftertaste + Freshcrop_Freshcrop + Offflavor_Cup1 + Offflavor_Cup2 + Offflavor_Cup3 + Offflavor_Cup4 + Offflavor_Cup5 + Uniformity_Cup1 + Uniformity_Cup2 + Uniformity_Cup3 + Uniformity_Cup4 + Uniformity_Cup5",
+    "languageCode": "en",
+    "version": "beta 1.0 (14.0)",
+    "qcGroupConfigurations": [
+        {
+            "title": "Roast level",
+            "ordinalNumber": 1,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": "light",
+                    "upperBoundTitle": "dark",
+                    "ordinalNumber": 1,
+                    "title": "Roast level",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Ferment level",
+            "ordinalNumber": 2,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": "none-low",
+                    "upperBoundTitle": "med-high",
+                    "ordinalNumber": 1,
+                    "title": "Ferment level",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 4
+                }
+            ]
+        },
+        {
+            "title": "Fragrance",
+            "ordinalNumber": 3,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Fragrance",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Low",
+                    "upperBoundTitle": "High",
+                    "ordinalNumber": 2,
+                    "title": "Intensity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Aroma",
+            "ordinalNumber": 4,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Aroma",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Low",
+                    "upperBoundTitle": "High",
+                    "ordinalNumber": 2,
+                    "title": "Intensity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Flavor",
+            "ordinalNumber": 5,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Flavor",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Low",
+                    "upperBoundTitle": "High",
+                    "ordinalNumber": 2,
+                    "title": "Intensity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Acidity",
+            "ordinalNumber": 6,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Acidity",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Flat",
+                    "upperBoundTitle": "Bright",
+                    "ordinalNumber": 2,
+                    "title": "Intensity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Body",
+            "ordinalNumber": 7,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Body",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Thin",
+                    "upperBoundTitle": "Thick",
+                    "ordinalNumber": 2,
+                    "title": "Thickness",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Sweetness",
+            "ordinalNumber": 8,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Sweetness",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Low",
+                    "upperBoundTitle": "High",
+                    "ordinalNumber": 2,
+                    "title": "Intensity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Aftertaste",
+            "ordinalNumber": 9,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Aftertaste",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Short",
+                    "upperBoundTitle": "Long",
+                    "ordinalNumber": 2,
+                    "title": "Duration",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Fresh crop",
+            "ordinalNumber": 10,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Fresh crop",
+                    "hints": [],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "None",
+                    "upperBoundTitle": "Intense",
+                    "ordinalNumber": 2,
+                    "title": "Woody",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+
+        },
+        {
+            "title": "Off flavor",
+            "ordinalNumber": 11,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": "Coffee undrinkable",
+                    "upperBoundTitle": "No off flavor",
+                    "ordinalNumber": 1,
+                    "title": "Cup 1",
+                    "hints": [],
+                    "value": 2,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -2,
+                    "upperBound": 2
+                },
+                {
+                    "lowerBoundTitle": "Coffee undrinkable",
+                    "upperBoundTitle": "No off flavor",
+                    "ordinalNumber": 2,
+                    "title": "Cup 2",
+                    "hints": [],
+                    "value": 2,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -2,
+                    "upperBound": 2
+                },
+                {
+                    "lowerBoundTitle": "Coffee undrinkable",
+                    "upperBoundTitle": "No off flavor",
+                    "ordinalNumber": 3,
+                    "title": "Cup 3",
+                    "hints": [],
+                    "value": 2,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -2,
+                    "upperBound": 2
+                },
+                {
+                    "lowerBoundTitle": "Coffee undrinkable",
+                    "upperBoundTitle": "No off flavor",
+                    "ordinalNumber": 4,
+                    "title": "Cup 4",
+                    "hints": [],
+                    "value": 2,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -2,
+                    "upperBound": 2
+                },
+                {
+                    "lowerBoundTitle": "Coffee undrinkable",
+                    "upperBoundTitle": "No off flavor",
+                    "ordinalNumber": 5,
+                    "title": "Cup 5",
+                    "hints": [],
+                    "value": 2,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -2,
+                    "upperBound": 2
+                },
+            ]
+        },
+        {
+            "title": "Uniformity",
+            "ordinalNumber": 12,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": "Extreme difference",
+                    "upperBoundTitle": "No difference",
+                    "ordinalNumber": 1,
+                    "title": "Cup 1",
+                    "hints": [],
+                    "value": 2,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -2,
+                    "upperBound": 2
+                },
+                {
+                    "lowerBoundTitle": "Extreme difference",
+                    "upperBoundTitle": "No difference",
+                    "ordinalNumber": 2,
+                    "title": "Cup 2",
+                    "hints": [],
+                    "value": 2,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -2,
+                    "upperBound": 2
+                },
+                {
+                    "lowerBoundTitle": "Extreme difference",
+                    "upperBoundTitle": "No difference",
+                    "ordinalNumber": 3,
+                    "title": "Cup 3",
+                    "hints": [],
+                    "value": 2,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -2,
+                    "upperBound": 2
+                },
+                {
+                    "lowerBoundTitle": "Extreme difference",
+                    "upperBoundTitle": "No difference",
+                    "ordinalNumber": 4,
+                    "title": "Cup 4",
+                    "hints": [],
+                    "value": 2,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -2,
+                    "upperBound": 2
+                },
+                {
+                    "lowerBoundTitle": "Extreme difference",
+                    "upperBoundTitle": "No difference",
+                    "ordinalNumber": 5,
+                    "title": "Cup 5",
+                    "hints": [],
+                    "value": 2,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -2,
+                    "upperBound": 2
+                },
+            ]
+        }
+    ]
+}
+

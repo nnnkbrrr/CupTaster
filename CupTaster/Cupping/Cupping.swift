@@ -133,6 +133,7 @@ struct CuppingView: View {
                 
                 CuppingToolbarView(presentationMode: _presentationMode, cuppingModel: cuppingModel, namespace: namespace)
                     .frame(maxHeight: .infinity, alignment: .bottom)
+                    .zIndex(2)
                 
                 if let qcGroupConfig = cuppingModel.selectedHintsQCGConfig {
                     ScrollView(showsIndicators: false) {
@@ -157,7 +158,7 @@ struct CuppingView: View {
                         }
                     }
                     .transition(.move(edge: .bottom))
-                    .zIndex(2)
+                    .zIndex(3)
                 }
                 
                 Rectangle()
@@ -175,7 +176,7 @@ struct CuppingView: View {
                     }
                     .edgesIgnoringSafeArea(.top)
                     .frame(maxHeight: .infinity, alignment: .top)
-                    .zIndex(3)
+                    .zIndex(4)
             }
         }
         .halfSheet(

@@ -51,6 +51,7 @@ struct HalfSheetModifier<SheetContent: View>: ViewModifier {
             .sheet(isPresented: $isPresented) {
                 HalfSheet { sheetContent() }
                     .interactiveDismissDisabled(interactiveDismissDisabled)
+                    .ignoresSafeArea()
             }
     }
 }

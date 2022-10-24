@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TesterView: View {
+    @AppStorage("tester-tab-visible") var testerTabVisible: Bool = false
     @AppStorage("onboarding-completed") var onboardingCompleted: Bool = false
     @FetchRequest(entity: Cupping.entity(), sortDescriptors: []) var cuppings: FetchedResults<Cupping>
     @State var addingBlankForm: Bool = false
@@ -44,6 +45,12 @@ struct TesterView: View {
                 Text("Минимум образцов: \(minSamPerCpg ?? 0)")
                 Text("В среднем образцов: \(avgSamPerCpg ?? 0)")
                 Text("Максимум образцов: \(maxSamPerCpg ?? 0)")
+            }
+            
+            Section {
+                Button("Скрыть вкладку разработчика") {
+                    testerTabVisible = false
+                }
             }
         }
         .sheet(isPresented: $addingBlankForm) { NewBlankFormView() }

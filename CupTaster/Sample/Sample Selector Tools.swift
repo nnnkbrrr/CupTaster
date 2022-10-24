@@ -16,6 +16,7 @@ struct SampleToolsView: View {
             if sample.finalScore != 0 {
                 Text(String(format: "%.1f", sample.finalScore))
                     .bold()
+                    .lineLimit(1)
                     .frame(width: 44, height: 44)
             } else {
                 Image(systemName: "sum")

@@ -18,16 +18,21 @@ struct EvaluationHeaderView: View {
             if let firstQualityCriteria: QualityCriteria = qcGroup.qualityCriteria.sorted().first,
                let qcConfiguration: QCConfig = firstQualityCriteria.configuration {
                 HStack {
+#warning("multipicker case 2")
                     ZStack {
                         switch qcConfiguration.evaluationType.unwrappedEvaluationType {
-                            case .slider:
-                                SliderEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                            case .radio:
-                                CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                            case .checkboxes:
-                                CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                            case .none:
-                                EmptyView().frame(height: 40)
+                        case .slider:
+                            SliderEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                        case .radio:
+                            CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                        case .multiplePicker:
+                            CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                        case .cups_checkboxes:
+                            CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                        case .cups_multiplePicker:
+                            CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                        case .none:
+                            EmptyView().frame(height: 40)
                         }
                     }
                     .scaleEffect(qcGroup.isCompleted ? 0.75 : 1)
@@ -101,7 +106,7 @@ struct QCRepresentation: View {
                 .animation(.spring(), value: qualityCriteria.value)
             }
             
-            if qcConfiguration.evaluationType.unwrappedEvaluationType == .checkboxes {
+            if qcConfiguration.evaluationType.unwrappedEvaluationType == .cups_checkboxes {
                 let qcStringValue: String = String(Int(qualityCriteria.value))
                 let fullBinaryString: String = String(
                     repeating: "0",

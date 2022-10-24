@@ -24,7 +24,7 @@ struct EvaluationGroupView: View {
             EvaluationHeaderView(qcGroup: qcGroup, isCompleted: $qcGroup.isCompleted)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, qcGroup.isCompleted ? 0 : 15)
-                .background(qcGroup.isCompleted ? Color.clear : Color(uiColor: .systemGray6))
+                .background(qcGroup.isCompleted ? Color.clear : Color(uiColor: .secondarySystemGroupedBackground))
                 .cornerRadius(10)
             
             if !qcGroup.isCompleted {
@@ -35,7 +35,7 @@ struct EvaluationGroupView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(Color(uiColor: .systemGray6))
+                .background(Color(uiColor: .secondarySystemGroupedBackground))
                 .cornerRadius(10)
                 .transition(
                     .scale(scale: 0, anchor: .top)
@@ -49,7 +49,7 @@ struct EvaluationGroupView: View {
                     .opacity(qcGroup.isCompleted ? 0.5 : 1)
                     .padding(.vertical, qcGroup.isCompleted ? 0 : 15)
                     .padding(.horizontal, 20)
-                    .background(qcGroup.isCompleted ? Color.clear : Color(uiColor: .systemGray6))
+                    .background(qcGroup.isCompleted ? Color.clear : Color(uiColor: .secondarySystemGroupedBackground))
                     .cornerRadius(10)
                     .submitLabel(.done)
                     .onSubmit { try? moc.save() }

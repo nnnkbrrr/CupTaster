@@ -2,14 +2,12 @@
     "title": "SCA",
     "finalScoreFormula": "FragranceAroma_Aroma + Flavor_Flavor + Aftertaste_Aftertaste + Acidity_Acidity + Body_Body + Uniformity_Uniformity + Balance_Balance + CleanCup_CleanCup + Sweetness_Sweetness + Overall_Overall - (Defects_Numofcups * Defects_Intensity)",
     "languageCode": "en",
-    "version": "beta 1.0 (10.0)",
+    "version": "beta 1.0 (14.0)",
     "qcGroupConfigurations": [
         {
             "title": "Fragrance/Aroma",
             "ordinalNumber": 1,
-            "hint": {
-                "message": " The aromatic aspects include Fragrance (defined as the smell of the ground coffee when still dry) and Aroma (the smell of the coffee when infused with hot water). One can evaluate this at three distinct steps in the cupping process: (1) sniffing the grounds placed into the cup before pouring water onto the coffee; (2) sniffing the aromas released while breaking the crust; and (3) sniffing the aromas released as the coffee steeps. Specific aromas can be noted under “qualities” and the intensity of the dry, break, and wet aroma aspects noted on the 5-point vertical scales. The score finally given should reflect the preference of all three aspects of a sample’s Fragrance/Aroma."
-            },
+            "hint": null,
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
@@ -52,33 +50,14 @@
         {
             "title": "Flavor",
             "ordinalNumber": 2,
-            "hint": {
-                "message": "Flavor represents the coffee's principal character, the 'mid-range' notes, in between the first impressions given by the coffee's first aroma and acidity to its final aftertaste. It is a combined impression of all the gustatory (taste bud) sensations and retro-nasal aromas that go from the mouth to nose. The score given for Flavor should account for the intensity, quality and complexity of its combined taste and aroma, experienced when the coffee is slurped into the mouth vigorously so as to involve the entire palate in the evaluation."
-            },
+            "hint": null,
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
                     "title": "Flavor",
-                    "hints": [
-                        {
-                            "lowerBound": 6,
-                            "message": "The drink is similar to coffee, without any notes and flavors"
-                        },
-                        {
-                            "lowerBound": 7,
-                            "message": "Coffee that you want to drink, it has a simple bouquet"
-                        },
-                        {
-                            "lowerBound": 8,
-                            "message": "Very tasty coffee with a bright and memorable bouquet, pleasant sweetness and acidity"
-                        },
-                        {
-                            "lowerBound": 9,
-                            "message": "Outstanding coffee that tastes more like juice"
-                        }
-                    ],
+                    "hints": [],
                     "value": 8,
                     "evaluationType": "slider",
                     "step": 0.25,
@@ -90,33 +69,14 @@
         {
             "title": "Aftertaste",
             "ordinalNumber": 3,
-            "hint": {
-                "message": "Aftertaste is defined as the length of positive flavor (taste and aroma) qualities emanating from the back of the palate and remaining after the coffee is expectorated or swallowed. If the aftertaste were short or unpleasant, a lower score would be given.\r\n'+': Long-lasting, Clean, Dessert, Velvety, Comprehensive, Pleasant, Rounded, Completed\r\n'-': Short, Dry, Bitter, Astringent, Rough, Sand, Metal, Dusty, Dirty"
-            },
+            "hint": null,
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
                     "title": "Aftertaste",
-                    "hints": [
-                        {
-                            "lowerBound": 6,
-                            "message": "Coffee with an unpleasant aftertaste from the column with the '-' sign"
-                        },
-                        {
-                            "lowerBound": 7,
-                            "message": "Coffee, with a short, perhaps slightly astringent aftertaste, a combination of '+' and '-'"
-                        },
-                        {
-                            "lowerBound": 8,
-                            "message": "Coffee, with several positive values without negative notes"
-                        },
-                        {
-                            "lowerBound": 9,
-                            "message": "Outstanding coffee, with very strong and bright positive characteristics"
-                        }
-                    ],
+                    "hints": [],
                     "value": 8,
                     "evaluationType": "slider",
                     "step": 0.25,
@@ -128,33 +88,14 @@
         {
             "title": "Acidity",
             "ordinalNumber": 4,
-            "hint": {
-                "message": "Acidity is often described as 'brightness' when favorable or 'sour' when unfavorable. At its best, acidity contributes to a coffee's liveliness, sweetness, and fresh- fruit character and is almost immediately experienced and evaluated when the coffee is first slurped into the mouth. Acidity that is overly intense or dominating may be unpleasant, however, and excessive acidity may not be appropriate to the flavor profile of the sample. The final score marked on the horizontal tick-mark scale should reflect the panelist’s perceived quality for the Acidity relative to the expected flavor profile based on origin characteristics and/or other factors (degree of roast, intended use, etc.). Coffees expected to be high in Acidity, such as a Kenya coffee, or coffees expected to be low in Acidity, such as a Sumatra coffee, can receive equally high preference scores although their intensity rankings will be quite different.\r\n'+':, Muted, Flat, Caustic, Immature, Simple, Sharp, Unbalanced, Grassy\r\n'-': Clean, Lemon, Apple, Comprehensive, Bright, Structured, Juicy, Soft, Delicate"
-            },
+            "hint": null,
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
                     "title": "Acidity",
-                    "hints": [
-                        {
-                            "lowerBound": 6,
-                            "message": "Coffee with inexpressive or absent acidity"
-                        },
-                        {
-                            "lowerBound": 7,
-                            "message": "Coffee with a combination of '+' and '-'"
-                        },
-                        {
-                            "lowerBound": 8,
-                            "message": "The acidity is bright, pleasant. Several positive characteristics."
-                        },
-                        {
-                            "lowerBound": 9,
-                            "message": "Outstanding coffee with very strong and bright positive characteristics and their combination"
-                        }
-                    ],
+                    "hints": [],
                     "value": 8,
                     "evaluationType": "slider",
                     "step": 0.25,
@@ -178,33 +119,14 @@
         {
             "title": "Body",
             "ordinalNumber": 5,
-            "hint": {
-                "message": "The quality of Body is based upon the tactile feeling of the liquid in the mouth, especially as perceived between the tongue and roof of the mouth. Most samples with heavy Body may also receive a high score in terms of quality due to the presence of brew colloids and sucrose. Some samples with lighter Body may also have a pleasant feeling in the mouth, however. Coffees expected to be high in Body, such as a Sumatra coffee, or coffees expected to be low in Body, such as a Mexican coffee, can receive equally high preference scores although their intensity rankings will be quite different.\r\n'+': Dense, Rounded, Smooth, Tea, Silky, Juicy, Syrupy, Butter, Enveloping, Velvety, Cream\r\n'-': Watery, Dry, Astringent, Rough, Rough, Sand, Tart"
-            },
+            "hint": null,
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
                     "title": "Body",
-                    "hints": [
-                        {
-                            "lowerBound": 6,
-                            "message": "Coffee with negative characteristics"
-                        },
-                        {
-                            "lowerBound": 7,
-                            "message": "Coffee with a combination of '+' and '-'"
-                        },
-                        {
-                            "lowerBound": 8,
-                            "message": "The body is round, pleasant. Several positive characteristics."
-                        },
-                        {
-                            "lowerBound": 9,
-                            "message": "Outstanding coffee with very strong and bright positive characteristics and their combination"
-                        }
-                    ],
+                    "hints": [],
                     "value": 8,
                     "evaluationType": "slider",
                     "step": 0.25,
@@ -228,33 +150,14 @@
         {
             "title": "Balance",
             "ordinalNumber": 6,
-            "hint": {
-                "message": "How all the various aspects of Flavor, Aftertaste, Acidity and Body of the sample work together and complement or contrast to each other is Balance. If the sample is lacking in certain aroma or taste attributes or if some attributes are overpowering, the Balance score would be reduced.\r\n'+': Delicate, Elegant, Comprehensive, Round, Clean, Sweet, Balanced, Nutritious, Juicy\r\n'-': Delicate, Elegant, Comprehensive, Rounded, Clean, Sweet, Balanced, Nutritious, Juicy"
-            },
+            "hint": null,
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
                     "title": "Balance",
-                    "hints": [
-                        {
-                            "lowerBound": 6,
-                            "message": "coffee in which the balance is shifted towards negative or neutral tones"
-                        },
-                        {
-                            "lowerBound": 7,
-                            "message": "coffee with a combination of '+' and '-'"
-                        },
-                        {
-                            "lowerBound": 8,
-                            "message": "A very good balanced cup by many indicators"
-                        },
-                        {
-                            "lowerBound": 9,
-                            "message": "outstanding coffee without negative traits."
-                        }
-                    ],
+                    "hints": [],
                     "value": 8,
                     "evaluationType": "slider",
                     "step": 0.25,
@@ -266,9 +169,7 @@
         {
             "title": "Sweetness",
             "ordinalNumber": 7,
-            "hint": {
-                "message": "Sweetness refers to a pleasing fullness of flavor as well as any obvious sweetness and its perception is the result of the presence of certain carbohydrates. The opposite of sweetness in this context is sour, astringency or 'green' flavors. This quality may not be directly perceived as in sucrose-laden products such as soft drinks, but will affect other flavor attributes. 2 points are awarded for each cup displaying this attribute for a maximum score of 10 points."
-            },
+            "hint": null,
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
@@ -277,7 +178,7 @@
                     "title": "Sweetness",
                     "hints": [],
                     "value": 0,
-                    "evaluationType": "checkboxes",
+                    "evaluationType": "cups_checkboxes",
                     "step": 1,
                     "lowerBound": 0,
                     "upperBound": 0
@@ -287,9 +188,7 @@
         {
             "title": "Clean Cup",
             "ordinalNumber": 8,
-            "hint": {
-                "message": " Clean Cup refers to a lack of interfering negative impressions from first ingestion to final aftertaste, a “transparency” of cup. In evaluating this attribute, notice the total flavor experience from the time of the initial ingestion to final swallowing or expectoration. Any non-coffee like tastes or aromas will disqualify an individual cup. 2 points are awarded for each cup displaying the attribute of Clean Cup."
-            },
+            "hint": null,
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
@@ -298,7 +197,7 @@
                     "title": "Clean Cup",
                     "hints": [],
                     "value": 0,
-                    "evaluationType": "checkboxes",
+                    "evaluationType": "cups_checkboxes",
                     "step": 1,
                     "lowerBound": 0,
                     "upperBound": 0
@@ -308,9 +207,7 @@
         {
             "title": "Uniformity",
             "ordinalNumber": 9,
-            "hint": {
-                "message": "Uniformity refers to consistency of flavor of the different cups of the sample tasted. If the cups taste different, the rating of this aspect would not be as high."
-            },
+            "hint": null,
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
@@ -319,7 +216,7 @@
                     "title": "Uniformity",
                     "hints": [],
                     "value": 0,
-                    "evaluationType": "checkboxes",
+                    "evaluationType": "cups_checkboxes",
                     "step": 1,
                     "lowerBound": 0,
                     "upperBound": 0
@@ -329,9 +226,7 @@
         {
             "title": "Overall",
             "ordinalNumber": 10,
-            "hint": {
-                "message": "The 'overall' scoring aspect is meant to reflect the holistically integrated rating of the sample as perceived by the individual panelist. A sample with many highly pleasant aspects, but not quite 'measuring up' would receive a lower rating. A coffee that met expectations as to its character and reflected particular origin flavor qualities would receive a high score. An exemplary example of preferred characteristics not fully reflected in the individual score of the individual attributes might receive an even higher score. This is the step where the panelists make their personal appraisal."
-            },
+            "hint": null,
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
@@ -350,9 +245,7 @@
         {
             "title": "Defects",
             "ordinalNumber": 11,
-            "hint": {
-                "message": "Defects are negative or poor flavors that detract from the quality of the coffee. The defect must first be classified (as a taint or a fault), then described ('sour', 'rubbery', 'ferment', 'phenolic' for example) and the description written down. The number of cups in which the defect was found is then noted."
-            },
+            "hint": null,
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
@@ -371,16 +264,7 @@
                     "upperBoundTitle": null,
                     "ordinalNumber": 2,
                     "title": "Intensity",
-                    "hints": [
-                        {
-                            "lowerBound": 2,
-                            "message": "A taint is an off-flavor that is noticeable, but not overwhelming, usually found in the aromatic aspects."
-                        },
-                        {
-                            "lowerBound": 4,
-                            "message": "A fault is an off-flavor, usually found in the taste aspects, that is either overwhelming or renders the sample unpalatable."
-                        }
-                    ],
+                    "hints": [],
                     "value": 0,
                     "evaluationType": "radio",
                     "step": 2,

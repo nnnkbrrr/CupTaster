@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CheckboxesView: View {
+struct CupsCheckboxesView: View {
     @Binding var value: Double
     let cuppingCupsCount: Int
     

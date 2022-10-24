@@ -30,28 +30,39 @@ struct EvaluationView: View {
             }
             .padding(.horizontal, 5)
             
+            #warning("multipicker case 1")
             if let qcConfig: QCConfig = qualityCriteria.configuration {
                 switch qcConfig.evaluationType.unwrappedEvaluationType {
-                    case .slider:
-                        SliderView(
-                            value: $qualityCriteria.value,
-                            configuration: qcConfig.sliderConfiguration
-                        )
-                    case .checkboxes:
-                        CheckboxesView(
-                            value: $qualityCriteria.value,
-                            cuppingCupsCount: Int(qualityCriteria.group.sample.cupping.cupsCount)
-                        )
-                    case .radio:
-                        RadioView(
-                            value: $qualityCriteria.value,
-                            lowerBound: qcConfig.lowerBound,
-                            upperBound: qcConfig.upperBound,
-                            step: qcConfig.step
-                        )
-                    case .none:
-                        EmptyView()
-                            .frame(height: 40)
+                case .slider:
+                    SliderView(
+                        value: $qualityCriteria.value,
+                        configuration: qcConfig.sliderConfiguration
+                    )
+                case .radio:
+                    RadioView(
+                        value: $qualityCriteria.value,
+                        lowerBound: qcConfig.lowerBound,
+                        upperBound: qcConfig.upperBound,
+                        step: qcConfig.step
+                    )
+                case .multiplePicker:
+                    CupsCheckboxesView(
+                        value: $qualityCriteria.value,
+                        cuppingCupsCount: Int(qualityCriteria.group.sample.cupping.cupsCount)
+                    )
+                case .cups_checkboxes:
+                    CupsCheckboxesView(
+                        value: $qualityCriteria.value,
+                        cuppingCupsCount: Int(qualityCriteria.group.sample.cupping.cupsCount)
+                    )
+                case .cups_multiplePicker:
+                    CupsCheckboxesView(
+                        value: $qualityCriteria.value,
+                        cuppingCupsCount: Int(qualityCriteria.group.sample.cupping.cupsCount)
+                    )
+                case .none:
+                    EmptyView()
+                        .frame(height: 40)
                 }
                 
                 if let currentQCHint {

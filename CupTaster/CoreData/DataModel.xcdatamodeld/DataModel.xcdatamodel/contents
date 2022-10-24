@@ -52,7 +52,7 @@
     </entity>
     <entity name="QualityCriteria" representedClassName="QualityCriteria" syncable="YES">
         <attribute name="title" attributeType="String" defaultValueString="title"/>
-        <attribute name="value" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="value" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="configuration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCConfig" inverseName="qualityCriteria" inverseEntity="QCConfig"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCGroup" inverseName="qualityCriteria" inverseEntity="QCGroup"/>
     </entity>

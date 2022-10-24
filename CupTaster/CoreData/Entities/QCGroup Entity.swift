@@ -33,10 +33,10 @@ extension Sample {
 
         let cuppingCupsCount: Int = Int(self.cupping.cupsCount)
         return Dictionary(uniqueKeysWithValues: criteria.map {(
-            $0.group.configuration.title.filter { $0.isLetter }
-            + "_" +  $0.title.filter { $0.isLetter },
+            $0.group.configuration.title.filter { $0.isLetter || $0.isNumber }
+            + "_" +  $0.title.filter { $0.isLetter || $0.isNumber },
 
-            $0.configuration!.evaluationType == EvaluationType.checkboxes.stringValue ?
+            $0.configuration!.evaluationType == EvaluationType.cups_checkboxes.stringValue ?
             Double(getCheckboxesRepresentationValue(value: $0.value, cupsCount: cuppingCupsCount))! : $0.value
         )})
     }
@@ -47,7 +47,6 @@ extension Sample {
             let values = getValues()
             let expressionValue = expression.expressionValue(with: values, context: nil)
             self.finalScore = expressionValue as? Double ?? 0
-//            self.cupping.objectWillChange.send()
         }
     }
 }

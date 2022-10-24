@@ -12,17 +12,23 @@ public class CFManager: ObservableObject {
     @AppStorage("default-cupping-form-description") private(set) var defaultCFDescription: String = ""
     
     let allCFModels: [CFModel]
-    let sca_CFModel: CFModel
     
     static let shared = CFManager()
     private init() {
 #warning("version - beta")
-        sca_CFModel = .init(
+        let SCA_CFModel = CFModel(
             title: "SCA",
-            version: "beta 1.0 (10.0)",
-            info: "The SCA Cupping Form is the Global Standard for cupping coffee. This form is designed and intended to be used in conjunction with the SCA Protocol for Cupping Specialty Coffee. The form and corresponding Protocol were designed specifically for Arabica coffee. In practice, though, they are widely used for scoring interspecific hybrids such as castillo, too."
+            version: "beta 1.0 (14.0)"
         )
-        allCFModels = [sca_CFModel]
+        let SCI_CFModel = CFModel(
+            title: "SCI",
+            version: "beta 1.0 (14.0)"
+        )
+        let CoE_CFModel = CFModel(
+            title: "CoE",
+            version: "beta 1.0 (14.0)"
+        )
+        allCFModels = [SCA_CFModel, SCI_CFModel, CoE_CFModel]
     }
 }
 

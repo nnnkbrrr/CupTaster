@@ -58,20 +58,21 @@ struct Settings_CFSelectorFormSectionsView: View {
             }
         }
         
-        if cfManager.defaultCFDescription != "" {
-            Section {
-                if cfManager.defaultCFHintsAreAvailable(from: cuppingForms) {
-                    Toggle(isOn: $useCuppingHints) {
-                        Label("Display cupping hints", systemImage: "person.fill.questionmark")
-                    }
-                } else {
-                    Label("Hints are unavailable in this cupping form", systemImage: "person.fill.questionmark")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
-            } header: {
-                Text("Hints")
-            }
-        }
+#warning("hints toggle is hidden")
+//        if cfManager.defaultCFDescription != "" {
+//            Section {
+//                if cfManager.defaultCFHintsAreAvailable(from: cuppingForms) {
+//                    Toggle(isOn: $useCuppingHints) {
+//                        Label("Display cupping hints", systemImage: "person.fill.questionmark")
+//                    }
+//                } else {
+//                    Label("Hints are unavailable in this cupping form yet", systemImage: "person.fill.questionmark")
+//                        .font(.caption)
+//                        .foregroundColor(.gray)
+//                }
+//            } header: {
+//                Text("Hints")
+//            }
+//        }
     }
 }

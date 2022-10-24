@@ -12,12 +12,10 @@ extension CFManager {
     class CFModel: Identifiable {
         let title: String
         let version: String
-        let info: String
         
-        init(title: String, version: String, info: String) {
+        init(title: String, version: String) {
             self.title = title
             self.version = version
-            self.info = info
         }
         
         func createCuppingForm(context: NSManagedObjectContext) -> CuppingForm? {

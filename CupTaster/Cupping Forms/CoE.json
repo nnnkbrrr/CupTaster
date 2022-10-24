@@ -1,0 +1,258 @@
+{
+    "title": "CoE",
+    "finalScoreFormula": "Cleancup_Cleancup + Sweetness_Sweetness + Acidity_Acidity + Mouthfeel_Mouthfeel + Flavour_Flavour + Aftertaste_Aftertaste + Balance_Balance + Overall_Overall - (Defects_Intensity * Defects_Cups * 4) + 36",
+    "languageCode": "en",
+    "version": "beta 1.0 (14.0)",
+    "qcGroupConfigurations": [
+        {
+            "title": "Aroma",
+            "ordinalNumber": 1,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": "unpleasant",
+                    "upperBoundTitle": "pleasant",
+                    "ordinalNumber": 1,
+                    "title": "Dry",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -3,
+                    "upperBound": 3
+                },
+                {
+                    "lowerBoundTitle": "unpleasant",
+                    "upperBoundTitle": "pleasant",
+                    "ordinalNumber": 2,
+                    "title": "Crust",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -3,
+                    "upperBound": 3
+                },
+                {
+                    "lowerBoundTitle": "unpleasant",
+                    "upperBoundTitle": "pleasant",
+                    "ordinalNumber": 3,
+                    "title": "Break",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": -3,
+                    "upperBound": 3
+                }
+            ]
+        },
+        {
+            "title": "Defects",
+            "ordinalNumber": 2,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": "Slight",
+                    "upperBoundTitle": "Intense",
+                    "ordinalNumber": 1,
+                    "title": "Intensity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 3
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 2,
+                    "title": "Cups",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 0
+                }
+            ]
+        },
+        {
+            "title": "Clean cup",
+            "ordinalNumber": 3,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Clean cup",
+                    "hints": [],
+                    "value": 6,
+                    "evaluationType": "slider",
+                    "step": 0.5,
+                    "lowerBound": 0,
+                    "upperBound": 8
+                }
+            ]
+        },
+        {
+            "title": "Sweetness",
+            "ordinalNumber": 4,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Sweetness",
+                    "hints": [],
+                    "value": 6,
+                    "evaluationType": "slider",
+                    "step": 0.5,
+                    "lowerBound": 0,
+                    "upperBound": 8
+                }
+            ]
+        },
+        {
+            "title": "Acidity",
+            "ordinalNumber": 5,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Acidity",
+                    "hints": [],
+                    "value": 6,
+                    "evaluationType": "slider",
+                    "step": 0.5,
+                    "lowerBound": 0,
+                    "upperBound": 8
+                },
+                {
+                    "lowerBoundTitle": "Low",
+                    "upperBoundTitle": "High",
+                    "ordinalNumber": 2,
+                    "title": "Intensity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Mouthfeel",
+            "ordinalNumber": 6,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Mouthfeel",
+                    "hints": [],
+                    "value": 6,
+                    "evaluationType": "slider",
+                    "step": 0.5,
+                    "lowerBound": 0,
+                    "upperBound": 8
+                },
+                {
+                    "lowerBoundTitle": "Low",
+                    "upperBoundTitle": "High",
+                    "ordinalNumber": 2,
+                    "title": "Intensity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Flavour",
+            "ordinalNumber": 7,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Flavour",
+                    "hints": [],
+                    "value": 6,
+                    "evaluationType": "slider",
+                    "step": 0.5,
+                    "lowerBound": 0,
+                    "upperBound": 8
+                }
+            ]
+        },
+        {
+            "title": "Aftertaste",
+            "ordinalNumber": 8,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Aftertaste",
+                    "hints": [],
+                    "value": 6,
+                    "evaluationType": "slider",
+                    "step": 0.5,
+                    "lowerBound": 0,
+                    "upperBound": 8
+                }
+            ]
+        },
+        {
+            "title": "Balance",
+            "ordinalNumber": 9,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Balance",
+                    "hints": [],
+                    "value": 6,
+                    "evaluationType": "slider",
+                    "step": 0.5,
+                    "lowerBound": 0,
+                    "upperBound": 8
+                }
+            ]
+        },
+        {
+            "title": "Overall",
+            "ordinalNumber": 10,
+            "hint": null,
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Overall",
+                    "hints": [],
+                    "value": 6,
+                    "evaluationType": "slider",
+                    "step": 0.5,
+                    "lowerBound": 0,
+                    "upperBound": 8
+                }
+            ]
+        }
+    ]
+}

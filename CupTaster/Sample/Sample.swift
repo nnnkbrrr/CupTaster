@@ -105,10 +105,11 @@ extension SampleView {
             RadarChart(sample: sample, useShortLabels: true)
             
             HStack {
-                ZStack {
+                Group {
                     if sample.finalScore != 0 { Text(String(format: "%.1f", sample.finalScore)) }
                     else { Text("-") }
                 }
+                .lineLimit(1)
                 .frame(width: 30)
                 
                 Divider()

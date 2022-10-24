@@ -66,9 +66,7 @@ struct AllCuppingsView: View {
                                 Label("New cupping", systemImage: "plus")
                             }
                         }
-                    }
-                    
-                    Section {
+
                         ForEach(cuppings) { cupping in
                             Button {
                                 activeCuppingModel = CuppingModel(cupping: cupping)

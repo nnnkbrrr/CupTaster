@@ -70,7 +70,7 @@ struct CuppingSettingsView: View {
                         cuppingModel.cupping.cupsCount = Int16(selectedCupsCount)
                         cuppingModel.cupping.form = selectedCuppingForm
                         
-                        for _ in 1...selectedCupsCount {
+                        for _ in 1...selectedSamplesCount {
                             let usedNames: [String] = cuppingModel.cupping.samples.map { $0.name }
                             let defaultName: String = SampleNameGenerator().generateSampleDefaultName(usedNames: usedNames)
                             

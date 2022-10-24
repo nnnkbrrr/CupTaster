@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @AppStorage("tester-tab-visible") var testerTabVisible: Bool = false
     @AppStorage("sample-name-generator-method")
     var sampleNameGenerationMethod: SampleNameGenerator.GenerationMethod = .alphabetical
     
@@ -63,6 +64,9 @@ struct SettingsView: View {
                         Text("Version")
                         Spacer()
                         Text(appVersion)
+                    }
+                    .onTapGesture(count: 10) {
+                        testerTabVisible = true
                     }
                 }
             }
