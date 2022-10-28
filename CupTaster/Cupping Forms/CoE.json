@@ -10,40 +10,16 @@
             "hint": null,
             "qcConfigurations": [
                 {
-                    "lowerBoundTitle": "unpleasant",
-                    "upperBoundTitle": "pleasant",
+                    "lowerBoundTitle": "",
+                    "upperBoundTitle": "",
                     "ordinalNumber": 1,
-                    "title": "Dry",
+                    "title": "Dry | Crust | Break",
                     "hints": [],
                     "value": 0,
-                    "evaluationType": "radio",
+                    "evaluationType": "multiplePicker",
                     "step": 1,
-                    "lowerBound": -3,
-                    "upperBound": 3
-                },
-                {
-                    "lowerBoundTitle": "unpleasant",
-                    "upperBoundTitle": "pleasant",
-                    "ordinalNumber": 2,
-                    "title": "Crust",
-                    "hints": [],
-                    "value": 0,
-                    "evaluationType": "radio",
-                    "step": 1,
-                    "lowerBound": -3,
-                    "upperBound": 3
-                },
-                {
-                    "lowerBoundTitle": "unpleasant",
-                    "upperBoundTitle": "pleasant",
-                    "ordinalNumber": 3,
-                    "title": "Break",
-                    "hints": [],
-                    "value": 0,
-                    "evaluationType": "radio",
-                    "step": 1,
-                    "lowerBound": -3,
-                    "upperBound": 3
+                    "lowerBound": -333,
+                    "upperBound": 333
                 }
             ]
         },

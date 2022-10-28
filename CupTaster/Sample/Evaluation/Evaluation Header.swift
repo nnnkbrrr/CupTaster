@@ -21,18 +21,12 @@ struct EvaluationHeaderView: View {
 #warning("multipicker case 2")
                     ZStack {
                         switch qcConfiguration.evaluationType.unwrappedEvaluationType {
-                        case .slider:
-                            SliderEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .radio:
-                            CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .multiplePicker:
-                            CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .cups_checkboxes:
-                            CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .cups_multiplePicker:
-                            CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .none:
-                            EmptyView().frame(height: 40)
+                        case .slider: SliderEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                        case .radio: RadioEvaluationValueView(qualityCriteria: firstQualityCriteria)
+//                        case .multiplePicker: CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                        case .cups_checkboxes: CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+//                        case .cups_multiplePicker: CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                        default: Text("-").bold().frame(width: 50)
                         }
                     }
                     .scaleEffect(qcGroup.isCompleted ? 0.75 : 1)

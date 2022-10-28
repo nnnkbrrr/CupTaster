@@ -19,18 +19,23 @@ struct EvaluationView: View {
         VStack {
             HStack {
                 Group {
-                    Text(qualityCriteria.configuration?.lowerBoundTitle ?? "")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Text(qualityCriteria.title)
-                    Text(qualityCriteria.configuration?.upperBoundTitle ?? "")
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    if qualityCriteria.configuration!.evaluationType.unwrappedEvaluationType == .multiplePicker {
+                        ForEach(qualityCriteria.configuration!.title.components(separatedBy: " | "), id: \.self) { subTitle in
+                            Text(subTitle).frame(maxWidth: .infinity)
+                        }
+                    } else {
+                        Text(qualityCriteria.configuration?.lowerBoundTitle ?? "")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(qualityCriteria.title)
+                        Text(qualityCriteria.configuration?.upperBoundTitle ?? "")
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
                 }
                 .font(.caption2)
                 .foregroundColor(.gray)
             }
             .padding(.horizontal, 5)
             
-            #warning("multipicker case 1")
             if let qcConfig: QCConfig = qualityCriteria.configuration {
                 switch qcConfig.evaluationType.unwrappedEvaluationType {
                 case .slider:
@@ -46,9 +51,11 @@ struct EvaluationView: View {
                         step: qcConfig.step
                     )
                 case .multiplePicker:
-                    CupsCheckboxesView(
+                    MultiplePickerView(
                         value: $qualityCriteria.value,
-                        cuppingCupsCount: Int(qualityCriteria.group.sample.cupping.cupsCount)
+                        lowerBound: qcConfig.lowerBound,
+                        upperBound: qcConfig.upperBound,
+                        step: qcConfig.step
                     )
                 case .cups_checkboxes:
                     CupsCheckboxesView(
@@ -56,8 +63,11 @@ struct EvaluationView: View {
                         cuppingCupsCount: Int(qualityCriteria.group.sample.cupping.cupsCount)
                     )
                 case .cups_multiplePicker:
-                    CupsCheckboxesView(
+                    CupsMultiplePickerView(
                         value: $qualityCriteria.value,
+                        lowerBound: qcConfig.lowerBound,
+                        upperBound: qcConfig.upperBound,
+                        step: qcConfig.step,
                         cuppingCupsCount: Int(qualityCriteria.group.sample.cupping.cupsCount)
                     )
                 case .none:

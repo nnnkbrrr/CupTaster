@@ -11,14 +11,14 @@ import CoreData
 // MARK: Content View
 
 #warning("внешний вид на айпадах")
-#warning("переписать тесты")
-#warning("нельзя изменить кол-во чашек в ски и тд")
+#warning("переписать unit тесты")
 #warning("если образков много, то приложение сильно зависает")
-#warning("добавить дополнительные атрибуты оценки образцов")
+#warning("добавить дополнительные атрибуты (страна, обжарка...) оценки образцов")
 #warning("подсказки не написаны")
-#warning("добавить формы SCI COE")
 #warning("Показывать предупреждение что все образцы/каппинги будут удалены при удалении каппинга/формы")
-#warning("unit тесты")
+#warning("Representation value in evaluation header во всех способах оценки с деффектами особенно")
+#warning("Header multipicker")
+#warning("SCI formula")
 
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>

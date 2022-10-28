@@ -38,8 +38,10 @@ struct CheckboxesEvaluationValueView: View {
     }
 }
 
-func getCheckboxesRepresentationValue(value: CGFloat, cupsCount: Int) -> String {
-    let value: CGFloat = 10.0 - (10.0 * CGFloat("\(value)".components(separatedBy: "1").count - 1)) / CGFloat(cupsCount)
+public func getFilledCheckboxesCount(value: CGFloat) -> Int { Int(value).digits.reduce(0, +) }
+
+fileprivate func getCheckboxesRepresentationValue(value: CGFloat, cupsCount: Int) -> String {
+    let value: CGFloat = 10.0 - (10.0 * CGFloat(Int(value).digits.reduce(0, +))) / CGFloat(cupsCount)
     switch value.truncatingRemainder(dividingBy: 1) {
         case 0: return String(format: "%.0f", value)
         default: return String(format: "%.1f", value)

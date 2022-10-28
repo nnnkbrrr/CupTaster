@@ -1,6 +1,6 @@
 {
     "title": "SCA",
-    "finalScoreFormula": "FragranceAroma_Aroma + Flavor_Flavor + Aftertaste_Aftertaste + Acidity_Acidity + Body_Body + Uniformity_Uniformity + Balance_Balance + CleanCup_CleanCup + Sweetness_Sweetness + Overall_Overall - (Defects_Numofcups * Defects_Intensity)",
+    "finalScoreFormula": "FragranceAroma_Aroma + Flavor_Flavor + Aftertaste_Aftertaste + Acidity_Acidity + Body_Body + (10 - (10 * Uniformity_Uniformity / CupsCount)) + Balance_Balance + (10 - (10 * CleanCup_CleanCup / CupsCount)) + (10 - (10 * Sweetness_Sweetness / CupsCount)) + Overall_Overall - (Defects_Numofcups * Defects_Intensity)",
     "languageCode": "en",
     "version": "beta 1.0 (14.0)",
     "qcGroupConfigurations": [
@@ -19,7 +19,7 @@
                     "evaluationType": "slider",
                     "step": 0.25,
                     "lowerBound": 6,
-                    "upperBound": 9.75
+                    "upperBound": 10
                 },
                 {
                     "lowerBoundTitle": null,
@@ -62,7 +62,7 @@
                     "evaluationType": "slider",
                     "step": 0.25,
                     "lowerBound": 6,
-                    "upperBound": 9.75
+                    "upperBound": 10
                 }
             ]
         },
@@ -81,7 +81,7 @@
                     "evaluationType": "slider",
                     "step": 0.25,
                     "lowerBound": 6,
-                    "upperBound": 9.75
+                    "upperBound": 10
                 }
             ]
         },
@@ -100,7 +100,7 @@
                     "evaluationType": "slider",
                     "step": 0.25,
                     "lowerBound": 6,
-                    "upperBound": 9.75
+                    "upperBound": 10
                 },
                 {
                     "lowerBoundTitle": "Low",
@@ -131,7 +131,7 @@
                     "evaluationType": "slider",
                     "step": 0.25,
                     "lowerBound": 6,
-                    "upperBound": 9.75
+                    "upperBound": 10
                 },
                 {
                     "lowerBoundTitle": "Thin",
@@ -162,7 +162,7 @@
                     "evaluationType": "slider",
                     "step": 0.25,
                     "lowerBound": 6,
-                    "upperBound": 9.75
+                    "upperBound": 10
                 }
             ]
         },
@@ -238,7 +238,7 @@
                     "evaluationType": "slider",
                     "step": 0.25,
                     "lowerBound": 6,
-                    "upperBound": 9.75
+                    "upperBound": 10
                 }
             ]
         },

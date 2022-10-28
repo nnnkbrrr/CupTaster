@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221E580A2906BC8E00D81CE8 /* MultiplePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E58092906BC8E00D81CE8 /* MultiplePicker.swift */; };
+		221E580C2906BEF500D81CE8 /* NumToDigits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E580B2906BEF500D81CE8 /* NumToDigits.swift */; };
 		22242C7328EF106D00138494 /* EmailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C7228EF106D00138494 /* EmailHelper.swift */; };
 		22242C7628EF263B00138494 /* Cupping Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C7528EF263B00138494 /* Cupping Entity.swift */; };
 		22242C7828EF267500138494 /* Sample Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C7728EF267500138494 /* Sample Entity.swift */; };
@@ -23,6 +25,7 @@
 		228F857628FD90C000214198 /* SCI.json in Resources */ = {isa = PBXBuildFile; fileRef = 228F857528FD90C000214198 /* SCI.json */; };
 		22B1905A28F3129500D79ABE /* Tester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B1905928F3129400D79ABE /* Tester.swift */; };
 		63083C0028B7A79C00874926 /* Sample Selector Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63083BFF28B7A79C00874926 /* Sample Selector Tools.swift */; };
+		6309C775290B2931005D659A /* C MultiplePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6309C774290B2931005D659A /* C MultiplePicker.swift */; };
 		630DE7B62869C99500D026A4 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630DE7B52869C99500D026A4 /* Sample.swift */; };
 		631C108028B0528F00620637 /* CFManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C107F28B0528F00620637 /* CFManager.swift */; };
 		6324CE8B28E1E53F003E6088 /* Half Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6324CE8A28E1E53F003E6088 /* Half Sheet.swift */; };
@@ -35,6 +38,7 @@
 		635AFC4328A913A1007B78C0 /* Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AFC4228A913A1007B78C0 /* Name Generator.swift */; };
 		6360D51A28CF3FD700D51D0D /* Cupping Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D51928CF3FD700D51D0D /* Cupping Tab.swift */; };
 		636857FF28593EDB0076E780 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636857FE28593EDB0076E780 /* Slider.swift */; };
+		636BC08E290ADFBD00914389 /* Radio Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BC08D290ADFBD00914389 /* Radio Value.swift */; };
 		637348D2288D7FD700689C96 /* Slider Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637348D1288D7FD700689C96 /* Slider Value.swift */; };
 		63742D18287EA998001E8DAB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D17287EA998001E8DAB /* Persistence.swift */; };
 		63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
@@ -76,6 +80,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		221E58092906BC8E00D81CE8 /* MultiplePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplePicker.swift; sourceTree = "<group>"; };
+		221E580B2906BEF500D81CE8 /* NumToDigits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumToDigits.swift; sourceTree = "<group>"; };
 		22242C7228EF106D00138494 /* EmailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailHelper.swift; sourceTree = "<group>"; };
 		22242C7528EF263B00138494 /* Cupping Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Entity.swift"; sourceTree = "<group>"; };
 		22242C7728EF267500138494 /* Sample Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Entity.swift"; sourceTree = "<group>"; };
@@ -92,6 +98,7 @@
 		228F857528FD90C000214198 /* SCI.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SCI.json; sourceTree = "<group>"; };
 		22B1905928F3129400D79ABE /* Tester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tester.swift; sourceTree = "<group>"; };
 		63083BFF28B7A79C00874926 /* Sample Selector Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Selector Tools.swift"; sourceTree = "<group>"; };
+		6309C774290B2931005D659A /* C MultiplePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "C MultiplePicker.swift"; sourceTree = "<group>"; };
 		630DE7B52869C99500D026A4 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		631C107F28B0528F00620637 /* CFManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFManager.swift; sourceTree = "<group>"; };
 		6324CE8A28E1E53F003E6088 /* Half Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Half Sheet.swift"; sourceTree = "<group>"; };
@@ -104,6 +111,7 @@
 		635AFC4228A913A1007B78C0 /* Name Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Name Generator.swift"; sourceTree = "<group>"; };
 		6360D51928CF3FD700D51D0D /* Cupping Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Tab.swift"; sourceTree = "<group>"; };
 		636857FE28593EDB0076E780 /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
+		636BC08D290ADFBD00914389 /* Radio Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radio Value.swift"; sourceTree = "<group>"; };
 		6371088A288032F60073348C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		637348D1288D7FD700689C96 /* Slider Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider Value.swift"; sourceTree = "<group>"; };
 		63742D17287EA998001E8DAB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -191,6 +199,7 @@
 		635AFC4128A9138E007B78C0 /* Cupping */ = {
 			isa = PBXGroup;
 			children = (
+				6360D51928CF3FD700D51D0D /* Cupping Tab.swift */,
 				633C5036287090C6006B398E /* Cupping.swift */,
 				63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */,
 				6324CE8C28E20D95003E6088 /* Cupping Settings.swift */,
@@ -216,6 +225,7 @@
 			children = (
 				637348D1288D7FD700689C96 /* Slider Value.swift */,
 				63DCCE1A28B1C3CA00B72AEB /* Checkboxes Value.swift */,
+				636BC08D290ADFBD00914389 /* Radio Value.swift */,
 			);
 			path = "Header Value";
 			sourceTree = "<group>";
@@ -280,6 +290,7 @@
 				63D892E728C9EF5C00F68505 /* AppStorage extensions.swift */,
 				6324CE8A28E1E53F003E6088 /* Half Sheet.swift */,
 				22242C7228EF106D00138494 /* EmailHelper.swift */,
+				221E580B2906BEF500D81CE8 /* NumToDigits.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -317,7 +328,6 @@
 			isa = PBXGroup;
 			children = (
 				63DC7A572801BE7800010318 /* ContentView.swift */,
-				6360D51928CF3FD700D51D0D /* Cupping Tab.swift */,
 				22B1905928F3129400D79ABE /* Tester.swift */,
 				63D892EB28CA066200F68505 /* Onboarding */,
 				635AFC4128A9138E007B78C0 /* Cupping */,
@@ -357,7 +367,9 @@
 			children = (
 				636857FE28593EDB0076E780 /* Slider.swift */,
 				63E6B7CA2886FFAA001A312F /* Radio.swift */,
+				221E58092906BC8E00D81CE8 /* MultiplePicker.swift */,
 				63E6B7CC2886FFBD001A312F /* C Checkboxes.swift */,
+				6309C774290B2931005D659A /* C MultiplePicker.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -497,6 +509,7 @@
 				22B1905A28F3129500D79ABE /* Tester.swift in Sources */,
 				63BCCE9328DF834700BD3FB9 /* Cupping Model.swift in Sources */,
 				63BCCE9528DF896900BD3FB9 /* Cupping Toolbar.swift in Sources */,
+				6309C775290B2931005D659A /* C MultiplePicker.swift in Sources */,
 				22242C7628EF263B00138494 /* Cupping Entity.swift in Sources */,
 				6360D51A28CF3FD700D51D0D /* Cupping Tab.swift in Sources */,
 				63DC7A582801BE7800010318 /* ContentView.swift in Sources */,
@@ -506,6 +519,7 @@
 				63D892DF28C9EC3400F68505 /* S Cupping Forms.swift in Sources */,
 				63DCCE1B28B1C3CA00B72AEB /* Checkboxes Value.swift in Sources */,
 				6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */,
+				221E580A2906BC8E00D81CE8 /* MultiplePicker.swift in Sources */,
 				22242C7C28EF273700138494 /* SampleGeneralInfo Entity.swift in Sources */,
 				22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */,
 				22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */,
@@ -513,8 +527,10 @@
 				631C108028B0528F00620637 /* CFManager.swift in Sources */,
 				63D892DC28C9E75800F68505 /* CFModel.swift in Sources */,
 				63ED3A4428D0C8C100CCF032 /* Evaluation Group.swift in Sources */,
+				221E580C2906BEF500D81CE8 /* NumToDigits.swift in Sources */,
 				63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */,
 				630DE7B62869C99500D026A4 /* Sample.swift in Sources */,
+				636BC08E290ADFBD00914389 /* Radio Value.swift in Sources */,
 				6324CE8D28E20D95003E6088 /* Cupping Settings.swift in Sources */,
 				22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */,
 				637348D2288D7FD700689C96 /* Slider Value.swift in Sources */,

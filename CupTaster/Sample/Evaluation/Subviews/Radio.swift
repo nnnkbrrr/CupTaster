@@ -23,13 +23,7 @@ struct RadioView: View {
                     .matchedGeometryEffect(id: "background", in: namespace)
             }
                    
-            let values: [Int] = Array(
-                stride(
-                    from: lowerBound,
-                    through: upperBound,
-                    by: step
-                )
-            ).map{ Int($0) }
+            let values: [Int] = Array(stride(from: lowerBound, through: upperBound, by: step)).map { Int($0) }
             
             HStack {
                 ForEach(values, id: \.self) { value in

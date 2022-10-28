@@ -31,14 +31,16 @@ extension Sample {
             qcGroup.qualityCriteria
         }.flatMap { criteria in criteria }
 
-        let cuppingCupsCount: Int = Int(self.cupping.cupsCount)
-        return Dictionary(uniqueKeysWithValues: criteria.map {(
+        var dictionaryValues: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map {(
             $0.group.configuration.title.filter { $0.isLetter || $0.isNumber }
             + "_" +  $0.title.filter { $0.isLetter || $0.isNumber },
-
+            
             $0.configuration!.evaluationType == EvaluationType.cups_checkboxes.stringValue ?
-            Double(getCheckboxesRepresentationValue(value: $0.value, cupsCount: cuppingCupsCount))! : $0.value
+            Double(getFilledCheckboxesCount(value: $0.value)) : $0.value
         )})
+        
+        dictionaryValues.updateValue(Double(self.cupping.cupsCount), forKey: "CupsCount")
+        return dictionaryValues
     }
     
     public func calculateFinalScore() {
