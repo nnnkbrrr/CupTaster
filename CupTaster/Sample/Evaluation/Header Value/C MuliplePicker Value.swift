@@ -42,7 +42,7 @@ struct CupsMultiplePickerValueView: View {
     
     func formatValue(value: CGFloat) -> String {
         var formattedValue: String = String(format: "%.2f", value)
-        while formattedValue.count > 1 && (formattedValue.last == "0" || formattedValue.last == ".") {
+        while formattedValue.count > 1 && (formattedValue.last == "0" && formattedValue.contains(".") || formattedValue.last == ".") {
             formattedValue.removeLast()
         }
         return formattedValue

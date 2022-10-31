@@ -1,6 +1,6 @@
 {
     "title": "SCI",
-    "finalScoreFormula": "Fragrance_Fragrance + Aroma_Aroma + Flavor_Flavor + Acidity_Acidity + Body_Body + Sweetness_Sweetness + Aftertaste_Aftertaste + Freshcrop_Freshcrop + Offflavor_Cup1 + Offflavor_Cup2 + Offflavor_Cup3 + Offflavor_Cup4 + Offflavor_Cup5 + Uniformity_Cup1 + Uniformity_Cup2 + Uniformity_Cup3 + Uniformity_Cup4 + Uniformity_Cup5",
+    "finalScoreFormula": "Fragrance_Fragrance + Aroma_Aroma + Flavor_Flavor + Acidity_Acidity + Body_Body + Sweetness_Sweetness + Aftertaste_Aftertaste + Freshcrop_Freshcrop + Offflavor_Offflavor + Uniformity_Uniformity",
     "languageCode": "en",
     "version": "beta 1.0 (14.0)",
     "qcGroupConfigurations": [

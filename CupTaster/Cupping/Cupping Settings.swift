@@ -97,6 +97,8 @@ struct CuppingSettingsView: View {
                             cuppingModel.cupping.addToSamples(sample)
                         }
                         
+                        extraCuppingFormSettings(cupping: cuppingModel.cupping)
+                        
                         try? moc.save()
                         
                         cuppingModel.selectedSample = cuppingModel.sortedSamples.first
@@ -106,6 +108,21 @@ struct CuppingSettingsView: View {
                         cuppingModel.settingsSheetDismissDisabled = false
                         cuppingModel.settingsSheetIsPresented = false
                         cuppingModel.sampleViewVisible = true
+                    }
+                }
+            }
+        }
+    }
+}
+
+extension CuppingSettingsView {
+    func extraCuppingFormSettings(cupping: Cupping) {
+        for sample in cupping.samples {
+            for qcGroup in sample.qualityCriteriaGroups {
+                for qualityCriteria in qcGroup.qualityCriteria {
+                    let qcConfig: QCConfig = qualityCriteria.configuration!
+                    if qcConfig.evaluationType.unwrappedEvaluationType == .cups_multiplePicker {
+                        qualityCriteria.value = Double(Int(String("\(qualityCriteria.value)").prefix(Int(cupping.cupsCount)))!)
                     }
                 }
             }

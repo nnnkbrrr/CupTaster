@@ -34,7 +34,7 @@ extension Sample {
         func getDictionaryValue(criteria: QualityCriteria) -> Double {
             switch criteria.configuration!.evaluationType.unwrappedEvaluationType {
             case .cups_checkboxes: return Double(getFilledCheckboxesCount(value: criteria.value))
-            case .cups_multiplePicker: return Double(getFilledCheckboxesCount(value: criteria.value))
+            case .cups_multiplePicker: return Double(getMultiplePickerValue(value: criteria.value, cuppingCupsCount: Int(criteria.group.sample.cupping.cupsCount), lowerBound: criteria.configuration!.lowerBound))
             default: return criteria.value
             }
         }

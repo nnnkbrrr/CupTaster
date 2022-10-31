@@ -19,11 +19,17 @@ struct EvaluationView: View {
         VStack {
             HStack {
                 Group {
-                    if qualityCriteria.configuration!.evaluationType.unwrappedEvaluationType == .multiplePicker {
+                    switch qualityCriteria.configuration!.evaluationType.unwrappedEvaluationType {
+                    case .multiplePicker:
                         ForEach(qualityCriteria.configuration!.title.components(separatedBy: " | "), id: \.self) { subTitle in
                             Text(subTitle).frame(maxWidth: .infinity)
                         }
-                    } else {
+                    case .cups_multiplePicker:
+                        ForEach(1...cuppingModel.cupping.cupsCount, id: \.self) { cupIndex in
+                            Text("Cup \(cupIndex)")
+                                .frame(maxWidth: .infinity)
+                        }
+                    default:
                         Text(qualityCriteria.configuration?.lowerBoundTitle ?? "")
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text(qualityCriteria.title)
