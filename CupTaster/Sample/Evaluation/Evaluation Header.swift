@@ -25,7 +25,7 @@ struct EvaluationHeaderView: View {
                         case .radio: RadioEvaluationValueView(qualityCriteria: firstQualityCriteria)
 //                        case .multiplePicker: CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
                         case .cups_checkboxes: CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
-//                        case .cups_multiplePicker: CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                        case .cups_multiplePicker: CupsMultiplePickerValueView(qualityCriteria: firstQualityCriteria)
                         default: Text("-").bold().frame(width: 50)
                         }
                     }

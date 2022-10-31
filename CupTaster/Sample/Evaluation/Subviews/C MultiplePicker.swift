@@ -17,7 +17,10 @@ struct CupsMultiplePickerView: View {
     
     var body: some View {
         HStack {
-            ForEach(Array(allPickerValues.enumerated()), id: \.offset) { offset, pickerValue in
+            ForEach(
+                Array(getAllMultiplePickerShiftedValues(value: value, cuppingCupsCount: cuppingCupsCount).enumerated()),
+                id: \.offset
+            ) { offset, pickerValue in
                 Menu {
                     ForEach(validPickerValues, id: \.self) { validValue in
                         Button {
@@ -43,17 +46,11 @@ struct CupsMultiplePickerView: View {
 }
 
 extension CupsMultiplePickerView {
-    var allPickerValues: [Int] {
-        let values: [Int] = Int(value).digits
-        switch values.count {
-        case let count where count < cuppingCupsCount: return (Array(repeating: 0, count: (cuppingCupsCount - values.count)) + values).reversed()
-        default: return Array(values.reversed().prefix(cuppingCupsCount))
-        }
-    }
-    
     var validPickerValues: [Int] {
         return Array(stride(from: lowerBound, through: upperBound, by: step)).map { Int($0) }
     }
     
     var lowerBoundIsNegative: Bool { lowerBound.sign == .minus }
 }
+
+

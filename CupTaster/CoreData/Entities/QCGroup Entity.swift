@@ -30,17 +30,24 @@ extension Sample {
         let criteria: [QualityCriteria] = self.qualityCriteriaGroups.map { qcGroup in
             qcGroup.qualityCriteria
         }.flatMap { criteria in criteria }
+        
+        func getDictionaryValue(criteria: QualityCriteria) -> Double {
+            switch criteria.configuration!.evaluationType.unwrappedEvaluationType {
+            case .cups_checkboxes: return Double(getFilledCheckboxesCount(value: criteria.value))
+            case .cups_multiplePicker: return Double(getFilledCheckboxesCount(value: criteria.value))
+            default: return criteria.value
+            }
+        }
 
-        var dictionaryValues: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map {(
+        var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map {(
             $0.group.configuration.title.filter { $0.isLetter || $0.isNumber }
             + "_" +  $0.title.filter { $0.isLetter || $0.isNumber },
             
-            $0.configuration!.evaluationType == EvaluationType.cups_checkboxes.stringValue ?
-            Double(getFilledCheckboxesCount(value: $0.value)) : $0.value
+            getDictionaryValue(criteria: $0)
         )})
         
-        dictionaryValues.updateValue(Double(self.cupping.cupsCount), forKey: "CupsCount")
-        return dictionaryValues
+        dictionary.updateValue(Double(self.cupping.cupsCount), forKey: "CupsCount")
+        return dictionary
     }
     
     public func calculateFinalScore() {

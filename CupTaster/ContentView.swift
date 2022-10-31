@@ -19,6 +19,7 @@ import CoreData
 #warning("Representation value in evaluation header во всех способах оценки с деффектами особенно")
 #warning("Header multipicker")
 #warning("SCI formula")
+#warning("default value in multiplePicker")
 
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>

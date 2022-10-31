@@ -31,6 +31,7 @@
 		6324CE8B28E1E53F003E6088 /* Half Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6324CE8A28E1E53F003E6088 /* Half Sheet.swift */; };
 		6324CE8D28E20D95003E6088 /* Cupping Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6324CE8C28E20D95003E6088 /* Cupping Settings.swift */; };
 		6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */; };
+		6329E314291022E4003495AE /* C MuliplePicker Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6329E313291022E4003495AE /* C MuliplePicker Value.swift */; };
 		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
 		633C5037287090C6006B398E /* Cupping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C5036287090C6006B398E /* Cupping.swift */; };
 		633FBD5F28A2597100A93781 /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FBD5E28A2597100A93781 /* Stopwatch.swift */; };
@@ -104,6 +105,7 @@
 		6324CE8A28E1E53F003E6088 /* Half Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Half Sheet.swift"; sourceTree = "<group>"; };
 		6324CE8C28E20D95003E6088 /* Cupping Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Settings.swift"; sourceTree = "<group>"; };
 		6327BEB728609432000CB3AB /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		6329E313291022E4003495AE /* C MuliplePicker Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "C MuliplePicker Value.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		633C5036287090C6006B398E /* Cupping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cupping.swift; sourceTree = "<group>"; };
 		633FBD5E28A2597100A93781 /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
@@ -165,13 +167,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		22242C7428EF262B00138494 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		22242C8A28EF290F00138494 /* Codable Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +221,7 @@
 				637348D1288D7FD700689C96 /* Slider Value.swift */,
 				63DCCE1A28B1C3CA00B72AEB /* Checkboxes Value.swift */,
 				636BC08D290ADFBD00914389 /* Radio Value.swift */,
+				6329E313291022E4003495AE /* C MuliplePicker Value.swift */,
 			);
 			path = "Header Value";
 			sourceTree = "<group>";
@@ -236,7 +232,6 @@
 				22242C8B28EF291B00138494 /* Entities */,
 				22242C8A28EF290F00138494 /* Codable Entities */,
 				63742D17287EA998001E8DAB /* Persistence.swift */,
-				22242C7428EF262B00138494 /* New Group */,
 				6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -517,6 +512,7 @@
 				63D892ED28CA068500F68505 /* ViewModifier.swift in Sources */,
 				63D892E828C9EF5C00F68505 /* AppStorage extensions.swift in Sources */,
 				63D892DF28C9EC3400F68505 /* S Cupping Forms.swift in Sources */,
+				6329E314291022E4003495AE /* C MuliplePicker Value.swift in Sources */,
 				63DCCE1B28B1C3CA00B72AEB /* Checkboxes Value.swift in Sources */,
 				6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */,
 				221E580A2906BC8E00D81CE8 /* MultiplePicker.swift in Sources */,
