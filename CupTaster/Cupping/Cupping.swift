@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreData
-import UIKit
 
 struct CuppingView: View {
     @Environment(\.presentationMode) var presentationMode

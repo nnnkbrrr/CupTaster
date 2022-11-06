@@ -16,10 +16,7 @@ import CoreData
 #warning("добавить дополнительные атрибуты (страна, обжарка...) оценки образцов")
 #warning("подсказки не написаны")
 #warning("Показывать предупреждение что все образцы/каппинги будут удалены при удалении каппинга/формы")
-#warning("Representation value in evaluation header во всех способах оценки с деффектами особенно")
-#warning("Header multipicker")
-#warning("SCI formula")
-#warning("default value in multiplePicker")
+#warning("Onboarding")
 
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>

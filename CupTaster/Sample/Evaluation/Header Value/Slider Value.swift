@@ -19,7 +19,7 @@ struct SliderEvaluationValueView: View {
                 if fractionValue == qualityCriteria.value {
                     Text(formatValue(value: qualityCriteria.value))
                         .bold()
-                        .frame(width: 50)
+                        .frame(width: 55)
                         .transition(.opacity.combined(with: .scale))
                 }
             }

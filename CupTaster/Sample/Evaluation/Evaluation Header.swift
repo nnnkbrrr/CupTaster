@@ -18,15 +18,13 @@ struct EvaluationHeaderView: View {
             if let firstQualityCriteria: QualityCriteria = qcGroup.qualityCriteria.sorted().first,
                let qcConfiguration: QCConfig = firstQualityCriteria.configuration {
                 HStack {
-#warning("multipicker case 2")
                     ZStack {
                         switch qcConfiguration.evaluationType.unwrappedEvaluationType {
                         case .slider: SliderEvaluationValueView(qualityCriteria: firstQualityCriteria)
                         case .radio: RadioEvaluationValueView(qualityCriteria: firstQualityCriteria)
-//                        case .multiplePicker: CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .cups_checkboxes: CheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+                        case .cups_checkboxes: CupsCheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
                         case .cups_multiplePicker: CupsMultiplePickerValueView(qualityCriteria: firstQualityCriteria)
-                        default: Text("-").bold().frame(width: 50)
+                        default: Text("-").bold().frame(width: 55)
                         }
                     }
                     .scaleEffect(qcGroup.isCompleted ? 0.75 : 1)

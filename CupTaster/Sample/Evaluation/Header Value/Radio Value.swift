@@ -14,33 +14,36 @@ struct RadioEvaluationValueView: View {
         if qualityCriteria.group.configuration.form!.title == "CoE" && qualityCriteria.group.configuration.title == "Defects" {
             COEDeffects_RadioEvaluationValueView(intensityQC: qualityCriteria, cupsCountQC: qualityCriteria.group.qualityCriteria.sorted().last!)
         } else {
-            Text("-").bold().frame(width: 50)
+            Text("-").bold().frame(width: 55)
         }
     }
-    
+}
+
+extension RadioEvaluationValueView {
     private struct COEDeffects_RadioEvaluationValueView: View {
         @ObservedObject var intensityQC: QualityCriteria
         @ObservedObject var cupsCountQC: QualityCriteria
         
         var body: some View {
             let qcConfiguration: QCConfig = intensityQC.configuration!
-            let cupsDigits: [Int] = Array(0...Int(intensityQC.group.sample.cupping.cupsCount))
+            let cupsCount: Int = Int(intensityQC.group.sample.cupping.cupsCount)
+            let cupsDigits: [Int] = Array(0...cupsCount)
             let allValues: [CGFloat] = Array(stride(
                 from: qcConfiguration.lowerBound,
                 through: qcConfiguration.upperBound,
                 by: qcConfiguration.step
-            )).flatMap { intensityValue in cupsDigits.map { CGFloat($0) * intensityValue * -4 }}
+            )).flatMap { intensityValue in cupsDigits.map { intensityValue * CGFloat($0) / CGFloat(cupsCount) * 5 * -4 }}
             let allUniqueValues: [CGFloat] = Array(Set(allValues))
             
             let selectedCupsCount: Int = Int(cupsCountQC.value).digits.reduce(0, +)
-            let calculatedValue: Double = intensityQC.value * Double(selectedCupsCount) * -4
+            let calculatedValue: Double = intensityQC.value * Double(selectedCupsCount) / Double(cupsCount) * 5 * -4
             
             HStack {
                 ForEach(allUniqueValues, id: \.self) { value in
                     if value == calculatedValue {
                         Text(formatValue(value: value))
                             .bold()
-                            .frame(width: 50)
+                            .frame(width: 55)
                             .transition(.opacity.combined(with: .scale))
                     }
                 }

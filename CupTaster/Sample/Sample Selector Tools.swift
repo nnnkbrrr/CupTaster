@@ -17,12 +17,12 @@ struct SampleToolsView: View {
                 Text(String(format: "%.1f", sample.finalScore))
                     .bold()
                     .lineLimit(1)
-                    .frame(width: 44, height: 44)
+                    .frame(width: 50, height: 44)
             } else {
                 Image(systemName: "sum")
                     .foregroundColor(.accentColor)
                     .padding(10)
-                    .frame(width: 44, height: 44)
+                    .frame(width: 50, height: 44)
                     .contentShape(Rectangle())
                     .onTapGesture {
                         sample.calculateFinalScore()
@@ -41,7 +41,7 @@ struct SampleToolsView: View {
             
             Image(systemName: sample.isFavorite ? "heart.fill" : "heart")
                 .foregroundColor(sample.isFavorite ? .red : .gray)
-                .frame(width: 44, height: 44)
+                .frame(width: 50, height: 44)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     sample.isFavorite.toggle()

@@ -1,6 +1,6 @@
 {
     "title": "SCA",
-    "finalScoreFormula": "FragranceAroma_Aroma + Flavor_Flavor + Aftertaste_Aftertaste + Acidity_Acidity + Body_Body + (10 - (10 * Uniformity_Uniformity / CupsCount)) + Balance_Balance + (10 - (10 * CleanCup_CleanCup / CupsCount)) + (10 - (10 * Sweetness_Sweetness / CupsCount)) + Overall_Overall - (Defects_Numofcups * Defects_Intensity)",
+    "finalScoreFormula": "FragranceAroma_Aroma + Flavor_Flavor + Aftertaste_Aftertaste + Acidity_Acidity + Body_Body + (10 - (10 * Uniformity_Uniformity / CupsCount)) + Balance_Balance + (10 - (10 * CleanCup_CleanCup / CupsCount)) + (10 - (10 * Sweetness_Sweetness / CupsCount)) + Overall_Overall - (Defects_Cups * Defects_Intensity / CupsCount * 5)",
     "languageCode": "en",
     "version": "beta 1.0 (14.0)",
     "qcGroupConfigurations": [
@@ -251,13 +251,13 @@
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Num of cups",
+                    "title": "Cups",
                     "hints": [],
                     "value": 0,
-                    "evaluationType": "radio",
+                    "evaluationType": "cups_checkboxes",
                     "step": 1,
-                    "lowerBound": 1,
-                    "upperBound": 5
+                    "lowerBound": 0,
+                    "upperBound": 0
                 },
                 {
                     "lowerBoundTitle": null,

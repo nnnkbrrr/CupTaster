@@ -32,7 +32,7 @@ struct CupsMultiplePickerValueView: View {
                 if fractionValue == qcRepresentationValue {
                     Text(fractionValue)
                         .bold()
-                        .frame(width: 50)
+                        .frame(width: 55)
                         .transition(.opacity.combined(with: .scale))
                 }
             }

@@ -1,6 +1,6 @@
 {
     "title": "CoE",
-    "finalScoreFormula": "Cleancup_Cleancup + Sweetness_Sweetness + Acidity_Acidity + Mouthfeel_Mouthfeel + Flavour_Flavour + Aftertaste_Aftertaste + Balance_Balance + Overall_Overall - (Defects_Intensity * Defects_Cups * 4) + 36",
+    "finalScoreFormula": "Cleancup_Cleancup + Sweetness_Sweetness + Acidity_Acidity + Mouthfeel_Mouthfeel + Flavour_Flavour + Aftertaste_Aftertaste + Balance_Balance + Overall_Overall - (Defects_Intensity * Defects_Cups / CupsCount * 5 * 4) + 36",
     "languageCode": "en",
     "version": "beta 1.0 (14.0)",
     "qcGroupConfigurations": [
@@ -15,7 +15,7 @@
                     "ordinalNumber": 1,
                     "title": "Dry | Crust | Break",
                     "hints": [],
-                    "value": 0,
+                    "value": 333,
                     "evaluationType": "multiplePicker",
                     "step": 1,
                     "lowerBound": -333,
