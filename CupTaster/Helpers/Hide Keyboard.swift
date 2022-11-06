@@ -20,15 +20,17 @@ struct ResignKeyboardOnDragGesture: ViewModifier {
     var onResign: () -> ()
     
     func body(content: Content) -> some View {
-        content.gesture(
-            DragGesture().onChanged {_ in
-                UIApplication.shared.endEditing(true)
-                onResign()
-            }
-        )
+        content
+            .gesture(
+                DragGesture()
+                    .onChanged {_ in
+                        UIApplication.shared.endEditing(true)
+                        onResign()
+                    }
+            )
     }
 }
-    
+
 extension View {
     func resignKeyboardOnDragGesture() -> some View {
         return modifier(ResignKeyboardOnDragGesture() { } )

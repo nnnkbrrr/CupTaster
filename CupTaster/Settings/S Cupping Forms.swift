@@ -10,7 +10,10 @@ import CoreData
 
 struct Settings_CFSelectorFormSectionsView: View {
     @Environment(\.managedObjectContext) private var moc
-    @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
+    @FetchRequest(
+        entity: CuppingForm.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: false)]
+    ) var cuppingForms: FetchedResults<CuppingForm>
     @StateObject var cfManager = CFManager.shared
     
     @AppStorage("use-cupping-hints")

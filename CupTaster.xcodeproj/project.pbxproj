@@ -47,6 +47,7 @@
 		63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63842F08288301FC0014E2C5 /* Evaluation Types.swift */; };
 		638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */ = {isa = PBXBuildFile; fileRef = 638CBE9B28C23BBF00B05A03 /* SCA.json */; };
 		639FD0A1287B534700FA19A0 /* Sample Selector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639FD0A0287B534700FA19A0 /* Sample Selector.swift */; };
+		63A40DF12917A7190019B33C /* S General Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A40DF02917A7190019B33C /* S General Info.swift */; };
 		63BCCE9328DF834700BD3FB9 /* Cupping Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */; };
 		63BCCE9528DF896900BD3FB9 /* Cupping Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BCCE9428DF896900BD3FB9 /* Cupping Toolbar.swift */; };
 		63CE1B7D28DD9C4D0035171A /* Radar Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */; };
@@ -124,6 +125,7 @@
 		63842F08288301FC0014E2C5 /* Evaluation Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Evaluation Types.swift"; sourceTree = "<group>"; };
 		638CBE9B28C23BBF00B05A03 /* SCA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SCA.json; sourceTree = "<group>"; };
 		639FD0A0287B534700FA19A0 /* Sample Selector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Selector.swift"; sourceTree = "<group>"; };
+		63A40DF02917A7190019B33C /* S General Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "S General Info.swift"; sourceTree = "<group>"; };
 		63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Model.swift"; sourceTree = "<group>"; };
 		63BCCE9428DF896900BD3FB9 /* Cupping Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Toolbar.swift"; sourceTree = "<group>"; };
 		63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radar Chart.swift"; sourceTree = "<group>"; };
@@ -260,8 +262,8 @@
 				639FD0A0287B534700FA19A0 /* Sample Selector.swift */,
 				63083BFF28B7A79C00874926 /* Sample Selector Tools.swift */,
 				2247D98D28F1928000DD6678 /* Sample Hints Menu.swift */,
-				63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */,
 				635AFC4228A913A1007B78C0 /* Name Generator.swift */,
+				63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */,
 				63E6B7C32886E4DE001A312F /* Evaluation */,
 			);
 			path = Sample;
@@ -272,6 +274,7 @@
 			children = (
 				634E5EFC287BF042004A9A76 /* Settings.swift */,
 				63D892DE28C9EC3400F68505 /* S Cupping Forms.swift */,
+				63A40DF02917A7190019B33C /* S General Info.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */,
 				637348D2288D7FD700689C96 /* Slider Value.swift in Sources */,
 				22242C8428EF27FF00138494 /* QCGroupConfig Entity.swift in Sources */,
+				63A40DF12917A7190019B33C /* S General Info.swift in Sources */,
 				633FBD5F28A2597100A93781 /* Stopwatch.swift in Sources */,
 				635AFC4328A913A1007B78C0 /* Name Generator.swift in Sources */,
 				22242C7E28EF274900138494 /* QualityCriteria Entity.swift in Sources */,

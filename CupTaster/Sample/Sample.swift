@@ -35,7 +35,6 @@ struct SampleView: View {
         case .info:
             infoAppearance
                 .padding(.bottom, 100) // toolbar
-                .resignKeyboardOnDragGesture() { try? moc.save() }
         }
     }
 }
@@ -69,6 +68,8 @@ extension SampleView {
         Form {
             RadarChart(sample: sample)
             
+            GeneralInfoSectionView(sample: sample)
+            
             Section {
                 Button("Delete", role: .destructive) {
                     withAnimation {
@@ -93,6 +94,115 @@ extension SampleView {
                     }
                 }
             }
+        }
+    }
+    
+    private struct GeneralInfoSectionView: View {
+        @Environment(\.managedObjectContext) private var moc
+        @FetchRequest(
+            entity: SampleGeneralInfo.entity(),
+            sortDescriptors: [NSSortDescriptor(keyPath: \SampleGeneralInfo.ordinalNumber, ascending: false)]
+        ) var sgiFields: FetchedResults<SampleGeneralInfo>
+        let sample: Sample
+        
+        @State private var newSGIFieldTitle: String = ""
+        @State private var newSGIFieldVisible: Bool = false
+        @FocusState private var newSGIFieldFocused: Bool
+        
+        var body: some View {
+            let addedSGIFields: [FetchedResults<SampleGeneralInfo>.Element] = sgiFields.filter({ $0.sample == sample }).sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
+            let suggestedSGIFields: [FetchedResults<SampleGeneralInfo>.Element] = sgiFields.filter({ $0.sample == nil && !addedSGIFields.map { $0.title }.contains($0.title) })
+            
+            ForEach(addedSGIFields) { sgiField in
+                Section(sgiField.title) {
+                    SGIFieldView(sampleGeneralInfo: sgiField)
+                }
+            }
+            .onDelete { offsets in
+                for index in offsets {
+                    moc.delete(addedSGIFields[index])
+                }
+                try? moc.save()
+            }
+            
+            Section {
+                if newSGIFieldVisible {
+                    HStack {
+                        Button {
+                            newSGIFieldTitle = ""
+                            withAnimation { newSGIFieldVisible = false }
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .contentShape(Rectangle())
+                        }
+                        
+                        TextField("General Information field", text: $newSGIFieldTitle) { addNewGIField() }
+                            .submitLabel(.done)
+                            .focused($newSGIFieldFocused, equals: true)
+                        
+                        Button { addNewGIField() } label: {
+                            Image(systemName: "checkmark.circle.fill")
+                                .contentShape(Rectangle())
+                        }
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                    .onAppear { newSGIFieldFocused = true }
+                } else {
+                    Button {
+                        withAnimation { newSGIFieldVisible = true }
+                    } label: {
+                        Label("General Information field", systemImage: "plus")
+                            .submitLabel(.done)
+                    }
+                }
+                
+                ForEach(suggestedSGIFields) { sgiField in
+                    Button {
+                        let newSGIField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
+                        newSGIField.title = sgiField.title
+                        newSGIField.ordinalNumber = Int16(sgiFields.filter({ $0.sample == sample }).count)
+                        newSGIField.sample = sample
+                        
+                        newSGIFieldTitle = ""
+                        newSGIFieldFocused = false
+                        newSGIFieldVisible = false
+                    } label: {
+                        Label {
+                            Text(sgiField.title)
+                                .foregroundColor(.gray)
+                        } icon: {
+                            Image(systemName: "plus")
+                                .foregroundColor(.accentColor)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
+            } footer: {
+                if sgiFields.filter({ $0.sample == nil }).count == 0 {
+                    Text("you can add quick general information templates in settings")
+                }
+            }
+        }
+        
+        func addNewGIField() {
+            let newSGIField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
+            newSGIField.title = newSGIFieldTitle
+            newSGIField.ordinalNumber = Int16(sgiFields.filter({ $0.sample == sample }).count)
+            newSGIField.sample = sample
+            
+            newSGIFieldTitle = ""
+            newSGIFieldFocused = false
+            newSGIFieldVisible = false
+        }
+    }
+    
+    private struct SGIFieldView: View {
+        @Environment(\.managedObjectContext) private var moc
+        @ObservedObject var sampleGeneralInfo: SampleGeneralInfo
+        
+        var body: some View {
+            TextField("", text: $sampleGeneralInfo.value) { try? moc.save() }
+                .submitLabel(.done)
         }
     }
 }

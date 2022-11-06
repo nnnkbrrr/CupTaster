@@ -12,6 +12,8 @@ struct SettingsView: View {
     @AppStorage("sample-name-generator-method")
     var sampleNameGenerationMethod: SampleNameGenerator.GenerationMethod = .alphabetical
     
+    @State var sgiSheetActive: Bool = false
+    
     var body: some View {
         NavigationView {
             Form {
@@ -43,6 +45,14 @@ struct SettingsView: View {
                 
                 Section {
                     Button {
+                        sgiSheetActive = true
+                    } label: {
+                        Label("Quick General Info Fields", systemImage: "info")
+                    }
+                }
+                
+                Section {
+                    Button {
                         EmailHelper.shared.send(to: "support-cuptaster@nnnkbrrr.space")
                     } label: {
                         Label("Contact", systemImage: "envelope")
@@ -50,7 +60,7 @@ struct SettingsView: View {
                     
                     Button {
                         EmailHelper.shared.send(
-                            subject: "Cuptaster localization",
+                            subject: "CupTaster localization",
                             to: "support-cuptaster@nnnkbrrr.space"
                         )
                     } label: {
@@ -71,6 +81,9 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
+        }
+        .sheet(isPresented: $sgiSheetActive) {
+            Settings_GeneralInfoView(sheetActive: $sgiSheetActive)
         }
     }
 }

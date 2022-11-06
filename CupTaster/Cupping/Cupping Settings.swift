@@ -11,7 +11,10 @@ import CoreData
 struct CuppingSettingsView: View {
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) var presentationMode
-    @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
+    @FetchRequest(
+        entity: CuppingForm.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: false)]
+    ) var cuppingForms: FetchedResults<CuppingForm>
     @ObservedObject var cuppingModel: CuppingModel
     
     @State var selectedCuppingForm: CuppingForm
