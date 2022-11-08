@@ -25,25 +25,33 @@ class TestCoreDataStack: NSObject {
 }
 
 @testable import CupTaster
-final class SCACuppingFormTests: XCTestCase {
+final class CuppingFormsTests: XCTestCase {
     private let moc = TestCoreDataStack().persistentContainer.newBackgroundContext()
-    private var cuppingFormModel: CFManager.CFModel!
-    private var cuppingForm: CuppingForm!
+    private var cuppingFormModels: [CFManager.CFModel]!
+    private var cuppingForms: [CuppingForm]!
     
     override func setUpWithError() throws {
-        cuppingFormModel = CFManager().scaModel
-        cuppingForm = cuppingFormModel.createCuppingForm(context: moc)
+        cuppingFormModels = CFManager.shared.allCFModels
+        cuppingForms = []
+        for cfModel in cuppingFormModels {
+            cuppingForms.append(cfModel.createCuppingForm(context: moc)!)
+        }
     }
     
-    func test_SCACuppingForm_data() {
-        XCTAssertNotNil(cuppingForm.version)
-        XCTAssertGreaterThan(cuppingForm.qcGroupConfigurations.count, 0)
-        for qcGroupConfiguration in cuppingForm.qcGroupConfigurations {
-            XCTAssertGreaterThan(qcGroupConfiguration.qcConfigurations.count, 0)
+    func test_cuppingForm_data() {
+        for cuppingForm in cuppingForms {
+            XCTAssertNotNil(cuppingForm.version)
+            XCTAssertGreaterThan(cuppingForm.qcGroupConfigurations.count, 0)
+            for qcGroupConfiguration in cuppingForm.qcGroupConfigurations {
+                XCTAssertGreaterThan(qcGroupConfiguration.qcConfigurations.count, 0)
+            }
         }
     }
     
     func test_SCACuppingForm_version() {
-        XCTAssertEqual(cuppingFormModel.version, cuppingForm.version)
+        for cfModel in cuppingFormModels {
+            let cuppingForm = cfModel.createCuppingForm(context: moc)!
+            XCTAssertEqual(cfModel.version, cuppingForm.version)
+        }
     }
 }
