@@ -48,6 +48,7 @@
 		638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */ = {isa = PBXBuildFile; fileRef = 638CBE9B28C23BBF00B05A03 /* SCA.json */; };
 		639FD0A1287B534700FA19A0 /* Sample Selector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639FD0A0287B534700FA19A0 /* Sample Selector.swift */; };
 		63A40DF12917A7190019B33C /* S General Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A40DF02917A7190019B33C /* S General Info.swift */; };
+		63B83D4529189770009EBF4C /* SCAru.json in Resources */ = {isa = PBXBuildFile; fileRef = 63B83D4429189770009EBF4C /* SCAru.json */; };
 		63BCCE9328DF834700BD3FB9 /* Cupping Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */; };
 		63BCCE9528DF896900BD3FB9 /* Cupping Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BCCE9428DF896900BD3FB9 /* Cupping Toolbar.swift */; };
 		63CE1B7D28DD9C4D0035171A /* Radar Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */; };
@@ -126,6 +127,7 @@
 		638CBE9B28C23BBF00B05A03 /* SCA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SCA.json; sourceTree = "<group>"; };
 		639FD0A0287B534700FA19A0 /* Sample Selector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Selector.swift"; sourceTree = "<group>"; };
 		63A40DF02917A7190019B33C /* S General Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "S General Info.swift"; sourceTree = "<group>"; };
+		63B83D4429189770009EBF4C /* SCAru.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SCAru.json; sourceTree = "<group>"; };
 		63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Model.swift"; sourceTree = "<group>"; };
 		63BCCE9428DF896900BD3FB9 /* Cupping Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Toolbar.swift"; sourceTree = "<group>"; };
 		63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radar Chart.swift"; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			children = (
 				631C107F28B0528F00620637 /* CFManager.swift */,
 				63D892DB28C9E75800F68505 /* CFModel.swift */,
+				63B83D4429189770009EBF4C /* SCAru.json */,
 				638CBE9B28C23BBF00B05A03 /* SCA.json */,
 				228F857528FD90C000214198 /* SCI.json */,
 				22784E0829040A0F00FC56F9 /* CoE.json */,
@@ -473,6 +476,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63B83D4529189770009EBF4C /* SCAru.json in Resources */,
 				633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */,
 				63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */,
 				638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */,

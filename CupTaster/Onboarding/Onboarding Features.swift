@@ -40,20 +40,21 @@ struct OnboardingFeaturesView: View {
                 .font(.system(size: 34, weight: .heavy))
                 
                 FeatureView(
-                    image: Image(systemName: "doc.on.clipboard"),
+                    image: Image(systemName: "doc.on.doc"),
                     title: "Cuppings",
-                    description: "Store all your cupping sessions in just one app."
+                    description: "Handy storage for all of your cupping sessions."
                 )
                 FeatureView(
-                    image: Image(systemName: "stopwatch.fill"),
+                    image: Image(systemName: "stopwatch"),
                     title: "Stopwatch",
                     description: "Track brewing time with stopwatch."
                 )
-//                FeatureView(
-//                    image: Image(systemName: "lightbulb.fill"),
-//                    title: "Hints",
-//                    description: "Use hints to fully understand quality criteria scale."
-//                )
+                FeatureView(
+                    image: Image(systemName: "questionmark.bubble"),
+                    title: "Hints [Soon]",
+                    description: "Use hints to get acquainted with cupping protocol details."
+                )
+                .disabled(true)
             }
             .padding(50)
             .padding(.bottom, 50)
@@ -69,10 +70,9 @@ fileprivate struct FeatureView: View {
     var body: some View {
         HStack {
             image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+                .font(.system(size: 30))
+                .frame(width: 30, height: 30)
                 .foregroundColor(.accentColor)
-                .frame(width: 50, height: 50)
             
             VStack(alignment: .leading, spacing: 5) {
                 Text(title)

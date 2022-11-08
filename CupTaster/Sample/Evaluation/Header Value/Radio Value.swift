@@ -28,11 +28,17 @@ extension RadioEvaluationValueView {
             let qcConfiguration: QCConfig = intensityQC.configuration!
             let cupsCount: Int = Int(intensityQC.group.sample.cupping.cupsCount)
             let cupsDigits: [Int] = Array(0...cupsCount)
-            let allValues: [CGFloat] = Array(stride(
-                from: qcConfiguration.lowerBound,
-                through: qcConfiguration.upperBound,
-                by: qcConfiguration.step
-            )).flatMap { intensityValue in cupsDigits.map { intensityValue * CGFloat($0) / CGFloat(cupsCount) * 5 * -4 }}
+            let allValues: [CGFloat] = Array(
+                stride(
+                    from: qcConfiguration.lowerBound,
+                    through: qcConfiguration.upperBound,
+                    by: qcConfiguration.step
+                )
+            ).flatMap {
+                intensityValue in cupsDigits.map {
+                    intensityValue * CGFloat($0) / CGFloat(cupsCount) * 5 * -4
+                }
+            }
             let allUniqueValues: [CGFloat] = Array(Set(allValues))
             
             let selectedCupsCount: Int = Int(cupsCountQC.value).digits.reduce(0, +)

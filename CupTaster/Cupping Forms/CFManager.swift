@@ -16,6 +16,7 @@ public class CFManager: ObservableObject {
     static let shared = CFManager()
     private init() {
 #warning("version - beta")
+#warning("SCA RU")
         let SCA_CFModel = CFModel(
             title: "SCA",
             version: "beta 1.0 (14.0)"
@@ -28,7 +29,11 @@ public class CFManager: ObservableObject {
             title: "CoE",
             version: "beta 1.0 (14.0)"
         )
-        allCFModels = [SCA_CFModel, SCI_CFModel, CoE_CFModel]
+        let SCAru_CFModel = CFModel(
+            title: "SCAru",
+            version: "beta 1.0 (14.0)"
+        )
+        allCFModels = [SCA_CFModel, SCI_CFModel, CoE_CFModel, SCAru_CFModel]
     }
 }
 
