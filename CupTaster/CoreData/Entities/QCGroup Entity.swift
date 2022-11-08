@@ -40,9 +40,7 @@ extension Sample {
         }
 
         var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map {(
-            $0.group.configuration.title.filter { $0.isLetter || $0.isNumber }
-            + "_" +  $0.title.filter { $0.isLetter || $0.isNumber },
-            
+            "qcc_\($0.group.configuration.ordinalNumber)_\($0.configuration!.ordinalNumber)",
             getDictionaryValue(criteria: $0)
         )})
         

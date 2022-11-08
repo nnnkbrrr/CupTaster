@@ -110,9 +110,10 @@ extension SampleView {
         @FocusState private var newSGIFieldFocused: Bool
         
         var body: some View {
-            #warning("optimize")
-            let addedSGIFields: [FetchedResults<SampleGeneralInfo>.Element] = sgiFields.filter({ $0.sample == sample }).sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
-            let suggestedSGIFields: [FetchedResults<SampleGeneralInfo>.Element] = sgiFields.filter({ $0.sample == nil && !addedSGIFields.map { $0.title }.contains($0.title) })
+            let addedSGIFields: [SampleGeneralInfo] = Array(sample.generalInfo)
+            let suggestedSGIFields: [FetchedResults<SampleGeneralInfo>.Element] = sgiFields.filter {
+                $0.sample == nil && !addedSGIFields.map { $0.title }.contains($0.title)
+            }
             
             ForEach(addedSGIFields) { sgiField in
                 Section(sgiField.title) {

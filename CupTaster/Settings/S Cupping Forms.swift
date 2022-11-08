@@ -19,6 +19,9 @@ struct Settings_CFSelectorFormSectionsView: View {
     @AppStorage("use-cupping-hints")
     var useCuppingHints: Bool = false
     
+    @State var deleteAlertActive: Bool = false
+    @State var deleteAlertCuppingForm: CuppingForm? = nil
+    
     var body: some View {
         if cuppingForms.count > 0 {
             Section("Default cupping form") {
@@ -35,13 +38,36 @@ struct Settings_CFSelectorFormSectionsView: View {
                     }
                 }
                 .onDelete { offsets in
-                    for index in offsets {
-                        moc.delete(cuppingForms[index])
+                    let cuppingForm: CuppingForm = cuppingForms[offsets.first!]
+                    if cuppingForm.cuppings.count > 0 {
+                        deleteAlertActive = true
+                        deleteAlertCuppingForm = cuppingForm
+                    } else {
+                        moc.delete(cuppingForm)
                         try? moc.save()
                     }
                     cfManager.setDefaultCuppingForm(cuppingForm: cuppingForms.first)
                 }
             }
+            .confirmationDialog(
+                "Are you sure you want to delete cupping form and all related cuppings?",
+                isPresented: $deleteAlertActive,
+                titleVisibility: .visible,
+                actions: {
+                    Button("Delete", role: .destructive) {
+                        if let deleteAlertCuppingForm {
+                            moc.delete(deleteAlertCuppingForm)
+                            try? moc.save()
+                        }
+                        deleteAlertCuppingForm = nil
+                        deleteAlertActive = false
+                    }
+                    Button("Cancel", role: .cancel) {
+                        deleteAlertCuppingForm = nil
+                        deleteAlertActive = false
+                    }
+                }
+            )
         }
         
         let availableCFsModels = cfManager.allCFModels.filter {

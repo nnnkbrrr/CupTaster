@@ -11,7 +11,7 @@ struct CupsCheckboxesEvaluationValueView: View {
     @ObservedObject var qualityCriteria: QualityCriteria
     
     var body: some View {
-        if qualityCriteria.group.configuration.form!.title == "SCA" && qualityCriteria.group.configuration.title == "Defects" {
+        if qualityCriteria.group.configuration.form!.title == "SCA" && qualityCriteria.group.configuration.ordinalNumber == 11 {
             SCADeffects_CheckboxesEvaluationValueView(cupsCountQC: qualityCriteria, intensityQC: qualityCriteria.group.qualityCriteria.sorted().last!)
         } else {
             let cuppingCupsCount: Int = Int(qualityCriteria.group.sample.cupping.cupsCount)
@@ -48,21 +48,12 @@ extension CupsCheckboxesEvaluationValueView {
         @ObservedObject var intensityQC: QualityCriteria
         
         var body: some View {
-            let qcConfiguration: QCConfig = intensityQC.configuration!
             let cupsCount: Int = Int(intensityQC.group.sample.cupping.cupsCount)
-            let cupsDigits: [Int] = Array(0...cupsCount)
-            let allValues: [CGFloat] = Array(stride(
-                from: qcConfiguration.lowerBound,
-                through: qcConfiguration.upperBound,
-                by: qcConfiguration.step
-            )).flatMap { intensityValue in cupsDigits.map { CGFloat($0) * -intensityValue / CGFloat(cupsCount) * 5 }}
-            let allUniqueValues: [CGFloat] = Array(Set(allValues))
-            
             let selectedCupsCount: Int = Int(cupsCountQC.value).digits.reduce(0, +)
             let calculatedValue: Double = Double(selectedCupsCount) * -intensityQC.value / Double(cupsCount) * 5
             
             HStack {
-                ForEach(allUniqueValues, id: \.self) { value in
+                ForEach(getValues(cupsCount: cupsCount), id: \.self) { value in
                     if value == calculatedValue {
                         Text(formatValue(value: value))
                             .bold()
@@ -80,6 +71,22 @@ extension CupsCheckboxesEvaluationValueView {
                 value: cupsCountQC.value
             )
             .contentShape(Rectangle())
+        }
+        
+        func getValues(cupsCount: Int) -> [CGFloat] {
+            let qcConfiguration: QCConfig = intensityQC.configuration!
+            let cupsDigits: [Int] = Array(0...cupsCount)
+            let intensityValues: [CGFloat] = Array(
+                stride(
+                    from: qcConfiguration.lowerBound,
+                    through: qcConfiguration.upperBound,
+                    by: qcConfiguration.step
+                )
+            )
+            let allValues: [CGFloat] = intensityValues.flatMap {
+                intensityValue in cupsDigits.map { CGFloat($0) * -intensityValue / CGFloat(cupsCount) * 5 }
+            }
+            return Array(Set(allValues))
         }
         
         func formatValue(value: CGFloat) -> String {

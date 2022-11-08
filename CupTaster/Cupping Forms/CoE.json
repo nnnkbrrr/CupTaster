@@ -1,6 +1,6 @@
 {
     "title": "CoE",
-    "finalScoreFormula": "Cleancup_Cleancup + Sweetness_Sweetness + Acidity_Acidity + Mouthfeel_Mouthfeel + Flavour_Flavour + Aftertaste_Aftertaste + Balance_Balance + Overall_Overall - (Defects_Intensity * Defects_Cups / CupsCount * 5 * 4) + 36",
+    "finalScoreFormula": "qcc_3_1 + qcc_4_1 + qcc_5_1 + qcc_6_1 + qcc_7_1 + qcc_8_1 + qcc_9_1 + qcc_10_1 - (qcc_2_1 * qcc_2_2 / CupsCount * 5 * 4) + 36",
     "languageCode": "en",
     "version": "beta 1.0 (14.0)",
     "qcGroupConfigurations": [

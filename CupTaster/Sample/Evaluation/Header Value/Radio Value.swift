@@ -11,7 +11,7 @@ struct RadioEvaluationValueView: View {
     @ObservedObject var qualityCriteria: QualityCriteria
     
     var body: some View {
-        if qualityCriteria.group.configuration.form!.title == "CoE" && qualityCriteria.group.configuration.title == "Defects" {
+        if qualityCriteria.group.configuration.form!.title == "CoE" && qualityCriteria.group.configuration.ordinalNumber == 2 {
             COEDeffects_RadioEvaluationValueView(intensityQC: qualityCriteria, cupsCountQC: qualityCriteria.group.qualityCriteria.sorted().last!)
         } else {
             Text("-").bold().frame(width: 55)
@@ -25,27 +25,12 @@ extension RadioEvaluationValueView {
         @ObservedObject var cupsCountQC: QualityCriteria
         
         var body: some View {
-            let qcConfiguration: QCConfig = intensityQC.configuration!
             let cupsCount: Int = Int(intensityQC.group.sample.cupping.cupsCount)
-            let cupsDigits: [Int] = Array(0...cupsCount)
-            let allValues: [CGFloat] = Array(
-                stride(
-                    from: qcConfiguration.lowerBound,
-                    through: qcConfiguration.upperBound,
-                    by: qcConfiguration.step
-                )
-            ).flatMap {
-                intensityValue in cupsDigits.map {
-                    intensityValue * CGFloat($0) / CGFloat(cupsCount) * 5 * -4
-                }
-            }
-            let allUniqueValues: [CGFloat] = Array(Set(allValues))
-            
             let selectedCupsCount: Int = Int(cupsCountQC.value).digits.reduce(0, +)
             let calculatedValue: Double = intensityQC.value * Double(selectedCupsCount) / Double(cupsCount) * 5 * -4
             
             HStack {
-                ForEach(allUniqueValues, id: \.self) { value in
+                ForEach(getValues(cupsCount: cupsCount), id: \.self) { value in
                     if value == calculatedValue {
                         Text(formatValue(value: value))
                             .bold()
@@ -72,6 +57,22 @@ extension RadioEvaluationValueView {
                 case 0.5: return String(format: "%.1f", value)
                 default: return String(format: "%.2f", value)
             }
+        }
+        
+        func getValues(cupsCount: Int) -> [CGFloat] {
+            let qcConfiguration: QCConfig = intensityQC.configuration!
+            let cupsDigits: [Int] = Array(0...cupsCount)
+            let intensityValues: [CGFloat] = Array(
+                stride(
+                    from: qcConfiguration.lowerBound,
+                    through: qcConfiguration.upperBound,
+                    by: qcConfiguration.step
+                )
+            )
+            let allValues: [CGFloat] = intensityValues.flatMap {
+                intensityValue in cupsDigits.map { intensityValue * CGFloat($0) / CGFloat(cupsCount) * 5 * -4 }
+            }
+            return Array(Set(allValues))
         }
     }
 }

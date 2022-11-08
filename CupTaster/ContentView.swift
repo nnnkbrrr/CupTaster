@@ -10,12 +10,9 @@ import CoreData
 
 // MARK: Content View
 
-#warning("внешний вид на айпадах / светлой теме")
 #warning("переписать unit тесты")
 #warning("если образков много, то приложение сильно зависает")
 #warning("подсказки не написаны")
-#warning("Показывать предупреждение что все образцы/каппинги будут удалены при удалении каппинга/формы")
-#warning("Onboarding")
 
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
