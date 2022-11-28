@@ -105,21 +105,21 @@ CupTaster - бесплатное приложения для барист, пр�
 * [Name Generator](CupTaster/Sample/Name%20Generator.swift) - Генератор имен для образцов. (при создании n кол-ва образцов им автоматически присвоются имена A-Z, в зависимости от кол-ва, можно изменить на 1-n в настройках). На каппингах зачастую названия зерен неизвестны, поэтому записываются буквами алфавита.
 * [Radar Chart](CupTaster/Sample/Radar%20Chart.swift) - Лепестковая диаграмма, с возможностью отображения текста как в сокращенном, так и в полном варианте. Сокращенный текст использует первую букву и следущую согласную (работает только с английскими буквами пока что). 
 * [Evaluation](CupTaster/Sample/Evaluation) - папка со всеми способами оценки зерна
-  - [Evaluation Types](CupTaster/Sample/Evaluation%20Types.swift) - Все добавленные способы ввода значений критериев оценки и их порядковый номер.
-  - [Evaluation Group](CupTaster/Sample/Evaluation%20Group.swift) - Группа критериев оценки с полем для ввода заметок. При нажатии меняет внешний вид на компактный (заполненный).
-  - [Evaluation Header](CupTaster/Sample/Evaluation%20Header.swift) - Верхняя часть группы критериев, которая показывает краткую информацию о введенных данных.
-  - [Evaluation](CupTaster/Sample/Evaluation.swift) - Отображение способа ввода критерия оценки в зависимости от указанного способа ввода.
-  - [Header Value](CupTaster/Sample/Header%20Value) - Папка с отображением главного значения группы критериев оценки в зависимости от способа ввода и анимацией при указании нового значения.
-    - [Slider Value](CupTaster/Sample/Header%20Value/Slider%20Value.swift) - отображения значения для slider
-    - [Radio Value](CupTaster/Sample/Header%20Value/Radio%20Value.swift) - отображения значения для radio
-    - [Checkboxes "Cups" Value](CupTaster/Sample/Header%20Value/C%20Checkboxes%20Value.swift) - отображения значения для Checkboxes "Cups"
-    - [MultiplePicker "Cups" Value](CupTaster/Sample/Header%20Value/C%20MultiplePicker%20Value.swift) - отображения значения для MultiplePicker "Cups"
-  - [Subviews](CupTaster/Sample/Subviews) - Папка с отображением способов ввода значений критериев оценки.
-    - [Slider](CupTaster/Sample/Subviews/Slider.swift) - отображение способа ввода значения с помощью slider
-    - [Radio](CupTaster/Sample/Subviews/Radio.swift) - отображение способа ввода значения с помощью radio
-    - [MultiplePicker](CupTaster/Sample/Subviews/MultiplePicker.swift) - отображение способа ввода значения с помощью MultiplePicker
-    - [Checkboxes "Cups"](CupTaster/Sample/Subviews/C%20Checkboxes.swift) - отображение способа ввода значения с помощью Checkboxes "Cups"
-    - [MultiplePicker "Cups"](CupTaster/Sample/Subviews/C%20MultiplePicker.swift) - отображение способа ввода значения с помощью MultiplePicker "Cups"
+  - [Evaluation Types](CupTaster/Sample/Evaluation/Evaluation%20Types.swift) - Все добавленные способы ввода значений критериев оценки и их порядковый номер.
+  - [Evaluation Group](CupTaster/Sample/Evaluation/Evaluation%20Group.swift) - Группа критериев оценки с полем для ввода заметок. При нажатии меняет внешний вид на компактный (заполненный).
+  - [Evaluation Header](CupTaster/Sample/Evaluation/Evaluation%20Header.swift) - Верхняя часть группы критериев, которая показывает краткую информацию о введенных данных.
+  - [Evaluation](CupTaster/Sample/Evaluation/Evaluation.swift) - Отображение способа ввода критерия оценки в зависимости от указанного способа ввода.
+  - [Header Value](CupTaster/Sample/Evaluation/Header%20Value) - Папка с отображением главного значения группы критериев оценки в зависимости от способа ввода и анимацией при указании нового значения.
+    - [Slider Value](CupTaster/Sample/Evaluation/Header%20Value/Slider%20Value.swift) - отображения значения для slider
+    - [Radio Value](CupTaster/Sample/Evaluation/Header%20Value/Radio%20Value.swift) - отображения значения для radio
+    - [Checkboxes "Cups" Value](CupTaster/Sample/Evaluation/Header%20Value/C%20Checkboxes%20Value.swift) - отображения значения для Checkboxes "Cups"
+    - [MultiplePicker "Cups" Value](CupTaster/Sample/Evaluation/Header%20Value/C%20MultiplePicker%20Value.swift) - отображения значения для MultiplePicker "Cups"
+  - [Subviews](CupTaster/Sample/Evaluation/Subviews) - Папка с отображением способов ввода значений критериев оценки.
+    - [Slider](CupTaster/Sample/Evaluation/Subviews/Slider.swift) - отображение способа ввода значения с помощью slider
+    - [Radio](CupTaster/Sample/Evaluation/Subviews/Radio.swift) - отображение способа ввода значения с помощью radio
+    - [MultiplePicker](CupTaster/Sample/Evaluation/Subviews/MultiplePicker.swift) - отображение способа ввода значения с помощью MultiplePicker
+    - [Checkboxes "Cups"](CupTaster/Sample/Evaluation/Subviews/C%20Checkboxes.swift) - отображение способа ввода значения с помощью Checkboxes "Cups"
+    - [MultiplePicker "Cups"](CupTaster/Sample/Evaluation/Subviews/C%20MultiplePicker.swift) - отображение способа ввода значения с помощью MultiplePicker "Cups"
 
 ## [Settings](CupTaster/Settings)
 
