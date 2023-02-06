@@ -20,7 +20,7 @@ struct OnboardingFeaturesView: View {
                         .frame(maxWidth: .infinity)
                         .overlay (
                             LinearGradient(
-                                colors: [.accentColor.opacity(0), .accentColor, .accentColor.opacity(0)],
+                                colors: [.accentColor.opacity(0), .orange, .accentColor.opacity(0)],
                                 startPoint: .leading,
                                 endPoint: .trailing
                             )
