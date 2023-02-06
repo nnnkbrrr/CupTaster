@@ -82,6 +82,7 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
         }
+        .navigationViewStyle(.stack)
         .sheet(isPresented: $sgiSheetActive) {
             Settings_GeneralInfoView(sheetActive: $sgiSheetActive)
         }

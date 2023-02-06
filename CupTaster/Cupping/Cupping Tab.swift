@@ -112,6 +112,7 @@ struct AllCuppingsView: View {
                 .toolbar { StopwatchToolbarItem() }
                 .navigationTitle("All Сuppings")
             }
+            .navigationViewStyle(.stack)
             .fullScreenCover(item: $activeCuppingModel, content: { CuppingView(cuppingModel: $0) })
         }
     }
