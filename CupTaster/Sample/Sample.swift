@@ -28,13 +28,8 @@ struct SampleView: View {
     
     var body: some View {
         switch appearance {
-        case .criteria:
-            criteriaAppearance
-                .padding(.bottom, 100) // toolbar
-                .resignKeyboardOnDragGesture() { try? moc.save() }
-        case .info:
-            infoAppearance
-                .padding(.bottom, 100) // toolbar
+        case .criteria: criteriaAppearance
+        case .info: infoAppearance
         }
     }
 }
@@ -59,6 +54,8 @@ extension SampleView {
                 }
             }
             .padding(.horizontal)
+            .padding(.bottom, 100) // toolbar
+            .resignKeyboardOnDragGesture() { try? moc.save() }
         }
     }
 }
@@ -93,6 +90,8 @@ extension SampleView {
                         try? moc.save()
                     }
                 }
+            } footer: {
+                Color.clear.frame(height: 100) // toolbar
             }
         }
     }
@@ -138,7 +137,7 @@ extension SampleView {
                                 .contentShape(Rectangle())
                         }
                         
-                        TextField("General Information field", text: $newSGIFieldTitle) { addNewGIField() }
+                        TextField("General Information Field", text: $newSGIFieldTitle) { addNewGIField() }
                             .submitLabel(.done)
                             .focused($newSGIFieldFocused, equals: true)
                         
@@ -153,7 +152,7 @@ extension SampleView {
                     Button {
                         withAnimation { newSGIFieldVisible = true }
                     } label: {
-                        Label("General Information field", systemImage: "plus")
+                        Label("General Information Field", systemImage: "plus")
                             .submitLabel(.done)
                     }
                 }
@@ -177,11 +176,10 @@ extension SampleView {
                                 .foregroundColor(.accentColor)
                         }
                     }
-                    .buttonStyle(.plain)
                 }
             } footer: {
                 if sgiFields.filter({ $0.sample == nil }).count == 0 {
-                    Text("you can add quick general information templates in settings")
+                    Text("You can add general information templates in settings")
                 }
             }
         }

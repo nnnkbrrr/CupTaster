@@ -2,7 +2,7 @@
     "title": "SCI",
     "finalScoreFormula": "qcc_3_1 + qcc_4_1 + qcc_5_1 + qcc_6_1 + qcc_7_1 + qcc_8_1 + qcc_9_1 + qcc_10_1 + qcc_11_1 + qcc_12_1",
     "languageCode": "en",
-    "version": "beta 1.0 (14.0)",
+    "version": "1.0.0 (15.0)",
     "qcGroupConfigurations": [
         {
             "title": "Roast level",

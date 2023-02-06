@@ -34,7 +34,7 @@ struct Settings_GeneralInfoView: View {
                                     .contentShape(Rectangle())
                             }
                             
-                            TextField("General Information field", text: $newSGIFieldTitle) { addNewGIField() }
+                            TextField("General Information Template", text: $newSGIFieldTitle) { addNewGIField() }
                                 .submitLabel(.done)
                                 .focused($newSGIFieldFocused, equals: true)
                             
@@ -49,14 +49,12 @@ struct Settings_GeneralInfoView: View {
                         Button {
                             withAnimation { newSGIFieldVisible = true }
                         } label: {
-                            Label("General Information field", systemImage: "plus")
+                            Label("General Information Template", systemImage: "plus")
                                 .submitLabel(.done)
                         }
                     }
-                } header: {
-                    Text(" ")
                 } footer: {
-                    Text("this fields will be suggested to be filled in samples general information tab")
+                    Text("These templates will be suggested to be filled in sample's \"General Information\" section.")
                 }
                 
                 Section {
@@ -84,7 +82,7 @@ struct Settings_GeneralInfoView: View {
             }
             .resignKeyboardOnDragGesture() { try? moc.save() }
             .environment(\.editMode, .constant(.active))
-            .navigationTitle("Quick Info Fields")
+            .navigationBarTitle("Templates", displayMode: .inline)
             .navigationBarItems(trailing: Button("Done") { sheetActive = false })
         }
     }
@@ -92,7 +90,7 @@ struct Settings_GeneralInfoView: View {
     private struct SGITitleFieldView: View {
         @ObservedObject var sampleGeneralInfo: SampleGeneralInfo
         var body: some View {
-            TextField("General Information field", text: $sampleGeneralInfo.title)
+            TextField("General Information Template", text: $sampleGeneralInfo.title)
                 .submitLabel(.done)
         }
     }

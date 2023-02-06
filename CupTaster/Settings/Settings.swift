@@ -47,7 +47,7 @@ struct SettingsView: View {
                     Button {
                         sgiSheetActive = true
                     } label: {
-                        Label("Quick General Info Fields", systemImage: "info")
+                        Label("General Information Templates", systemImage: "info")
                     }
                 }
                 

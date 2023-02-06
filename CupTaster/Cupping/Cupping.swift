@@ -131,6 +131,12 @@ struct CuppingView: View {
                 }
                 
                 CuppingToolbarView(presentationMode: _presentationMode, cuppingModel: cuppingModel, namespace: namespace)
+                    .overlay(alignment: .top) {
+                        Rectangle()
+                            .foregroundColor(.gray)
+                            .opacity(0.5)
+                            .frame(height: 0.2)
+                    }
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     .zIndex(2)
                 

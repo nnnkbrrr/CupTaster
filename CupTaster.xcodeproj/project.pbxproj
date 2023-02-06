@@ -48,13 +48,11 @@
 		638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */ = {isa = PBXBuildFile; fileRef = 638CBE9B28C23BBF00B05A03 /* SCA.json */; };
 		639FD0A1287B534700FA19A0 /* Sample Selector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639FD0A0287B534700FA19A0 /* Sample Selector.swift */; };
 		63A40DF12917A7190019B33C /* S General Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A40DF02917A7190019B33C /* S General Info.swift */; };
-		63B83D4529189770009EBF4C /* SCAru.json in Resources */ = {isa = PBXBuildFile; fileRef = 63B83D4429189770009EBF4C /* SCAru.json */; };
 		63BCCE9328DF834700BD3FB9 /* Cupping Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */; };
 		63BCCE9528DF896900BD3FB9 /* Cupping Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BCCE9428DF896900BD3FB9 /* Cupping Toolbar.swift */; };
 		63CE1B7D28DD9C4D0035171A /* Radar Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */; };
 		63D892DC28C9E75800F68505 /* CFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892DB28C9E75800F68505 /* CFModel.swift */; };
 		63D892DF28C9EC3400F68505 /* S Cupping Forms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892DE28C9EC3400F68505 /* S Cupping Forms.swift */; };
-		63D892E228C9EE5E00F68505 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892E128C9EE5E00F68505 /* Blur.swift */; };
 		63D892E628C9EED600F68505 /* Hide Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892E528C9EED600F68505 /* Hide Keyboard.swift */; };
 		63D892E828C9EF5C00F68505 /* AppStorage extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892E728C9EF5C00F68505 /* AppStorage extensions.swift */; };
 		63D892ED28CA068500F68505 /* ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892EC28CA068500F68505 /* ViewModifier.swift */; };
@@ -127,13 +125,11 @@
 		638CBE9B28C23BBF00B05A03 /* SCA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SCA.json; sourceTree = "<group>"; };
 		639FD0A0287B534700FA19A0 /* Sample Selector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Selector.swift"; sourceTree = "<group>"; };
 		63A40DF02917A7190019B33C /* S General Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "S General Info.swift"; sourceTree = "<group>"; };
-		63B83D4429189770009EBF4C /* SCAru.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SCAru.json; sourceTree = "<group>"; };
 		63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Model.swift"; sourceTree = "<group>"; };
 		63BCCE9428DF896900BD3FB9 /* Cupping Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Toolbar.swift"; sourceTree = "<group>"; };
 		63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radar Chart.swift"; sourceTree = "<group>"; };
 		63D892DB28C9E75800F68505 /* CFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFModel.swift; sourceTree = "<group>"; };
 		63D892DE28C9EC3400F68505 /* S Cupping Forms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "S Cupping Forms.swift"; sourceTree = "<group>"; };
-		63D892E128C9EE5E00F68505 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		63D892E528C9EED600F68505 /* Hide Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hide Keyboard.swift"; sourceTree = "<group>"; };
 		63D892E728C9EF5C00F68505 /* AppStorage extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage extensions.swift"; sourceTree = "<group>"; };
 		63D892EC28CA068500F68505 /* ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifier.swift; sourceTree = "<group>"; };
@@ -212,7 +208,6 @@
 			children = (
 				631C107F28B0528F00620637 /* CFManager.swift */,
 				63D892DB28C9E75800F68505 /* CFModel.swift */,
-				63B83D4429189770009EBF4C /* SCAru.json */,
 				638CBE9B28C23BBF00B05A03 /* SCA.json */,
 				228F857528FD90C000214198 /* SCI.json */,
 				22784E0829040A0F00FC56F9 /* CoE.json */,
@@ -286,7 +281,6 @@
 			isa = PBXGroup;
 			children = (
 				633FBD5E28A2597100A93781 /* Stopwatch.swift */,
-				63D892E128C9EE5E00F68505 /* Blur.swift */,
 				63D892E528C9EED600F68505 /* Hide Keyboard.swift */,
 				63D892E728C9EF5C00F68505 /* AppStorage extensions.swift */,
 				6324CE8A28E1E53F003E6088 /* Half Sheet.swift */,
@@ -476,7 +470,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63B83D4529189770009EBF4C /* SCAru.json in Resources */,
 				633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */,
 				63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */,
 				638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */,
@@ -502,7 +495,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				63CE1B7D28DD9C4D0035171A /* Radar Chart.swift in Sources */,
-				63D892E228C9EE5E00F68505 /* Blur.swift in Sources */,
 				22242C7A28EF26A300138494 /* QCGroup Entity.swift in Sources */,
 				63E6B7C62886FEAC001A312F /* Evaluation Header.swift in Sources */,
 				22242C7328EF106D00138494 /* EmailHelper.swift in Sources */,
@@ -728,7 +720,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
@@ -740,6 +732,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -747,7 +741,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-Xfrontend -warn-long-function-bodies=500 -Xfrontend -warn-long-expression-type-checking=500";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nnnkbrrr.CupTaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -767,7 +761,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
@@ -779,6 +773,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -786,7 +782,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nnnkbrrr.CupTaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

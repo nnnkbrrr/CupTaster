@@ -2,7 +2,7 @@
     "title": "SCA",
     "finalScoreFormula": "qcc_1_1 + qcc_2_1 + qcc_3_1 + qcc_4_1 + qcc_5_1 + (10 - (10 * qcc_9_1 / CupsCount)) + qcc_6_1 + (10 - (10 * qcc_8_1 / CupsCount)) + (10 - (10 * qcc_7_1 / CupsCount)) + qcc_10_1 - (qcc_11_1 * qcc_11_2 / CupsCount * 5)",
     "languageCode": "en",
-    "version": "beta 1.0 (14.0)",
+    "version": "1.0.0 (15.0)",
     "qcGroupConfigurations": [
         {
             "title": "Fragrance/Aroma",

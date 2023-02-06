@@ -10,7 +10,6 @@ import CoreData
 
 // MARK: Content View
 
-#warning("переписать unit тесты")
 #warning("если образков много, то приложение сильно зависает")
 #warning("подсказки не написаны")
 
