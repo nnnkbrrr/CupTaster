@@ -9,20 +9,21 @@ import SwiftUI
 
 struct TesterView: View {
     @AppStorage("tester-tab-visible") var testerTabVisible: Bool = false
+    
     @AppStorage("onboarding-completed") var onboardingCompleted: Bool = false
+    @AppStorage("tester-show-cuppings-date-picker") var showCuppingsDatePicker: Bool = false
+    
     @FetchRequest(entity: Cupping.entity(), sortDescriptors: []) var cuppings: FetchedResults<Cupping>
     @State var addingBlankForm: Bool = false
     
     var body: some View {
         Form {
             Section("") {
-                Button {
+                Button("Show onboarding on next launch") {
                     onboardingCompleted = false
-                } label: {
-                    Text("Показать приветствие при следующем запуске")
                 }
                 
-                Menu("Установить время на секундомере") {
+                Menu("Set stopwatch time") {
                     ForEach(1..<60) { min in
                         Button("\(min):00") {
                             StopwatchView().timeSince = Date(timeIntervalSince1970: 0)
@@ -31,7 +32,11 @@ struct TesterView: View {
                     }
                 }
                 
-                Button("Добавить пустую форму") { addingBlankForm = true }
+                Button("Add blank form") { addingBlankForm = true }
+            }
+            
+            Section("") {
+                Toggle("Show cuppings date picker", isOn: $showCuppingsDatePicker)
             }
             
             let samPerCpg: [Int] = cuppings.map { $0.samples.count }
@@ -39,16 +44,16 @@ struct TesterView: View {
             let avgSamPerCpg: Int? = samPerCpg.min() != nil ? Int(CGFloat(samPerCpg.reduce(0, +))/CGFloat(cuppings.count)) : nil
             let maxSamPerCpg: Int? = samPerCpg.max()
             
-            Section("Статистика") {
-                Text("Каппингов всего: \(cuppings.count)")
-                Text("Образцов всего: \(samPerCpg.reduce(0, +))")
-                Text("Минимум образцов: \(minSamPerCpg ?? 0)")
-                Text("В среднем образцов: \(avgSamPerCpg ?? 0)")
-                Text("Максимум образцов: \(maxSamPerCpg ?? 0)")
+            Section("Stats") {
+                Text("Cuppings count: \(cuppings.count)")
+                Text("Samples total count: \(samPerCpg.reduce(0, +))")
+                Text("Min samples: \(minSamPerCpg ?? 0)")
+                Text("Avg samples: \(avgSamPerCpg ?? 0)")
+                Text("Max samples: \(maxSamPerCpg ?? 0)")
             }
             
             Section {
-                Button("Скрыть вкладку разработчика") {
+                Button("Hide tester tab") {
                     testerTabVisible = false
                 }
             }
@@ -65,9 +70,9 @@ fileprivate struct NewBlankFormView: View {
     
     var body: some View {
         Form {
-            TextField("Название формы", text: $title)
-            TextField("Версия формы", text: $version)
-            TextField("код языка", text: $langCode)
+            TextField("Title", text: $title)
+            TextField("Version", text: $version)
+            TextField("Language code", text: $langCode)
             
             Button("Добавить") {
                 let newCF: CuppingForm = CuppingForm(context: moc)

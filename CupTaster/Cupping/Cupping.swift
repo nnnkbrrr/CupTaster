@@ -18,6 +18,8 @@ struct CuppingView: View {
     @ObservedObject var cuppingModel: CuppingModel
     @FetchRequest var samples: FetchedResults<Sample>
     
+    @AppStorage("tester-show-cuppings-date-picker") var showCuppingsDatePicker: Bool = false
+    
     init(cuppingModel: CuppingModel) {
         self.cuppingModel = cuppingModel
         self._samples = FetchRequest(
@@ -37,6 +39,12 @@ struct CuppingView: View {
                     Form {
                         Section {
                             TextField("Cupping name", text: $cuppingModel.cupping.name)
+                        }
+                        
+                        if showCuppingsDatePicker {
+                            Section {
+                                DatePicker("Date:", selection: $cuppingModel.cupping.date, displayedComponents: [.date])
+                            }
                         }
                         
                         Section {
