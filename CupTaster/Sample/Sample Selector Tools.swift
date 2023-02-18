@@ -16,11 +16,11 @@ struct SampleToolsView: View {
         ZStack {
             HStack {
                 TextField("Sample name", text: $sample.name)
-                    .keyboardType(.alphabet)
+                    .keyboardType(.namePhonePad)
                     .autocorrectionDisabled()
+                    .submitLabel(.done)
                     .focused($sampleNameTextfieldFocus, equals: sample.id)
                     .multilineTextAlignment(sampleNameTextfieldFocus == nil ? .center : .leading)
-                    .submitLabel(.done)
                     .onSubmit {
                         try? moc.save()
                     }
