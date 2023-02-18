@@ -237,7 +237,7 @@ extension SampleView {
             .font(.caption)
         }
         .padding(10)
-        .background(.ultraThinMaterial)
+        .background(Color(uiColor: .secondarySystemGroupedBackground))
         .cornerRadius(15)
     }
 }

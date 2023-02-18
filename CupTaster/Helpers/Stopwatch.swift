@@ -24,27 +24,29 @@ struct StopwatchView: View {
     var body: some View {
         ZStack {
             if let timeSince = timeSince {
-                Menu {
-                    Button(action: {
-                        if let timeTill = timeTill {
-                            self.timeSince = Date(timeIntervalSinceNow: timeSince.timeIntervalSince(timeTill))
-                            self.timeTill = nil
-                        } else {
-                            self.timeTill = Date()
-                        }
-                    }) {
-                        switch timeTill {
+                label.foregroundColor(.accentColor).overlay {
+                    Menu {
+                        Button(action: {
+                            if let timeTill = timeTill {
+                                self.timeSince = Date(timeIntervalSinceNow: timeSince.timeIntervalSince(timeTill))
+                                self.timeTill = nil
+                            } else {
+                                self.timeTill = Date()
+                            }
+                        }) {
+                            switch timeTill {
                             case .none: Label("Stop", systemImage: "pause.fill")
                             case .some: Label("Start", systemImage: "play")
+                            }
                         }
-                    }
-                    Button(action: {
-                        self.timeSince = nil
-                        self.timeTill = nil
-                    }) {
-                        Label("Reset", systemImage: "arrow.counterclockwise")
-                    }
-                } label: { label }
+                        Button(action: {
+                            self.timeSince = nil
+                            self.timeTill = nil
+                        }) {
+                            Label("Reset", systemImage: "arrow.counterclockwise")
+                        }
+                    } label: { label.opacity(0) }
+                }
             } else {
                 Button {
                     timeSince = Date()

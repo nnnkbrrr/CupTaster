@@ -10,8 +10,9 @@ import CoreData
 
 // MARK: Content View
 
-#warning("если образков много, то приложение сильно зависает")
-#warning("подсказки не написаны")
+#warning("если образцов много, то приложение сильно зависает")
+#warning("таймер не пропадает если пропадает sample textfield следующего образца")
+#warning("фон в просмотре всех образцов каппинга")
 
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>

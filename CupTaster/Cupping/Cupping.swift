@@ -18,6 +18,8 @@ struct CuppingView: View {
     @ObservedObject var cuppingModel: CuppingModel
     @FetchRequest var samples: FetchedResults<Sample>
     
+    @FocusState var sampleNameTextfieldFocus: ObjectIdentifier?
+    
     init(cuppingModel: CuppingModel) {
         self.cuppingModel = cuppingModel
         self._samples = FetchRequest(
@@ -107,7 +109,7 @@ struct CuppingView: View {
                                     cuppingModel.selectedSampleIndex = cuppingModel.sortedSamples.firstIndex(of: sample)!
                                     cuppingModel.samplesAppearance = .criteria
                                     cuppingModel.offset = .zero
-                                    cuppingModel.switchingSamplesAppearance = false
+                                    cuppingModel.switchingToPreviews = false
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                                         withAnimation {
@@ -128,17 +130,25 @@ struct CuppingView: View {
                         .padding([.bottom, .horizontal])
                         .padding(.bottom, 44) // toolbar
                     }
+                    .background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .all)
                 }
                 
-                CuppingToolbarView(presentationMode: _presentationMode, cuppingModel: cuppingModel, namespace: namespace)
-                    .overlay(alignment: .top) {
-                        Rectangle()
-                            .foregroundColor(.gray)
-                            .opacity(0.5)
-                            .frame(height: 0.2)
-                    }
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .zIndex(2)
+                CuppingToolbarView(
+                    presentationMode: _presentationMode,
+                    cuppingModel: cuppingModel,
+                    namespace: namespace,
+                    sampleNameTextfieldFocus: _sampleNameTextfieldFocus
+                )
+                .overlay(alignment: .top) {
+                    Rectangle()
+                        .foregroundColor(.gray)
+                        .opacity(0.5)
+                        .frame(height: 0.2)
+                }
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                .ignoresSafeArea(.keyboard, edges: sampleNameTextfieldFocus == nil ? [.all] : [])
+                .animation(.default, value: sampleNameTextfieldFocus)
+                .zIndex(2)
                 
                 if let qcGroupConfig = cuppingModel.selectedHintsQCGConfig {
                     ScrollView(showsIndicators: false) {
