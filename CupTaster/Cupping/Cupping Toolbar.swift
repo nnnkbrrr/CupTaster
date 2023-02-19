@@ -17,7 +17,6 @@ struct CuppingToolbarView: View {
     
     @State private var confirmDeleteAction: Bool = false
     
-    
     var body: some View {
         GeometryReader { geometry in
             let sortedSamples: [Sample] = cuppingModel.sortedSamples
@@ -38,7 +37,9 @@ struct CuppingToolbarView: View {
                                     width: cuppingModel.selectedSample == sample || cuppingModel.switchingToPreviews ? selectedSampleWidth : sampleWidth,
                                     height: 44
                                 )
-                                .background(Color(uiColor: .systemGray2), in: RoundedRectangle(cornerRadius: 12))
+                                .background(Color.keyboardKey.opacity(sampleNameTextfieldFocus == nil ? 0.75 : 1))
+                                .background(.thinMaterial)
+                                .cornerRadius(12)
                                 .shadow(color: .clear, radius: 1) // view rendering
                                 .frame(width: geometry.size.width)
                                 .zIndex(2)
@@ -125,7 +126,7 @@ struct CuppingToolbarView: View {
             .gesture(
                 DragGesture()
                     .onChanged { gesture in
-                        if cuppingModel.sampleViewVisible {
+                        if cuppingModel.sampleViewVisible && gesture.startLocation.y < 70 {
                             withAnimation {
                                 cuppingModel.offset = gesture.translation
                                 cuppingModel.switchingToPreviews = gesture.translation.height < -50 && abs(gesture.translation.height) > abs(gesture.translation.width)
@@ -136,9 +137,7 @@ struct CuppingToolbarView: View {
                         if cuppingModel.sampleViewVisible {
                             withAnimation(.interpolatingSpring(stiffness: 400, damping: 100)) {
                                 if cuppingModel.switchingToPreviews {
-                                    withAnimation {
-                                        cuppingModel.sampleViewVisible = false
-                                    }
+                                    cuppingModel.sampleViewVisible = false
                                 } else {
                                     let longGesture: Bool = abs(gesture.translation.width) > geometry.size.width / 3
                                     let fastGesture: Bool = abs(gesture.predictedEndTranslation.width) > 150
@@ -149,7 +148,9 @@ struct CuppingToolbarView: View {
                                         cuppingModel.selectedSample = sortedSamples[cuppingModel.selectedSampleIndex!]
                                         
                                         if sampleNameTextfieldFocus != nil {
-                                            sampleNameTextfieldFocus = cuppingModel.selectedSample!.id
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                                sampleNameTextfieldFocus = cuppingModel.selectedSample!.id
+                                            }
                                         }
                                     }
                                     cuppingModel.offset = .zero
@@ -161,7 +162,8 @@ struct CuppingToolbarView: View {
             )
         }
         .frame(height: toolbarHeight, alignment: .bottom)
-        .background(Color.keyboardBackground, ignoresSafeAreaEdges: .all)
+        .background(Color.keyboardBackground.opacity(sampleNameTextfieldFocus == nil ? 0.2 : 1), ignoresSafeAreaEdges: .all)
+        .background(.ultraThinMaterial, ignoresSafeAreaEdges: .all)
     }
     
     private var toolbarHeight: CGFloat {

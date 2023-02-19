@@ -27,7 +27,6 @@ struct SampleSelectorView: View {
                             SampleView(cuppingModel: cuppingModel, sample: sample, appearance: $cuppingModel.samplesAppearance)
                                 .frame(width: geometry.size.width)
                                 .matchedGeometryEffect(id: sample.id, in: namespace)
-                                .frame(width: geometry.size.width)
                                 .opacity(cuppingModel.switchingToPreviews && cuppingModel.selectedSample != sample ? 0 : 1)
                                 .transition(.opacity.combined(with: .scale))
                         } else {

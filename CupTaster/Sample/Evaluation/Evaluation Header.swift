@@ -41,8 +41,6 @@ struct EvaluationHeaderView: View {
                         .padding(.trailing)
                 }
                 .padding(.horizontal, 10)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .animation(.spring(), value: isCompleted)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     withAnimation(.interpolatingSpring(stiffness: 250, damping: 250)) {

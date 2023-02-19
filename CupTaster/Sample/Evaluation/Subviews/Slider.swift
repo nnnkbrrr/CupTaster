@@ -84,6 +84,7 @@ struct SliderView: View {
                 }
             }
         }
+        .frame(minWidth: 100)
         .frame(height: 40)
         .padding(.top, 10)
     }
@@ -119,6 +120,7 @@ fileprivate struct SliderScrollReader<Content: View>: UIViewRepresentable {
         scrollView.addSubview(swiftUIView)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.delegate = context.coordinator
+        scrollView.decelerationRate = .fast
         
         scrollView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
         
@@ -144,7 +146,14 @@ extension SliderScrollReader {
             scrollView.setContentOffset(scrollView.contentOffset, animated: false)
         }
         
-        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) { alignScrollViewOffset(scrollView) }
+        func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+            updateValue(offset: scrollView.contentOffset.x)
+            alignScrollViewOffset(scrollView)
+        }
+        
+        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            scrollView.setContentOffset(scrollView.contentOffset, animated: false)
+        }
 
         func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
             if !decelerate { alignScrollViewOffset(scrollView) }

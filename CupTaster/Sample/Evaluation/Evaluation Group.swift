@@ -22,7 +22,6 @@ struct EvaluationGroupView: View {
             }
             
             EvaluationHeaderView(qcGroup: qcGroup, isCompleted: $qcGroup.isCompleted)
-                .frame(maxWidth: .infinity)
                 .padding(.vertical, qcGroup.isCompleted ? 0 : 15)
                 .background(qcGroup.isCompleted ? Color.clear : Color(uiColor: .secondarySystemGroupedBackground))
                 .cornerRadius(10)

@@ -9,4 +9,5 @@ import SwiftUI
 
 extension Color {
     static let keyboardBackground = Color("KeyboardBackgroundColor")
+    static let keyboardKey = Color("KeyboardKeyColor")
 }
