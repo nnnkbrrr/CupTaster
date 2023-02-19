@@ -45,7 +45,7 @@ enum SampleAppearance {
 extension SampleView {
     private var criteriaAppearance: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
+            LazyVStack(spacing: 0) {
                 ForEach(
                     sample.qualityCriteriaGroups
                         .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
@@ -57,6 +57,7 @@ extension SampleView {
             .padding(.bottom, 100) // toolbar
             .resignKeyboardOnDragGesture() { try? moc.save() }
         }
+        .clipped()
     }
 }
 

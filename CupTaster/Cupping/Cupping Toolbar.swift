@@ -39,17 +39,17 @@ struct CuppingToolbarView: View {
                                     height: 44
                                 )
                                 .background(Color(uiColor: .systemGray2), in: RoundedRectangle(cornerRadius: 12))
-                                .shadow(color: .black.opacity(0.1), radius: 15)
+                                .shadow(color: .clear, radius: 1) // view rendering
                                 .frame(width: geometry.size.width)
                                 .zIndex(2)
                         }
                     }
-                    .offset(x: cuppingModel.offset.width)
                     .offset(
                         x: cuppingModel.offset.width - geometry.size.width * CGFloat(cuppingModel.selectedSampleIndex!),
-                        y: cuppingModel.offset.height < 0 && abs(cuppingModel.offset.height) > abs(cuppingModel.offset.width) ? cuppingModel.offset.height/4 : 0
+                        y: cuppingModel.offset.height < 0 && abs(cuppingModel.offset.height) > abs(cuppingModel.offset.width) ? cuppingModel.offset.height/3 : 0
                     )
                     .frame(width: geometry.size.width, alignment: .leading)
+                    .transition(.scale(scale: 0.5).combined(with: .move(edge: .top)).combined(with: .opacity))
                 }
                 
                 if sampleNameTextfieldFocus == nil {
@@ -126,7 +126,7 @@ struct CuppingToolbarView: View {
                 DragGesture()
                     .onChanged { gesture in
                         if cuppingModel.sampleViewVisible {
-                            withAnimation(.interpolatingSpring(stiffness: 400, damping: 100)) {
+                            withAnimation {
                                 cuppingModel.offset = gesture.translation
                                 cuppingModel.switchingToPreviews = gesture.translation.height < -50 && abs(gesture.translation.height) > abs(gesture.translation.width)
                             }
@@ -161,7 +161,7 @@ struct CuppingToolbarView: View {
             )
         }
         .frame(height: toolbarHeight, alignment: .bottom)
-        .background(KeyboardBackgroundColor())
+        .background(Color.keyboardBackground, ignoresSafeAreaEdges: .all)
     }
     
     private var toolbarHeight: CGFloat {

@@ -113,13 +113,7 @@ struct AllCuppingsView: View {
                 .navigationTitle("All Сuppings")
             }
             .navigationViewStyle(.stack)
-            .fullScreenCover(item: $activeCuppingModel) {
-                CuppingView(cuppingModel: $0)
-                    .background(KeyboardBackgroundColor()
-                        .ignoresSafeArea(.all)
-                        .ignoresSafeArea(.keyboard)
-                    )
-            }
+            .fullScreenCover(item: $activeCuppingModel) { CuppingView(cuppingModel: $0) }
         }
     }
     

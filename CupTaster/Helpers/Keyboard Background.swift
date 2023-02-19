@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-struct KeyboardBackgroundColor: View {
-    @Environment(\.colorScheme) var colorScheme
-    
-    var body: some View { colorScheme == .dark ? Color(white: 0.22) : Color(white: 0.83) }
+extension Color {
+    static let keyboardBackground = Color("KeyboardBackgroundColor")
 }
