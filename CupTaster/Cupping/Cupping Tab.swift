@@ -113,7 +113,7 @@ struct AllCuppingsView: View {
                 .navigationTitle("All Сuppings")
             }
             .navigationViewStyle(.stack)
-            .fullScreenCover(item: $activeCuppingModel, content: { CuppingView(cuppingModel: $0) })
+            .fullScreenCover(item: $activeCuppingModel) { CuppingView(cuppingModel: $0) }
         }
     }
     

@@ -19,23 +19,31 @@ struct SampleSelectorView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .bottom) {
-                HStack(spacing: cuppingModel.switchingSamplesAppearance ? 50 : 0) {
+            ZStack {
+                HStack(spacing: cuppingModel.switchingToPreviews ? 50 : 0) {
+                    let selectedSampleOrdinalNumber: Int16 = cuppingModel.selectedSample!.ordinalNumber
                     ForEach(cuppingModel.sortedSamples) { sample in
-                        SampleView(cuppingModel: cuppingModel, sample: sample, appearance: $cuppingModel.samplesAppearance)
-                            .frame(width: geometry.size.width)
-                            .matchedGeometryEffect(id: "\(sample.id)", in: namespace)
-                            .frame(width: geometry.size.width)
-                            .opacity(cuppingModel.switchingSamplesAppearance && cuppingModel.selectedSample != sample ? 0 : 1)
-                            .scaleEffect(
-                                cuppingModel.switchingSamplesAppearance && cuppingModel.selectedSample == sample ?
-                                0.7 + (cuppingModel.offset.height/(geometry.size.height * 2)) : 1
-                            )
+                        if selectedSampleOrdinalNumber - 1...selectedSampleOrdinalNumber + 1 ~= sample.ordinalNumber {
+                            SampleView(cuppingModel: cuppingModel, sample: sample, appearance: $cuppingModel.samplesAppearance)
+                                .frame(width: geometry.size.width)
+                                .matchedGeometryEffect(id: sample.id, in: namespace)
+                                .opacity(cuppingModel.switchingToPreviews && cuppingModel.selectedSample != sample ? 0 : 1)
+                                .transition(.opacity.combined(with: .scale))
+                        } else {
+                            Text(sample.name)
+                                .padding()
+                                .padding(.horizontal)
+                                .frame(width: geometry.size.width)
+                                .matchedGeometryEffect(id: sample.id, in: namespace)
+                        }
                     }
                 }
-                .offset(x: cuppingModel.offset.width - (geometry.size.width + (cuppingModel.switchingSamplesAppearance ? 50 : 0)) * CGFloat(cuppingModel.selectedSampleIndex ?? 0))
+                .offset(x: cuppingModel.offset.width - (geometry.size.width + (cuppingModel.switchingToPreviews ? 50 : 0)) * CGFloat(cuppingModel.selectedSampleIndex ?? 0))
                 .frame(width: geometry.size.width, alignment: .leading)
-                .background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .all)
+                .scaleEffect(
+                    cuppingModel.switchingToPreviews ?
+                    0.7 + (cuppingModel.offset.height/(geometry.size.height * 2)) : 1
+                )
             }
         }
     }

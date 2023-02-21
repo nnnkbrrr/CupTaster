@@ -21,7 +21,7 @@ class CuppingModel: ObservableObject, Identifiable {
     
     // Gestures
     @Published var offset: CGSize = .zero
-    @Published var switchingSamplesAppearance: Bool
+    @Published var switchingToPreviews: Bool
     
     // Samples style
     @Published var samplesAppearance: SampleAppearance
@@ -36,7 +36,7 @@ class CuppingModel: ObservableObject, Identifiable {
         self.selectedSample = nil
         self.selectedSampleIndex = nil
         self.offset = .zero
-        self.switchingSamplesAppearance = false
+        self.switchingToPreviews = false
         self.samplesEditorActive = false
         self.samplesAppearance = .criteria
         self.selectedHintsQCGConfig = nil

@@ -63,29 +63,28 @@ struct SliderView: View {
     }
     
     var slider: some View {
-        GeometryReader { geometry in
-            SliderScrollReader(configuration: configuration, frameWidth: geometry.size.width, value: $value) {
-                HStack(alignment: .top, spacing: 0) {
-                    ForEach(configuration.fractionValues, id: \.self) { fractionValue in
-                        let isCeil: Bool = fractionValue.truncatingRemainder(dividingBy: 1) == 0
+        SliderScrollReader(configuration: configuration, value: $value) {
+            HStack(alignment: .top, spacing: 0) {
+                ForEach(configuration.fractionValues, id: \.self) { fractionValue in
+                    let isCeil: Bool = fractionValue.truncatingRemainder(dividingBy: 1) == 0
+                    
+                    VStack(spacing: 0) {
+                        Capsule()
+                            .fill(.gray)
+                            .frame(width: isCeil ? 3 : 1, height: 20)
                         
-                        VStack(spacing: 0) {
-                            Capsule()
-                                .fill(.gray)
-                                .frame(width: isCeil ? 3 : 1, height: 20)
-                            
-                            if isCeil {
-                                Text("\(Int(fractionValue))")
-                                    .font(.caption2)
-                                    .foregroundColor(.gray)
-                                    .frame(height: 20)
-                            }
+                        if isCeil {
+                            Text("\(Int(fractionValue))")
+                                .font(.caption2)
+                                .foregroundColor(.gray)
+                                .frame(height: 20)
                         }
-                        .frame(width: configuration.spacing)
                     }
+                    .frame(width: configuration.spacing)
                 }
             }
         }
+        .frame(minWidth: 100)
         .frame(height: 40)
         .padding(.top, 10)
     }
@@ -95,15 +94,13 @@ struct SliderView: View {
 fileprivate struct SliderScrollReader<Content: View>: UIViewRepresentable {
     let configuration: SliderConfiguration
     var content: Content
-    var frameWidth: CGFloat
     
     @State var offset: CGFloat
     @Binding var value: Double
     
-    init(configuration: SliderConfiguration, frameWidth: CGFloat, value: Binding<Double>, @ViewBuilder content: @escaping () -> Content) {
+    init(configuration: SliderConfiguration, value: Binding<Double>, @ViewBuilder content: @escaping () -> Content) {
         self.configuration = configuration
         self.content = content()
-        self.frameWidth = frameWidth
         
         self._offset = State(
             initialValue: (value.wrappedValue - configuration.bounds.lowerBound) *
@@ -115,7 +112,7 @@ fileprivate struct SliderScrollReader<Content: View>: UIViewRepresentable {
     func makeUIView(context: Context) -> UIScrollView {
         let scrollView: UIScrollView = UIScrollView()
         let swiftUIView: UIView = UIHostingController(rootView: content).view!
-        let width: CGFloat = CGFloat(configuration.fractionValues.count - 1) * configuration.spacing + frameWidth
+        let width: CGFloat = configuration.spacing * CGFloat(configuration.fractionValues.count - 2) * 2
         
         swiftUIView.frame = CGRect(x: 0, y: 0, width: width, height: 40)
         swiftUIView.backgroundColor = .clear
@@ -123,6 +120,7 @@ fileprivate struct SliderScrollReader<Content: View>: UIViewRepresentable {
         scrollView.addSubview(swiftUIView)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.delegate = context.coordinator
+        scrollView.decelerationRate = .fast
         
         scrollView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
         
@@ -148,7 +146,14 @@ extension SliderScrollReader {
             scrollView.setContentOffset(scrollView.contentOffset, animated: false)
         }
         
-        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) { alignScrollViewOffset(scrollView) }
+        func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+            updateValue(offset: scrollView.contentOffset.x)
+            alignScrollViewOffset(scrollView)
+        }
+        
+        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            scrollView.setContentOffset(scrollView.contentOffset, animated: false)
+        }
 
         func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
             if !decelerate { alignScrollViewOffset(scrollView) }
