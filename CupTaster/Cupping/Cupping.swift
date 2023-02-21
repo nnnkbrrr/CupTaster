@@ -19,6 +19,8 @@ struct CuppingView: View {
     @FetchRequest var samples: FetchedResults<Sample>
     
     @FocusState var sampleNameTextfieldFocus: ObjectIdentifier?
+		
+    @AppStorage("tester-show-cuppings-date-picker") var showCuppingsDatePicker: Bool = false
     
     init(cuppingModel: CuppingModel) {
         self.cuppingModel = cuppingModel
@@ -39,6 +41,12 @@ struct CuppingView: View {
                     Section {
                         TextField("Cupping name", text: $cuppingModel.cupping.name)
                     }
+										
+                    if showCuppingsDatePicker {
+                        Section {
+                            DatePicker("Date:", selection: $cuppingModel.cupping.date, displayedComponents: [.date])
+                        }
+                    }
                     
                     Section {
                         ForEach(samples) { sample in
@@ -50,7 +58,6 @@ struct CuppingView: View {
                             
                             for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
                                 revisedItems[reverseIndex].ordinalNumber = Int16(reverseIndex)
-                            }
                         }
                         .onDelete { offsets in
                             for index in offsets {

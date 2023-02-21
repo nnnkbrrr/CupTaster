@@ -21,6 +21,9 @@ struct CuppingSettingsView: View {
     @State var selectedSamplesCount: Int = 1
     @State var selectedCupsCount: Int = 5
     
+    @AppStorage("tester-show-cuppings-date-picker") var showCuppingsDatePicker: Bool = false
+    @State private var selectedCuppingDate: Date = Date()
+    
     var body: some View {
         NavigationView {
             Form {
@@ -53,6 +56,12 @@ struct CuppingSettingsView: View {
                         }
                     }
                 }
+                
+                if showCuppingsDatePicker {
+                    Section("Tester") {
+                        DatePicker("Date", selection: $selectedCuppingDate, displayedComponents: [.date])
+                    }
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -72,6 +81,8 @@ struct CuppingSettingsView: View {
                     Button("Save") {
                         cuppingModel.cupping.cupsCount = Int16(selectedCupsCount)
                         cuppingModel.cupping.form = selectedCuppingForm
+                        
+                        if showCuppingsDatePicker { cuppingModel.cupping.date = selectedCuppingDate }
                         
                         for _ in 1...selectedSamplesCount {
                             let usedNames: [String] = cuppingModel.cupping.samples.map { $0.name }
