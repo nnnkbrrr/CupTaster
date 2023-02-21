@@ -33,33 +33,34 @@ struct SliderView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            HStack(alignment: .top, spacing: 0) {
-                ForEach(fractionValues, id: \.self) { fractionValue in
-                    let isCeil: Bool = fractionValue.truncatingRemainder(dividingBy: 1) == 0
-                    
-                    VStack(spacing: 0) {
-                        Capsule()
-                            .fill(.gray)
-                            .frame(width: isCeil ? 3 : 1, height: 20)
+            Color.clear.frame(height: 40).overlay {
+                HStack(alignment: .top, spacing: 0) {
+                    ForEach(fractionValues, id: \.self) { fractionValue in
+                        let isCeil: Bool = fractionValue.truncatingRemainder(dividingBy: 1) == 0
                         
-                        if isCeil {
-                            Text("\(Int(fractionValue))")
-                                .font(.caption2)
-                                .foregroundColor(.gray)
-                                .frame(height: 20)
+                        VStack(spacing: 0) {
+                            Capsule()
+                                .fill(.gray)
+                                .frame(width: isCeil ? 3 : 1, height: 20)
+                            
+                            if isCeil {
+                                Text("\(Int(fractionValue))")
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .frame(height: 20)
+                            }
                         }
+                        .frame(width: spacing)
                     }
-                    .frame(width: spacing)
                 }
+                .offset(x: fullSliderWidth / 2)
+                .offset(x: offset + tempOffset)
             }
-            .offset(x: fullSliderWidth / 2)
-            .offset(x: offset + tempOffset)
             
             Capsule()
                 .foregroundColor(.accentColor)
                 .frame(width: 3, height: 30)
         }
-        .frame(maxWidth: .infinity)
         .mask(
             LinearGradient(
                 gradient: Gradient(colors: [.clear, .black, .clear]),
@@ -70,8 +71,9 @@ struct SliderView: View {
         .gesture(
             DragGesture()
                 .onChanged { gesture in
+                    let translation = gesture.translation.width
                     let rangeValue1: CGFloat = -(offset + tempOffset) / spacing * step + lowerBound
-                    let rangeValue2: CGFloat = -(offset + gesture.translation.width) / spacing * step + lowerBound
+                    let rangeValue2: CGFloat = -(offset + translation) / spacing * step + lowerBound
                     let currentRange: ClosedRange<CGFloat> = rangeValue1 < rangeValue2 ? rangeValue1...rangeValue2 : rangeValue2...rangeValue1
                     for fractionValue in fractionValues {
                         if currentRange ~= fractionValue {
@@ -79,16 +81,19 @@ struct SliderView: View {
                             generateSelectionFeedback()
                         }
                     }
-                    self.tempOffset = gesture.translation.width
+                    self.tempOffset = translation
                 }
-                .onEnded { _ in
-                    self.offset += tempOffset
+                .onEnded { gesture in
+                    let translation = gesture.translation.width
+                    self.offset += translation
                     self.tempOffset = 0
                     withAnimation {
                         if offset > 0 {
                             self.offset = 0
+                            self.value = lowerBound
                         } else if offset < -fullSliderWidth {
                             self.offset = -fullSliderWidth
+                            self.value = upperBound
                         } else {
                             self.offset = (value - lowerBound) * spacing * (-1.0 / step)
                         }
