@@ -58,6 +58,7 @@ struct CuppingView: View {
                             
                             for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
                                 revisedItems[reverseIndex].ordinalNumber = Int16(reverseIndex)
+                            }
                         }
                         .onDelete { offsets in
                             for index in offsets {
