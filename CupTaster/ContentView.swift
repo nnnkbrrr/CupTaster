@@ -10,9 +10,6 @@ import CoreData
 
 // MARK: Content View
 
-#warning("если образков много, то приложение сильно зависает")
-#warning("подсказки не написаны")
-
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     @AppStorage("tester-tab-visible") var testerTabVisible: Bool = false
