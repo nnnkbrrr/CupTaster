@@ -16,6 +16,11 @@ struct SampleToolsView: View {
         ZStack {
             HStack {
                 TextField("Sample name", text: $sample.name)
+                    .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
+                        if let textField = obj.object as? UITextField {
+                            textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+                        }
+                    }
                     .keyboardType(.namePhonePad)
                     .autocorrectionDisabled()
                     .submitLabel(.done)
