@@ -47,7 +47,9 @@ struct EvaluationView: View {
                 case .slider:
                     SliderView(
                         value: $qualityCriteria.value,
-                        configuration: qcConfig.sliderConfiguration
+                        lowerBound: qcConfig.lowerBound,
+                        upperBound: qcConfig.upperBound,
+                        step: qcConfig.step
                     )
                 case .radio:
                     RadioView(

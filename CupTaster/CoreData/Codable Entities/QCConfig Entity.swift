@@ -68,12 +68,6 @@ public class QCConfig: QualityCriteria, Codable {
 }
 
 extension QCConfig {
-    var sliderConfiguration: SliderConfiguration {
-        return SliderConfiguration(bounds: lowerBound...upperBound, step: step, spacing: 25)
-    }
-}
-
-extension QCConfig {
     static func new(
         context: NSManagedObjectContext,
         title: String,

@@ -11,8 +11,11 @@ struct SliderEvaluationValueView: View {
     @ObservedObject var qualityCriteria: QualityCriteria
     
     var body: some View {
-        let allFractionValues: [CGFloat] =
-        qualityCriteria.configuration?.sliderConfiguration.fractionValues ?? []
+        let allFractionValues: [CGFloat] = Array(stride(
+            from: qualityCriteria.configuration!.lowerBound,
+            through: qualityCriteria.configuration!.upperBound,
+            by: qualityCriteria.configuration!.step
+        )).map { $0 }
         
         HStack {
             ForEach(allFractionValues, id: \.self) { fractionValue in
