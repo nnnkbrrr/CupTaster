@@ -49,8 +49,7 @@ struct EvaluationView: View {
                         value: $qualityCriteria.value,
                         lowerBound: qcConfig.lowerBound,
                         upperBound: qcConfig.upperBound,
-                        step: qcConfig.step,
-                        spacing: 25
+                        step: qcConfig.step
                     )
                 case .radio:
                     RadioView(

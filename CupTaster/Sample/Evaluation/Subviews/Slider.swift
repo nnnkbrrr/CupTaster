@@ -8,24 +8,25 @@
 import SwiftUI
 
 struct SliderView: View {
+    @AppStorage("slider-spacing") var spacing: Double = 25.0
+    
     @Binding var value: Double
     let lowerBound: CGFloat
     let upperBound: CGFloat
     let step: CGFloat
-    let spacing: CGFloat
     
     let fractionValues: [CGFloat]
     let fullSliderWidth: CGFloat
     @State var offset: CGFloat
     @State var tempOffset: CGFloat = 0
     
-    init(value: Binding<Double>, lowerBound: CGFloat, upperBound: CGFloat, step: CGFloat, spacing: CGFloat) {
+    init(value: Binding<Double>, lowerBound: CGFloat, upperBound: CGFloat, step: CGFloat) {
         self._value = value
         self.lowerBound = lowerBound
         self.upperBound = upperBound
         self.step = step
-        self.spacing = spacing
         
+        let spacing = UserDefaults.standard.double(forKey: "slider-spacing")
         self.fractionValues = Array(stride(from: lowerBound, through: upperBound, by: step)).map { $0 }
         self.fullSliderWidth = spacing * CGFloat(fractionValues.count - 1)
         self._offset = State(initialValue: (value.wrappedValue - lowerBound) * spacing * (-1.0 / step))
@@ -100,6 +101,9 @@ struct SliderView: View {
                     }
                 }
         )
+        .onChange(of: spacing) { newSpacing in
+            self.offset = (value - lowerBound) * newSpacing * (-1.0 / step) - tempOffset
+        }
     }
     
     private func generateSelectionFeedback() {

@@ -12,14 +12,15 @@ struct SettingsView: View {
     @AppStorage("sample-name-generator-method")
     var sampleNameGenerationMethod: SampleNameGenerator.GenerationMethod = .alphabetical
     
-    @State var sgiSheetActive: Bool = false
+    @State var sgiSheetIsActive: Bool = false
+    @State var sliderSpacingSheetIsActive: Bool = false
     
     var body: some View {
         NavigationView {
             Form {
                 Settings_CFSelectorFormSectionsView()
                 
-                Section {
+                Section("Sample name generation method") {
                     Button {
                         sampleNameGenerationMethod = .alphabetical
                     } label: {
@@ -39,15 +40,25 @@ struct SettingsView: View {
                             "checkmark" : ""
                         )
                     }
-                } header: {
-                    Text("Sample name generation method")
                 }
                 
                 Section {
                     Button {
-                        sgiSheetActive = true
+                        sgiSheetIsActive = true
                     } label: {
                         Label("General Information Templates", systemImage: "info")
+                    }
+                    .sheet(isPresented: $sgiSheetIsActive) {
+                        Settings_GeneralInfoView(sheetActive: $sgiSheetIsActive)
+                    }
+                }
+                
+                Section("Evaluation customization") {
+                    Button("Slider") {
+                        sliderSpacingSheetIsActive = true
+                    }
+                    .halfSheet(isPresented: $sliderSpacingSheetIsActive) {
+                        Settings_Slider(isActive: $sliderSpacingSheetIsActive)
                     }
                 }
                 
@@ -83,8 +94,5 @@ struct SettingsView: View {
             .navigationTitle("Settings")
         }
         .navigationViewStyle(.stack)
-        .sheet(isPresented: $sgiSheetActive) {
-            Settings_GeneralInfoView(sheetActive: $sgiSheetActive)
-        }
     }
 }
