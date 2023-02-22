@@ -28,11 +28,9 @@ struct SampleToolsView: View {
                 
                 if sampleNameTextfieldFocus != nil {
                     Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.gray)
+                        .opacity(0.5)
                         .padding(10)
-                        .onTapGesture {
-                            sample.name = ""
-                        }
+                        .onTapGesture { sample.name = "" }
                 }
             }
             

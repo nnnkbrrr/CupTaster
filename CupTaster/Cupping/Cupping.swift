@@ -36,6 +36,7 @@ struct CuppingView: View {
             if cuppingModel.sampleViewVisible {
                 SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace)
                     .zIndex(1)
+                    .clipped()
             } else if cuppingModel.samplesEditorActive {
                 Form {
                     Section {
@@ -101,6 +102,7 @@ struct CuppingView: View {
                 .environment(\.editMode, .constant(.active))
                 .padding(.bottom, 44) // toolbar
                 .resignKeyboardOnDragGesture() { try? moc.save() }
+                .clipped()
             } else {
                 ScrollView {
                     Text(cuppingModel.cupping.name)
@@ -133,6 +135,7 @@ struct CuppingView: View {
                     .padding([.bottom, .horizontal])
                     .padding(.bottom, 44) // toolbar
                 }
+                .clipped()
             }
             
             CuppingToolbarView(
@@ -187,7 +190,6 @@ struct CuppingView: View {
             .frame(maxHeight: .infinity, alignment: .top)
             .zIndex(4)
         }
-        .clipped()
         .halfSheet(
             isPresented: $cuppingModel.settingsSheetIsPresented,
             interactiveDismissDisabled: $cuppingModel.settingsSheetDismissDisabled
@@ -199,6 +201,10 @@ struct CuppingView: View {
             )
         }
         .background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .top)
-        .background(Color.keyboardBackground.ignoresSafeArea(edges: .bottom))
+        .background(
+            Color.keyboardBackground
+                .opacity(sampleNameTextfieldFocus == nil ? 0 : 1)
+                .ignoresSafeArea(edges: .bottom)
+        )
     }
 }
