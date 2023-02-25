@@ -51,6 +51,7 @@
 		63A40DF12917A7190019B33C /* S General Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A40DF02917A7190019B33C /* S General Info.swift */; };
 		63BCCE9328DF834700BD3FB9 /* Cupping Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */; };
 		63BCCE9528DF896900BD3FB9 /* Cupping Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BCCE9428DF896900BD3FB9 /* Cupping Toolbar.swift */; };
+		63CA045829A58D3F008EEE1F /* S Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CA045729A58D3F008EEE1F /* S Slider.swift */; };
 		63CE1B7D28DD9C4D0035171A /* Radar Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */; };
 		63D892DC28C9E75800F68505 /* CFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892DB28C9E75800F68505 /* CFModel.swift */; };
 		63D892DF28C9EC3400F68505 /* S Cupping Forms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892DE28C9EC3400F68505 /* S Cupping Forms.swift */; };
@@ -129,6 +130,7 @@
 		63A40DF02917A7190019B33C /* S General Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "S General Info.swift"; sourceTree = "<group>"; };
 		63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Model.swift"; sourceTree = "<group>"; };
 		63BCCE9428DF896900BD3FB9 /* Cupping Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Toolbar.swift"; sourceTree = "<group>"; };
+		63CA045729A58D3F008EEE1F /* S Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "S Slider.swift"; sourceTree = "<group>"; };
 		63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radar Chart.swift"; sourceTree = "<group>"; };
 		63D892DB28C9E75800F68505 /* CFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFModel.swift; sourceTree = "<group>"; };
 		63D892DE28C9EC3400F68505 /* S Cupping Forms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "S Cupping Forms.swift"; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				634E5EFC287BF042004A9A76 /* Settings.swift */,
 				63D892DE28C9EC3400F68505 /* S Cupping Forms.swift */,
 				63A40DF02917A7190019B33C /* S General Info.swift */,
+				63CA045729A58D3F008EEE1F /* S Slider.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				63D892DC28C9E75800F68505 /* CFModel.swift in Sources */,
 				63ED3A4428D0C8C100CCF032 /* Evaluation Group.swift in Sources */,
 				221E580C2906BEF500D81CE8 /* NumToDigits.swift in Sources */,
+				63CA045829A58D3F008EEE1F /* S Slider.swift in Sources */,
 				63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */,
 				630DE7B62869C99500D026A4 /* Sample.swift in Sources */,
 				636BC08E290ADFBD00914389 /* Radio Value.swift in Sources */,
@@ -724,7 +728,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
@@ -745,7 +749,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-Xfrontend -warn-long-function-bodies=500 -Xfrontend -warn-long-expression-type-checking=500";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nnnkbrrr.CupTaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -765,7 +769,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
@@ -786,7 +790,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nnnkbrrr.CupTaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

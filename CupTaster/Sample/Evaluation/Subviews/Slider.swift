@@ -7,214 +7,106 @@
 
 import SwiftUI
 
-class SliderConfiguration {
-    let bounds: ClosedRange<CGFloat>
-    let step: CGFloat
-    let spacing: CGFloat
-    
-    let fractionValues: [CGFloat]
-    
-    init(bounds: ClosedRange<CGFloat>, step: CGFloat, spacing: CGFloat) {
-        self.bounds = bounds
-        self.step = step
-        self.spacing = spacing
-        
-        self.fractionValues = Array(
-            stride(
-                from: bounds.lowerBound,
-                through: bounds.upperBound,
-                by: step
-            )
-        )
-    }
-}
-
 struct SliderView: View {
-    @State var orientation = UIDevice.current.orientation
-    
-    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-        .makeConnectable()
-        .autoconnect()
+    @AppStorage("slider-spacing") var spacing: Double = 25.0
     
     @Binding var value: Double
-    let configuration: SliderConfiguration
+    let lowerBound: CGFloat
+    let upperBound: CGFloat
+    let step: CGFloat
+    
+    let fractionValues: [CGFloat]
+    let fullSliderWidth: CGFloat
+    @State var offset: CGFloat
+    @State var tempOffset: CGFloat = 0
+    
+    init(value: Binding<Double>, lowerBound: CGFloat, upperBound: CGFloat, step: CGFloat) {
+        self._value = value
+        self.lowerBound = lowerBound
+        self.upperBound = upperBound
+        self.step = step
+        
+        let spacing = UserDefaults.standard.object(forKey: "slider-spacing") as? Double ?? 25
+        self.fractionValues = Array(stride(from: lowerBound, through: upperBound, by: step)).map { $0 }
+        self.fullSliderWidth = spacing * CGFloat(fractionValues.count - 1)
+        self._offset = State(initialValue: (value.wrappedValue - lowerBound) * spacing * (-1.0 / step))
+    }
     
     var body: some View {
         ZStack(alignment: .top) {
-            if orientation.isPortrait {
-                slider
-            } else {
-                slider
+            Color.clear.frame(height: 50).overlay(alignment: .bottom) {
+                HStack(alignment: .top, spacing: 0) {
+                    ForEach(fractionValues, id: \.self) { fractionValue in
+                        let isCeil: Bool = fractionValue.truncatingRemainder(dividingBy: 1) == 0
+                        
+                        VStack(spacing: 0) {
+                            Capsule()
+                                .fill(.gray)
+                                .frame(width: isCeil ? 3 : 1, height: 20)
+                            
+                            if isCeil {
+                                Text("\(Int(fractionValue))")
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .frame(height: 20)
+                            }
+                        }
+                        .frame(width: spacing)
+                    }
+                }
+                .offset(x: fullSliderWidth / 2)
+                .offset(x: offset + tempOffset)
             }
             
             Capsule()
                 .foregroundColor(.accentColor)
                 .frame(width: 3, height: 30)
         }
-        .mask(
-            LinearGradient(
-                gradient: Gradient(colors: [.clear, .black, .clear]),
-                startPoint: .leading,
-                endPoint: .trailing)
-        )
-        .onReceive(orientationChanged) { _ in
-            self.orientation = UIDevice.current.orientation
-        }
-    }
-    
-    var slider: some View {
-        SliderScrollReader(configuration: configuration, value: $value) {
-            HStack(alignment: .top, spacing: 0) {
-                ForEach(configuration.fractionValues, id: \.self) { fractionValue in
-                    let isCeil: Bool = fractionValue.truncatingRemainder(dividingBy: 1) == 0
-                    
-                    VStack(spacing: 0) {
-                        Capsule()
-                            .fill(.gray)
-                            .frame(width: isCeil ? 3 : 1, height: 20)
-                        
-                        if isCeil {
-                            Text("\(Int(fractionValue))")
-                                .font(.caption2)
-                                .foregroundColor(.gray)
-                                .frame(height: 20)
-                        }
-                    }
-                    .frame(width: configuration.spacing)
-                }
-            }
-        }
-        .frame(minWidth: 100)
-        .frame(height: 40)
-        .padding(.top, 10)
-    }
-}
-
-
-fileprivate struct SliderScrollReader<Content: View>: UIViewRepresentable {
-    let configuration: SliderConfiguration
-    var content: Content
-    
-    @State var offset: CGFloat
-    @Binding var value: Double
-    
-    init(configuration: SliderConfiguration, value: Binding<Double>, @ViewBuilder content: @escaping () -> Content) {
-        self.configuration = configuration
-        self.content = content()
-        
-        self._offset = State(
-            initialValue: (value.wrappedValue - configuration.bounds.lowerBound) *
-            configuration.spacing * (1.0 / configuration.step)
-        )
-        self._value = value
-    }
-    
-    func makeUIView(context: Context) -> UIScrollView {
-        let scrollView: UIScrollView = UIScrollView()
-        let swiftUIView: UIView = UIHostingController(rootView: content).view!
-        let width: CGFloat = configuration.spacing * CGFloat(configuration.fractionValues.count - 2) * 2
-        
-        swiftUIView.frame = CGRect(x: 0, y: 0, width: width, height: 40)
-        swiftUIView.backgroundColor = .clear
-        scrollView.contentSize = swiftUIView.frame.size
-        scrollView.addSubview(swiftUIView)
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.delegate = context.coordinator
-        scrollView.decelerationRate = .fast
-        
-        scrollView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
-        
-        return scrollView
-    }
-    
-    func updateUIView(_ uiView: UIScrollView, context: Context) { }
-}
-
-extension SliderScrollReader {
-    func makeCoordinator() -> Coordinator {
-        return SliderScrollReader.Coordinator(parent: self)
-    }
-    
-    class Coordinator: NSObject, UIScrollViewDelegate {
-        var parent: SliderScrollReader
-        
-        init(parent: SliderScrollReader) { self.parent = parent }
-        
-        func scrollViewDidScroll(_ scrollView: UIScrollView) { updateValue(offset: scrollView.contentOffset.x) }
-        
-        func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-            scrollView.setContentOffset(scrollView.contentOffset, animated: false)
-        }
-        
-        func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-            updateValue(offset: scrollView.contentOffset.x)
-            alignScrollViewOffset(scrollView)
-        }
-        
-        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-            scrollView.setContentOffset(scrollView.contentOffset, animated: false)
-        }
-
-        func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-            if !decelerate { alignScrollViewOffset(scrollView) }
-        }
-        
-        private func alignScrollViewOffset(_ scrollView: UIScrollView) {
-            
-            // --- Set value equal to nearest fraction ---
-            
-            // let scrollOffset: CGFloat = scrollView.contentOffset.x
-            // let value: CGFloat = (offset / parent.configuration.spacing).rounded(.toNearestOrAwayFromZero)
-            // scrollView.setContentOffset(CGPoint(x: value * parent.configuration.spacing, y: 0), animated: true)
-            
-            // --- Set value equal to last triggered fraction ---
-            
-            let configuration: SliderConfiguration = parent.configuration
-            scrollView.setContentOffset(
-                CGPoint(
-                    x: (parent.value - configuration.bounds.lowerBound) *
-                    configuration.spacing * (1.0 / configuration.step),
-                    y: 0
-                ),
-                animated: true
-            )
-        }
-        
-        private func updateValue(offset: CGFloat) {
-            let configuration: SliderConfiguration = parent.configuration
-            
-            let value: CGFloat = CGFloat(configuration.bounds.lowerBound) +
-            offset / configuration.spacing / (1.0 / configuration.step)
-            
-            let valuesRange: ClosedRange<CGFloat> = parent.value < value ? parent.value...value : value...parent.value
-            
-            if valuesRange.lowerBound < configuration.bounds.lowerBound {
-                if parent.value != configuration.bounds.lowerBound {
-                    generateSelectionFeedback()
-                    parent.value = configuration.bounds.lowerBound
-                }
-            } else if valuesRange.upperBound > configuration.bounds.upperBound {
-                if parent.value != configuration.bounds.upperBound {
-                    generateSelectionFeedback()
-                    parent.value = configuration.bounds.upperBound
-                }
-            } else {
-                for fractionValue in configuration.fractionValues {
-                    if parent.value != fractionValue {
-                        if valuesRange.contains(fractionValue) {
+        .mask(LinearGradient(
+            gradient: Gradient(colors: [.clear, .black, .clear]),
+            startPoint: .leading,
+            endPoint: .trailing
+        ))
+        .contentShape(Rectangle())
+        .gesture(
+            DragGesture()
+                .onChanged { gesture in
+                    let translation = gesture.translation.width
+                    let rangeValue1: CGFloat = -(offset + tempOffset) / spacing * step + lowerBound
+                    let rangeValue2: CGFloat = -(offset + translation) / spacing * step + lowerBound
+                    let currentRange: ClosedRange<CGFloat> = rangeValue1 < rangeValue2 ? rangeValue1...rangeValue2 : rangeValue2...rangeValue1
+                    for fractionValue in fractionValues {
+                        if currentRange ~= fractionValue && fractionValue != self.value {
+                            self.value = fractionValue
                             generateSelectionFeedback()
-                            parent.value = fractionValue
-                            return
+                        }
+                    }
+                    self.tempOffset = translation
+                }
+                .onEnded { gesture in
+                    let translation = gesture.translation.width
+                    self.offset += translation
+                    self.tempOffset = 0
+                    withAnimation {
+                        if offset > 0 {
+                            self.offset = 0
+                            self.value = lowerBound
+                        } else if offset < -fullSliderWidth {
+                            self.offset = -fullSliderWidth
+                            self.value = upperBound
+                        } else {
+                            self.offset = (value - lowerBound) * spacing * (-1.0 / step)
                         }
                     }
                 }
-            }
-        }
-        
-        private func generateSelectionFeedback() {
-            let generator = UISelectionFeedbackGenerator()
-            generator.selectionChanged()
+        )
+        .onChange(of: spacing) { newSpacing in
+            self.offset = (value - lowerBound) * newSpacing * (-1.0 / step) - tempOffset
         }
     }
+    
+    private func generateSelectionFeedback() {
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+    }
 }
-
