@@ -62,12 +62,11 @@ struct SliderView: View {
                 .foregroundColor(.accentColor)
                 .frame(width: 3, height: 30)
         }
-        .mask(
-            LinearGradient(
-                gradient: Gradient(colors: [.clear, .black, .clear]),
-                startPoint: .leading,
-                endPoint: .trailing)
-        )
+        .mask(LinearGradient(
+            gradient: Gradient(colors: [.clear, .black, .clear]),
+            startPoint: .leading,
+            endPoint: .trailing
+        ))
         .contentShape(Rectangle())
         .gesture(
             DragGesture()
