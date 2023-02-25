@@ -26,7 +26,7 @@ struct SliderView: View {
         self.upperBound = upperBound
         self.step = step
         
-        let spacing = UserDefaults.standard.double(forKey: "slider-spacing")
+        let spacing = UserDefaults.standard.object(forKey: "slider-spacing") as? Double ?? 25
         self.fractionValues = Array(stride(from: lowerBound, through: upperBound, by: step)).map { $0 }
         self.fullSliderWidth = spacing * CGFloat(fractionValues.count - 1)
         self._offset = State(initialValue: (value.wrappedValue - lowerBound) * spacing * (-1.0 / step))
@@ -34,7 +34,7 @@ struct SliderView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            Color.clear.frame(height: 40).overlay {
+            Color.clear.frame(height: 50).overlay(alignment: .bottom) {
                 HStack(alignment: .top, spacing: 0) {
                     ForEach(fractionValues, id: \.self) { fractionValue in
                         let isCeil: Bool = fractionValue.truncatingRemainder(dividingBy: 1) == 0
@@ -77,7 +77,7 @@ struct SliderView: View {
                     let rangeValue2: CGFloat = -(offset + translation) / spacing * step + lowerBound
                     let currentRange: ClosedRange<CGFloat> = rangeValue1 < rangeValue2 ? rangeValue1...rangeValue2 : rangeValue2...rangeValue1
                     for fractionValue in fractionValues {
-                        if currentRange ~= fractionValue {
+                        if currentRange ~= fractionValue && fractionValue != self.value {
                             self.value = fractionValue
                             generateSelectionFeedback()
                         }
