@@ -45,7 +45,7 @@ struct CuppingView: View {
 										
                     if showCuppingsDatePicker {
                         Section {
-                            DatePicker("Date:", selection: $cuppingModel.cupping.date, displayedComponents: [.date])
+                            DatePicker("Date", selection: $cuppingModel.cupping.date, displayedComponents: [.date])
                         }
                     }
                     

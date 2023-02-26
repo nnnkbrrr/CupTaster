@@ -37,55 +37,9 @@ struct OnboardingFeaturesView: View {
                             }
                         }
                 }
-                .font(.system(size: 34, weight: .heavy))
-                
-                FeatureView(
-                    image: Image(systemName: "doc.on.doc"),
-                    title: "Cuppings",
-                    description: "Handy storage for all of your cupping sessions."
-                )
-                FeatureView(
-                    image: Image(systemName: "stopwatch"),
-                    title: "Stopwatch",
-                    description: "Track brewing time with stopwatch."
-                )
-                FeatureView(
-                    image: Image(systemName: "questionmark.bubble"),
-                    title: "Hints [Soon]",
-                    description: "Use hints to get acquainted with cupping protocol details."
-                )
-                .disabled(true)
+                .font(.title.weight(.heavy))
             }
             .padding(50)
-            .padding(.bottom, 50)
         }
-    }
-}
-
-fileprivate struct FeatureView: View {
-    let image: Image
-    let title: String
-    let description: String
-    
-    var body: some View {
-        HStack {
-            image
-                .font(.system(size: 30))
-                .frame(width: 30, height: 30)
-                .foregroundColor(.accentColor)
-            
-            VStack(alignment: .leading, spacing: 5) {
-                Text(title)
-                    .fontWeight(.heavy)
-                    .foregroundColor(.accentColor)
-                
-                Text(description)
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-            .padding(.horizontal)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical)
     }
 }

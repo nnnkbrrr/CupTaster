@@ -74,7 +74,7 @@ fileprivate struct NewBlankFormView: View {
             TextField("Version", text: $version)
             TextField("Language code", text: $langCode)
             
-            Button("Добавить") {
+            Button("Add") {
                 let newCF: CuppingForm = CuppingForm(context: moc)
                 newCF.title = title
                 newCF.version = version

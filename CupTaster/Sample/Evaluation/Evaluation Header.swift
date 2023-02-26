@@ -33,7 +33,9 @@ struct EvaluationHeaderView: View {
                     .clipShape(Capsule())
                     
                     Divider()
-                    Text(qcGroup.configuration.title).bold()
+                    
+                    let title: LocalizedStringKey = .init(qcGroup.configuration.title)
+                    Text(title).bold()
                     qcRepresentations
                     Spacer()
                     Image(systemName: "chevron.right")

@@ -25,7 +25,7 @@ struct ContentView: View {
             
             if testerTabVisible {
                 TesterView()
-                    .tabItem { Label("Тестировщик", systemImage: "wrench.and.screwdriver") }
+                    .tabItem { Label("Tester", systemImage: "wrench.and.screwdriver") }
             }   
         }
         .modifier(OnboardingSheet())

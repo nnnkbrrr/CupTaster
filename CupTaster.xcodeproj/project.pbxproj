@@ -38,6 +38,7 @@
 		634E5EFD287BF042004A9A76 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634E5EFC287BF042004A9A76 /* Settings.swift */; };
 		635AFC4328A913A1007B78C0 /* Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AFC4228A913A1007B78C0 /* Name Generator.swift */; };
 		6360D51A28CF3FD700D51D0D /* Cupping Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D51928CF3FD700D51D0D /* Cupping Tab.swift */; };
+		63684CD929AA78C8009C1BDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 63684CDB29AA78C8009C1BDA /* Localizable.strings */; };
 		636857FF28593EDB0076E780 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636857FE28593EDB0076E780 /* Slider.swift */; };
 		636BC08E290ADFBD00914389 /* Radio Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BC08D290ADFBD00914389 /* Radio Value.swift */; };
 		637348D2288D7FD700689C96 /* Slider Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637348D1288D7FD700689C96 /* Slider Value.swift */; };
@@ -114,6 +115,8 @@
 		634E5EFC287BF042004A9A76 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		635AFC4228A913A1007B78C0 /* Name Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Name Generator.swift"; sourceTree = "<group>"; };
 		6360D51928CF3FD700D51D0D /* Cupping Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Tab.swift"; sourceTree = "<group>"; };
+		63684CDA29AA78C8009C1BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		63684CDD29AA7986009C1BDA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		636857FE28593EDB0076E780 /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		636BC08D290ADFBD00914389 /* Radio Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radio Value.swift"; sourceTree = "<group>"; };
 		6371088A288032F60073348C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -383,6 +386,7 @@
 				633B68C828916F77005D32C0 /* Launch Screen.storyboard */,
 				63DC7A592801BE7A00010318 /* Assets.xcassets */,
 				6371088A288032F60073348C /* Info.plist */,
+				63684CDB29AA78C8009C1BDA /* Localizable.strings */,
 				63DC7A5B2801BE7A00010318 /* Preview Content */,
 			);
 			path = Resources;
@@ -452,6 +456,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 63DC7A492801BE7800010318;
 			productRefGroup = 63DC7A532801BE7800010318 /* Products */;
@@ -479,6 +484,7 @@
 				633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */,
 				63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */,
 				638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */,
+				63684CD929AA78C8009C1BDA /* Localizable.strings in Resources */,
 				22784E0929040A0F00FC56F9 /* CoE.json in Resources */,
 				63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */,
 				228F857628FD90C000214198 /* SCI.json in Resources */,
@@ -567,6 +573,18 @@
 			targetProxy = 6381530628C8DE00008816C9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		63684CDB29AA78C8009C1BDA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63684CDA29AA78C8009C1BDA /* en */,
+				63684CDD29AA7986009C1BDA /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6381530828C8DE01008816C9 /* Debug */ = {
@@ -663,6 +681,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -716,6 +735,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};

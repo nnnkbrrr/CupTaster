@@ -18,48 +18,30 @@ struct OnboardingView: View {
         ZStack(alignment: .bottom) {
             Group {
                 switch currentPage {
-                    case .features: OnboardingFeaturesView()
-                    case .forms:
-                        NavigationView {
-                            VStack {
-                                Text("What cupping form do you prefer to use?")
-                                    .font(.title)
-                                    .fontWeight(.heavy)
-                                    .multilineTextAlignment(.center)
-                                    .padding([.top, .horizontal], 20)
-                                
-                                List {
-                                    Settings_CFSelectorFormSectionsView()
-                                }
-                            }
-                            .padding(30)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(Color(uiColor: .systemGroupedBackground))
-                            .navigationBarHidden(true)
-                        }
+                case .features: OnboardingFeaturesView()
+                case .forms: forms
                 }
             }
             .transition(
                 .asymmetric(
-                    insertion: .move(edge: .trailing),
-                    removal: .move(edge: .leading)
+                    insertion: .move(edge: .bottom),
+                    removal: .move(edge: .top)
                 )
             )
+            .animation(.spring(), value: currentPage)
             
             Button {
-                withAnimation {
-                    switch currentPage {
-                        case .features: currentPage = .forms
-                        case .forms:
-                        onboardingCompleted = true
-                        isActive = false
-                    }
+                switch currentPage {
+                case .features: currentPage = .forms
+                case .forms:
+                    onboardingCompleted = true
+                    isActive = false
                 }
             } label: {
                 Group {
                     switch currentPage {
-                        case .features: Text("Get Started")
-                        case .forms: Text("Finish")
+                    case .features: Text("Get Started")
+                    case .forms: Text("Finish")
                     }
                 }
                 .padding(.vertical)
@@ -71,15 +53,19 @@ struct OnboardingView: View {
             }
             .disabled(currentPage == .forms && CFManager.shared.defaultCFDescription == "")
             .padding(50)
-            .background(
-                LinearGradient(
-                    colors: [
-                        Color(uiColor: .systemGroupedBackground),
-                        Color(uiColor: .systemGroupedBackground).opacity(0)
-                    ],
-                    startPoint: .bottom,
-                    endPoint: .top)
-            )
         }
+    }
+    
+    var forms: some View {
+        VStack {
+            Text("What cupping form do you prefer to use?")
+                .fontWeight(.heavy)
+                .multilineTextAlignment(.center)
+                .padding(20)
+            
+            List { Settings_CFSelectorFormSectionsView() }
+                .cornerRadius(30)
+        }
+        .padding(30)
     }
 }

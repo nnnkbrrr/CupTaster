@@ -13,10 +13,25 @@ struct OnboardingSheet: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .sheet(isPresented: $isActive) {
-                OnboardingView(onboardingCompleted: $onboardingCompleted, isActive: $isActive)
-                    .background(Color(UIColor.systemGroupedBackground).ignoresSafeArea())
-                    .interactiveDismissDisabled()
+            .fullScreenCover(isPresented: $isActive) {
+                OnboardingView (
+                    onboardingCompleted: $onboardingCompleted,
+                    isActive: $isActive
+                )
+                .background(
+                    Image("onboarding-background")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .overlay {
+                            LinearGradient(
+                                colors: [.black.opacity(0.75), .black.opacity(0), .black.opacity(0.75)],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        }
+                        .ignoresSafeArea()
+                )
+                .interactiveDismissDisabled()
             }
             .onAppear { if !onboardingCompleted { isActive = true } }
     }

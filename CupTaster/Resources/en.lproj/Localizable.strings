@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  CupTaster
+
+  Created by Никита Баранов on 25.02.2023.
+  
+*/
+
+// SCA Cupping Form
+
+"Flavor" = "Flavor";
+"Aftertaste" = "Aftertaste";
+"Balance" = "Balance";
+"Sweetness" = "Sweetness";
+"Clean cup" = "Clean cup";
+"Uniformity" = "Uniformity";
+"Overall" = "Overall";
+"Fragrance/Aroma" = "Fragrance/Aroma";
+"Fragrance/Aroma.Aroma" = "Aroma";
+"Fragrance/Aroma.Dry" = "Dry";
+"Fragrance/Aroma.Break" = "Break";
+"Acidity" = "Acidity";
+"Acidity.Intensity" = "Intensity";
+"Acidity.Intensity.Low" = "Low";
+"Acidity.Intensity.High" = "High";
+"Body" = "Body";
+"Body.Level" = "Level";
+"Body.Level.Thin" = "Thin";
+"Body.Level.Heavy" = "Heavy";
+"Defects" = "Defects";
+"Defects.Cups" = "Cups";
+"Defects.Intensity" = "Intensity";

@@ -54,7 +54,7 @@ struct Settings_GeneralInfoView: View {
                         }
                     }
                 } footer: {
-                    Text("These templates will be suggested to be filled in sample's \"General Information\" section.")
+                    Text("These templates will be suggested to be filled in sample's «General Information» section.")
                 }
                 
                 Section {

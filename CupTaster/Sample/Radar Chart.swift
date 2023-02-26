@@ -144,6 +144,7 @@ struct RadarChartLabels: View {
     }
 }
 
+#warning("use explicit shorten label on every criteria")
 extension Character {
     var isVowel: Bool {
         switch self {

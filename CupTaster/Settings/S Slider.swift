@@ -46,7 +46,7 @@ struct Settings_Slider: View {
                 }
             }
             .padding(.horizontal)
-            .navigationBarTitle("Slider spacing", displayMode: .inline)
+            .navigationBarTitle("Slider fractions spacing", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") { isActive = false }

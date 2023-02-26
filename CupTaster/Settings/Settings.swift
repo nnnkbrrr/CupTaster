@@ -25,7 +25,7 @@ struct SettingsView: View {
                         sampleNameGenerationMethod = .alphabetical
                     } label: {
                         Label(
-                            "alphabetical",
+                            "Alphabetical",
                             systemImage: sampleNameGenerationMethod == .alphabetical ?
                             "checkmark" : ""
                         )
@@ -35,7 +35,7 @@ struct SettingsView: View {
                         sampleNameGenerationMethod = .numerical
                     } label: {
                         Label(
-                            "numerical",
+                            "Numerical",
                             systemImage: sampleNameGenerationMethod == .numerical ?
                             "checkmark" : ""
                         )
@@ -63,6 +63,7 @@ struct SettingsView: View {
                 }
                 
                 Section {
+                    #warning("add ios version, app version, locale")
                     Button {
                         EmailHelper.shared.send(to: "support-cuptaster@nnnkbrrr.space")
                     } label: {

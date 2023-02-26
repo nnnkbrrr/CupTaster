@@ -30,11 +30,24 @@ struct EvaluationView: View {
                                 .frame(maxWidth: .infinity)
                         }
                     default:
-                        Text(qualityCriteria.configuration?.lowerBoundTitle ?? "")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(qualityCriteria.title)
-                        Text(qualityCriteria.configuration?.upperBoundTitle ?? "")
-                            .frame(maxWidth: .infinity, alignment: .trailing)
+                        ZStack {
+                            let qualityCriteriaKey: String =
+                            qualityCriteria.group.configuration.title + "." + qualityCriteria.title
+                            
+                            let titleKey: LocalizedStringKey = .init(qualityCriteriaKey)
+                            
+                            Text(titleKey).frame(maxWidth: .infinity)
+                            
+                            if let lowerBoundTitle: String = qualityCriteria.configuration?.lowerBoundTitle,
+                               let lowerBoundTitleKey: LocalizedStringKey = .init(
+                                qualityCriteriaKey + "." + lowerBoundTitle
+                               ) { Text(lowerBoundTitleKey).frame(maxWidth: .infinity, alignment: .leading) }
+                            
+                            if let upperBoundTitle: String = qualityCriteria.configuration?.upperBoundTitle,
+                               let upperBoundTitleKey: LocalizedStringKey = .init(
+                                qualityCriteriaKey + "." + upperBoundTitle
+                               ) { Text(upperBoundTitleKey).frame(maxWidth: .infinity, alignment: .trailing) }
+                        }
                     }
                 }
                 .font(.caption2)

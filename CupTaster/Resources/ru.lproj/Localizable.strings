@@ -1,0 +1,99 @@
+/* 
+  Localizable.strings
+  CupTaster
+
+  Created by Никита Баранов on 25.02.2023.
+  
+*/
+
+// SCA Cupping Form
+
+"Flavor" = "Вкус";
+"Aftertaste" = "Послевкусие";
+"Balance" = "Баланс";
+"Sweetness" = "Сладость";
+"Clean cup" = "Чистота чашки";
+"Uniformity" = "Однородность";
+"Overall" = "Общее впечатление";
+"Fragrance/Aroma" = "Аромат";
+"Fragrance/Aroma.Aroma" = "Аромат";
+"Fragrance/Aroma.Dry" = "Сухой";
+"Fragrance/Aroma.Break" = "На сломе";
+"Acidity" = "Кислотность";
+"Acidity.Intensity" = "Интенсивность";
+"Acidity.Intensity.Low" = "Низкая";
+"Acidity.Intensity.High" = "Высокая";
+"Body" = "Тело";
+"Body.Level" = "Вес";
+"Body.Level.Thin" = "Легкое";
+"Body.Level.Heavy" = "Тяжелое";
+"Defects" = "Дефекты";
+"Defects.Cups" = "Чашки";
+"Defects.Intensity" = "Интенсивность";
+
+// Cuppings
+
+"Cuppings: %lld, samples: %lld" = "Каппингов: %lld, образцов: %lld";
+"samples: %lld, cups: %d" = "образцов: %lld, чашек: %d";
+"All Cuppings" = "Все каппинги";
+"Cuppings" = "Каппиги";
+"New cupping" = "Новый каппинг";
+"Cupping name" = "Название каппинга";
+"General Information" = "Общая информация";
+"Samples count" = "Кол-во образцов";
+"Cupping Form" = "Форма для каппинга";
+"Cups per sample" = "Чашек на образец";
+"Cupping forms are missing" = "Отсутствуют формы для каппинга";
+"Please add at least one cupping form in settings" = "Пожалуйста добавьте хотя бы одну форму для каппинга в настройках";
+
+// Samples
+
+"Add sample" = "Добавить образец";
+"Sample name" = "Название образца";
+"Cup %d" = "Чашка %d";
+"Notes" = "Заметки";
+"General Information Field" = "Поле общей информации";
+"You can add general information templates in settings" = "Вы можете добавить шаблоны общей информации в настройках";
+"Tap for more" = "Показать больше";
+
+// Settings
+
+"Settings" = "Настройки";
+"Default cupping form" = "Форма по умолчанию";
+"Available cupping forms" = "Доступные формы";
+"Sample name generation method" = "Метод генерации названий образцов";
+"Alphabetical" = "Буквенный";
+"Numerical" = "Цифровой";
+"General Information Templates" = "Шаблоны общей информации";
+"General Information Template" = "Шаблон общей информции";
+"These templates will be suggested to be filled in sample's «General Information» section." = "Эти шаблоны будут предложены к заполнению в разделе образца «Общая информация»";
+"Templates" = "Шаблоны";
+"Evaluation customization" = "Персонализация";
+"Slider" = "Слайдер";
+"Customize" = "Настраивайте";
+"Try it out!" = "Пробуйте!";
+"Slider fractions spacing" = "Расстояние между дробями";
+"Contact" = "Написать разработчику";
+"Help with translation" = "Помочь с переводом";
+"Version" = "Версия";
+
+// Onboarding
+
+"Welcome to" = "Добро пожаловать в";
+"Get Started" = "Щас как покапплю";
+"What cupping form do you prefer to use?" = "Какой формой для каппинга вы предпочитаете пользоваться?";
+"Finish" = "Завершить";
+
+// Actions
+
+"Done" = "Готово";
+"Save" = "Сохранить";
+"Edit" = "Изменить";
+"Cancel" = "Отменить";
+"Delete" = "Удалить";
+
+// Stopwatch
+
+"Start" = "Запустить";
+"Stop" = "Остановить";
+"Reset" = "Сбросить";
