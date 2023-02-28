@@ -80,7 +80,7 @@ struct AllCuppingsView: View {
                                             Text("\(cupping.form?.title ?? "-")")
                                             Divider()
                                                 .frame(height: 15)
-                                            Text("\(cupping.samples.count) samples x \(cupping.cupsCount) cups")
+                                            Text("samples: \(cupping.samples.count), cups: \(cupping.cupsCount)")
                                             let favoritesCount: Int = cupping.samples.filter{ $0.isFavorite }.count
                                             if favoritesCount > 0 {
                                                 Divider()

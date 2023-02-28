@@ -12,54 +12,57 @@ struct SettingsView: View {
     @AppStorage("sample-name-generator-method")
     var sampleNameGenerationMethod: SampleNameGenerator.GenerationMethod = .alphabetical
     
-    @State var sgiSheetIsActive: Bool = false
-    @State var sliderSpacingSheetIsActive: Bool = false
-    
     var body: some View {
         NavigationView {
             Form {
-                Settings_CFSelectorFormSectionsView()
-                
-                Section("Sample name generation method") {
-                    Button {
-                        sampleNameGenerationMethod = .alphabetical
-                    } label: {
-                        Label(
-                            "Alphabetical",
-                            systemImage: sampleNameGenerationMethod == .alphabetical ?
-                            "checkmark" : ""
-                        )
-                    }
+                Section(" ") {
+                    NavigationLink {
+                        Form {
+                            Settings_CFSelectorFormSectionsView()
+                        }.navigationTitle("Cupping Form")
+                    } label: { Label("Cupping Form", systemImage: "doc.on.clipboard") }
                     
-                    Button {
-                        sampleNameGenerationMethod = .numerical
-                    } label: {
-                        Label(
-                            "Numerical",
-                            systemImage: sampleNameGenerationMethod == .numerical ?
-                            "checkmark" : ""
-                        )
-                    }
-                }
-                
-                Section {
-                    Button {
-                        sgiSheetIsActive = true
-                    } label: {
-                        Label("General Information Templates", systemImage: "info")
-                    }
-                    .sheet(isPresented: $sgiSheetIsActive) {
-                        Settings_GeneralInfoView(sheetActive: $sgiSheetIsActive)
-                    }
-                }
-                
-                Section("Evaluation customization") {
-                    Button("Slider") {
-                        sliderSpacingSheetIsActive = true
-                    }
-                    .halfSheet(isPresented: $sliderSpacingSheetIsActive) {
-                        Settings_Slider(isActive: $sliderSpacingSheetIsActive)
-                    }
+                    NavigationLink {
+                        Form {
+                            Section("By default") {
+                                Button {
+                                    sampleNameGenerationMethod = .alphabetical
+                                } label: {
+                                    Label {
+                                        Text("Letters")
+                                    } icon: {
+                                        Image(systemName: "checkmark")
+                                            .opacity(sampleNameGenerationMethod == .alphabetical ? 1 : 0)
+                                    }
+                                }
+                                
+                                Button {
+                                    sampleNameGenerationMethod = .numerical
+                                } label: {
+                                    Label {
+                                        Text("Numbers")
+                                    } icon: {
+                                        Image(systemName: "checkmark")
+                                            .opacity(sampleNameGenerationMethod == .numerical ? 1 : 0)
+                                    }
+                                }
+                            }
+                        }.navigationTitle("Default samples name")
+                    } label: { Label(
+                        "Default samples name",
+                        systemImage: sampleNameGenerationMethod == .numerical ?
+                        "textformat.123" : "abc"
+                    )}
+                    
+                    NavigationLink {
+                        Settings_GeneralInfoView()
+                            .navigationTitle("Additional fields")
+                    } label: { Label("Additional fields", systemImage: "info.circle") }
+                    
+                    NavigationLink {
+                        Settings_Slider()
+                            .navigationTitle("Customization")
+                    } label: { Label("Customization", systemImage: "circle.lefthalf.filled") }
                 }
                 
                 Section {
@@ -77,6 +80,15 @@ struct SettingsView: View {
                         )
                     } label: {
                         Label("Help with translation", systemImage: "globe")
+                    }
+                }
+                
+                if testerTabVisible {
+                    Section {
+                        NavigationLink {
+                            TesterView()
+                                .navigationTitle("Tester")
+                        } label: { Label("Tester", systemImage: "wrench.and.screwdriver") }
                     }
                 }
                 

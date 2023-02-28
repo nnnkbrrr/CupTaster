@@ -38,6 +38,8 @@
 		634E5EFD287BF042004A9A76 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634E5EFC287BF042004A9A76 /* Settings.swift */; };
 		635AFC4328A913A1007B78C0 /* Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AFC4228A913A1007B78C0 /* Name Generator.swift */; };
 		6360D51A28CF3FD700D51D0D /* Cupping Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D51928CF3FD700D51D0D /* Cupping Tab.swift */; };
+		636289F429AE55B900728CAC /* Ob Cupping Forms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636289F329AE55B900728CAC /* Ob Cupping Forms.swift */; };
+		636289F629AE55CB00728CAC /* Ob General Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636289F529AE55CB00728CAC /* Ob General Info.swift */; };
 		63684CD929AA78C8009C1BDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 63684CDB29AA78C8009C1BDA /* Localizable.strings */; };
 		636857FF28593EDB0076E780 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636857FE28593EDB0076E780 /* Slider.swift */; };
 		636BC08E290ADFBD00914389 /* Radio Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BC08D290ADFBD00914389 /* Radio Value.swift */; };
@@ -59,7 +61,6 @@
 		63D892E628C9EED600F68505 /* Hide Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892E528C9EED600F68505 /* Hide Keyboard.swift */; };
 		63D892E828C9EF5C00F68505 /* AppStorage extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892E728C9EF5C00F68505 /* AppStorage extensions.swift */; };
 		63D892ED28CA068500F68505 /* ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892EC28CA068500F68505 /* ViewModifier.swift */; };
-		63D892EF28CA06B800F68505 /* Onboarding Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892EE28CA06B800F68505 /* Onboarding Features.swift */; };
 		63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A552801BE7800010318 /* CupTasterApp.swift */; };
 		63DC7A582801BE7800010318 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A572801BE7800010318 /* ContentView.swift */; };
 		63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A592801BE7A00010318 /* Assets.xcassets */; };
@@ -115,6 +116,8 @@
 		634E5EFC287BF042004A9A76 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		635AFC4228A913A1007B78C0 /* Name Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Name Generator.swift"; sourceTree = "<group>"; };
 		6360D51928CF3FD700D51D0D /* Cupping Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Tab.swift"; sourceTree = "<group>"; };
+		636289F329AE55B900728CAC /* Ob Cupping Forms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ob Cupping Forms.swift"; sourceTree = "<group>"; };
+		636289F529AE55CB00728CAC /* Ob General Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ob General Info.swift"; sourceTree = "<group>"; };
 		63684CDA29AA78C8009C1BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		63684CDD29AA7986009C1BDA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		636857FE28593EDB0076E780 /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
@@ -140,7 +143,6 @@
 		63D892E528C9EED600F68505 /* Hide Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hide Keyboard.swift"; sourceTree = "<group>"; };
 		63D892E728C9EF5C00F68505 /* AppStorage extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage extensions.swift"; sourceTree = "<group>"; };
 		63D892EC28CA068500F68505 /* ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifier.swift; sourceTree = "<group>"; };
-		63D892EE28CA06B800F68505 /* Onboarding Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Features.swift"; sourceTree = "<group>"; };
 		63DC7A522801BE7800010318 /* CupTaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CupTaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DC7A552801BE7800010318 /* CupTasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupTasterApp.swift; sourceTree = "<group>"; };
 		63DC7A572801BE7800010318 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; wrapsLines = 1; };
@@ -304,7 +306,8 @@
 			children = (
 				63D892EC28CA068500F68505 /* ViewModifier.swift */,
 				63E0131C289431B300AC4645 /* Onboarding.swift */,
-				63D892EE28CA06B800F68505 /* Onboarding Features.swift */,
+				636289F329AE55B900728CAC /* Ob Cupping Forms.swift */,
+				636289F529AE55CB00728CAC /* Ob General Info.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -519,7 +522,6 @@
 				22242C7628EF263B00138494 /* Cupping Entity.swift in Sources */,
 				6360D51A28CF3FD700D51D0D /* Cupping Tab.swift in Sources */,
 				63DC7A582801BE7800010318 /* ContentView.swift in Sources */,
-				63D892EF28CA06B800F68505 /* Onboarding Features.swift in Sources */,
 				63D892ED28CA068500F68505 /* ViewModifier.swift in Sources */,
 				63D892E828C9EF5C00F68505 /* AppStorage extensions.swift in Sources */,
 				63D892DF28C9EC3400F68505 /* S Cupping Forms.swift in Sources */,
@@ -542,9 +544,11 @@
 				6324CE8D28E20D95003E6088 /* Cupping Settings.swift in Sources */,
 				22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */,
 				637348D2288D7FD700689C96 /* Slider Value.swift in Sources */,
+				636289F629AE55CB00728CAC /* Ob General Info.swift in Sources */,
 				22242C8428EF27FF00138494 /* QCGroupConfig Entity.swift in Sources */,
 				63A40DF12917A7190019B33C /* S General Info.swift in Sources */,
 				6399635A299E7B370099B4BB /* Colors.swift in Sources */,
+				636289F429AE55B900728CAC /* Ob Cupping Forms.swift in Sources */,
 				633FBD5F28A2597100A93781 /* Stopwatch.swift in Sources */,
 				635AFC4328A913A1007B78C0 /* Name Generator.swift in Sources */,
 				22242C7E28EF274900138494 /* QualityCriteria Entity.swift in Sources */,
@@ -769,7 +773,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.1.0;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-Xfrontend -warn-long-function-bodies=500 -Xfrontend -warn-long-expression-type-checking=500";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nnnkbrrr.CupTaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -810,7 +814,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nnnkbrrr.CupTaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

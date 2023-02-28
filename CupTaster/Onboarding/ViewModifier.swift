@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingSheet: ViewModifier {
+struct Onboarding: ViewModifier {
     @AppStorage("onboarding-completed") var onboardingCompleted: Bool = false
     @State var isActive: Bool = false
     
@@ -17,19 +17,6 @@ struct OnboardingSheet: ViewModifier {
                 OnboardingView (
                     onboardingCompleted: $onboardingCompleted,
                     isActive: $isActive
-                )
-                .background(
-                    Image("onboarding-background")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .overlay {
-                            LinearGradient(
-                                colors: [.black.opacity(0.75), .black.opacity(0), .black.opacity(0.75)],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        }
-                        .ignoresSafeArea()
                 )
                 .interactiveDismissDisabled()
             }

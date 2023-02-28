@@ -138,7 +138,7 @@ extension SampleView {
                                 .contentShape(Rectangle())
                         }
                         
-                        TextField("General Information Field", text: $newSGIFieldTitle) { addNewGIField() }
+                        TextField("Additional field", text: $newSGIFieldTitle) { addNewGIField() }
                             .submitLabel(.done)
                             .focused($newSGIFieldFocused, equals: true)
                         
@@ -153,7 +153,7 @@ extension SampleView {
                     Button {
                         withAnimation { newSGIFieldVisible = true }
                     } label: {
-                        Label("General Information Field", systemImage: "plus")
+                        Label("Additional field", systemImage: "plus")
                             .submitLabel(.done)
                     }
                 }

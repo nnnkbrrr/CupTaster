@@ -31,8 +31,10 @@ struct EvaluationView: View {
                         }
                     default:
                         ZStack {
+                            let groupTitle: String = qualityCriteria.group.configuration.title
+                            let criteriaTitle: String = qualityCriteria.title
                             let qualityCriteriaKey: String =
-                            qualityCriteria.group.configuration.title + "." + qualityCriteria.title
+                            (groupTitle != criteriaTitle ? groupTitle + "." : "") + criteriaTitle
                             
                             let titleKey: LocalizedStringKey = .init(qualityCriteriaKey)
                             
