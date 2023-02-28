@@ -1,0 +1,79 @@
+//
+//  UIImage coding.swift
+//  CupTaster
+//
+//  Created by Никита Баранов on 28.02.2023.
+//
+
+import SwiftUI
+import PhotosUI
+
+class UIImageCodingHelper {
+    static func encodeToBase64(uiImage: UIImage) -> String? {
+        return uiImage.jpegData(compressionQuality: 1)?.base64EncodedString()
+    }
+    
+    static func decodeFromBase64(base64String: String?) -> UIImage? {
+        if let base64String, let imageData = Data(base64Encoded: base64String, options: .ignoreUnknownCharacters) {
+            return UIImage(data: imageData)
+        }
+        return nil
+    }
+}
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Environment(\.presentationMode) private var presentationMode
+    
+    let sourceType: UIImagePickerController.SourceType
+    let onImagePicked: (UIImage) -> Void
+    
+    final class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        @Binding private var presentationMode: PresentationMode
+        private let sourceType: UIImagePickerController.SourceType
+        private let onImagePicked: (UIImage) -> Void
+        
+        init(
+            presentationMode: Binding<PresentationMode>,
+            sourceType: UIImagePickerController.SourceType,
+            onImagePicked: @escaping (UIImage) -> Void
+        ) {
+            self._presentationMode = presentationMode
+            self.sourceType = sourceType
+            self.onImagePicked = onImagePicked
+        }
+        
+        func imagePickerController(
+            _ picker: UIImagePickerController,
+            didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+        ) {
+            let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            onImagePicked(uiImage)
+            presentationMode.dismiss()
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            presentationMode.dismiss()
+        }
+        
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(
+            presentationMode: presentationMode,
+            sourceType: sourceType,
+            onImagePicked: onImagePicked
+        )
+    }
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.sourceType = sourceType
+        picker.delegate = context.coordinator
+        return picker
+    }
+    
+    func updateUIViewController(
+        _ uiViewController: UIImagePickerController,
+        context: UIViewControllerRepresentableContext<ImagePicker>
+    ) { }
+}

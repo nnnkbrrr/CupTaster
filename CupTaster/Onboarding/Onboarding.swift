@@ -32,7 +32,12 @@ struct OnboardingView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \SampleGeneralInfo.ordinalNumber, ascending: false)]
     ) var sgiFields: FetchedResults<SampleGeneralInfo>
     
+    @AppStorage("tester-onboarding-image") var onboardingImage: String = ""
+    
     var body: some View {
+        let backgroundImage: UIImage =
+        UIImageCodingHelper.decodeFromBase64(base64String: onboardingImage) ?? UIImage(named: "onboarding-background")!
+        
         ZStack(alignment: .bottom) {
             greetings
             
@@ -56,7 +61,7 @@ struct OnboardingView: View {
             button
         }
         .background(
-            Image("onboarding-background")
+            Image(uiImage: backgroundImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .overlay {

@@ -34,6 +34,7 @@
 		6329E314291022E4003495AE /* C MuliplePicker Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6329E313291022E4003495AE /* C MuliplePicker Value.swift */; };
 		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
 		633C5037287090C6006B398E /* Cupping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C5036287090C6006B398E /* Cupping.swift */; };
+		633D416929AE97C1002B4CCB /* UIImage coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D416829AE97C1002B4CCB /* UIImage coding.swift */; };
 		633FBD5F28A2597100A93781 /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FBD5E28A2597100A93781 /* Stopwatch.swift */; };
 		634E5EFD287BF042004A9A76 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634E5EFC287BF042004A9A76 /* Settings.swift */; };
 		635AFC4328A913A1007B78C0 /* Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AFC4228A913A1007B78C0 /* Name Generator.swift */; };
@@ -112,6 +113,7 @@
 		6329E313291022E4003495AE /* C MuliplePicker Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "C MuliplePicker Value.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		633C5036287090C6006B398E /* Cupping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cupping.swift; sourceTree = "<group>"; };
+		633D416829AE97C1002B4CCB /* UIImage coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage coding.swift"; sourceTree = "<group>"; };
 		633FBD5E28A2597100A93781 /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
 		634E5EFC287BF042004A9A76 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		635AFC4228A913A1007B78C0 /* Name Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Name Generator.swift"; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				22242C7228EF106D00138494 /* EmailHelper.swift */,
 				221E580B2906BEF500D81CE8 /* NumToDigits.swift */,
 				63996359299E7B370099B4BB /* Colors.swift */,
+				633D416829AE97C1002B4CCB /* UIImage coding.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				63BCCE9328DF834700BD3FB9 /* Cupping Model.swift in Sources */,
 				63BCCE9528DF896900BD3FB9 /* Cupping Toolbar.swift in Sources */,
 				6309C775290B2931005D659A /* C MultiplePicker.swift in Sources */,
+				633D416929AE97C1002B4CCB /* UIImage coding.swift in Sources */,
 				22242C7628EF263B00138494 /* Cupping Entity.swift in Sources */,
 				6360D51A28CF3FD700D51D0D /* Cupping Tab.swift in Sources */,
 				63DC7A582801BE7800010318 /* ContentView.swift in Sources */,

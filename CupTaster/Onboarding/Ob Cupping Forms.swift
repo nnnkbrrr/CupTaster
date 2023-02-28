@@ -27,7 +27,7 @@ struct OnboardingFormsView: View {
                 .fontWeight(.heavy)
                 .padding(.leading, 5)
             
-            HStack(spacing: 10) {
+            HStack(spacing: 0) {
                 ForEach(cuppingForms, id: \.self) { cuppingForm in
                     Text(cuppingForm)
                         .fontWeight(.bold)

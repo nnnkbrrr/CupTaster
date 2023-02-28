@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct TesterView: View {
     @AppStorage("tester-tab-visible") var testerTabVisible: Bool = false
     @AppStorage("tester-show-cuppings-date-picker") var showCuppingsDatePicker: Bool = false
     
+    @State var onboardingIsActive: Bool = false
+    @State var onboardingImagePickerIsActive: Bool = false
+    @AppStorage("tester-onboarding-image") var onboardingImage: String = ""
+    
     @FetchRequest(entity: Cupping.entity(), sortDescriptors: []) var cuppings: FetchedResults<Cupping>
     @State var addingBlankForm: Bool = false
-    
-    @State var onboardingIsActive: Bool = false
     
     var body: some View {
         Form {
@@ -29,6 +32,21 @@ struct TesterView: View {
                     )
                 }
                 
+                Button("Onboarding background image") {
+                    onboardingImagePickerIsActive = true
+                }
+                .fullScreenCover(isPresented: $onboardingImagePickerIsActive) {
+                    ImagePicker(sourceType: .photoLibrary) { image in
+                        onboardingImage = UIImageCodingHelper.encodeToBase64(uiImage: image) ?? ""
+                    }
+                }
+                
+                Button("Reset OB Image") {
+                    onboardingImage = ""
+                }
+            }
+            
+            Section("") {
                 Menu("Set stopwatch time") {
                     ForEach(1..<60) { min in
                         Button("\(min):00") {
