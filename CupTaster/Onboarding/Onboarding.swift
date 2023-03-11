@@ -32,11 +32,11 @@ struct OnboardingView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \SampleGeneralInfo.ordinalNumber, ascending: false)]
     ) var sgiFields: FetchedResults<SampleGeneralInfo>
     
-    @AppStorage("tester-onboarding-image") var onboardingImage: String = ""
+    @AppStorage("tester-onboarding-image") var testerOnboardingImage: Data = Data()
     
     var body: some View {
-        let backgroundImage: UIImage =
-        UIImageCodingHelper.decodeFromBase64(base64String: onboardingImage) ?? UIImage(named: "onboarding-background")!
+        let backgroundImage: UIImage = testerOnboardingImage != Data() ?
+		UIImageCodingHelper.decodeFromData(data: testerOnboardingImage)! : UIImage(named: "onboarding-background")!
         
         ZStack(alignment: .bottom) {
             greetings

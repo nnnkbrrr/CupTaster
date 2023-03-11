@@ -181,7 +181,7 @@ private struct AdditionalFieldsView: View {
         newSGIField.title = "<img>"
         newSGIField.ordinalNumber = Int16(sgiFields.filter({ $0.sample == sample }).count)
         newSGIField.sample = sample
-        newSGIField.value = UIImageCodingHelper.encodeToBase64(uiImage: image) ?? ""
+		newSGIField.image = UIImageCodingHelper.encodeToData(uiImage: image)!
         try? moc.save()
     }
     
@@ -232,33 +232,38 @@ extension AdditionalFieldsView {
     private struct ImagesSectionView: View {
         @ObservedObject var sample: Sample
         
-        var body: some View {
-            let encodedImages: [String] = sample.generalInfo.filter({ $0.title == "<img>" }).map { $0.value }
-            
-            Group {
-                if encodedImages.count > 1 {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))]) {
-                        ForEach(encodedImages, id: \.self) { encodedImage in
-                            ImageLoader(base64EncodedImage: encodedImage)
-                        }
-                    }
-                } else if encodedImages.count == 1 {
-                    HStack {
-                        ImageLoader(base64EncodedImage: encodedImages[0])
-                        Image(systemName: "paperclip")
-                        Text("1 attachment")
-                        Spacer()
-                    }
-                    .foregroundColor(.gray)
-                }
-            }
+		var body: some View {
+			let imagesData: [Data] =
+			sample.generalInfo
+				.filter({ $0.title == "<img>" })
+				.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
+				.map { $0.image }
+			
+			Group {
+				if imagesData.count == 1 {
+					HStack {
+						ImageLoader(imageData: imagesData.first!)
+							.padding(.trailing, 5)
+						Image(systemName: "paperclip")
+						Text("1 attachment")
+						Spacer()
+					}
+					.foregroundColor(.gray)
+				} else if imagesData.count > 1 {
+					LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))]) {
+						ForEach(imagesData, id: \.self) { imageData in
+							ImageLoader(imageData: imageData)
+						}
+					}
+				}
+			}
             .padding()
             .background(Color(uiColor: .secondarySystemGroupedBackground))
             .cornerRadius(10)
         }
         
         private struct ImageLoader: View {
-            let base64EncodedImage: String
+            let imageData: Data
             @State var uiImage: UIImage? = nil
             
             var body: some View {
@@ -276,7 +281,7 @@ extension AdditionalFieldsView {
                         .cornerRadius(10)
                         .onAppear {
                             DispatchQueue.global(qos: .background).async {
-                                uiImage = UIImageCodingHelper.decodeFromBase64(base64String: base64EncodedImage) ??
+                                uiImage = UIImageCodingHelper.decodeFromData(data: imageData) ??
                                 UIImage(systemName: "exclamationmark.triangle.fill")!
                             }
                         }

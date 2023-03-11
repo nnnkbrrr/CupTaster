@@ -10,16 +10,13 @@ import PhotosUI
 
 #warning("add image compression quality to settings")
 class UIImageCodingHelper {
-    static func encodeToBase64(uiImage: UIImage) -> String? {
-        return uiImage.jpegData(compressionQuality: 0.5)?.base64EncodedString()
-    }
-    
-    static func decodeFromBase64(base64String: String?) -> UIImage? {
-        if let base64String, let imageData = Data(base64Encoded: base64String, options: .ignoreUnknownCharacters) {
-            return UIImage(data: imageData)
-        }
-        return nil
-    }
+	static func encodeToData(uiImage: UIImage) -> Data? {
+		return uiImage.jpegData(compressionQuality: 0.5)
+	}
+	
+	static func decodeFromData(data imageData: Data) -> UIImage? {
+		return UIImage(data: imageData) ?? UIImage(systemName: "exclamationmark.triangle.fill")
+	}
 }
 
 struct ImagePicker: UIViewControllerRepresentable {

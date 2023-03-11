@@ -14,7 +14,7 @@ struct TesterView: View {
     
     @State var onboardingIsActive: Bool = false
     @State var onboardingImagePickerIsActive: Bool = false
-    @AppStorage("tester-onboarding-image") var onboardingImage: String = ""
+    @AppStorage("tester-onboarding-image") var onboardingImage: Data = Data()
     
     @FetchRequest(entity: Cupping.entity(), sortDescriptors: []) var cuppings: FetchedResults<Cupping>
     @State var addingBlankForm: Bool = false
@@ -37,12 +37,12 @@ struct TesterView: View {
                 }
                 .fullScreenCover(isPresented: $onboardingImagePickerIsActive) {
                     ImagePicker(sourceType: .photoLibrary) { image in
-                        onboardingImage = UIImageCodingHelper.encodeToBase64(uiImage: image) ?? ""
+						onboardingImage = UIImageCodingHelper.encodeToData(uiImage: image) ?? Data()
                     }
                 }
                 
                 Button("Reset OB Image") {
-                    onboardingImage = ""
+                    onboardingImage = Data()
                 }
             }
             

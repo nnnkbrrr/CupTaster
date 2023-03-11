@@ -15,7 +15,8 @@ public class SampleGeneralInfo: NSManagedObject, Identifiable {
     
     @NSManaged public var title: String
     @NSManaged public var ordinalNumber: Int16
-    @NSManaged public var value: String
+	@NSManaged public var value: String
+	@NSManaged public var image: Data
     
     @NSManaged public var sample: Sample?
 }
