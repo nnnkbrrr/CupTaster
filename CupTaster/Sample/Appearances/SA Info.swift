@@ -231,6 +231,9 @@ extension AdditionalFieldsView {
 extension AdditionalFieldsView {
     private struct ImagesSectionView: View {
         @ObservedObject var sample: Sample
+		
+		@State var sampleImageViewIsActive: Bool = false
+		@State var selectedSampleImage: Data? = nil
         
 		var body: some View {
 			let imagesData: [Data] =
@@ -242,8 +245,14 @@ extension AdditionalFieldsView {
 			Group {
 				if imagesData.count == 1 {
 					HStack {
-						ImageLoader(imageData: imagesData.first!)
-							.padding(.trailing, 5)
+						Button {
+							sampleImageViewIsActive = true
+							selectedSampleImage = imagesData.first!
+						} label: {
+							ImageLoader(imageData: imagesData.first!)
+						}
+						.padding(.trailing, 5)
+						
 						Image(systemName: "paperclip")
 						Text("1 attachment")
 						Spacer()
@@ -252,19 +261,60 @@ extension AdditionalFieldsView {
 				} else if imagesData.count > 1 {
 					LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))]) {
 						ForEach(imagesData, id: \.self) { imageData in
-							ImageLoader(imageData: imageData)
+							Button {
+								sampleImageViewIsActive = true
+								selectedSampleImage = imageData
+							} label: {
+								ImageLoader(imageData: imageData)
+							}
 						}
 					}
 				}
 			}
-            .padding()
-            .background(Color(uiColor: .secondarySystemGroupedBackground))
-            .cornerRadius(10)
-        }
-        
-        private struct ImageLoader: View {
-            let imageData: Data
-            @State var uiImage: UIImage? = nil
+			.padding()
+			.background(Color(uiColor: .secondarySystemGroupedBackground))
+			.cornerRadius(10)
+			.sheet(isPresented: $sampleImageViewIsActive) {
+				TabView(selection: $selectedSampleImage) {
+					let imagesData: [Data] =
+					sample.generalInfo
+						.filter({ $0.title == "<img>" })
+						.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
+						.map { $0.image }
+					
+					ForEach(imagesData, id: \.self) { imageData in
+						Image(
+							uiImage: UIImageCodingHelper.decodeFromData(data: imageData) ??
+							UIImage(systemName: "exclamationmark.triangle.fill")!
+						)
+						.resizable()
+						.aspectRatio(contentMode: .fit)
+						.cornerRadius(15)
+						.frame(maxWidth: .infinity, maxHeight: .infinity)
+						.tag(Optional(imageData))
+						.padding(30)
+						.pinchToZoom()
+					}
+				}
+				.tabViewStyle(.page)
+				.overlay(alignment: .topLeading) {
+					Button {
+						sampleImageViewIsActive = false
+					} label: {
+						Image(systemName: "xmark.circle.fill")
+							.resizable()
+							.frame(width: 30, height: 30)
+							.opacity(0.75)
+							.padding([.top, .leading])
+					}
+					.buttonStyle(.plain)
+				}
+			}
+		}
+		
+		private struct ImageLoader: View {
+			let imageData: Data
+			@State var uiImage: UIImage? = nil
             
             var body: some View {
                 if let uiImage {
