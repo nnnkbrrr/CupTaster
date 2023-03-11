@@ -8,9 +8,10 @@
 import SwiftUI
 import PhotosUI
 
+#warning("add image compression quality to settings")
 class UIImageCodingHelper {
     static func encodeToBase64(uiImage: UIImage) -> String? {
-        return uiImage.jpegData(compressionQuality: 1)?.base64EncodedString()
+        return uiImage.jpegData(compressionQuality: 0.5)?.base64EncodedString()
     }
     
     static func decodeFromBase64(base64String: String?) -> UIImage? {
