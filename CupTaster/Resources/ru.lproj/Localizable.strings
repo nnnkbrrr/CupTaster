@@ -6,36 +6,95 @@
   
 */
 
-// Cupping Forms
-
-"Flavor" = "Вкус";
-"Aftertaste" = "Послевкусие";
-"Balance" = "Баланс";
-"Sweetness" = "Сладость";
-"Clean Cup" = "Чистота чашки";
-"Uniformity" = "Однородность";
-"Overall" = "Общее впечатление";
-"Fragrance/Aroma" = "Аромат";
-"Fragrance/Aroma.Aroma" = "Аромат";
-"Fragrance/Aroma.Dry" = "Сухой";
-"Fragrance/Aroma.Break" = "На сломе";
-"Acidity" = "Кислотность";
-"Acidity.Intensity" = "Интенсивность";
-"Acidity.Intensity.Low" = "Низкая";
-"Acidity.Intensity.High" = "Высокая";
-"Body" = "Тело";
-"Body.Level" = "Вес";
-"Body.Level.Thin" = "Легкое";
-"Body.Level.Heavy" = "Тяжелое";
-"Defects" = "Дефекты";
-"Defects.Cups" = "Чашки";
-"Defects.Intensity" = "Интенсивность";
+// MARK: -Cupping Forms-
 
 "The SCA Cupping Form is the Global Standard used for assessing coffee flavor characteristics and quality." = "Форма SCA — это мировой стандарт оценки вкусовых характеристик и качества кофе.";
 "The SCI Cupping Form is calibrated as closely as possible to the SCA form but just being more descriptive." = "Форма SCI выявлена максимально близко к форме SCA, но просто чуть более информативная.";
 "The CoE cupping form is loosely based on the scoring system described in Winetaster's Secrets by Andrew Sharp and on the original SCA Cupping form." = "Форма CoE основана на форме SCA и на системе Эндрю Шарпа из книги «Секреты винодела».";
 
-// Cuppings
+"Fragrance/Aroma" = "Аромат";
+"Fragrance/Aroma.Aroma" = "Аромат";
+"Fragrance/Aroma.Dry" = "Сухой";
+"Fragrance/Aroma.Break" = "На сломе";
+"Fragrance" = "Аромат (сухой)";
+"Fragrance.Intensity" = "Интенсивность";
+"Fragrance.Intensity.Low" = "Низкая";
+"Fragrance.Intensity.High" = "Высокая";
+"Aroma" = "Аромат";
+"Aroma.Dry" = "Сухой";
+"Aroma.Crust" = "Корка";
+"Aroma.Break" = "На сломе";
+"Aroma.Intensity" = "Интенсивность";
+"Aroma.Intensity.Low" = "Низкая";
+"Aroma.Intensity.High" = "Высокая";
+
+"Flavour" = "Вкус";
+"Flavor" = "Вкус";
+"Flavor.Intensity" = "Интенсивность";
+"Flavor.Intensity.Low" = "Низкая";
+"Flavor.Intensity.High" = "Высокая";
+
+"Aftertaste" = "Послевкусие";
+"Aftertaste.Duration" = "Продолжительность";
+"Aftertaste.Duration.Short" = "Короткая";
+"Aftertaste.Duration.Long" = "Долгая";
+
+"Acidity" = "Кислотность";
+"Acidity.Intensity" = "Интенсивность";
+"Acidity.Intensity.Low" = "Низкая";
+"Acidity.Intensity.High" = "Высокая";
+"Acidity.Intensity.Flat" = "Плоская";
+"Acidity.Intensity.Bright" = "Яркая";
+
+"Body" = "Тело";
+"Body.Level" = "Вес";
+"Body.Level.Thin" = "Легкое";
+"Body.Level.Heavy" = "Тяжелое";
+"Body.Thickness" = "Плотность";
+"Body.Thickness.Thin" = "Плоское";
+"Body.Thickness.Thick" = "Плотное";
+
+"Mouthfeel" = "Ощущение во рту";
+"Mouthfeel.Intensity" = "Интенсивность";
+"Mouthfeel.Intensity.Low" = "Низкая";
+"Mouthfeel.Intensity.High" = "Высокая";
+
+"Sweetness" = "Сладость";
+"Sweetness.Intensity" = "Интенсивность";
+"Sweetness.Intensity.Low" = "Низкая";
+"Sweetness.Intensity.High" = "Высокая";
+
+"Roast level" = "Степень обжарки";
+"Roast level.light" = "Светлая";
+"Roast level.dark" = "Темная";
+
+"Ferment level" = "Степень ферментации";
+"Ferment level.none-low" = "нет-низкая";
+"Ferment level.med-high" = "средняя-высокая";
+
+"Defects" = "Дефекты";
+"Defects.Cups" = "Чашки";
+"Defects.Intensity" = "Интенсивность";
+"Defects.Intensity.Slight" = "Незначительная";
+"Defects.Intensity.Intense" = "Интенсивная";
+
+"Fresh crop" = "Свежесть урожая";
+"Fresh crop.Woody" = "Древесность";
+"Fresh crop.Woody.None" = "Нет";
+"Fresh crop.Woody.Intense" = "Насыщенная";
+
+"Balance" = "Баланс";
+
+"Uniformity" = "Однородность";
+
+"Clean Cup" = "Чистота чашки";
+"Clean cup" = "Чистота чашки";
+
+"Overall" = "Общее впечатление";
+
+"Off flavor" = "Дефект";
+
+// MARK: -Cuppings-
 
 "Cuppings: %lld, samples: %lld" = "Каппингов: %lld, образцов: %lld";
 "samples: %lld, cups: %d" = "образцов: %lld, чашек: %d";
@@ -50,44 +109,42 @@
 "Cupping forms are missing" = "Отсутствуют формы для каппинга";
 "Please add at least one cupping form in settings" = "Пожалуйста добавьте хотя бы одну форму для каппинга в настройках";
 
-// Samples
+// MARK: -Samples-
 
 "Add sample" = "Добавить образец";
 "Sample name" = "Название образца";
 "Cup %d" = "Чашка %d";
 "Notes" = "Заметки";
+"General Information Field" = "Поле общей информации";
 "Tap for more" = "Показать больше";
-
-// Settings
 
 "Settings" = "Настройки";
 "Default cupping form" = "Форма по умолчанию";
 "Available cupping forms" = "Доступные формы";
-"Default samples name" = "Названия образцов";
+
+"Default samples name" = "Метод генерации названий образцов";
 "By default" = "По умолчанию";
 "Letters" = "Буквы";
 "Numbers" = "Цифры";
+
 "Additional fields" = "Дополнительные поля";
 "Additional field" = "Дополнительное поле";
 "These fields do not affect the result and can be filled in sample's «General Information» section." = "Эти поля не влияют на результат и могут быть заполнены в разделе образца «Общая информация»";
-"Customization" = "Персонализация";
-"Slider" = "Слайдер";
-"Customize" = "Настраивайте";
-"Try it out!" = "Пробуйте!";
-"Slider fractions spacing" = "Расстояние между дробями";
-"Contact" = "Написать разработчику";
-"Help with translation" = "Помочь с переводом";
-"Version" = "Версия";
 "Roast level" = "Степень обжарки";
 "Country" = "Страна";
 
-// Onboarding
+"Customization" = "Персонализация";
+"Slider fractions spacing" = "Расстояние между дробями";
+"Slider" = "Слайдер";
+"Customize" = "Настраивайте";
+"Try it out!" = "Пробуйте!";
 
-"Welcome to" = "Приветствуем в";
-"Taste, analyze, take notes" = "Пробуй, анализируй, записывай";
-"You can add fields that do not affect the result" = "Вы можете добавить дополнительные поля, которые не влияют на результат";
+"Contact" = "Написать разработчику";
+"Help with translation" = "Помочь с переводом";
+"Version" = "Версия";
 
-// Actions
+// MARK: -ETC-
+
 
 "Done" = "Готово";
 "Save" = "Сохранить";
@@ -97,8 +154,11 @@
 "Cancel" = "Отменить";
 "Delete" = "Удалить";
 
-// Stopwatch
-
 "Start" = "Запустить";
 "Stop" = "Остановить";
 "Reset" = "Сбросить";
+
+"Welcome to" = " ";
+"Taste, analyze, take notes" = "Пробуй, анализируй, записывай";
+"You can add fields that do not affect the result" = "Вы можете добавить дополнительные поля, которые не влияют на результат";
+"Allow access to camera to let CupTaster add photos to cuppings and samples" = "Разрешите доступ к камере, чтобы добавлять фото к каппингам и образцам";

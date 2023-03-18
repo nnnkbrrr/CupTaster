@@ -40,6 +40,7 @@ struct OnboardingView: View {
         
         ZStack(alignment: .bottom) {
             greetings
+				.padding(.bottom, 50)
             
             Group {
                 if currentPage == .forms {
@@ -58,15 +59,15 @@ struct OnboardingView: View {
                 )
             )
 
-            button
-        }
-        .background(
-            Image(uiImage: backgroundImage)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
+			button
+		}
+		.background(
+			Image(uiImage: backgroundImage)
+				.resizable()
+				.aspectRatio(contentMode: .fill)
                 .overlay {
                     LinearGradient(
-                        colors: [.black.opacity(0.8), .black.opacity(0.5), .black.opacity(0)],
+						colors: [.black.opacity(0.8), .black.opacity(0.5)],
                         startPoint: .top,
                         endPoint: .center
                     )
@@ -102,24 +103,22 @@ struct OnboardingView: View {
                     isActive = false
                 }
             }
-        } label: {
-            HStack {
-                switch currentPage {
-                case .greetings:
-                    Text("Taste, analyze, take notes")
-                        .matchedGeometryEffect(id: "button-text", in: namespace)
-                case .forms:
-                    Text("Continue")
-                        .matchedGeometryEffect(id: "button-text", in: namespace)
-                case .generalInfo:
-                    Text("Finish")
-                        .matchedGeometryEffect(id: "button-text", in: namespace)
-                }
-                Spacer()
-                Image(systemName: "arrow.right")
-            }
-        }
-        .padding()
+		} label: {
+			HStack {
+				if currentPage == .forms {
+					Text("Continue")
+						.matchedGeometryEffect(id: "button-text", in: namespace)
+					Spacer()
+				}
+				if currentPage == .generalInfo {
+					Text("Finish")
+						.matchedGeometryEffect(id: "button-text", in: namespace)
+					Spacer()
+				}
+				Image(systemName: "arrow.right")
+			}
+		}
+		.padding()
         .padding(.horizontal, 5)
         .foregroundColor(.white)
         .font(.subheadline.bold())
@@ -133,11 +132,8 @@ struct OnboardingView: View {
     }
     
     var greetings: some View {
-        VStack {
+		VStack(spacing: 25) {
             Group {
-                Text("Welcome to")
-                    .foregroundColor(.white)
-                
                 Text("CupTaster")
                     .foregroundColor(.accentColor)
                     .frame(maxWidth: .infinity)
@@ -160,9 +156,16 @@ struct OnboardingView: View {
                         }
                     }
             }
-            .font(.title.weight(.heavy))
+			.font(.system(size: 50, weight: .black, design: .rounded))
+			
+			if currentPage == .greetings {
+				Text("Taste, analyze, take notes")
+					.font(.callout)
+					.bold()
+			}
         }
+		.scaleEffect(currentPage == .greetings ? 1 : 0.5)
         .padding(.top, 25)
-        .frame(maxHeight: .infinity, alignment: .top)
+		.frame(maxHeight: .infinity, alignment: currentPage == .greetings ? .center : .top)
     }
 }

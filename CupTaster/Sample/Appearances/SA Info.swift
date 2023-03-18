@@ -53,11 +53,7 @@ private struct AdditionalFieldsView: View {
             
             toolbar
             
-            ImagesSectionView(sample: sample)
-            
-            ForEach(addedSGIFields.filter({ $0.title != "<img>" })) { sgiField in
-                SGIFieldView(sampleGeneralInfo: sgiField)
-            }
+            ForEach(addedSGIFields) { SGIFieldView(sampleGeneralInfo: $0) }
             
             if newSGIFieldVisible {
                 HStack {
@@ -123,19 +119,13 @@ private struct AdditionalFieldsView: View {
             
             Divider()
             
+			#warning("add image")
             Menu {
-                Button { cameraIsActive = true } label: { Label("Camera", systemImage: "camera") }
-                Button { photoPickerIsActive = true } label: { Label("Photo library", systemImage: "photo.fill.on.rectangle.fill") }
+				Text("Pass")
             } label: {
                 Image(systemName: "photo")
                     .frame(maxWidth: .infinity)
                     .contentShape(Rectangle())
-            }
-            .fullScreenCover(isPresented: $photoPickerIsActive) {
-                ImagePicker(sourceType: .photoLibrary) { addImage(uiImage: $0) }
-            }
-            .fullScreenCover(isPresented: $cameraIsActive) {
-                ImagePicker(sourceType: .camera) { addImage(uiImage: $0) }
             }
             
             Divider()
@@ -174,15 +164,6 @@ private struct AdditionalFieldsView: View {
         .padding(.vertical)
         .background(Color(uiColor: .secondarySystemGroupedBackground))
         .cornerRadius(10)
-    }
-    
-    func addImage(uiImage image: UIImage) {
-        let newSGIField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
-        newSGIField.title = "<img>"
-        newSGIField.ordinalNumber = Int16(sgiFields.filter({ $0.sample == sample }).count)
-        newSGIField.sample = sample
-		newSGIField.image = UIImageCodingHelper.encodeToData(uiImage: image)!
-        try? moc.save()
     }
     
     func addNewGIField() {
@@ -224,119 +205,6 @@ extension AdditionalFieldsView {
             .padding()
             .background(Color(uiColor: .secondarySystemGroupedBackground))
             .cornerRadius(10)
-        }
-    }
-}
-
-extension AdditionalFieldsView {
-    private struct ImagesSectionView: View {
-        @ObservedObject var sample: Sample
-		
-		@State var sampleImageViewIsActive: Bool = false
-		@State var selectedSampleImage: Data? = nil
-        
-		var body: some View {
-			let imagesData: [Data] =
-			sample.generalInfo
-				.filter({ $0.title == "<img>" })
-				.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
-				.map { $0.image }
-			
-			Group {
-				if imagesData.count == 1 {
-					HStack {
-						Button {
-							sampleImageViewIsActive = true
-							selectedSampleImage = imagesData.first!
-						} label: {
-							ImageLoader(imageData: imagesData.first!)
-						}
-						.padding(.trailing, 5)
-						
-						Image(systemName: "paperclip")
-						Text("1 attachment")
-						Spacer()
-					}
-					.foregroundColor(.gray)
-				} else if imagesData.count > 1 {
-					LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))]) {
-						ForEach(imagesData, id: \.self) { imageData in
-							Button {
-								sampleImageViewIsActive = true
-								selectedSampleImage = imageData
-							} label: {
-								ImageLoader(imageData: imageData)
-							}
-						}
-					}
-				}
-			}
-			.padding()
-			.background(Color(uiColor: .secondarySystemGroupedBackground))
-			.cornerRadius(10)
-			.sheet(isPresented: $sampleImageViewIsActive) {
-				TabView(selection: $selectedSampleImage) {
-					let imagesData: [Data] =
-					sample.generalInfo
-						.filter({ $0.title == "<img>" })
-						.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
-						.map { $0.image }
-					
-					ForEach(imagesData, id: \.self) { imageData in
-						Image(
-							uiImage: UIImageCodingHelper.decodeFromData(data: imageData) ??
-							UIImage(systemName: "exclamationmark.triangle.fill")!
-						)
-						.resizable()
-						.aspectRatio(contentMode: .fit)
-						.cornerRadius(15)
-						.frame(maxWidth: .infinity, maxHeight: .infinity)
-						.tag(Optional(imageData))
-						.padding(30)
-						.pinchToZoom()
-					}
-				}
-				.tabViewStyle(.page)
-				.overlay(alignment: .topLeading) {
-					Button {
-						sampleImageViewIsActive = false
-					} label: {
-						Image(systemName: "xmark.circle.fill")
-							.resizable()
-							.frame(width: 30, height: 30)
-							.opacity(0.75)
-							.padding([.top, .leading])
-					}
-					.buttonStyle(.plain)
-				}
-			}
-		}
-		
-		private struct ImageLoader: View {
-			let imageData: Data
-			@State var uiImage: UIImage? = nil
-            
-            var body: some View {
-                if let uiImage {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 50, height: 50)
-                        .cornerRadius(10)
-                } else {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(Color(uiColor: .systemGray4))
-                        .cornerRadius(10)
-                        .onAppear {
-                            DispatchQueue.global(qos: .background).async {
-                                uiImage = UIImageCodingHelper.decodeFromData(data: imageData) ??
-                                UIImage(systemName: "exclamationmark.triangle.fill")!
-                            }
-                        }
-                }
-            }
         }
     }
 }

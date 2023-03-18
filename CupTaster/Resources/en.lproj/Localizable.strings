@@ -6,27 +6,49 @@
   
 */
 
-// SCA Cupping Form
-
-"Flavor" = "Flavor";
-"Aftertaste" = "Aftertaste";
-"Balance" = "Balance";
-"Sweetness" = "Sweetness";
-"Clean cup" = "Clean cup";
-"Uniformity" = "Uniformity";
-"Overall" = "Overall";
-"Fragrance/Aroma" = "Fragrance/Aroma";
 "Fragrance/Aroma.Aroma" = "Aroma";
 "Fragrance/Aroma.Dry" = "Dry";
 "Fragrance/Aroma.Break" = "Break";
-"Acidity" = "Acidity";
+"Fragrance.Intensity" = "Intensity";
+"Fragrance.Intensity.Low" = "Low";
+"Fragrance.Intensity.High" = "High";
+"Aroma.Dry" = "Dry";
+"Aroma.Crust" = "Crust";
+"Aroma.Break" = "Break";
+"Aroma.Intensity" = "Intensity";
+"Aroma.Intensity.Low" = "Low";
+"Aroma.Intensity.High" = "High";
+"Flavor.Intensity" = "Intensity";
+"Flavor.Intensity.Low" = "Low";
+"Flavor.Intensity.High" = "High";
+"Aftertaste.Duration" = "Duration";
+"Aftertaste.Duration.Short" = "Short";
+"Aftertaste.Duration.Long" = "Long";
 "Acidity.Intensity" = "Intensity";
 "Acidity.Intensity.Low" = "Low";
 "Acidity.Intensity.High" = "High";
-"Body" = "Body";
+"Acidity.Intensity.Flat" = "Flat";
+"Acidity.Intensity.Bright" = "Bright";
 "Body.Level" = "Level";
 "Body.Level.Thin" = "Thin";
 "Body.Level.Heavy" = "Heavy";
-"Defects" = "Defects";
+"Body.Thickness" = "Thickness";
+"Body.Thickness.Thin" = "Thin";
+"Body.Thickness.Thick" = "Thick";
+"Mouthfeel.Intensity" = "Intensity";
+"Mouthfeel.Intensity.Low" = "Low";
+"Mouthfeel.Intensity.High" = "High";
+"Sweetness.Intensity" = "Intensity";
+"Sweetness.Intensity.Low" = "Low";
+"Sweetness.Intensity.High" = "High";
+"Roast level.light" = "light";
+"Roast level.dark" = "dark";
+"Ferment level.none-low	none" = "low";
+"Ferment level.med-high	med" = "high";
 "Defects.Cups" = "Cups";
 "Defects.Intensity" = "Intensity";
+"Defects.Intensity.Slight" = "Slight";
+"Defects.Intensity.Intense" = "Intense";
+"Fresh crop.Woody" = "Woody";
+"Fresh crop.Woody.None" = "None";
+"Fresh crop.Woody.Intense" = "Intense";
