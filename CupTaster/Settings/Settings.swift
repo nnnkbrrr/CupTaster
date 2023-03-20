@@ -14,6 +14,10 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationView {
+			let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
+			let systemVersion: String = UIDevice.current.systemVersion
+			let languageCode: String = Locale.current.languageCode ?? "-"
+			
             Form {
                 Section(" ") {
                     NavigationLink {
@@ -66,9 +70,11 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    #warning("add ios version, app version, locale")
                     Button {
-                        EmailHelper.shared.send(to: "support-cuptaster@nnnkbrrr.space")
+						EmailHelper.shared.send(
+							body: "\n\n\nApp version: \(appVersion)\nSystem version: \(systemVersion)\nLanguage code: \(languageCode)",
+							to: "support-cuptaster@nnnkbrrr.space"
+						)
                     } label: {
                         Label("Contact", systemImage: "envelope")
                     }
@@ -93,7 +99,6 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
                     HStack {
                         Text("Version")
                         Spacer()
