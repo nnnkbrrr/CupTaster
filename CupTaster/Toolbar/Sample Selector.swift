@@ -37,14 +37,16 @@ struct SampleSelectorView: View {
                                 .matchedGeometryEffect(id: sample.id, in: namespace)
                         }
                     }
-                }
-                .offset(x: cuppingModel.offset.width - (geometry.size.width + (cuppingModel.switchingToPreviews ? 50 : 0)) * CGFloat(cuppingModel.selectedSampleIndex ?? 0))
-                .frame(width: geometry.size.width, alignment: .leading)
-                .scaleEffect(
-                    cuppingModel.switchingToPreviews ?
-                    0.7 + (cuppingModel.offset.height/(geometry.size.height * 2)) : 1
-                )
-            }
-        }
-    }
+				}
+				.offset(x: cuppingModel.offset.width - (geometry.size.width + (cuppingModel.switchingToPreviews ? 50 : 0)) * CGFloat(cuppingModel.selectedSampleIndex ?? 0))
+				.frame(width: geometry.size.width, alignment: .leading)
+				.scaleEffect(
+					cuppingModel.switchingToPreviews ?
+					0.7 + (cuppingModel.offset.height/(geometry.size.height * 2)) : 1
+				)
+			}
+		}
+		.zIndex(1)
+		.clipped()
+	}
 }
