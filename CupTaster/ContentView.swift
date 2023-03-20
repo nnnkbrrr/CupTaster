@@ -8,8 +8,6 @@
 import SwiftUI
 import CoreData
 
-#warning("локализация на английском")
-
 // MARK: Content View
 
 struct ContentView: View {

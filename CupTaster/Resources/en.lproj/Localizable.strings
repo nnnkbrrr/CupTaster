@@ -52,3 +52,18 @@
 "Fresh crop.Woody" = "Woody";
 "Fresh crop.Woody.None" = "None";
 "Fresh crop.Woody.Intense" = "Intense";
+
+"Fragrance.short" = "Frgc";
+"Aroma.short" = "Ar";
+"Flavor.short" = "Flv";
+"Flavour.short" = "Flv";
+"Aftertaste.short" = "Aft";
+"Acidity.short" = "Acdt";
+"Body.short" = "Body";
+"Mouthfeel.short" = "MF";
+"Balance.short" = "Blnc";
+"Sweetness.short" = "Sws";
+"FreshCrop.short" = "FrCr";
+"CleanCup.short" = "ClC";
+"Overall.short" = "Frgc";
+"Overall.short" = "Ovrl";

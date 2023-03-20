@@ -122,7 +122,7 @@
 "Default cupping form" = "Форма по умолчанию";
 "Available cupping forms" = "Доступные формы";
 
-"Default samples name" = "Метод генерации названий образцов";
+"Samples name" = "Названия образцов";
 "By default" = "По умолчанию";
 "Letters" = "Буквы";
 "Numbers" = "Цифры";
@@ -162,3 +162,17 @@
 "Taste, analyze, take notes" = "Пробуй, анализируй, записывай";
 "You can add fields that do not affect the result" = "Вы можете добавить дополнительные поля, которые не влияют на результат";
 "Allow access to camera to let CupTaster add photos to cuppings and samples" = "Разрешите доступ к камере, чтобы добавлять фото к каппингам и образцам";
+
+"Fragrance.short" = "Арм(с)";
+"Aroma.short" = "Арм";
+"Flavor.short" = "Вкс";
+"Flavour.short" = "Вкс";
+"Aftertaste.short" = "Псвкс";
+"Acidity.short" = "Кслт";
+"Body.short" = "Тело";
+"Mouthfeel.short" = "ОщВоР";
+"Balance.short" = "Блнс";
+"Sweetness.short" = "Слдст";
+"FreshCrop.short" = "СвУр";
+"CleanCup.short" = "ЧистЧ";
+"Overall.short" = "ОбВпч";

@@ -47,9 +47,9 @@ struct SettingsView: View {
                                     }
                                 }
                             }
-                        }.navigationTitle("Default samples name")
+                        }.navigationTitle("Samples name")
                     } label: { Label(
-                        "Default samples name",
+                        "Samples name",
                         systemImage: sampleNameGenerationMethod == .numerical ?
                         "textformat.123" : "abc"
                     )}
