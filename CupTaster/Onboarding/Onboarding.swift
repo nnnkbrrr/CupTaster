@@ -36,7 +36,7 @@ struct OnboardingView: View {
     
     var body: some View {
         let backgroundImage: UIImage = testerOnboardingImage != Data() ?
-		UIImageCodingHelper.decodeFromData(data: testerOnboardingImage)! : UIImage(named: "onboarding-background")!
+		testerOnboardingImage.decodeToUIImage()! : UIImage(named: "onboarding-background")!
         
         ZStack(alignment: .bottom) {
             greetings
@@ -94,7 +94,8 @@ struct OnboardingView: View {
                     for selectedSGIField in selectedSGIFields {
                         let newSGIField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
                         newSGIField.title = NSLocalizedString(selectedSGIField, comment: "")
-                        newSGIField.ordinalNumber = Int16(sgiFields.filter({ $0.sample == nil }).count)
+						newSGIField.ordinalNumber =
+						Int16(sgiFields.filter({ $0.sample == nil }).map({ $0.ordinalNumber }).max() ?? 0 + 1)
                         
                         try? moc.save()
                     }

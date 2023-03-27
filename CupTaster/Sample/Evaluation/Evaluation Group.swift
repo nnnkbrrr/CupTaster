@@ -67,6 +67,5 @@ struct EvaluationGroupView: View {
             }
         }
         .padding(.vertical, qcGroup.isCompleted ? 0 : 15)
-        .clipped()
     }
 }

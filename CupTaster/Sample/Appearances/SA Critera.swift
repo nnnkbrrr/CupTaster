@@ -19,9 +19,7 @@ extension SampleView {
                 }
             }
             .padding(.horizontal)
-            .padding(.bottom, 100) // toolbar
         }
-        .clipped()
         .resignKeyboardOnDragGesture() { try? moc.save() }
     }
 }

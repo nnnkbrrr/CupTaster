@@ -31,43 +31,58 @@ struct CuppingView: View {
         )
     }
     
+	#warning("safe area keyboard avoidance")
     var body: some View {
         ZStack {
             if cuppingModel.sampleViewVisible { SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace) }
 			else if cuppingModel.samplesEditorActive { samplesEditor }
 			else { samplesPreview }
-            
-            CuppingToolbarView(
-                presentationMode: _presentationMode,
-                cuppingModel: cuppingModel,
-                namespace: namespace,
-                sampleNameTextfieldFocus: _sampleNameTextfieldFocus
-            )
-            .overlay(alignment: .top) {
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .opacity(0.5)
-                    .frame(height: 0.2)
-            }
-            .frame(maxHeight: .infinity, alignment: .bottom)
-            .ignoresSafeArea(.keyboard, edges: sampleNameTextfieldFocus == nil ? [.all] : [])
-            .animation(.default, value: sampleNameTextfieldFocus)
-            .zIndex(2)
-			
 			selectedHint
 			
-            LinearGradient(
-                colors: [Color(uiColor: .systemGroupedBackground), Color(uiColor: .systemGroupedBackground).opacity(0)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .frame(height: 15)
-            .frame(maxHeight: .infinity, alignment: .top)
-            .zIndex(4)
-        }
-        .halfSheet(
-            isPresented: $cuppingModel.settingsSheetIsPresented,
-            interactiveDismissDisabled: $cuppingModel.settingsSheetDismissDisabled
+			let systemBackground: Color = Color(uiColor: .systemGroupedBackground)
+			LinearGradient(
+				colors: [systemBackground.opacity(0.75), systemBackground.opacity(0.5), systemBackground.opacity(0)],
+				startPoint: .top,
+				endPoint: .bottom
+			)
+			.frame(height: 50)
+			.frame(maxHeight: .infinity, alignment: .top)
+			.ignoresSafeArea(edges: .top)
+		}
+		.safeAreaInset(edge: .top) {
+			VStack(spacing: 0) {
+				if cuppingModel.sampleViewVisible {
+					if cuppingModel.samplesAppearance == .info, let selectedSample = cuppingModel.selectedSample {
+						SampleInfoToolbar(cuppingModel: cuppingModel, sample: selectedSample)
+					}
+				} else if !cuppingModel.samplesEditorActive {
+					Text(cuppingModel.cupping.name)
+						.bold()
+						.padding(10)
+				}
+				Divider()
+			}
+			.background(.ultraThinMaterial, ignoresSafeAreaEdges: .all)
+		}
+		.safeAreaInset(edge: .bottom) {
+			CuppingToolbarView(
+				presentationMode: _presentationMode,
+				cuppingModel: cuppingModel,
+				namespace: namespace,
+				sampleNameTextfieldFocus: _sampleNameTextfieldFocus
+			)
+			.animation(.default, value: sampleNameTextfieldFocus)
+		}
+		.ignoresSafeArea(.keyboard, edges: sampleNameTextfieldFocus == nil ? [.all] : [])
+		.background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .top)
+		.background(
+			Color.keyboardBackground
+				.opacity(sampleNameTextfieldFocus == nil ? 0 : 1)
+				.ignoresSafeArea(edges: .bottom)
+		)
+		.halfSheet(
+			isPresented: $cuppingModel.settingsSheetIsPresented,
+			interactiveDismissDisabled: $cuppingModel.settingsSheetDismissDisabled
         ) {
             CuppingSettingsView(
                 presentationMode: _presentationMode,
@@ -75,11 +90,5 @@ struct CuppingView: View {
                 selectedCuppingForm: CFManager.shared.getDefaultCuppingForm(from: cuppingForms)!
             )
         }
-        .background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .top)
-        .background(
-            Color.keyboardBackground
-                .opacity(sampleNameTextfieldFocus == nil ? 0 : 1)
-                .ignoresSafeArea(edges: .bottom)
-        )
     }
 }

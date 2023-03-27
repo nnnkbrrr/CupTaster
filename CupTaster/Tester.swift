@@ -36,8 +36,8 @@ struct TesterView: View {
                     onboardingImagePickerIsActive = true
                 }
                 .fullScreenCover(isPresented: $onboardingImagePickerIsActive) {
-                    ImagePicker(sourceType: .photoLibrary) { image in
-						onboardingImage = UIImageCodingHelper.encodeToData(uiImage: image) ?? Data()
+					ImagePicker(sourceType: .photoLibrary) { image  in
+						onboardingImage = image.encodeToData() ?? Data()
                     }
                 }
                 

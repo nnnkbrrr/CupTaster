@@ -94,7 +94,8 @@ struct Settings_GeneralInfoView: View {
     func addNewGIField() {
         let newSGIField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
         newSGIField.title = newSGIFieldTitle
-        newSGIField.ordinalNumber = Int16(sgiFields.filter({ $0.sample == nil }).count)
+        newSGIField.ordinalNumber =
+		Int16(sgiFields.filter({ $0.sample == nil }).map({ $0.ordinalNumber }).max() ?? 0 + 1)
         
         newSGIFieldTitle = ""
         newSGIFieldFocused = false

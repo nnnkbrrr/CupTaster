@@ -71,8 +71,6 @@ extension CuppingView {
 			}
 		}
 		.environment(\.editMode, .constant(.active))
-		.padding(.bottom, 44) // toolbar
 		.resignKeyboardOnDragGesture() { try? moc.save() }
-		.clipped()
 	}
 }

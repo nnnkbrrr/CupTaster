@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
-import PhotosUI
 
-#warning("add image compression quality to settings")
-class UIImageCodingHelper {
-	static func encodeToData(uiImage: UIImage) -> Data? {
-		return uiImage.jpegData(compressionQuality: 0.5)
+#warning("add image compression quality and png/jpeg toggle to settings")
+extension UIImage {
+	func encodeToData() -> Data? {
+		self.jpegData(compressionQuality: 0.5)
 	}
-	
-	static func decodeFromData(data imageData: Data) -> UIImage? {
-		return UIImage(data: imageData) ?? UIImage(systemName: "exclamationmark.triangle.fill")
+}
+
+extension Data {
+	func decodeToUIImage() -> UIImage? {
+		UIImage(data: self) ?? UIImage(systemName: "exclamationmark.triangle.fill")
 	}
 }
 
@@ -23,17 +24,17 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Environment(\.presentationMode) private var presentationMode
     
     let sourceType: UIImagePickerController.SourceType
-    let onImagePicked: (UIImage) -> Void
+	let onImagePicked: (UIImage) -> Void
     
     final class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         @Binding private var presentationMode: PresentationMode
         private let sourceType: UIImagePickerController.SourceType
-        private let onImagePicked: (UIImage) -> Void
+		private let onImagePicked: (UIImage) -> Void
         
         init(
             presentationMode: Binding<PresentationMode>,
             sourceType: UIImagePickerController.SourceType,
-            onImagePicked: @escaping (UIImage) -> Void
+			onImagePicked: @escaping (UIImage) -> Void
         ) {
             self._presentationMode = presentationMode
             self.sourceType = sourceType
@@ -44,7 +45,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             _ picker: UIImagePickerController,
             didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
         ) {
-            let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            let uiImage = info[.originalImage] as! UIImage
             onImagePicked(uiImage)
             presentationMode.dismiss()
         }
@@ -52,7 +53,6 @@ struct ImagePicker: UIViewControllerRepresentable {
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             presentationMode.dismiss()
         }
-        
     }
     
     func makeCoordinator() -> Coordinator {

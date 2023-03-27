@@ -5,6 +5,7 @@
 //  Created by Никита Баранов on 06.10.2022.
 //
 
+import SwiftUI
 import CoreData
 
 @objc(SampleGeneralInfo)
@@ -16,6 +17,7 @@ public class SampleGeneralInfo: NSManagedObject, Identifiable {
     @NSManaged public var title: String
     @NSManaged public var ordinalNumber: Int16
 	@NSManaged public var value: String
-    
-    @NSManaged public var sample: Sample?
+	@NSManaged public var attachment: Data
+	
+	@NSManaged public var sample: Sample?
 }

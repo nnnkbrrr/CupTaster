@@ -66,6 +66,7 @@
         <relationship name="qualityCriteriaGroups" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QCGroup" inverseName="sample" inverseEntity="QCGroup"/>
     </entity>
     <entity name="SampleGeneralInfo" representedClassName="SampleGeneralInfo" syncable="YES">
+        <attribute name="attachment" optional="YES" attributeType="Binary"/>
         <attribute name="ordinalNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String" defaultValueString=""/>
         <attribute name="value" attributeType="String" defaultValueString=""/>

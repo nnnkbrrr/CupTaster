@@ -10,13 +10,7 @@ import SwiftUI
 extension CuppingView {
 	var samplesPreview: some View {
 		ScrollView {
-			Text(cuppingModel.cupping.name)
-				.font(.largeTitle)
-				.fontWeight(.heavy)
-				.frame(maxWidth: .infinity, alignment: .leading)
-				.padding([.top, .horizontal], 20)
-			
-			LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2)) {
+			LazyVGrid(columns: [GridItem(.adaptive(minimum: 150, maximum: 200))]) {
 				ForEach(samples) { sample in
 					Button {
 						cuppingModel.selectedSample = sample
@@ -37,9 +31,7 @@ extension CuppingView {
 					.zIndex(cuppingModel.selectedSample?.id == sample.id ? 1 : 0)
 				}
 			}
-			.padding([.bottom, .horizontal])
-			.padding(.bottom, 44) // toolbar
+			.padding(20)
 		}
-		.clipped()
 	}
 }
