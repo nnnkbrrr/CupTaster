@@ -80,6 +80,7 @@ extension AdditionalFieldsView {
     private struct SGIFieldView: View {
         @Environment(\.managedObjectContext) private var moc
 		@ObservedObject var sampleGeneralInfo: SampleGeneralInfo
+		@State var thumbnail: UIImage = UIImage(systemName: "doc")!
 		@State var selectedFile: URL? = nil
 		
 		var body: some View {
@@ -108,8 +109,13 @@ extension AdditionalFieldsView {
 							}
 							.quickLookPreview($selectedFile)
 					} else {
-						Rectangle()
+						Text(sampleGeneralInfo.title.components(separatedBy: ".").last!.uppercased())
+							.fontWeight(.black)
+							.foregroundColor(.accentColor)
+							.padding(7)
+							.minimumScaleFactor(0.01)
 							.frame(width: 40, height: 40)
+							.background(Color(uiColor: .systemGray4))
 							.cornerRadius(5)
 							.onTapGesture {
 								let docDirPath = NSSearchPathForDirectoriesInDomains(
@@ -130,8 +136,13 @@ extension AdditionalFieldsView {
 						.lineLimit(1)
 						.truncationMode(.middle)
 					
-					TextField(sampleGeneralInfo.title, text: $sampleGeneralInfo.value) { try? moc.save() }
-						.submitLabel(.done)
+					TextField(
+						sampleGeneralInfo.attachment == Data() ? sampleGeneralInfo.title : "Notes",
+						text: $sampleGeneralInfo.value
+					) {
+						try? moc.save()
+					}
+					.submitLabel(.done)
 				}
 			}
 		}

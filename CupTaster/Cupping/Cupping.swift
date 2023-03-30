@@ -32,22 +32,16 @@ struct CuppingView: View {
     }
     
 	#warning("safe area keyboard avoidance")
-    var body: some View {
-        ZStack {
-            if cuppingModel.sampleViewVisible { SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace) }
-			else if cuppingModel.samplesEditorActive { samplesEditor }
-			else { samplesPreview }
-			selectedHint
+	var body: some View {
+		VStack {
+			ZStack {
+				if cuppingModel.sampleViewVisible { SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace) }
+				else if cuppingModel.samplesEditorActive { samplesEditor }
+				else { samplesPreview }
+				selectedHint
+			}
 			
-			let systemBackground: Color = Color(uiColor: .systemGroupedBackground)
-			LinearGradient(
-				colors: [systemBackground.opacity(0.75), systemBackground.opacity(0.5), systemBackground.opacity(0)],
-				startPoint: .top,
-				endPoint: .bottom
-			)
-			.frame(height: 50)
-			.frame(maxHeight: .infinity, alignment: .top)
-			.ignoresSafeArea(edges: .top)
+			if sampleNameTextfieldFocus == nil { Divider() }
 		}
 		.safeAreaInset(edge: .top) {
 			VStack(spacing: 0) {
@@ -65,21 +59,18 @@ struct CuppingView: View {
 			.background(.ultraThinMaterial, ignoresSafeAreaEdges: .all)
 		}
 		.safeAreaInset(edge: .bottom) {
-			CuppingToolbarView(
-				presentationMode: _presentationMode,
-				cuppingModel: cuppingModel,
-				namespace: namespace,
-				sampleNameTextfieldFocus: _sampleNameTextfieldFocus
-			)
-			.animation(.default, value: sampleNameTextfieldFocus)
+			VStack(spacing: 0) {
+				CuppingToolbarView(
+					presentationMode: _presentationMode,
+					cuppingModel: cuppingModel,
+					namespace: namespace,
+					sampleNameTextfieldFocus: _sampleNameTextfieldFocus
+				)
+				.animation(.default, value: sampleNameTextfieldFocus)
+			}
 		}
-		.ignoresSafeArea(.keyboard, edges: sampleNameTextfieldFocus == nil ? [.all] : [])
 		.background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .top)
-		.background(
-			Color.keyboardBackground
-				.opacity(sampleNameTextfieldFocus == nil ? 0 : 1)
-				.ignoresSafeArea(edges: .bottom)
-		)
+		.background(Color.keyboardBackground.ignoresSafeArea([.keyboard]))
 		.halfSheet(
 			isPresented: $cuppingModel.settingsSheetIsPresented,
 			interactiveDismissDisabled: $cuppingModel.settingsSheetDismissDisabled
