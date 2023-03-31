@@ -14,7 +14,7 @@ struct RadioEvaluationValueView: View {
         if qualityCriteria.group.configuration.form!.title == "CoE" && qualityCriteria.group.configuration.ordinalNumber == 2 {
             COEDeffects_RadioEvaluationValueView(intensityQC: qualityCriteria, cupsCountQC: qualityCriteria.group.qualityCriteria.sorted().last!)
         } else {
-            Text("-").bold().frame(width: 55)
+            Text("-").bold().frame(width: EvaluationHeaderView.valueViewWidth)
         }
     }
 }
@@ -35,7 +35,7 @@ extension RadioEvaluationValueView {
                     if value == calculatedValue {
                         Text(formatValue(value: value))
                             .bold()
-                            .frame(width: 55)
+                            .frame(width: EvaluationHeaderView.valueViewWidth)
                             .transition(.opacity.combined(with: .scale))
                     }
                 }

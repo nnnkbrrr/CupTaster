@@ -14,7 +14,7 @@ struct CuppingToolbarView: View {
     let namespace: Namespace.ID
     
     @FocusState var sampleNameTextfieldFocus: ObjectIdentifier?
-    
+	
     @State private var confirmDeleteAction: Bool = false
     
     var body: some View {
@@ -164,16 +164,14 @@ struct CuppingToolbarView: View {
             )
         }
         .frame(height: toolbarHeight, alignment: .bottom)
-        .background(Color.keyboardBackground.opacity(sampleNameTextfieldFocus == nil ? 0.2 : 1), ignoresSafeAreaEdges: .all)
+		.background(Color.keyboardBackground.opacity(sampleNameTextfieldFocus == nil ? 0.2 : 1).ignoresSafeArea([.all]))
         .background(.ultraThinMaterial, ignoresSafeAreaEdges: .all)
 		.overlay(alignment: .top) { Divider() }
     }
     
     private var toolbarHeight: CGFloat {
         if cuppingModel.sampleViewVisible {
-            if sampleNameTextfieldFocus == nil {
-                return 100
-            }
+            if sampleNameTextfieldFocus == nil { return 100 }
             return 54
         }
         return 44

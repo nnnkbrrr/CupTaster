@@ -40,7 +40,9 @@ struct EvaluationView: View {
 								
 								let titleKey: LocalizedStringKey = .init(qualityCriteriaKey)
 								
-								Text(titleKey).frame(maxWidth: .infinity)
+								if groupTitle != criteriaTitle {
+									Text(titleKey).frame(maxWidth: .infinity)
+								}
 								
 								if let lowerBoundTitle: String = qualityCriteria.configuration?.lowerBoundTitle,
 								   let lowerBoundTitleKey: LocalizedStringKey = .init(

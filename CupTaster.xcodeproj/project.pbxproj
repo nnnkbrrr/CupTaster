@@ -30,6 +30,7 @@
 		631C108028B0528F00620637 /* CFManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C107F28B0528F00620637 /* CFManager.swift */; };
 		6324CE8B28E1E53F003E6088 /* Half Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6324CE8A28E1E53F003E6088 /* Half Sheet.swift */; };
 		6324CE8D28E20D95003E6088 /* Cupping Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6324CE8C28E20D95003E6088 /* Cupping Settings.swift */; };
+		6327398A29D6C0F00064D8DD /* Keyboard Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6327398929D6C0F00064D8DD /* Keyboard Publisher.swift */; };
 		6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */; };
 		6329E314291022E4003495AE /* C MuliplePicker Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6329E313291022E4003495AE /* C MuliplePicker Value.swift */; };
 		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
@@ -56,7 +57,6 @@
 		63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63842F08288301FC0014E2C5 /* Evaluation Types.swift */; };
 		638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */ = {isa = PBXBuildFile; fileRef = 638CBE9B28C23BBF00B05A03 /* SCA.json */; };
 		6399635A299E7B370099B4BB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63996359299E7B370099B4BB /* Colors.swift */; };
-		639FB1D929BCDD6D00503658 /* Pinch to Zoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639FB1D829BCDD6D00503658 /* Pinch to Zoom.swift */; };
 		639FD0A1287B534700FA19A0 /* Sample Selector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639FD0A0287B534700FA19A0 /* Sample Selector.swift */; };
 		63A40DF12917A7190019B33C /* S General Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A40DF02917A7190019B33C /* S General Info.swift */; };
 		63BCCE9328DF834700BD3FB9 /* Cupping Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */; };
@@ -118,6 +118,7 @@
 		631C107F28B0528F00620637 /* CFManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFManager.swift; sourceTree = "<group>"; };
 		6324CE8A28E1E53F003E6088 /* Half Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Half Sheet.swift"; sourceTree = "<group>"; };
 		6324CE8C28E20D95003E6088 /* Cupping Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Settings.swift"; sourceTree = "<group>"; };
+		6327398929D6C0F00064D8DD /* Keyboard Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keyboard Publisher.swift"; sourceTree = "<group>"; };
 		6327BEB728609432000CB3AB /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		6329E313291022E4003495AE /* C MuliplePicker Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "C MuliplePicker Value.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -148,7 +149,6 @@
 		63842F08288301FC0014E2C5 /* Evaluation Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Evaluation Types.swift"; sourceTree = "<group>"; };
 		638CBE9B28C23BBF00B05A03 /* SCA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SCA.json; sourceTree = "<group>"; };
 		63996359299E7B370099B4BB /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		639FB1D829BCDD6D00503658 /* Pinch to Zoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pinch to Zoom.swift"; sourceTree = "<group>"; };
 		639FD0A0287B534700FA19A0 /* Sample Selector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Selector.swift"; sourceTree = "<group>"; };
 		63A40DF02917A7190019B33C /* S General Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "S General Info.swift"; sourceTree = "<group>"; };
 		63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Model.swift"; sourceTree = "<group>"; };
@@ -339,7 +339,7 @@
 				221E580B2906BEF500D81CE8 /* NumToDigits.swift */,
 				63996359299E7B370099B4BB /* Colors.swift */,
 				633D416829AE97C1002B4CCB /* UIImage coding.swift */,
-				639FB1D829BCDD6D00503658 /* Pinch to Zoom.swift */,
+				6327398929D6C0F00064D8DD /* Keyboard Publisher.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -590,6 +590,7 @@
 				22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */,
 				22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */,
 				6324CE8B28E1E53F003E6088 /* Half Sheet.swift in Sources */,
+				6327398A29D6C0F00064D8DD /* Keyboard Publisher.swift in Sources */,
 				631C108028B0528F00620637 /* CFManager.swift in Sources */,
 				63D892DC28C9E75800F68505 /* CFModel.swift in Sources */,
 				63ED3A4428D0C8C100CCF032 /* Evaluation Group.swift in Sources */,
@@ -627,7 +628,6 @@
 				63D892E628C9EED600F68505 /* Hide Keyboard.swift in Sources */,
 				633C5037287090C6006B398E /* Cupping.swift in Sources */,
 				226CF02428F19FAF00F853B9 /* QCHint Entity.swift in Sources */,
-				639FB1D929BCDD6D00503658 /* Pinch to Zoom.swift in Sources */,
 				22242C7828EF267500138494 /* Sample Entity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

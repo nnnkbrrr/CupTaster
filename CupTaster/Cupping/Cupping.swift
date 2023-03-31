@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct CuppingView: View {
+struct CuppingView: View, KeyboardReadable {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     @Namespace var namespace
@@ -19,6 +19,7 @@ struct CuppingView: View {
     @FetchRequest var samples: FetchedResults<Sample>
     
     @FocusState var sampleNameTextfieldFocus: ObjectIdentifier?
+	@State var keyboardIsActive: Bool = false
 		
     @AppStorage("tester-show-cuppings-date-picker") var showCuppingsDatePicker: Bool = false
     
@@ -31,17 +32,13 @@ struct CuppingView: View {
         )
     }
     
-	#warning("safe area keyboard avoidance")
+#warning("safe area keyboard avoidance")
 	var body: some View {
-		VStack {
-			ZStack {
-				if cuppingModel.sampleViewVisible { SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace) }
-				else if cuppingModel.samplesEditorActive { samplesEditor }
-				else { samplesPreview }
-				selectedHint
-			}
-			
-			if sampleNameTextfieldFocus == nil { Divider() }
+		ZStack {
+			if cuppingModel.sampleViewVisible { SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace) }
+			else if cuppingModel.samplesEditorActive { samplesEditor }
+			else { samplesPreview }
+			selectedHint
 		}
 		.safeAreaInset(edge: .top) {
 			VStack(spacing: 0) {
@@ -57,20 +54,20 @@ struct CuppingView: View {
 				Divider()
 			}
 			.background(.ultraThinMaterial, ignoresSafeAreaEdges: .all)
+			.background(Color.keyboardBackground.opacity(0.2), ignoresSafeAreaEdges: .all)
 		}
-		.safeAreaInset(edge: .bottom) {
-			VStack(spacing: 0) {
+		.safeAreaInset(edge: .bottom, spacing: 0) {
+			if !keyboardIsActive || sampleNameTextfieldFocus != nil {
 				CuppingToolbarView(
 					presentationMode: _presentationMode,
 					cuppingModel: cuppingModel,
 					namespace: namespace,
 					sampleNameTextfieldFocus: _sampleNameTextfieldFocus
 				)
-				.animation(.default, value: sampleNameTextfieldFocus)
 			}
 		}
-		.background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .top)
-		.background(Color.keyboardBackground.ignoresSafeArea([.keyboard]))
+		.onReceive(keyboardPublisher) { keyboardIsActive = $0 }
+		.background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .all)
 		.halfSheet(
 			isPresented: $cuppingModel.settingsSheetIsPresented,
 			interactiveDismissDisabled: $cuppingModel.settingsSheetDismissDisabled

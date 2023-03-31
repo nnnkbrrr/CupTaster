@@ -28,18 +28,19 @@ struct EvaluationGroupView: View {
             
             if !qcGroup.isCompleted {
                 VStack(spacing: 15) {
-                    ForEach(qcGroup.qualityCriteria.sorted()) { qualityCriteria in
+					let sortedCriteria: [QualityCriteria] = qcGroup.qualityCriteria.sorted()
+                    ForEach(sortedCriteria) { qualityCriteria in
                         EvaluationView(cuppingModel: cuppingModel, qualityCriteria: qualityCriteria)
+						
+						if qualityCriteria != sortedCriteria.last {
+							Divider()
+						}
                     }
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(Color(uiColor: .secondarySystemGroupedBackground))
                 .cornerRadius(10)
-                .transition(
-                    .scale(scale: 0, anchor: .top)
-                    .combined(with: .opacity)
-                )
             }
             
             if !qcGroup.isCompleted || qcGroup.notes != "" {
@@ -52,10 +53,6 @@ struct EvaluationGroupView: View {
                     .cornerRadius(10)
                     .submitLabel(.done)
                     .onSubmit { try? moc.save() }
-                    .transition(
-                        .scale(scale: 0, anchor: .top)
-                        .combined(with: .opacity)
-                    )
                     .disabled(qcGroup.isCompleted)
             }
             

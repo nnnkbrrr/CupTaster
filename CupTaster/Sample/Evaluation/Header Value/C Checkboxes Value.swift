@@ -32,7 +32,7 @@ struct CupsCheckboxesEvaluationValueView: View {
                     if fractionValue == qcRepresentationValue {
                         Text(fractionValue)
                             .bold()
-                            .frame(width: 55)
+                            .frame(width: EvaluationHeaderView.valueViewWidth)
                             .transition(.opacity.combined(with: .scale))
                     }
                 }
@@ -58,7 +58,7 @@ extension CupsCheckboxesEvaluationValueView {
                     if value == calculatedValue {
                         Text(formatValue(value: value))
                             .bold()
-                            .frame(width: 55)
+                            .frame(width: EvaluationHeaderView.valueViewWidth)
                             .transition(.opacity.combined(with: .scale))
                     }
                 }
