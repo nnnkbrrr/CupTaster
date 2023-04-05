@@ -95,7 +95,7 @@ struct OnboardingView: View {
                         let newSGIField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
                         newSGIField.title = NSLocalizedString(selectedSGIField, comment: "")
 						newSGIField.ordinalNumber =
-						Int16(sgiFields.filter({ $0.sample == nil }).map({ $0.ordinalNumber }).max() ?? 0 + 1)
+						Int16((sgiFields.filter({ $0.sample == nil }).map({ $0.ordinalNumber }).max() ?? 0) + 1)
                         
                         try? moc.save()
                     }

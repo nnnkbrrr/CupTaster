@@ -12,12 +12,15 @@ import QuickLook
 extension SampleView {
 	var infoAppearance: some View {
 		List {
-			RadarChart(sample: sample)
-				.padding()
+			Section {
+				RadarChart(sample: sample)
+					.padding()
+					.frame(maxWidth: 500)
+					.frame(maxWidth: .infinity)
+			}
 			
 			AdditionalFieldsView(cuppingModel: cuppingModel, sample: sample)
 		}
-		.resignKeyboardOnDragGesture() { try? moc.save() }
 	}
 }
 
@@ -42,15 +45,13 @@ private struct AdditionalFieldsView: View {
 		}
 		
 		Section {
-			ForEach(addedSGIFields) { sgiField in
-				SGIFieldView(sampleGeneralInfo: sgiField)
-			}
-			.onDelete { offsets in
-				for index in offsets {
-					moc.delete(addedSGIFields[index])
-					try? moc.save()
+			ForEach(addedSGIFields) { SGIFieldView(sampleGeneralInfo: $0) }
+				.onDelete { offsets in
+					for index in offsets {
+						moc.delete(addedSGIFields[index])
+						try? moc.save()
+					}
 				}
-			}
 		}
 		
 		Section {
@@ -58,8 +59,7 @@ private struct AdditionalFieldsView: View {
 				Button {
 					let newSGIField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
 					newSGIField.title = sgiField.title
-					newSGIField.ordinalNumber =
-					Int16(sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0 + 1)
+					newSGIField.ordinalNumber = Int16((sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0) + 1)
 					newSGIField.sample = sample
 				} label: {
 					HStack {
@@ -82,6 +82,8 @@ extension AdditionalFieldsView {
 		@ObservedObject var sampleGeneralInfo: SampleGeneralInfo
 		@State var thumbnail: UIImage = UIImage(systemName: "doc")!
 		@State var selectedFile: URL? = nil
+		@State var selectedURL: URL? = nil
+		@State var browserIsActive: Bool = false
 		
 		var body: some View {
 			HStack(spacing: 10) {
@@ -108,6 +110,31 @@ extension AdditionalFieldsView {
 								selectedFile = URL(fileURLWithPath: filePath)
 							}
 							.quickLookPreview($selectedFile)
+					} else if sampleGeneralInfo.title == "URL" {
+						Image(systemName: "safari")
+							.resizable()
+							.aspectRatio(contentMode: .fit)
+							.frame(width: 30, height: 30)
+							.foregroundColor(.accentColor)
+							.frame(width: 40, height: 40)
+							.background(Color(uiColor: .systemGray4))
+							.cornerRadius(5)
+							.onTapGesture {
+								if let sampleURL: URL = URL(string: String(decoding: sampleGeneralInfo.attachment, as: UTF8.self)),
+								   var urlComponents: URLComponents = URLComponents(url: sampleURL, resolvingAgainstBaseURL: true) {
+									if urlComponents.scheme == nil { urlComponents.scheme = "http" }
+									if urlComponents.host == nil && urlComponents.path != "" {
+										urlComponents.host = urlComponents.path
+										urlComponents.path = "/"
+									}
+									
+									selectedURL = urlComponents.url
+									browserIsActive = true
+								}
+							}
+							.fullScreenCover(isPresented: $browserIsActive) {
+								SafariContent(url: $selectedURL, isActive: $browserIsActive)
+							}
 					} else {
 						Text(sampleGeneralInfo.title.components(separatedBy: ".").last!.uppercased())
 							.fontWeight(.black)
@@ -130,11 +157,14 @@ extension AdditionalFieldsView {
 				}
 				
 				VStack(alignment: .leading, spacing: 3) {
-					Text(sampleGeneralInfo.title)
-						.font(.caption)
-						.foregroundColor(.accentColor)
-						.lineLimit(1)
-						.truncationMode(.middle)
+					Text(
+						sampleGeneralInfo.title == "URL" ?
+						String(decoding: sampleGeneralInfo.attachment, as: UTF8.self) : sampleGeneralInfo.title
+					)
+					.font(.caption)
+					.foregroundColor(.accentColor)
+					.lineLimit(1)
+					.truncationMode(.middle)
 					
 					TextField(
 						sampleGeneralInfo.attachment == Data() ? sampleGeneralInfo.title : "Notes",
@@ -143,6 +173,22 @@ extension AdditionalFieldsView {
 						try? moc.save()
 					}
 					.submitLabel(.done)
+				}
+			}
+		}
+	}
+	
+	private struct SafariContent: View {
+		@Binding var url: URL?
+		@Binding var isActive: Bool
+		
+		var body: some View {
+			if let url {
+				SFSafariViewWrapper(url: url).ignoresSafeArea()
+			} else {
+				VStack {
+					Text("URL is invalid")
+					Button("Done") { isActive = false }
 				}
 			}
 		}

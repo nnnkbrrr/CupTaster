@@ -32,7 +32,6 @@ struct CuppingView: View, KeyboardReadable {
         )
     }
     
-#warning("safe area keyboard avoidance")
 	var body: some View {
 		ZStack {
 			if cuppingModel.sampleViewVisible { SampleSelectorView(cuppingModel: cuppingModel, namespace: namespace) }
