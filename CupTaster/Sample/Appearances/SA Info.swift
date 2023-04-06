@@ -87,9 +87,10 @@ extension AdditionalFieldsView {
 		
 		var body: some View {
 			HStack(spacing: 10) {
-				if let attachment: Data = sampleGeneralInfo.attachment, attachment != Data() {
+				let attachment: Data = sampleGeneralInfo.attachment
+				if attachment != Data() {
 					if attachment == Data("error".utf8) {
-						Image(systemName: "exclamationmark.triangle.fill")
+						Image(systemName: "exclamationmark.t riangle.fill")
 							.resizable()
 							.aspectRatio(contentMode: .fit)
 							.frame(width: 40, height: 40)
@@ -111,26 +112,26 @@ extension AdditionalFieldsView {
 							}
 							.quickLookPreview($selectedFile)
 					} else if sampleGeneralInfo.title == "URL" {
-						Image(systemName: "safari")
+						Image(systemName: "link")
 							.resizable()
 							.aspectRatio(contentMode: .fit)
-							.frame(width: 30, height: 30)
+							.frame(width: 20, height: 20)
 							.foregroundColor(.accentColor)
 							.frame(width: 40, height: 40)
 							.background(Color(uiColor: .systemGray4))
 							.cornerRadius(5)
 							.onTapGesture {
-								if let sampleURL: URL = URL(string: String(decoding: sampleGeneralInfo.attachment, as: UTF8.self)),
-								   var urlComponents: URLComponents = URLComponents(url: sampleURL, resolvingAgainstBaseURL: true) {
-									if urlComponents.scheme == nil { urlComponents.scheme = "http" }
-									if urlComponents.host == nil && urlComponents.path != "" {
-										urlComponents.host = urlComponents.path
-										urlComponents.path = "/"
+								let sampleURL: String = String(decoding: sampleGeneralInfo.attachment, as: UTF8.self)
+								if sampleURL.starts(with: "http") {
+									if let url: URL = URL(string: sampleURL) {
+										selectedURL = url
 									}
-									
-									selectedURL = urlComponents.url
-									browserIsActive = true
+								} else {
+									if let url: URL = URL(string: "http://" + sampleURL) {
+										selectedURL = url
+									}
 								}
+								browserIsActive = true
 							}
 							.fullScreenCover(isPresented: $browserIsActive) {
 								SafariContent(url: $selectedURL, isActive: $browserIsActive)
@@ -189,6 +190,7 @@ extension AdditionalFieldsView {
 				VStack {
 					Text("URL is invalid")
 					Button("Done") { isActive = false }
+						.buttonStyle(.bordered)
 				}
 			}
 		}

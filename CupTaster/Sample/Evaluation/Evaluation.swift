@@ -44,15 +44,15 @@ struct EvaluationView: View {
 									Text(titleKey).frame(maxWidth: .infinity)
 								}
 								
-								if let lowerBoundTitle: String = qualityCriteria.configuration?.lowerBoundTitle,
-								   let lowerBoundTitleKey: LocalizedStringKey = .init(
-									qualityCriteriaKey + "." + lowerBoundTitle
-								   ) { Text(lowerBoundTitleKey).frame(maxWidth: .infinity, alignment: .leading) }
+								if let lowerBoundTitle: String = qualityCriteria.configuration?.lowerBoundTitle {
+									let lowerBoundTitleKey: LocalizedStringKey = .init(qualityCriteriaKey + "." + lowerBoundTitle)
+									Text(lowerBoundTitleKey).frame(maxWidth: .infinity, alignment: .leading)
+								}
 								
-								if let upperBoundTitle: String = qualityCriteria.configuration?.upperBoundTitle,
-								   let upperBoundTitleKey: LocalizedStringKey = .init(
-									qualityCriteriaKey + "." + upperBoundTitle
-								   ) { Text(upperBoundTitleKey).frame(maxWidth: .infinity, alignment: .trailing) }
+								if let upperBoundTitle: String = qualityCriteria.configuration?.upperBoundTitle {
+									let upperBoundTitleKey: LocalizedStringKey = .init(qualityCriteriaKey + "." + upperBoundTitle)
+									Text(upperBoundTitleKey).frame(maxWidth: .infinity, alignment: .trailing)
+								}
 							}
 					}
 				}
