@@ -41,7 +41,7 @@ struct OnboardingView: View {
         ZStack(alignment: .bottom) {
             greetings
 				.padding(.bottom, 50)
-            
+			
             Group {
                 if currentPage == .forms {
                     OnboardingFormsView(currentPage: $currentPage, selectedCuppingForm: $selectedCuppingForm)
@@ -65,13 +65,7 @@ struct OnboardingView: View {
 			Image(uiImage: backgroundImage)
 				.resizable()
 				.aspectRatio(contentMode: .fill)
-                .overlay {
-                    LinearGradient(
-						colors: [.black.opacity(0.8), .black.opacity(0.5)],
-                        startPoint: .top,
-                        endPoint: .center
-                    )
-                }
+				.overlay(Color.black.opacity(0.5))
                 .ignoresSafeArea()
         )
     }
@@ -133,7 +127,7 @@ struct OnboardingView: View {
     }
     
     var greetings: some View {
-		VStack(spacing: 25) {
+		VStack(spacing: 15) {
             Group {
                 Text("CupTaster")
                     .foregroundColor(.accentColor)
@@ -149,7 +143,7 @@ struct OnboardingView: View {
                             maxWidth: .infinity,
                             alignment: headlineGradientAnimation ? .trailing : .leading
                         )
-                        .mask( Text("CupTaster") )
+                        .mask(Text("CupTaster"))
                     )
                     .onAppear {
                         withAnimation(.easeInOut(duration: 4.0).repeatForever(autoreverses: false)) {
@@ -163,6 +157,7 @@ struct OnboardingView: View {
 				Text("Taste, analyze, take notes")
 					.font(.callout)
 					.bold()
+					.foregroundColor(.white)
 			}
         }
 		.scaleEffect(currentPage == .greetings ? 1 : 0.5)
