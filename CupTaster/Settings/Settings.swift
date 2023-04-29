@@ -12,59 +12,69 @@ struct SettingsView: View {
     @AppStorage("sample-name-generator-method")
     var sampleNameGenerationMethod: SampleNameGenerator.GenerationMethod = .alphabetical
     
-    @State var sgiSheetIsActive: Bool = false
-    @State var sliderSpacingSheetIsActive: Bool = false
-    
     var body: some View {
         NavigationView {
+			let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
+			let systemVersion: String = UIDevice.current.systemVersion
+			let languageCode: String = Locale.current.languageCode ?? "-"
+			
             Form {
-                Settings_CFSelectorFormSectionsView()
-                
-                Section("Sample name generation method") {
-                    Button {
-                        sampleNameGenerationMethod = .alphabetical
-                    } label: {
-                        Label(
-                            "alphabetical",
-                            systemImage: sampleNameGenerationMethod == .alphabetical ?
-                            "checkmark" : ""
-                        )
-                    }
+                Section(" ") {
+                    NavigationLink {
+                        Form {
+                            Settings_CFSelectorFormSectionsView()
+                        }.navigationTitle("Cupping Form")
+                    } label: { Label("Cupping Form", systemImage: "doc.on.clipboard") }
                     
-                    Button {
-                        sampleNameGenerationMethod = .numerical
-                    } label: {
-                        Label(
-                            "numerical",
-                            systemImage: sampleNameGenerationMethod == .numerical ?
-                            "checkmark" : ""
-                        )
-                    }
+                    NavigationLink {
+                        Form {
+                            Section("By default") {
+                                Button {
+                                    sampleNameGenerationMethod = .alphabetical
+                                } label: {
+                                    Label {
+                                        Text("Letters")
+                                    } icon: {
+                                        Image(systemName: "checkmark")
+                                            .opacity(sampleNameGenerationMethod == .alphabetical ? 1 : 0)
+                                    }
+                                }
+                                
+                                Button {
+                                    sampleNameGenerationMethod = .numerical
+                                } label: {
+                                    Label {
+                                        Text("Numbers")
+                                    } icon: {
+                                        Image(systemName: "checkmark")
+                                            .opacity(sampleNameGenerationMethod == .numerical ? 1 : 0)
+                                    }
+                                }
+                            }
+                        }.navigationTitle("Samples name")
+                    } label: { Label(
+                        "Samples name",
+                        systemImage: sampleNameGenerationMethod == .numerical ?
+                        "textformat.123" : "abc"
+                    )}
+                    
+                    NavigationLink {
+                        Settings_GeneralInfoView()
+                            .navigationTitle("Additional fields")
+                    } label: { Label("Additional fields", systemImage: "info.circle") }
+                    
+                    NavigationLink {
+                        Settings_Slider()
+                            .navigationTitle("Customization")
+                    } label: { Label("Customization", systemImage: "circle.lefthalf.filled") }
                 }
                 
                 Section {
                     Button {
-                        sgiSheetIsActive = true
-                    } label: {
-                        Label("General Information Templates", systemImage: "info")
-                    }
-                    .sheet(isPresented: $sgiSheetIsActive) {
-                        Settings_GeneralInfoView(sheetActive: $sgiSheetIsActive)
-                    }
-                }
-                
-                Section("Evaluation customization") {
-                    Button("Slider") {
-                        sliderSpacingSheetIsActive = true
-                    }
-                    .halfSheet(isPresented: $sliderSpacingSheetIsActive) {
-                        Settings_Slider(isActive: $sliderSpacingSheetIsActive)
-                    }
-                }
-                
-                Section {
-                    Button {
-                        EmailHelper.shared.send(to: "support-cuptaster@nnnkbrrr.space")
+						EmailHelper.shared.send(
+							body: "\n\n\nApp version: \(appVersion)\nSystem version: \(systemVersion)\nLanguage code: \(languageCode)",
+							to: "support-cuptaster@nnnkbrrr.space"
+						)
                     } label: {
                         Label("Contact", systemImage: "envelope")
                     }
@@ -79,8 +89,16 @@ struct SettingsView: View {
                     }
                 }
                 
+                if testerTabVisible {
+                    Section {
+                        NavigationLink {
+                            TesterView()
+                                .navigationTitle("Tester")
+                        } label: { Label("Tester", systemImage: "wrench.and.screwdriver") }
+                    }
+                }
+                
                 Section {
-                    let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
                     HStack {
                         Text("Version")
                         Spacer()

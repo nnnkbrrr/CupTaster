@@ -26,16 +26,17 @@ struct Settings_CFSelectorFormSectionsView: View {
         if cuppingForms.count > 0 {
             Section("Default cupping form") {
                 ForEach(cuppingForms) { cuppingForm in
+                    let isDeprecated: Bool = cuppingForm.isDeprecated
                     Button {
                         cfManager.setDefaultCuppingForm(cuppingForm: cuppingForm)
                     } label: {
-                        let isDeprecated: Bool = cuppingForm.isDeprecated
-                        Label(
-                            isDeprecated ? "\(cuppingForm.shortDescription) (deprecated)" : cuppingForm.title,
-                            systemImage: cuppingForm.isDefault ? "checkmark" : ""
-                        )
-                        .foregroundColor(isDeprecated ? .red : .accentColor)
+                        Label {
+                            Text(isDeprecated ? "\(cuppingForm.shortDescription) (deprecated)" : cuppingForm.title)
+                        } icon: {
+                            Image(systemName: "checkmark").opacity(cuppingForm.isDefault ? 1 : 0)
+                        }
                     }
+                    .foregroundColor(isDeprecated ? .red : .accentColor)
                 }
                 .onDelete { offsets in
                     let cuppingForm: CuppingForm = cuppingForms[offsets.first!]

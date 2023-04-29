@@ -24,7 +24,7 @@ struct AllCuppingsView: View {
     var body: some View {
         if CFManager.shared.getDefaultCuppingForm(from: cuppingForms) == nil {
             VStack(spacing: 30) {
-                Text("No cupping forms are available")
+                Text("Cupping forms are missing")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                 
@@ -46,7 +46,7 @@ struct AllCuppingsView: View {
                                         .contentShape(Rectangle())
                                 }
                                 
-                                TextField("New cupping name", text: $newCuppingName) { addNewCupping() }
+                                TextField("Cupping name", text: $newCuppingName) { addNewCupping() }
                                     .submitLabel(.done)
                                     .focused($newCuppingNameFocused, equals: true)
                                 
@@ -66,7 +66,7 @@ struct AllCuppingsView: View {
                                 Label("New cupping", systemImage: "plus")
                             }
                         }
-
+                        
                         ForEach(cuppings) { cupping in
                             Button {
                                 activeCuppingModel = CuppingModel(cupping: cupping)
@@ -80,7 +80,7 @@ struct AllCuppingsView: View {
                                             Text("\(cupping.form?.title ?? "-")")
                                             Divider()
                                                 .frame(height: 15)
-                                            Text("\(cupping.samples.count) samples x \(cupping.cupsCount) cups")
+                                            Text("samples: \(cupping.samples.count), cups: \(cupping.cupsCount)")
                                             let favoritesCount: Int = cupping.samples.filter{ $0.isFavorite }.count
                                             if favoritesCount > 0 {
                                                 Divider()
@@ -91,8 +91,9 @@ struct AllCuppingsView: View {
                                         }
                                         
                                         Spacer()
-                                        
-                                        Text(cupping.date, style: .date)
+                                    
+                                        let shortCuppingDate: String = shortDateFormatter.string(from: cupping.date)
+                                        Text(shortCuppingDate)
                                     }
                                     .foregroundColor(.gray)
                                     .font(.caption)
@@ -106,15 +107,21 @@ struct AllCuppingsView: View {
                             }
                         }
                     } header: {
-                        Text("\(cuppings.count) cuppings, \(samples.count) samples")
+                        Text("Cuppings: \(cuppings.count), samples: \(samples.count)")
                     }
                 }
                 .toolbar { StopwatchToolbarItem() }
-                .navigationTitle("All Сuppings")
+                .navigationTitle("All Cuppings")
             }
             .navigationViewStyle(.stack)
             .fullScreenCover(item: $activeCuppingModel) { CuppingView(cuppingModel: $0) }
         }
+    }
+    
+    var shortDateFormatter: DateFormatter {
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM"
+        return dateFormatter
     }
     
     func addNewCupping() {

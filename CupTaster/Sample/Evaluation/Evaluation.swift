@@ -18,28 +18,47 @@ struct EvaluationView: View {
     var body: some View {
         VStack {
             HStack {
-                Group {
-                    switch qualityCriteria.configuration!.evaluationType.unwrappedEvaluationType {
-                    case .multiplePicker:
-                        ForEach(qualityCriteria.configuration!.title.components(separatedBy: " | "), id: \.self) { subTitle in
-                            Text(subTitle).frame(maxWidth: .infinity)
-                        }
-                    case .cups_multiplePicker:
-                        ForEach(1...cuppingModel.cupping.cupsCount, id: \.self) { cupIndex in
-                            Text("Cup \(cupIndex)")
-                                .frame(maxWidth: .infinity)
-                        }
-                    default:
-                        Text(qualityCriteria.configuration?.lowerBoundTitle ?? "")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(qualityCriteria.title)
-                        Text(qualityCriteria.configuration?.upperBoundTitle ?? "")
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                    }
-                }
-                .font(.caption2)
-                .foregroundColor(.gray)
-            }
+				Group {
+					switch qualityCriteria.configuration!.evaluationType.unwrappedEvaluationType {
+						case .multiplePicker:
+							let groupTitle: String = qualityCriteria.group.configuration.title
+							ForEach(qualityCriteria.configuration!.title.components(separatedBy: " | "), id: \.self) { subTitle in
+								let qualityCriteriaKey: LocalizedStringKey = .init(groupTitle + "." + subTitle)
+								Text(qualityCriteriaKey).frame(maxWidth: .infinity)
+							}
+						case .cups_multiplePicker:
+							ForEach(1...cuppingModel.cupping.cupsCount, id: \.self) { cupIndex in
+								Text("Cup \(cupIndex)")
+									.frame(maxWidth: .infinity)
+							}
+						default:
+							ZStack {
+								let groupTitle: String = qualityCriteria.group.configuration.title
+								let criteriaTitle: String = qualityCriteria.title
+								let qualityCriteriaKey: String =
+								(groupTitle != criteriaTitle ? groupTitle + "." : "") + criteriaTitle
+								
+								let titleKey: LocalizedStringKey = .init(qualityCriteriaKey)
+								
+								if groupTitle != criteriaTitle {
+									Text(titleKey).frame(maxWidth: .infinity)
+								}
+								
+								if let lowerBoundTitle: String = qualityCriteria.configuration?.lowerBoundTitle {
+									let lowerBoundTitleKey: LocalizedStringKey = .init(qualityCriteriaKey + "." + lowerBoundTitle)
+									Text(lowerBoundTitleKey).frame(maxWidth: .infinity, alignment: .leading)
+								}
+								
+								if let upperBoundTitle: String = qualityCriteria.configuration?.upperBoundTitle {
+									let upperBoundTitleKey: LocalizedStringKey = .init(qualityCriteriaKey + "." + upperBoundTitle)
+									Text(upperBoundTitleKey).frame(maxWidth: .infinity, alignment: .trailing)
+								}
+							}
+					}
+				}
+				.font(.caption2)
+				.foregroundColor(.gray)
+			}
             .padding(.horizontal, 5)
             
             if let qcConfig: QCConfig = qualityCriteria.configuration {

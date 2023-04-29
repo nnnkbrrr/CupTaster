@@ -124,31 +124,20 @@ struct RadarChartLabels: View {
                 
                 Group {
                     if useShortLabels {
-                        Text(shortLabel(qc.title))
-                            .font(.caption2)
-                            .bold()
+						let labelKey: LocalizedStringKey = .init("\(qc.title).short")
+                        Text(labelKey)
+							.font(.caption2)
+							.fontWeight(.semibold)
                     } else {
-                        Text(qc.title)
+						let labelKey: LocalizedStringKey = .init("\(qc.title)")
+                        Text(labelKey)
                             .font(.caption)
+							.lineLimit(2)
                     }
                 }
-                .frame(maxWidth: 70)
                 .foregroundColor(.primary)
                 .position(x: pointX, y: pointY)
             }
-        }
-    }
-    
-    func shortLabel(_ fullTitle: String) -> String {
-        return String([fullTitle.first!, fullTitle.first(where: { !$0.isVowel && $0.isLowercase })!])
-    }
-}
-
-extension Character {
-    var isVowel: Bool {
-        switch self {
-            case "a", "i", "u", "e", "o" : return true
-            default: return false
         }
     }
 }

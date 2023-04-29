@@ -30,20 +30,32 @@
 		631C108028B0528F00620637 /* CFManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C107F28B0528F00620637 /* CFManager.swift */; };
 		6324CE8B28E1E53F003E6088 /* Half Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6324CE8A28E1E53F003E6088 /* Half Sheet.swift */; };
 		6324CE8D28E20D95003E6088 /* Cupping Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6324CE8C28E20D95003E6088 /* Cupping Settings.swift */; };
+		6327398A29D6C0F00064D8DD /* Keyboard Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6327398929D6C0F00064D8DD /* Keyboard Publisher.swift */; };
 		6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */; };
 		6329E314291022E4003495AE /* C MuliplePicker Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6329E313291022E4003495AE /* C MuliplePicker Value.swift */; };
+		632F5D2529D83EAE00D7FFB7 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 632F5D2429D83EAE00D7FFB7 /* CodeScanner */; };
+		632F5D2729D85FA000D7FFB7 /* Safari View Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632F5D2629D85FA000D7FFB7 /* Safari View Wrapper.swift */; };
 		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
 		633C5037287090C6006B398E /* Cupping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C5036287090C6006B398E /* Cupping.swift */; };
+		633D416929AE97C1002B4CCB /* UIImage coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D416829AE97C1002B4CCB /* UIImage coding.swift */; };
 		633FBD5F28A2597100A93781 /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FBD5E28A2597100A93781 /* Stopwatch.swift */; };
 		634E5EFD287BF042004A9A76 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634E5EFC287BF042004A9A76 /* Settings.swift */; };
+		635456B929C8F046000EE89C /* Sample Info Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635456B829C8F046000EE89C /* Sample Info Toolbar.swift */; };
 		635AFC4328A913A1007B78C0 /* Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AFC4228A913A1007B78C0 /* Name Generator.swift */; };
 		6360D51A28CF3FD700D51D0D /* Cupping Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D51928CF3FD700D51D0D /* Cupping Tab.swift */; };
+		636289F429AE55B900728CAC /* Ob Cupping Forms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636289F329AE55B900728CAC /* Ob Cupping Forms.swift */; };
+		636289F629AE55CB00728CAC /* Ob General Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636289F529AE55CB00728CAC /* Ob General Info.swift */; };
+		63684CD929AA78C8009C1BDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 63684CDB29AA78C8009C1BDA /* Localizable.strings */; };
 		636857FF28593EDB0076E780 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636857FE28593EDB0076E780 /* Slider.swift */; };
 		636BC08E290ADFBD00914389 /* Radio Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BC08D290ADFBD00914389 /* Radio Value.swift */; };
 		637348D2288D7FD700689C96 /* Slider Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637348D1288D7FD700689C96 /* Slider Value.swift */; };
 		63742D18287EA998001E8DAB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D17287EA998001E8DAB /* Persistence.swift */; };
 		63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
 		6381530528C8DE00008816C9 /* CuppingFormsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381530428C8DE00008816C9 /* CuppingFormsTests.swift */; };
+		6381BAFF29AF8C3D00509AED /* SA Critera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381BAFE29AF8C3D00509AED /* SA Critera.swift */; };
+		6381BB0129AF8C4E00509AED /* SA Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381BB0029AF8C4E00509AED /* SA Info.swift */; };
+		6381BB0329AF8C5900509AED /* SA Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381BB0229AF8C5900509AED /* SA Preview.swift */; };
+		6381BB0529AF8CD700509AED /* SA Form Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381BB0429AF8CD700509AED /* SA Form Row.swift */; };
 		63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63842F08288301FC0014E2C5 /* Evaluation Types.swift */; };
 		638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */ = {isa = PBXBuildFile; fileRef = 638CBE9B28C23BBF00B05A03 /* SCA.json */; };
 		6399635A299E7B370099B4BB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63996359299E7B370099B4BB /* Colors.swift */; };
@@ -58,7 +70,6 @@
 		63D892E628C9EED600F68505 /* Hide Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892E528C9EED600F68505 /* Hide Keyboard.swift */; };
 		63D892E828C9EF5C00F68505 /* AppStorage extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892E728C9EF5C00F68505 /* AppStorage extensions.swift */; };
 		63D892ED28CA068500F68505 /* ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892EC28CA068500F68505 /* ViewModifier.swift */; };
-		63D892EF28CA06B800F68505 /* Onboarding Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D892EE28CA06B800F68505 /* Onboarding Features.swift */; };
 		63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A552801BE7800010318 /* CupTasterApp.swift */; };
 		63DC7A582801BE7800010318 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A572801BE7800010318 /* ContentView.swift */; };
 		63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A592801BE7A00010318 /* Assets.xcassets */; };
@@ -70,6 +81,9 @@
 		63E6B7CB2886FFAA001A312F /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E6B7CA2886FFAA001A312F /* Radio.swift */; };
 		63E6B7CD2886FFBD001A312F /* C Checkboxes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E6B7CC2886FFBD001A312F /* C Checkboxes.swift */; };
 		63ED3A4428D0C8C100CCF032 /* Evaluation Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ED3A4328D0C8C100CCF032 /* Evaluation Group.swift */; };
+		63FE4B1829C8A37D00B17B90 /* Cupping Samples Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FE4B1729C8A37D00B17B90 /* Cupping Samples Editor.swift */; };
+		63FE4B1A29C8A40400B17B90 /* Cupping Samples Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FE4B1929C8A40400B17B90 /* Cupping Samples Preview.swift */; };
+		63FE4B1C29C8A47200B17B90 /* Cupping Selected Hint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FE4B1B29C8A47200B17B90 /* Cupping Selected Hint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,14 +120,22 @@
 		631C107F28B0528F00620637 /* CFManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFManager.swift; sourceTree = "<group>"; };
 		6324CE8A28E1E53F003E6088 /* Half Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Half Sheet.swift"; sourceTree = "<group>"; };
 		6324CE8C28E20D95003E6088 /* Cupping Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Settings.swift"; sourceTree = "<group>"; };
+		6327398929D6C0F00064D8DD /* Keyboard Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keyboard Publisher.swift"; sourceTree = "<group>"; };
 		6327BEB728609432000CB3AB /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		6329E313291022E4003495AE /* C MuliplePicker Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "C MuliplePicker Value.swift"; sourceTree = "<group>"; };
+		632F5D2629D85FA000D7FFB7 /* Safari View Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Safari View Wrapper.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		633C5036287090C6006B398E /* Cupping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cupping.swift; sourceTree = "<group>"; };
+		633D416829AE97C1002B4CCB /* UIImage coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage coding.swift"; sourceTree = "<group>"; };
 		633FBD5E28A2597100A93781 /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
 		634E5EFC287BF042004A9A76 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		635456B829C8F046000EE89C /* Sample Info Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Info Toolbar.swift"; sourceTree = "<group>"; };
 		635AFC4228A913A1007B78C0 /* Name Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Name Generator.swift"; sourceTree = "<group>"; };
 		6360D51928CF3FD700D51D0D /* Cupping Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Tab.swift"; sourceTree = "<group>"; };
+		636289F329AE55B900728CAC /* Ob Cupping Forms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ob Cupping Forms.swift"; sourceTree = "<group>"; };
+		636289F529AE55CB00728CAC /* Ob General Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ob General Info.swift"; sourceTree = "<group>"; };
+		63684CDA29AA78C8009C1BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		63684CDD29AA7986009C1BDA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		636857FE28593EDB0076E780 /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		636BC08D290ADFBD00914389 /* Radio Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radio Value.swift"; sourceTree = "<group>"; };
 		6371088A288032F60073348C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,6 +145,10 @@
 		63742D6528801D02001E8DAB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		6381530228C8DE00008816C9 /* CupTasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CupTasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6381530428C8DE00008816C9 /* CuppingFormsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuppingFormsTests.swift; sourceTree = "<group>"; };
+		6381BAFE29AF8C3D00509AED /* SA Critera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SA Critera.swift"; sourceTree = "<group>"; };
+		6381BB0029AF8C4E00509AED /* SA Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SA Info.swift"; sourceTree = "<group>"; };
+		6381BB0229AF8C5900509AED /* SA Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SA Preview.swift"; sourceTree = "<group>"; };
+		6381BB0429AF8CD700509AED /* SA Form Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SA Form Row.swift"; sourceTree = "<group>"; };
 		63842F08288301FC0014E2C5 /* Evaluation Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Evaluation Types.swift"; sourceTree = "<group>"; };
 		638CBE9B28C23BBF00B05A03 /* SCA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SCA.json; sourceTree = "<group>"; };
 		63996359299E7B370099B4BB /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -137,7 +163,6 @@
 		63D892E528C9EED600F68505 /* Hide Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hide Keyboard.swift"; sourceTree = "<group>"; };
 		63D892E728C9EF5C00F68505 /* AppStorage extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage extensions.swift"; sourceTree = "<group>"; };
 		63D892EC28CA068500F68505 /* ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifier.swift; sourceTree = "<group>"; };
-		63D892EE28CA06B800F68505 /* Onboarding Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Features.swift"; sourceTree = "<group>"; };
 		63DC7A522801BE7800010318 /* CupTaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CupTaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DC7A552801BE7800010318 /* CupTasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupTasterApp.swift; sourceTree = "<group>"; };
 		63DC7A572801BE7800010318 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; wrapsLines = 1; };
@@ -150,6 +175,9 @@
 		63E6B7CA2886FFAA001A312F /* Radio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
 		63E6B7CC2886FFBD001A312F /* C Checkboxes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "C Checkboxes.swift"; sourceTree = "<group>"; };
 		63ED3A4328D0C8C100CCF032 /* Evaluation Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Evaluation Group.swift"; sourceTree = "<group>"; };
+		63FE4B1729C8A37D00B17B90 /* Cupping Samples Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Samples Editor.swift"; sourceTree = "<group>"; };
+		63FE4B1929C8A40400B17B90 /* Cupping Samples Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Samples Preview.swift"; sourceTree = "<group>"; };
+		63FE4B1B29C8A47200B17B90 /* Cupping Selected Hint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Selected Hint.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				632F5D2529D83EAE00D7FFB7 /* CodeScanner in Frameworks */,
 				63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,7 +231,7 @@
 				633C5036287090C6006B398E /* Cupping.swift */,
 				63BCCE9228DF834700BD3FB9 /* Cupping Model.swift */,
 				6324CE8C28E20D95003E6088 /* Cupping Settings.swift */,
-				63BCCE9428DF896900BD3FB9 /* Cupping Toolbar.swift */,
+				63FE4B1D29C8A5CE00B17B90 /* Appearances */,
 			);
 			path = Cupping;
 			sourceTree = "<group>";
@@ -257,15 +286,36 @@
 			path = CupTasterTests;
 			sourceTree = "<group>";
 		};
+		6381BAFD29AF8B7D00509AED /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				63BCCE9428DF896900BD3FB9 /* Cupping Toolbar.swift */,
+				639FD0A0287B534700FA19A0 /* Sample Selector.swift */,
+				63083BFF28B7A79C00874926 /* Sample Selector Tools.swift */,
+			);
+			path = Toolbar;
+			sourceTree = "<group>";
+		};
+		6381BB0629AF8D1200509AED /* Appearances */ = {
+			isa = PBXGroup;
+			children = (
+				6381BAFE29AF8C3D00509AED /* SA Critera.swift */,
+				6381BB0029AF8C4E00509AED /* SA Info.swift */,
+				6381BB0229AF8C5900509AED /* SA Preview.swift */,
+				6381BB0429AF8CD700509AED /* SA Form Row.swift */,
+			);
+			path = Appearances;
+			sourceTree = "<group>";
+		};
 		63BDE1E128B128DB000D99A5 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
 				630DE7B52869C99500D026A4 /* Sample.swift */,
-				639FD0A0287B534700FA19A0 /* Sample Selector.swift */,
-				63083BFF28B7A79C00874926 /* Sample Selector Tools.swift */,
 				2247D98D28F1928000DD6678 /* Sample Hints Menu.swift */,
 				635AFC4228A913A1007B78C0 /* Name Generator.swift */,
 				63CE1B7C28DD9C4D0035171A /* Radar Chart.swift */,
+				635456B829C8F046000EE89C /* Sample Info Toolbar.swift */,
+				6381BB0629AF8D1200509AED /* Appearances */,
 				63E6B7C32886E4DE001A312F /* Evaluation */,
 			);
 			path = Sample;
@@ -292,6 +342,9 @@
 				22242C7228EF106D00138494 /* EmailHelper.swift */,
 				221E580B2906BEF500D81CE8 /* NumToDigits.swift */,
 				63996359299E7B370099B4BB /* Colors.swift */,
+				633D416829AE97C1002B4CCB /* UIImage coding.swift */,
+				6327398929D6C0F00064D8DD /* Keyboard Publisher.swift */,
+				632F5D2629D85FA000D7FFB7 /* Safari View Wrapper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -301,7 +354,8 @@
 			children = (
 				63D892EC28CA068500F68505 /* ViewModifier.swift */,
 				63E0131C289431B300AC4645 /* Onboarding.swift */,
-				63D892EE28CA06B800F68505 /* Onboarding Features.swift */,
+				636289F329AE55B900728CAC /* Ob Cupping Forms.swift */,
+				636289F529AE55CB00728CAC /* Ob General Info.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -330,10 +384,11 @@
 			children = (
 				63DC7A572801BE7800010318 /* ContentView.swift */,
 				22B1905928F3129400D79ABE /* Tester.swift */,
-				63D892EB28CA066200F68505 /* Onboarding */,
 				635AFC4128A9138E007B78C0 /* Cupping */,
 				63BDE1E128B128DB000D99A5 /* Sample */,
+				6381BAFD29AF8B7D00509AED /* Toolbar */,
 				63D892DD28C9EC0E00F68505 /* Settings */,
+				63D892EB28CA066200F68505 /* Onboarding */,
 				6371088F28803E520073348C /* Cupping Forms */,
 				63D892E028C9EE4200F68505 /* Helpers */,
 				63742D16287EA8AB001E8DAB /* CoreData */,
@@ -375,6 +430,16 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		63FE4B1D29C8A5CE00B17B90 /* Appearances */ = {
+			isa = PBXGroup;
+			children = (
+				63FE4B1B29C8A47200B17B90 /* Cupping Selected Hint.swift */,
+				63FE4B1929C8A40400B17B90 /* Cupping Samples Preview.swift */,
+				63FE4B1729C8A37D00B17B90 /* Cupping Samples Editor.swift */,
+			);
+			path = Appearances;
+			sourceTree = "<group>";
+		};
 		63FE777028A4EF0E005CAB53 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,6 +448,7 @@
 				633B68C828916F77005D32C0 /* Launch Screen.storyboard */,
 				63DC7A592801BE7A00010318 /* Assets.xcassets */,
 				6371088A288032F60073348C /* Info.plist */,
+				63684CDB29AA78C8009C1BDA /* Localizable.strings */,
 				63DC7A5B2801BE7A00010318 /* Preview Content */,
 			);
 			path = Resources;
@@ -422,6 +488,9 @@
 			dependencies = (
 			);
 			name = CupTaster;
+			packageProductDependencies = (
+				632F5D2429D83EAE00D7FFB7 /* CodeScanner */,
+			);
 			productName = CupTaster;
 			productReference = 63DC7A522801BE7800010318 /* CupTaster.app */;
 			productType = "com.apple.product-type.application";
@@ -434,7 +503,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					6381530128C8DE00008816C9 = {
 						CreatedOnToolsVersion = 14.0;
@@ -452,8 +521,12 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 63DC7A492801BE7800010318;
+			packageReferences = (
+				632F5D2329D83EAE00D7FFB7 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+			);
 			productRefGroup = 63DC7A532801BE7800010318 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -479,6 +552,7 @@
 				633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */,
 				63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */,
 				638CBE9C28C23BBF00B05A03 /* SCA.json in Resources */,
+				63684CD929AA78C8009C1BDA /* Localizable.strings in Resources */,
 				22784E0929040A0F00FC56F9 /* CoE.json in Resources */,
 				63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */,
 				228F857628FD90C000214198 /* SCI.json in Resources */,
@@ -505,16 +579,19 @@
 				63E6B7C62886FEAC001A312F /* Evaluation Header.swift in Sources */,
 				22242C7328EF106D00138494 /* EmailHelper.swift in Sources */,
 				63E6B7CD2886FFBD001A312F /* C Checkboxes.swift in Sources */,
+				63FE4B1A29C8A40400B17B90 /* Cupping Samples Preview.swift in Sources */,
 				63083C0028B7A79C00874926 /* Sample Selector Tools.swift in Sources */,
 				22B1905A28F3129500D79ABE /* Tester.swift in Sources */,
 				63BCCE9328DF834700BD3FB9 /* Cupping Model.swift in Sources */,
+				632F5D2729D85FA000D7FFB7 /* Safari View Wrapper.swift in Sources */,
 				63BCCE9528DF896900BD3FB9 /* Cupping Toolbar.swift in Sources */,
 				6309C775290B2931005D659A /* C MultiplePicker.swift in Sources */,
+				633D416929AE97C1002B4CCB /* UIImage coding.swift in Sources */,
 				22242C7628EF263B00138494 /* Cupping Entity.swift in Sources */,
 				6360D51A28CF3FD700D51D0D /* Cupping Tab.swift in Sources */,
 				63DC7A582801BE7800010318 /* ContentView.swift in Sources */,
-				63D892EF28CA06B800F68505 /* Onboarding Features.swift in Sources */,
 				63D892ED28CA068500F68505 /* ViewModifier.swift in Sources */,
+				6381BB0129AF8C4E00509AED /* SA Info.swift in Sources */,
 				63D892E828C9EF5C00F68505 /* AppStorage extensions.swift in Sources */,
 				63D892DF28C9EC3400F68505 /* S Cupping Forms.swift in Sources */,
 				6329E314291022E4003495AE /* C MuliplePicker Value.swift in Sources */,
@@ -525,32 +602,41 @@
 				22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */,
 				22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */,
 				6324CE8B28E1E53F003E6088 /* Half Sheet.swift in Sources */,
+				6327398A29D6C0F00064D8DD /* Keyboard Publisher.swift in Sources */,
 				631C108028B0528F00620637 /* CFManager.swift in Sources */,
 				63D892DC28C9E75800F68505 /* CFModel.swift in Sources */,
 				63ED3A4428D0C8C100CCF032 /* Evaluation Group.swift in Sources */,
 				221E580C2906BEF500D81CE8 /* NumToDigits.swift in Sources */,
 				63CA045829A58D3F008EEE1F /* S Slider.swift in Sources */,
 				63842F09288301FC0014E2C5 /* Evaluation Types.swift in Sources */,
+				6381BB0529AF8CD700509AED /* SA Form Row.swift in Sources */,
 				630DE7B62869C99500D026A4 /* Sample.swift in Sources */,
 				636BC08E290ADFBD00914389 /* Radio Value.swift in Sources */,
 				6324CE8D28E20D95003E6088 /* Cupping Settings.swift in Sources */,
 				22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */,
 				637348D2288D7FD700689C96 /* Slider Value.swift in Sources */,
+				636289F629AE55CB00728CAC /* Ob General Info.swift in Sources */,
 				22242C8428EF27FF00138494 /* QCGroupConfig Entity.swift in Sources */,
 				63A40DF12917A7190019B33C /* S General Info.swift in Sources */,
 				6399635A299E7B370099B4BB /* Colors.swift in Sources */,
+				636289F429AE55B900728CAC /* Ob Cupping Forms.swift in Sources */,
 				633FBD5F28A2597100A93781 /* Stopwatch.swift in Sources */,
 				635AFC4328A913A1007B78C0 /* Name Generator.swift in Sources */,
 				22242C7E28EF274900138494 /* QualityCriteria Entity.swift in Sources */,
 				636857FF28593EDB0076E780 /* Slider.swift in Sources */,
 				63E6B7CB2886FFAA001A312F /* Radio.swift in Sources */,
 				639FD0A1287B534700FA19A0 /* Sample Selector.swift in Sources */,
+				63FE4B1829C8A37D00B17B90 /* Cupping Samples Editor.swift in Sources */,
+				635456B929C8F046000EE89C /* Sample Info Toolbar.swift in Sources */,
+				6381BAFF29AF8C3D00509AED /* SA Critera.swift in Sources */,
+				6381BB0329AF8C5900509AED /* SA Preview.swift in Sources */,
 				63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */,
 				63E6B7C22886E470001A312F /* Evaluation.swift in Sources */,
 				2247D98E28F1928000DD6678 /* Sample Hints Menu.swift in Sources */,
 				634E5EFD287BF042004A9A76 /* Settings.swift in Sources */,
 				63742D18287EA998001E8DAB /* Persistence.swift in Sources */,
 				63E0131D289431B300AC4645 /* Onboarding.swift in Sources */,
+				63FE4B1C29C8A47200B17B90 /* Cupping Selected Hint.swift in Sources */,
 				63D892E628C9EED600F68505 /* Hide Keyboard.swift in Sources */,
 				633C5037287090C6006B398E /* Cupping.swift in Sources */,
 				226CF02428F19FAF00F853B9 /* QCHint Entity.swift in Sources */,
@@ -567,6 +653,18 @@
 			targetProxy = 6381530628C8DE00008816C9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		63684CDB29AA78C8009C1BDA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63684CDA29AA78C8009C1BDA /* en */,
+				63684CDD29AA7986009C1BDA /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6381530828C8DE01008816C9 /* Debug */ = {
@@ -611,6 +709,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -663,6 +762,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -671,6 +771,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -716,6 +817,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -728,7 +830,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
@@ -736,6 +838,7 @@
 				INFOPLIST_FILE = CupTaster/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CupTaster;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow access to camera to let CupTaster add photos to cuppings and samples";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -749,7 +852,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.1.0;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-Xfrontend -warn-long-function-bodies=500 -Xfrontend -warn-long-expression-type-checking=500";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nnnkbrrr.CupTaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -769,7 +872,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
@@ -777,6 +880,7 @@
 				INFOPLIST_FILE = CupTaster/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CupTaster;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow access to camera to let CupTaster add photos to cuppings and samples";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -790,7 +894,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nnnkbrrr.CupTaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -833,6 +937,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		632F5D2329D83EAE00D7FFB7 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		632F5D2429D83EAE00D7FFB7 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 632F5D2329D83EAE00D7FFB7 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */ = {

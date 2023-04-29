@@ -7,16 +7,18 @@
 
 import SwiftUI
 
-struct OnboardingSheet: ViewModifier {
+struct Onboarding: ViewModifier {
     @AppStorage("onboarding-completed") var onboardingCompleted: Bool = false
     @State var isActive: Bool = false
     
     func body(content: Content) -> some View {
         content
-            .sheet(isPresented: $isActive) {
-                OnboardingView(onboardingCompleted: $onboardingCompleted, isActive: $isActive)
-                    .background(Color(UIColor.systemGroupedBackground).ignoresSafeArea())
-                    .interactiveDismissDisabled()
+            .fullScreenCover(isPresented: $isActive) {
+                OnboardingView (
+                    onboardingCompleted: $onboardingCompleted,
+                    isActive: $isActive
+                )
+                .interactiveDismissDisabled()
             }
             .onAppear { if !onboardingCompleted { isActive = true } }
     }

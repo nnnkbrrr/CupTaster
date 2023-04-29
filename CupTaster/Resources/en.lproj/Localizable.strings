@@ -1,0 +1,69 @@
+/* 
+  Localizable.strings
+  CupTaster
+
+  Created by Никита Баранов on 25.02.2023.
+  
+*/
+
+"Fragrance/Aroma.Aroma" = "Aroma";
+"Fragrance/Aroma.Dry" = "Dry";
+"Fragrance/Aroma.Break" = "Break";
+"Fragrance.Intensity" = "Intensity";
+"Fragrance.Intensity.Low" = "Low";
+"Fragrance.Intensity.High" = "High";
+"Aroma.Dry" = "Dry";
+"Aroma.Crust" = "Crust";
+"Aroma.Break" = "Break";
+"Aroma.Intensity" = "Intensity";
+"Aroma.Intensity.Low" = "Low";
+"Aroma.Intensity.High" = "High";
+"Flavor.Intensity" = "Intensity";
+"Flavor.Intensity.Low" = "Low";
+"Flavor.Intensity.High" = "High";
+"Aftertaste.Duration" = "Duration";
+"Aftertaste.Duration.Short" = "Short";
+"Aftertaste.Duration.Long" = "Long";
+"Acidity.Intensity" = "Intensity";
+"Acidity.Intensity.Low" = "Low";
+"Acidity.Intensity.High" = "High";
+"Acidity.Intensity.Flat" = "Flat";
+"Acidity.Intensity.Bright" = "Bright";
+"Body.Level" = "Level";
+"Body.Level.Thin" = "Thin";
+"Body.Level.Heavy" = "Heavy";
+"Body.Thickness" = "Thickness";
+"Body.Thickness.Thin" = "Thin";
+"Body.Thickness.Thick" = "Thick";
+"Mouthfeel.Intensity" = "Intensity";
+"Mouthfeel.Intensity.Low" = "Low";
+"Mouthfeel.Intensity.High" = "High";
+"Sweetness.Intensity" = "Intensity";
+"Sweetness.Intensity.Low" = "Low";
+"Sweetness.Intensity.High" = "High";
+"Roast level.light" = "light";
+"Roast level.dark" = "dark";
+"Ferment level.none-low	none" = "low";
+"Ferment level.med-high	med" = "high";
+"Defects.Cups" = "Cups";
+"Defects.Intensity" = "Intensity";
+"Defects.Intensity.Slight" = "Slight";
+"Defects.Intensity.Intense" = "Intense";
+"Fresh crop.Woody" = "Woody";
+"Fresh crop.Woody.None" = "None";
+"Fresh crop.Woody.Intense" = "Intense";
+
+"Fragrance.short" = "Fg";
+"Aroma.short" = "Ar";
+"Flavor.short" = "Fl";
+"Flavour.short" = "Fl";
+"Aftertaste.short" = "Af";
+"Acidity.short" = "Ac";
+"Body.short" = "Bd";
+"Mouthfeel.short" = "Mf";
+"Balance.short" = "Bl";
+"Sweetness.short" = "Sw";
+"Fresh crop.short" = "FC";
+"Clean cup.short" = "CC";
+"Overall.short" = "Ov";
+"Overall.short" = "Fg";

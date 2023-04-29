@@ -32,7 +32,7 @@ struct CupsCheckboxesEvaluationValueView: View {
                     if fractionValue == qcRepresentationValue {
                         Text(fractionValue)
                             .bold()
-                            .frame(width: 55)
+                            .frame(width: EvaluationHeaderView.valueViewWidth)
                             .transition(.opacity.combined(with: .scale))
                     }
                 }
@@ -49,15 +49,16 @@ extension CupsCheckboxesEvaluationValueView {
         
         var body: some View {
             let cupsCount: Int = Int(intensityQC.group.sample.cupping.cupsCount)
+            let values: [CGFloat] = getValues(cupsCount: cupsCount)
             let selectedCupsCount: Int = Int(cupsCountQC.value).digits.reduce(0, +)
             let calculatedValue: Double = Double(selectedCupsCount) * -intensityQC.value / Double(cupsCount) * 5
             
             HStack {
-                ForEach(getValues(cupsCount: cupsCount), id: \.self) { value in
+                ForEach(values, id: \.self) { value in
                     if value == calculatedValue {
                         Text(formatValue(value: value))
                             .bold()
-                            .frame(width: 55)
+                            .frame(width: EvaluationHeaderView.valueViewWidth)
                             .transition(.opacity.combined(with: .scale))
                     }
                 }

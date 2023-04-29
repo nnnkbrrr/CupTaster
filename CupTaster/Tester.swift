@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct TesterView: View {
     @AppStorage("tester-tab-visible") var testerTabVisible: Bool = false
-    
-    @AppStorage("onboarding-completed") var onboardingCompleted: Bool = false
     @AppStorage("tester-show-cuppings-date-picker") var showCuppingsDatePicker: Bool = false
+    
+    @State var onboardingIsActive: Bool = false
+    @State var onboardingImagePickerIsActive: Bool = false
+    @AppStorage("tester-onboarding-image") var onboardingImage: Data = Data()
     
     @FetchRequest(entity: Cupping.entity(), sortDescriptors: []) var cuppings: FetchedResults<Cupping>
     @State var addingBlankForm: Bool = false
@@ -19,10 +22,31 @@ struct TesterView: View {
     var body: some View {
         Form {
             Section("") {
-                Button("Show onboarding on next launch") {
-                    onboardingCompleted = false
+                Button("Show onboarding") {
+                    onboardingIsActive = true
+                }
+                .fullScreenCover(isPresented: $onboardingIsActive) {
+                    OnboardingView (
+                        onboardingCompleted: .constant(false),
+                        isActive: $onboardingIsActive
+                    )
                 }
                 
+                Button("Onboarding background image") {
+                    onboardingImagePickerIsActive = true
+                }
+                .fullScreenCover(isPresented: $onboardingImagePickerIsActive) {
+					ImagePicker(sourceType: .photoLibrary) { image  in
+						onboardingImage = image.encodeToData() ?? Data()
+                    }
+                }
+                
+                Button("Reset OB Image") {
+                    onboardingImage = Data()
+                }
+            }
+            
+            Section("") {
                 Menu("Set stopwatch time") {
                     ForEach(1..<60) { min in
                         Button("\(min):00") {
@@ -32,24 +56,14 @@ struct TesterView: View {
                     }
                 }
                 
-                Button("Add blank form") { addingBlankForm = true }
+                Button("Add blank form") {
+                    addingBlankForm = true
+                }
+                .sheet(isPresented: $addingBlankForm) { NewBlankFormView() }
             }
             
-            Section("") {
+            Section {
                 Toggle("Show cuppings date picker", isOn: $showCuppingsDatePicker)
-            }
-            
-            let samPerCpg: [Int] = cuppings.map { $0.samples.count }
-            let minSamPerCpg: Int? = samPerCpg.min()
-            let avgSamPerCpg: Int? = samPerCpg.min() != nil ? Int(CGFloat(samPerCpg.reduce(0, +))/CGFloat(cuppings.count)) : nil
-            let maxSamPerCpg: Int? = samPerCpg.max()
-            
-            Section("Stats") {
-                Text("Cuppings count: \(cuppings.count)")
-                Text("Samples total count: \(samPerCpg.reduce(0, +))")
-                Text("Min samples: \(minSamPerCpg ?? 0)")
-                Text("Avg samples: \(avgSamPerCpg ?? 0)")
-                Text("Max samples: \(maxSamPerCpg ?? 0)")
             }
             
             Section {
@@ -58,7 +72,6 @@ struct TesterView: View {
                 }
             }
         }
-        .sheet(isPresented: $addingBlankForm) { NewBlankFormView() }
     }
 }
 
@@ -74,7 +87,7 @@ fileprivate struct NewBlankFormView: View {
             TextField("Version", text: $version)
             TextField("Language code", text: $langCode)
             
-            Button("Добавить") {
+            Button("Add") {
                 let newCF: CuppingForm = CuppingForm(context: moc)
                 newCF.title = title
                 newCF.version = version

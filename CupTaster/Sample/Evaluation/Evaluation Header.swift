@@ -12,28 +12,35 @@ struct EvaluationHeaderView: View {
     @AppStorage("use-cupping-hints") var useCuppingHints: Bool = false
     @ObservedObject var qcGroup: QCGroup
     @Binding var isCompleted: Bool
+	
+	static let valueViewWidth: CGFloat = 45
     
     var body: some View {
         VStack(spacing: 0) {
             if let firstQualityCriteria: QualityCriteria = qcGroup.qualityCriteria.sorted().first,
                let qcConfiguration: QCConfig = firstQualityCriteria.configuration {
-                HStack {
-                    ZStack {
-                        switch qcConfiguration.evaluationType.unwrappedEvaluationType {
-                        case .slider: SliderEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .radio: RadioEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .cups_checkboxes: CupsCheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
-                        case .cups_multiplePicker: CupsMultiplePickerValueView(qualityCriteria: firstQualityCriteria)
-                        default: Text("-").bold().frame(width: 55)
-                        }
-                    }
-                    .scaleEffect(qcGroup.isCompleted ? 0.75 : 1)
+				HStack {
+					ZStack {
+						switch qcConfiguration.evaluationType.unwrappedEvaluationType {
+							case .slider: SliderEvaluationValueView(qualityCriteria: firstQualityCriteria)
+							case .radio: RadioEvaluationValueView(qualityCriteria: firstQualityCriteria)
+							case .cups_checkboxes: CupsCheckboxesEvaluationValueView(qualityCriteria: firstQualityCriteria)
+							case .cups_multiplePicker: CupsMultiplePickerValueView(qualityCriteria: firstQualityCriteria)
+							default: Text("-").bold().frame(width: Self.valueViewWidth)
+						}
+					}
+					.scaleEffect(qcGroup.isCompleted ? 0.75 : 1)
                     .padding(.vertical, 3)
                     .background(Color(uiColor: .secondarySystemGroupedBackground))
                     .clipShape(Capsule())
                     
                     Divider()
-                    Text(qcGroup.configuration.title).bold()
+                    
+                    let title: LocalizedStringKey = .init(qcGroup.configuration.title)
+                    Text(title)
+						.bold()
+						.lineLimit(1)
+						.minimumScaleFactor(0.01)
                     qcRepresentations
                     Spacer()
                     Image(systemName: "chevron.right")

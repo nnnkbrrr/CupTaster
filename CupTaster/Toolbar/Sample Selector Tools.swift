@@ -74,7 +74,6 @@ struct SampleToolsView: View {
                 }
             }
         }
-        .animation(.default, value: sampleNameTextfieldFocus)
         .padding(.horizontal, 10)
     }
 }

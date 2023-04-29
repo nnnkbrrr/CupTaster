@@ -34,7 +34,7 @@ struct SliderView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            Color.clear.frame(height: 50).overlay(alignment: .bottom) {
+            Color.clear.frame(height: 55).overlay(alignment: .bottom) {
                 HStack(alignment: .top, spacing: 0) {
                     ForEach(fractionValues, id: \.self) { fractionValue in
                         let isCeil: Bool = fractionValue.truncatingRemainder(dividingBy: 1) == 0
@@ -60,7 +60,7 @@ struct SliderView: View {
             
             Capsule()
                 .foregroundColor(.accentColor)
-                .frame(width: 3, height: 30)
+                .frame(width: 4, height: 35)
         }
         .mask(LinearGradient(
             gradient: Gradient(colors: [.clear, .black, .clear]),

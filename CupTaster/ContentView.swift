@@ -12,7 +12,6 @@ import CoreData
 
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
-    @AppStorage("tester-tab-visible") var testerTabVisible: Bool = false
     
     var body: some View {
         TabView {
@@ -22,12 +21,7 @@ struct ContentView: View {
             SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape") }
                 .badge(CFManager.shared.newerVersionsAvailability(from: cuppingForms))
-            
-            if testerTabVisible {
-                TesterView()
-                    .tabItem { Label("Тестировщик", systemImage: "wrench.and.screwdriver") }
-            }   
         }
-        .modifier(OnboardingSheet())
+        .modifier(Onboarding())
     }
 }
