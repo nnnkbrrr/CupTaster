@@ -16,33 +16,32 @@ struct AllCuppingsTabView: View {
     
     var body: some View {
         NavigationView {
-            if cuppings.count > 0 {
+            if let cuppingsGroupedByMonth {
                 List {
                     Section { } header: { AllCuppingHeaderView() }
                         .font(.body)
                         .listRowInsets(EdgeInsets(top: .large, leading: -.large, bottom: .zero, trailing: -.large))
                         .headerProminence(.increased)
                     
-                    Section {
-                        ForEach(cuppings) { cupping in
-                            cuppingPreview(cupping)
-                        }
-                        .onDelete { offsets in
-                            for index in offsets {
-                                moc.delete(cuppings[index])
-                                try? moc.save()
+                    ForEach(cuppingsGroupedByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { date, cuppings in
+                        Section {
+                            ForEach(cuppings) { cupping in
+                                cuppingPreview(cupping)
                             }
+                            .onDelete { offsets in
+                                for index in offsets {
+                                    moc.delete(cuppings[index])
+                                    try? moc.save()
+                                }
+                            }
+                        } header: {
+                            HStack {
+                                Text(date)
+                                Spacer()
+                                Text("Cuppings: \(cuppings.count)")
+                            }
+                            .listRowInsets(EdgeInsets(top: .zero, leading: .large, bottom: .zero, trailing: .large))
                         }
-#warning("gesture: delete")
-                    } header: {
-                        HStack {
-#warning("date")
-                            Text("Date")
-                            Spacer()
-#warning("cuppings count")
-                            Text("Cuppings Count")
-                        }
-                        .listRowInsets(EdgeInsets(top: .zero, leading: .large, bottom: .zero, trailing: .large))
                     }
                 }
                 .navigationBarTitle("All Cuppings", displayMode: .inline)
@@ -99,5 +98,23 @@ extension AllCuppingsTabView {
                     .font(.caption)
             }
         }
+    }
+}
+
+extension AllCuppingsTabView {
+    var cuppingsGroupedByMonth: [String: [Cupping]]? {
+        guard let firstCupping: Cupping = cuppings.first else { return nil }
+        
+        var key: String = DateFormatter.fullMonthAndYear.string(from: firstCupping.date)
+        var groupedCuppings: [String: [Cupping]] = [key : [firstCupping]]
+        
+        let calendar: Calendar = Calendar.current
+        for (prevCupping, nextCupping) in zip(cuppings, cuppings.dropFirst()) {
+            if !calendar.isDate(prevCupping.date, equalTo: nextCupping.date, toGranularity: .month) {
+                key = DateFormatter.fullMonthAndYear.string(from: nextCupping.date)
+            }
+            groupedCuppings[key, default: []].append(nextCupping)
+        }
+        return groupedCuppings
     }
 }

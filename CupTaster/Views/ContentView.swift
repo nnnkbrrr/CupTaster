@@ -27,11 +27,12 @@ struct ContentView: View {
             AllCuppingsTabView()
                 .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
 
-            #warning("settings tab + onboarding")
-//            SettingsView()
-//                .tabItem { Label("Settings", systemImage: "gearshape") }
+            SettingsTabView()
+                .tabItem { Label("Settings", systemImage: "gearshape") }
+#warning("badge?")
 //                .badge(CFManager.shared.newerVersionsAvailability(from: cuppingForms))
         }
+#warning("onboarding")
 //        .modifier(Onboarding())
     }
 }

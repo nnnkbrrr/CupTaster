@@ -13,4 +13,10 @@ extension DateFormatter {
         dateFormatter.dateFormat = "dd.MM"
         return dateFormatter
     }
+    
+    static var fullMonthAndYear: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter
+    }
 }
