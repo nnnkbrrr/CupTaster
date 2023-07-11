@@ -7,66 +7,47 @@
 
 import SwiftUI
 
-struct StopwatchToolbarItem: ToolbarContent {
-    var placement: ToolbarItemPlacement = .confirmationAction
-    
-    var body: some ToolbarContent {
-        ToolbarItem(placement: placement) {
-            StopwatchView()
-        }
-    }
-}
-
 struct StopwatchView: View {
     @AppStorage("stopwatch-time-since") var timeSince: Date? = nil
     @AppStorage("stopwatch-time-till") var timeTill: Date? = nil
     
-    var body: some View {
-        ZStack {
-            if let timeSince = timeSince {
-                label.foregroundColor(.accentColor).overlay {
-                    Menu {
-                        Button(action: {
-                            if let timeTill = timeTill {
-                                self.timeSince = Date(timeIntervalSinceNow: timeSince.timeIntervalSince(timeTill))
-                                self.timeTill = nil
-                            } else {
-                                self.timeTill = Date()
-                            }
-                        }) {
-                            switch timeTill {
-                            case .none: Label("Stop", systemImage: "pause.fill")
-                            case .some: Label("Start", systemImage: "play")
-                            }
-                        }
-                        Button(action: {
-                            self.timeSince = nil
-                            self.timeTill = nil
-                        }) {
-                            Label("Reset", systemImage: "arrow.counterclockwise")
-                        }
-                    } label: { label.opacity(0) }
-                }
-            } else {
-                Button {
-                    timeSince = Date()
-                } label: { label }
-            }
-        }
-    }
+    #warning("it works like shit")
+    @State var showConfirmationDialog: Bool = false
     
-    private var label: some View {
-        ZStack(alignment: .trailing) {
-            TimelineView(.animation) { context in
-                if let timeToDisplay: String = getTimeToDisplay() {
-                    Text(timeToDisplay)
-                        .monospacedDigit()
-                } else {
-                    Image(systemName: "stopwatch")
-                }
+    var body: some View {
+        TimelineView(.animation) { _ in
+            if let timeToDisplay: String = getTimeToDisplay() {
+                Text(timeToDisplay)
+                    .monospacedDigit()
+            } else {
+                Image(systemName: "stopwatch")
             }
         }
         .contentShape(Rectangle())
+        .foregroundColor(.accentColor)
+        .onTapGesture {
+            if timeSince != nil && timeTill != nil {
+                showConfirmationDialog = true
+            } else if timeSince == nil {
+                timeSince = Date()
+            } else {
+                timeTill = Date()
+            }
+        }
+        .confirmationDialog(
+            "Stopwatch: \(getTimeToDisplay() ?? "--:--.--")",
+            isPresented: $showConfirmationDialog) {
+                if let timeSince, let timeTill {
+                    Button("Start") {
+                        self.timeSince = Date(timeIntervalSinceNow: timeSince.timeIntervalSince(timeTill))
+                        self.timeTill = nil
+                    }
+                }
+                Button("Reset", role: .destructive) {
+                    self.timeSince = nil
+                    self.timeTill = nil
+                }
+            }
     }
     
     private func getTimeToDisplay() -> String? {
@@ -74,9 +55,7 @@ struct StopwatchView: View {
         formatter.dateFormat = "mm:ss.SS"
         
         if let timeSince = timeSince {
-            if Date(timeIntervalSince1970:
-                        Double((timeTill ?? Date()).timeIntervalSince(timeSince))
-            ) > Date(timeIntervalSince1970: 3600) {
+            if Date(timeIntervalSince1970: Double((timeTill ?? Date()).timeIntervalSince(timeSince))) > Date(timeIntervalSince1970: 3600) {
                 self.timeSince = nil
                 self.timeTill = nil
             }
@@ -84,5 +63,26 @@ struct StopwatchView: View {
         } else {
             return nil
         }
+    }
+}
+
+// ToolbarItem Modifier
+
+struct StopwatchToolbarItemModifier: ViewModifier {
+    var placement: ToolbarItemPlacement = .confirmationAction
+    
+    func body(content: Content) -> some View {
+        content
+            .toolbar {
+                ToolbarItem(placement: placement) {
+                    StopwatchView()
+                }
+            }
+    }
+}
+
+extension View {
+    func stopwatchToolbarItem(placement: ToolbarItemPlacement = .confirmationAction) -> some View {
+        modifier(StopwatchToolbarItemModifier(placement: placement))
     }
 }

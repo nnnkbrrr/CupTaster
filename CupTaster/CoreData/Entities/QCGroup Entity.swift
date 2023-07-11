@@ -27,22 +27,15 @@ extension Sample {
     }
     
     private func getValues() -> [String: Double] {
-        let criteria: [QualityCriteria] = self.qualityCriteriaGroups.map { qcGroup in
-            qcGroup.qualityCriteria
-        }.flatMap { criteria in criteria }
+        #warning("map - flatmap    -->      flatmap ??")
+        let criteria: [QualityCriteria] = self.qualityCriteriaGroups.flatMap({ $0.qualityCriteria })
         
-        func getDictionaryValue(criteria: QualityCriteria) -> Double {
-            switch criteria.configuration!.evaluationType.unwrappedEvaluationType {
-            case .cups_checkboxes: return Double(getFilledCheckboxesCount(value: criteria.value))
-            case .cups_multiplePicker: return Double(getMultiplePickerValue(value: criteria.value, cuppingCupsCount: Int(criteria.group.sample.cupping.cupsCount), lowerBound: criteria.configuration!.lowerBound))
-            default: return criteria.value
-            }
-        }
-
-        var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map {(
-            "qcc_\($0.group.configuration.ordinalNumber)_\($0.configuration!.ordinalNumber)",
-            getDictionaryValue(criteria: $0)
-        )})
+        var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map { criteria in
+            (
+                "qcc_\(criteria.group.configuration.ordinalNumber)_\(criteria.configuration!.ordinalNumber)",
+                Double(criteria.configuration!.evaluationType.unwrappedEvaluation.getEvaluationValue(criteria.value))
+            )
+        })
         
         dictionary.updateValue(Double(self.cupping.cupsCount), forKey: "CupsCount")
         return dictionary

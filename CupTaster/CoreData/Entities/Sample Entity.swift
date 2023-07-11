@@ -21,6 +21,7 @@ public class Sample: NSManagedObject, Identifiable {
     @NSManaged public var cupping: Cupping
     @NSManaged public var generalInfo: Set<SampleGeneralInfo>
     @NSManaged public var qualityCriteriaGroups: Set<QCGroup>
+    @NSManaged public var folders: Set<Folder>
 }
 
 extension Sample {

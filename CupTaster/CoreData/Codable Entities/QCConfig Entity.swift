@@ -71,7 +71,7 @@ extension QCConfig {
     static func new(
         context: NSManagedObjectContext,
         title: String,
-        evaluationType: EvaluationType,
+        evaluationType: Evaluation,
         ordinalNumber: Int,
         bounds: Range<Double>,
         step: Double,
@@ -81,7 +81,7 @@ extension QCConfig {
     ) -> QCConfig {
         let criteria: QCConfig = QCConfig(context: context)
         criteria.title = title
-        criteria.evaluationType = evaluationType.stringValue
+        criteria.evaluationType = evaluationType.name
         criteria.ordinalNumber = Int16(ordinalNumber)
         criteria.lowerBound = bounds.lowerBound
         criteria.upperBound = bounds.upperBound
