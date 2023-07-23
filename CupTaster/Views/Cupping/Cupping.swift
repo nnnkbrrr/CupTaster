@@ -23,16 +23,47 @@ struct CuppingView: View {
             } else {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150, maximum: 200), spacing: .regular)], spacing: .regular) {
-                        ForEach(cupping.samples.sorted { $0.ordinalNumber < $1.ordinalNumber } ) { sample in
-                            Rectangle()
-                                .frame(height: 200)
-                                .opacity(0.5)
+                        Section {
+                            ForEach(cupping.samples.sorted { $0.ordinalNumber < $1.ordinalNumber } ) { sample in
+                                VStack(alignment: .leading) {
+                                    RadarChart(sample: sample, style: .compact)
+                                        .frame(maxWidth: .infinity)
+                                    
+                                    Text(sample.name)
+                                        .font(.subheadline)
+                                    
+                                    HStack {
+                                        Text("Final score: ")
+                                            .foregroundStyle(.gray)
+#warning("final score value")
+                                        Spacer()
+                                        
+                                        if sample.isFavorite {
+                                            Image(systemName: "heart.fill")
+                                                .foregroundStyle(.red)
+                                        }
+                                    }
+                                    .font(.caption)
+                                }
+                                .padding(.small)
+                                .background(Color.secondarySystemGroupedBackground)
                                 .cornerRadius()
-#warning("ui: сэмплы")
+                                .contextMenu {
+#warning("context menu")
+                                    Button("Open") { }
+                                }
+                            }
+                        } header: {
+#warning("or to reorder!")
+                            Text("Hold sample to show options")
+                                .font(.caption2)
+                                .textCase(.uppercase)
+                                .foregroundStyle(.gray)
                         }
                     }
                     .padding(.regular)
                 }
+                .background(Color.systemGroupedBackground)
             }
         }
         .toolbar {
