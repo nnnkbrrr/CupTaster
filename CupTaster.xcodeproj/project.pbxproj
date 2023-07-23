@@ -27,6 +27,8 @@
 		634D5A522A5ED67200A18B63 /* Radar Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634D5A512A5ED67200A18B63 /* Radar Chart.swift */; };
 		6351668F2A52FB32001A0071 /* Integer To Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6351668E2A52FB32001A0071 /* Integer To Digits.swift */; };
 		63684CD929AA78C8009C1BDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 63684CDB29AA78C8009C1BDA /* Localizable.strings */; };
+		63729F942A6D7B9300EF0FEE /* Cupping Sample Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63729F932A6D7B9300EF0FEE /* Cupping Sample Preview.swift */; };
+		63729F962A6DAF6700EF0FEE /* Sample Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63729F952A6DAF6600EF0FEE /* Sample Tools.swift */; };
 		63742D18287EA998001E8DAB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D17287EA998001E8DAB /* Persistence.swift */; };
 		63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
 		6381530528C8DE00008816C9 /* CuppingFormsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381530428C8DE00008816C9 /* CuppingFormsTests.swift */; };
@@ -45,8 +47,8 @@
 		63A88D132A4C9B580006AA0F /* CoE.json in Resources */ = {isa = PBXBuildFile; fileRef = 63A88D122A4C9B580006AA0F /* CoE.json */; };
 		63A88D152A4C9B780006AA0F /* CFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A88D142A4C9B780006AA0F /* CFModel.swift */; };
 		63A88D172A4C9B8C0006AA0F /* CFManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A88D162A4C9B8C0006AA0F /* CFManager.swift */; };
-		63B75D952A6D6549002C350A /* Sample Controller Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B75D942A6D6549002C350A /* Sample Controller Model.swift */; };
-		63B75D972A6D6799002C350A /* Sample Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B75D962A6D6799002C350A /* Sample Controller.swift */; };
+		63B75D952A6D6549002C350A /* Samples Controller Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B75D942A6D6549002C350A /* Samples Controller Model.swift */; };
+		63B75D972A6D6799002C350A /* Samples Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B75D962A6D6799002C350A /* Samples Controller.swift */; };
 		63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A552801BE7800010318 /* CupTasterApp.swift */; };
 		63DC7A582801BE7800010318 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A572801BE7800010318 /* ContentView.swift */; };
 		63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A592801BE7A00010318 /* Assets.xcassets */; };
@@ -86,6 +88,8 @@
 		63684CDA29AA78C8009C1BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		63684CDD29AA7986009C1BDA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6371088A288032F60073348C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63729F932A6D7B9300EF0FEE /* Cupping Sample Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Sample Preview.swift"; sourceTree = "<group>"; };
+		63729F952A6DAF6600EF0FEE /* Sample Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Tools.swift"; sourceTree = "<group>"; };
 		63742D17287EA998001E8DAB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		63742D6328801CF5001E8DAB /* CupTaster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CupTaster.entitlements; sourceTree = "<group>"; };
 		63742D6528801D02001E8DAB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -106,8 +110,8 @@
 		63A88D122A4C9B580006AA0F /* CoE.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CoE.json; sourceTree = "<group>"; };
 		63A88D142A4C9B780006AA0F /* CFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFModel.swift; sourceTree = "<group>"; };
 		63A88D162A4C9B8C0006AA0F /* CFManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFManager.swift; sourceTree = "<group>"; };
-		63B75D942A6D6549002C350A /* Sample Controller Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Controller Model.swift"; sourceTree = "<group>"; };
-		63B75D962A6D6799002C350A /* Sample Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Controller.swift"; sourceTree = "<group>"; };
+		63B75D942A6D6549002C350A /* Samples Controller Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Samples Controller Model.swift"; sourceTree = "<group>"; };
+		63B75D962A6D6799002C350A /* Samples Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Samples Controller.swift"; sourceTree = "<group>"; };
 		63DC7A522801BE7800010318 /* CupTaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CupTaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DC7A552801BE7800010318 /* CupTasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupTasterApp.swift; sourceTree = "<group>"; };
 		63DC7A572801BE7800010318 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; wrapsLines = 1; };
@@ -209,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				639AB6942A57258300CB04F7 /* Cupping.swift */,
+				63729F932A6D7B9300EF0FEE /* Cupping Sample Preview.swift */,
 				632BA4D22A57F8A9006F0BC0 /* Cupping Setup.swift */,
 			);
 			path = Cupping;
@@ -257,7 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				634D5A4C2A5ED5F200A18B63 /* Sample.swift */,
-				63B75D962A6D6799002C350A /* Sample Controller.swift */,
+				63729F952A6DAF6600EF0FEE /* Sample Tools.swift */,
+				63B75D962A6D6799002C350A /* Samples Controller.swift */,
 			);
 			path = Sample;
 			sourceTree = "<group>";
@@ -265,7 +271,7 @@
 		63A88D082A4C98690006AA0F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				63B75D942A6D6549002C350A /* Sample Controller Model.swift */,
+				63B75D942A6D6549002C350A /* Samples Controller Model.swift */,
 				63A88D092A4C98E00006AA0F /* Evaluation Types.swift */,
 				63A88D0C2A4C99380006AA0F /* Cupping Forms */,
 			);
@@ -476,6 +482,7 @@
 				6351668F2A52FB32001A0071 /* Integer To Digits.swift in Sources */,
 				63A88CFD2A4C90880006AA0F /* All Cuppings.swift in Sources */,
 				63A1A90F2A5579D5008D30CE /* All Cuppings Header.swift in Sources */,
+				63729F962A6DAF6700EF0FEE /* Sample Tools.swift in Sources */,
 				63A1A90B2A556896008D30CE /* Folder Entity.swift in Sources */,
 				63A1A9182A558685008D30CE /* Sizing & Spacing.swift in Sources */,
 				63A1A91A2A558981008D30CE /* Color.swift in Sources */,
@@ -483,18 +490,19 @@
 				63DC7A582801BE7800010318 /* ContentView.swift in Sources */,
 				6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */,
 				22242C7C28EF273700138494 /* SampleGeneralInfo Entity.swift in Sources */,
-				63B75D972A6D6799002C350A /* Sample Controller.swift in Sources */,
+				63B75D972A6D6799002C350A /* Samples Controller.swift in Sources */,
 				63A88D0A2A4C98E00006AA0F /* Evaluation Types.swift in Sources */,
 				634D5A522A5ED67200A18B63 /* Radar Chart.swift in Sources */,
 				22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */,
 				632BA4D32A57F8A9006F0BC0 /* Cupping Setup.swift in Sources */,
 				63A88D042A4C92A40006AA0F /* Stopwatch.swift in Sources */,
 				22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */,
-				63B75D952A6D6549002C350A /* Sample Controller Model.swift in Sources */,
+				63B75D952A6D6549002C350A /* Samples Controller Model.swift in Sources */,
 				22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */,
 				22242C8428EF27FF00138494 /* QCGroupConfig Entity.swift in Sources */,
 				22242C7E28EF274900138494 /* QualityCriteria Entity.swift in Sources */,
 				63A88D152A4C9B780006AA0F /* CFModel.swift in Sources */,
+				63729F942A6D7B9300EF0FEE /* Cupping Sample Preview.swift in Sources */,
 				6319F8692A5D59F700EECD62 /* Settings.swift in Sources */,
 				63A88D062A4C92E00006AA0F /* AppStorage extensions.swift in Sources */,
 				63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */,

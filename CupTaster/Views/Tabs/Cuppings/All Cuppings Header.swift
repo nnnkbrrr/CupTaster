@@ -79,7 +79,7 @@ struct AllCuppingHeaderView: View {
                 ZStack {
                     if let newCupping {
                         NavigationLink(
-                            destination: CuppingView(cupping: newCupping),
+                            destination: CuppingView(newCupping),
                             isActive: $newCuppingDestinationIsActive,
                             label: { EmptyView() }
                         )

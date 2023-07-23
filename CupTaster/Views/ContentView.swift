@@ -14,23 +14,30 @@ struct ContentView: View {
     init() {
         // navigation bar background always opaque
         let navigationBarAppearance = UINavigationBarAppearance()
-            navigationBarAppearance.configureWithDefaultBackground()
-            UINavigationBar.appearance().standardAppearance = navigationBarAppearance
-            UINavigationBar.appearance().compactAppearance = navigationBarAppearance
-            UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+        navigationBarAppearance.configureWithDefaultBackground()
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     }
     
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     
+    @ObservedObject var sampleControllerModel: SamplesControllerModel = .shared
+    
     var body: some View {
-        TabView {
-            AllCuppingsTabView()
-                .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
-
-            SettingsTabView()
-                .tabItem { Label("Settings", systemImage: "gearshape") }
+        ZStack {
+            TabView {
+                AllCuppingsTabView()
+                    .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
+                
+                SettingsTabView()
+                    .tabItem { Label("Settings", systemImage: "gearshape") }
 #warning("badge?")
-//                .badge(CFManager.shared.newerVersionsAvailability(from: cuppingForms))
+                //                .badge(CFManager.shared.newerVersionsAvailability(from: cuppingForms))
+            }
+            
+            SamplesControllerView()
+                .zIndex(1)
         }
 #warning("onboarding")
 //        .modifier(Onboarding())

@@ -56,7 +56,7 @@ struct AllCuppingsTabView: View {
 extension AllCuppingsTabView {
     @ViewBuilder
     func cuppingPreview(_ cupping: Cupping) -> some View {
-        NavigationLink(destination: CuppingView(cupping: cupping)) {
+        NavigationLink(destination: CuppingView(cupping)) {
 #warning("navigation destination: cupping")
             HStack {
                 ZStack {

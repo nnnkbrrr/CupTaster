@@ -12,7 +12,9 @@ struct CuppingView: View {
     @Environment(\.managedObjectContext) private var moc
     @State var cupping: Cupping
     
-    init(cupping: Cupping) {
+    @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
+    
+    init(_ cupping: Cupping) {
         self.cupping = cupping
     }
     
@@ -25,32 +27,10 @@ struct CuppingView: View {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150, maximum: 200), spacing: .regular)], spacing: .regular) {
                         Section {
                             ForEach(cupping.samples.sorted { $0.ordinalNumber < $1.ordinalNumber } ) { sample in
-                                VStack(alignment: .leading) {
-                                    RadarChart(sample: sample, style: .compact)
-                                        .frame(maxWidth: .infinity)
-                                    
-                                    Text(sample.name)
-                                        .font(.subheadline)
-                                    
-                                    HStack {
-                                        Text("Final score: ")
-                                            .foregroundStyle(.gray)
-#warning("final score value")
-                                        Spacer()
-                                        
-                                        if sample.isFavorite {
-                                            Image(systemName: "heart.fill")
-                                                .foregroundStyle(.red)
-                                        }
-                                    }
-                                    .font(.caption)
-                                }
-                                .padding(.small)
-                                .background(Color.secondarySystemGroupedBackground)
-                                .cornerRadius()
-                                .contextMenu {
-#warning("context menu")
-                                    Button("Open") { }
+                                if samplesControllerModel.selectedSample != sample {
+                                    samplePreview(sample)
+                                } else {
+                                    Color.clear
                                 }
                             }
                         } header: {
@@ -93,3 +73,4 @@ struct CuppingView: View {
         .stopwatchToolbarItem()
     }
 }
+
