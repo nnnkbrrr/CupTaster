@@ -7,77 +7,50 @@
 
 import SwiftUI
 
+fileprivate let spacing: CGFloat = 2
+
 extension SampleView {
     var sampleTools: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 0) {
+        VStack(spacing: spacing) {
+            HStack(spacing: spacing) {
                 SampleToolButton(systemImageName: "textformat") {
 #warning("action")
                 }
-                
-                horizontalDivider
-                
                 SampleToolButton(systemImageName: "camera") {
 #warning("action")
                 }
             }
             
-            Rectangle()
-                .foregroundColor(.systemGroupedBackground)
-                .frame(height: 2)
-            
-            HStack(spacing: 0) {
+            HStack(spacing: spacing) {
                 SampleToolButton(systemImageName: "link") {
 #warning("action")
                 }
-                
-                horizontalDivider
-                
                 SampleToolButton(systemImageName: "photo") {
 #warning("action")
                 }
             }
             
-            verticalDivider
-            
-            HStack(spacing: 0) {
+            HStack(spacing: spacing) {
                 SampleToolButton(systemImageName: "doc") {
 #warning("action")
                 }
-                
-                horizontalDivider
-                
                 SampleToolButton(systemImageName: "folder.badge.gearshape") {
 #warning("action")
                 }
             }
             
-            verticalDivider
-            
-            HStack(spacing: 0) {
+            HStack(spacing: spacing) {
                 SampleToolButton(systemImageName: "square.and.arrow.up") {
 #warning("action")
                 }
-                
-                horizontalDivider
-                
                 SampleToolButton(systemImageName: "trash") {
 #warning("action")
                 }
             }
         }
-    }
-    
-    private var verticalDivider: some View {
-        Rectangle()
-            .foregroundColor(.systemGroupedBackground)
-            .frame(height: 2)
-    }
-    
-    private var horizontalDivider: some View {
-        Rectangle()
-            .foregroundColor(.systemGroupedBackground)
-            .frame(width: 2)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.systemGroupedBackground)
+        .cornerRadius()
     }
 }
 
@@ -97,6 +70,7 @@ private struct SampleToolButton: View {
             Image(systemName: systemImageName)
                 .font(.title2)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.secondarySystemGroupedBackground)
         }
     }
 }

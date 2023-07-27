@@ -25,6 +25,39 @@ public class Sample: NSManagedObject, Identifiable {
 }
 
 extension Sample {
+    public var sortedQCGroups: [QCGroup] {
+        self.qualityCriteriaGroups.sorted { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber }
+    }
+}
+
+// Calculate Final Score
+extension Sample {
+    public var isCompleted: Bool {
+        return !self.qualityCriteriaGroups.contains(where: { $0.isCompleted == false } )
+    }
+    
+    private func getValues() -> [String: Double] {
+        let criteria: [QualityCriteria] = self.qualityCriteriaGroups.flatMap { $0.qualityCriteria }
+        
+        var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map { criteria in
+            ("qcc_\(criteria.group.configuration.ordinalNumber)_\(criteria.configuration!.ordinalNumber)", Double(criteria.formattedValue))
+        })
+        
+        dictionary.updateValue(Double(self.cupping.cupsCount), forKey: "CupsCount")
+        return dictionary
+    }
+    
+    public func calculateFinalScore() {
+        if let formula: String = self.cupping.form?.finalScoreFormula {
+            let expression = NSExpression(format: formula)
+            let values = getValues()
+            let expressionValue = expression.expressionValue(with: values, context: nil)
+            self.finalScore = expressionValue as? Double ?? 0
+        }
+    }
+}
+
+extension Sample {
     @objc(addGeneralInfoObject:)
     @NSManaged public func addToGeneralInfo(_ value: SampleGeneralInfo)
 

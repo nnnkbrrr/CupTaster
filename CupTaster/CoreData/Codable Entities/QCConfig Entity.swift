@@ -68,6 +68,12 @@ public class QCConfig: QualityCriteria, Codable {
 }
 
 extension QCConfig {
+    public var unwrappedEvaluation: Evaluation {
+        self.evaluationType.unwrappedEvaluation
+    }
+}
+
+extension QCConfig {
     static func new(
         context: NSManagedObjectContext,
         title: String,

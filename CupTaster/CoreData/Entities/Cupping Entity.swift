@@ -23,9 +23,8 @@ public class Cupping: NSManagedObject, Identifiable {
 }
 
 extension Cupping {
-    public func getSortedSamples() -> [Sample] {
-        return self.samples
-            .sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
+    public var sortedSamples: [Sample] {
+        self.samples.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
     }
 }
 

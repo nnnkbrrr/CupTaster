@@ -7,46 +7,39 @@
 
 import SwiftUI
 
-protocol Evaluation {
+public protocol Evaluation {
     var name: String { get }
     var sortOrder: Int { get }
     
-    func getEvaluationValue(_ value: CGFloat) -> CGFloat
+    func getEvaluationValue(_ value: CGFloat, cupsCount: Int16) -> CGFloat
 }
 
 class SliderEvaluation: Evaluation {
     let name: String = "Slider"
     let sortOrder: Int = 0
     
-    func getEvaluationValue(_ value: CGFloat) -> CGFloat { return value }
+    func getEvaluationValue(_ value: CGFloat, cupsCount: Int16 = 0) -> CGFloat { return value }
 }
 
 class RadioEvaluation: Evaluation {
     let name: String = "Radio"
     let sortOrder: Int = 1
     
-    func getEvaluationValue(_ value: CGFloat) -> CGFloat { return value }
-}
-
-class MultiplePickerEvaluation: Evaluation {
-    let name: String = "Radio"
-    let sortOrder: Int = 2
-    
-    func getEvaluationValue(_ value: CGFloat) -> CGFloat { return value }
+    func getEvaluationValue(_ value: CGFloat, cupsCount: Int16 = 0) -> CGFloat { return value }
 }
 
 class CupsCheckboxesEvaluation: Evaluation {
-    let name: String = "CupsCheckboxes"
-    let sortOrder: Int = 3
+    let name: String = "Cups Checkboxes"
+    let sortOrder: Int = 2
     
-    func getEvaluationValue(_ value: CGFloat) -> CGFloat { return CGFloat(Int(value).digits.reduce(0, +)) }
+    func getEvaluationValue(_ value: CGFloat, cupsCount: Int16) -> CGFloat { return 10.0 - (10.0 * CGFloat(Int(value).digits.reduce(0, +))) / CGFloat(cupsCount) }
 }
 
-class CupsMultiplePickerEvaluation: Evaluation {
-    let name: String = "CupsMultiplePicker"
-    let sortOrder: Int = 4
+class UnsupportedEvaluation: Evaluation {
+    let name: String = "Unsupported"
+    let sortOrder: Int = Int.max
     
-    func getEvaluationValue(_ value: CGFloat) -> CGFloat { return value }
+    func getEvaluationValue(_ value: CGFloat, cupsCount: Int16) -> CGFloat { return 0 }
 }
 
 extension String {
@@ -54,9 +47,7 @@ extension String {
         switch self {
         case "slider": return SliderEvaluation()
         case "radio": return RadioEvaluation()
-        case "multiplePicker": return MultiplePickerEvaluation()
         case "cups_checkboxes": return CupsCheckboxesEvaluation()
-        case "cups_multiplePicker": return CupsMultiplePickerEvaluation()
-        default: return SliderEvaluation() }
+        default: return UnsupportedEvaluation() }
     }
 }

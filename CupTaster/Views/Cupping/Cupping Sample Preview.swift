@@ -14,15 +14,18 @@ extension CuppingView {
     func samplePreview(_ sample: Sample) -> some View {
         VStack(alignment: .leading) {
             RadarChart(sample: sample, style: .compact)
-                .matchedGeometryEffect(id: "radar.chart.\(sample.id)", in: samplesControllerModel.namespace)
                 .frame(maxWidth: .infinity)
+                .background(Color.secondarySystemGroupedBackground)
+                .matchedGeometryEffect(id: "radar.chart.\(sample.id)", in: samplesControllerModel.namespace)
+                .zIndex(1.1)
             
             Text(sample.name)
                 .font(.subheadline)
             
-            HStack {
+            HStack(spacing: 0) {
                 Text("Final score: ")
-                    .foregroundStyle(.gray)
+                Text(String(format: "%.1f", sample.finalScore))
+                
 #warning("final score value")
                 Spacer()
                 
@@ -31,6 +34,7 @@ extension CuppingView {
                         .foregroundStyle(.red)
                 }
             }
+            .foregroundStyle(.gray)
             .font(.caption)
         }
         .padding(.small)

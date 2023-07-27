@@ -21,33 +21,10 @@ public class QCGroup: NSManagedObject, Identifiable {
     @NSManaged public var sample: Sample
 }
 
-extension Sample {
-    public var isCompleted: Bool {
-        return !self.qualityCriteriaGroups.contains(where: { $0.isCompleted == false } )
-    }
-    
-    private func getValues() -> [String: Double] {
-        #warning("map - flatmap    -->      flatmap ??")
-        let criteria: [QualityCriteria] = self.qualityCriteriaGroups.flatMap({ $0.qualityCriteria })
-        
-        var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map { criteria in
-            (
-                "qcc_\(criteria.group.configuration.ordinalNumber)_\(criteria.configuration!.ordinalNumber)",
-                Double(criteria.configuration!.evaluationType.unwrappedEvaluation.getEvaluationValue(criteria.value))
-            )
-        })
-        
-        dictionary.updateValue(Double(self.cupping.cupsCount), forKey: "CupsCount")
-        return dictionary
-    }
-    
-    public func calculateFinalScore() {
-        if let formula: String = self.cupping.form?.finalScoreFormula {
-            let expression = NSExpression(format: formula)
-            let values = getValues()
-            let expressionValue = expression.expressionValue(with: values, context: nil)
-            self.finalScore = expressionValue as? Double ?? 0
-        }
+
+extension QCGroup {
+    public var sortedQualityCriteria: [QualityCriteria] {
+        self.qualityCriteria.sorted()
     }
 }
 

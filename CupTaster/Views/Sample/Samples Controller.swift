@@ -16,9 +16,18 @@ struct SamplesControllerView: View {
 //            ForEach(cupping.getSortedSamples()) { sample in
                 SampleView(sample)
                     .safeAreaInset(edge: .bottom) {
-                        Button("Exit") {
-                            samplesControllerModel.exit()
+                        HStack {
+                            Text(samplesControllerModel.selectedSample?.name ?? "")
+                            
+                            Spacer()
+                            
+                            Button("Done") {
+                                samplesControllerModel.exit()
+                            }
                         }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(.bar)
                     }
                     .background(Color.systemGroupedBackground)
 //            }

@@ -20,6 +20,12 @@ public class QualityCriteria: NSManagedObject, Identifiable {
     @NSManaged public var configuration: QCConfig?
 }
 
+extension QualityCriteria {
+    var formattedValue: Double {
+        return Double(self.configuration!.evaluationType.unwrappedEvaluation.getEvaluationValue(self.value, cupsCount: self.group.sample.cupping.cupsCount))
+    }
+}
+
 extension QualityCriteria: Comparable {
     public static func < (lhs: QualityCriteria, rhs: QualityCriteria) -> Bool {
         if let lhsConfiguration = lhs.configuration, let rhsConfiguration = rhs.configuration {

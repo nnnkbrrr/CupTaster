@@ -21,41 +21,19 @@ struct SampleView: View {
     var body: some View {
 #warning("view: sample")
         ScrollView {
-            VStack {
-                Text(sample.name)
-                
+            VStack(spacing: .regular) {
                 HStack(spacing: .regular) {
-                    VStack(alignment: .leading) {
-#warning("actual score")
-                        Text("69.0")
-                            .font(.largeTitle)
-                            .fontWeight(.light)
-                        
-                        Text("Final Score")
-                            .foregroundStyle(.gray)
-                        
-                        RadarChart(sample: sample, style: .compact)
-                            .matchedGeometryEffect(id: "radar.chart.\(sample.id)", in: samplesControllerModel.namespace)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, .small)
-                    }
-                    .padding(.small)
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                            .foregroundColor(.secondarySystemGroupedBackground)
-                    )
-                    .matchedGeometryEffect(
-                        id: "radar.chart.container.\(sample.id)",
-                        in: samplesControllerModel.namespace
-                    )
-                    .scaleEffect(radarChartZoomed ? 1.25 : 1)
-                    .zIndex(2)
-                    
+                    sampleChart
                     sampleTools
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color.secondarySystemGroupedBackground)
-                        .cornerRadius()
+                }
+                .zIndex(1.1)
+                
+                ForEach(sample.sortedQCGroups) { qcGroup in
+                    ForEach(qcGroup.sortedQualityCriteria) { criteria in
+                        if let criteriaConfig: QCConfig = criteria.configuration {
+                            Text(criteriaConfig.title)
+                        }
+                    }
                 }
             }
             .padding(.regular)
