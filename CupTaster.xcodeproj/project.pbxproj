@@ -19,7 +19,10 @@
 		226CF02428F19FAF00F853B9 /* QCHint Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CF02328F19FAF00F853B9 /* QCHint Entity.swift */; };
 		63198EA12A570846004634ED /* All Cuppings Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63198EA02A570846004634ED /* All Cuppings Empty.swift */; };
 		6319F8692A5D59F700EECD62 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6319F8682A5D59F700EECD62 /* Settings.swift */; };
-		6320A3A82A72B5CB0069E6B9 /* Quality Criteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320A3A72A72B5CB0069E6B9 /* Quality Criteria.swift */; };
+		6320A3AB2A72BF160069E6B9 /* Slider Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320A3AA2A72BF160069E6B9 /* Slider Evaluation.swift */; };
+		6320A3AD2A72BF3A0069E6B9 /* Radio Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320A3AC2A72BF3A0069E6B9 /* Radio Evaluation.swift */; };
+		6320A3AF2A72BF7C0069E6B9 /* Cups Checkboxes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320A3AE2A72BF7C0069E6B9 /* Cups Checkboxes.swift */; };
+		6320A3B12A72BFB70069E6B9 /* Unsupported.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320A3B02A72BFB70069E6B9 /* Unsupported.swift */; };
 		6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */; };
 		632BA4D32A57F8A9006F0BC0 /* Cupping Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632BA4D22A57F8A9006F0BC0 /* Cupping Setup.swift */; };
 		632F5D2529D83EAE00D7FFB7 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 632F5D2429D83EAE00D7FFB7 /* CodeScanner */; };
@@ -30,7 +33,7 @@
 		63684CD929AA78C8009C1BDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 63684CDB29AA78C8009C1BDA /* Localizable.strings */; };
 		63729F942A6D7B9300EF0FEE /* Cupping Sample Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63729F932A6D7B9300EF0FEE /* Cupping Sample Preview.swift */; };
 		63729F962A6DAF6700EF0FEE /* Sample Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63729F952A6DAF6600EF0FEE /* Sample Tools.swift */; };
-		63739BB42A71251200C779ED /* QCGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63739BB32A71251200C779ED /* QCGroup.swift */; };
+		63739BB42A71251200C779ED /* Sample QCGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63739BB32A71251200C779ED /* Sample QCGroup.swift */; };
 		63742D18287EA998001E8DAB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D17287EA998001E8DAB /* Persistence.swift */; };
 		63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
 		637935D72A6E6EFA007FD5AB /* Sample Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637935D62A6E6EFA007FD5AB /* Sample Chart.swift */; };
@@ -44,7 +47,7 @@
 		63A88CFD2A4C90880006AA0F /* All Cuppings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A88CFC2A4C90880006AA0F /* All Cuppings.swift */; };
 		63A88D042A4C92A40006AA0F /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A88D032A4C92A40006AA0F /* Stopwatch.swift */; };
 		63A88D062A4C92E00006AA0F /* AppStorage extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A88D052A4C92E00006AA0F /* AppStorage extensions.swift */; };
-		63A88D0A2A4C98E00006AA0F /* Evaluation Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A88D092A4C98E00006AA0F /* Evaluation Types.swift */; };
+		63A88D0A2A4C98E00006AA0F /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A88D092A4C98E00006AA0F /* Evaluation.swift */; };
 		63A88D0F2A4C9B250006AA0F /* SCA.json in Resources */ = {isa = PBXBuildFile; fileRef = 63A88D0E2A4C9B250006AA0F /* SCA.json */; };
 		63A88D112A4C9B390006AA0F /* SCI.json in Resources */ = {isa = PBXBuildFile; fileRef = 63A88D102A4C9B390006AA0F /* SCI.json */; };
 		63A88D132A4C9B580006AA0F /* CoE.json in Resources */ = {isa = PBXBuildFile; fileRef = 63A88D122A4C9B580006AA0F /* CoE.json */; };
@@ -82,7 +85,10 @@
 		226CF02328F19FAF00F853B9 /* QCHint Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCHint Entity.swift"; sourceTree = "<group>"; };
 		63198EA02A570846004634ED /* All Cuppings Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "All Cuppings Empty.swift"; sourceTree = "<group>"; };
 		6319F8682A5D59F700EECD62 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		6320A3A72A72B5CB0069E6B9 /* Quality Criteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quality Criteria.swift"; sourceTree = "<group>"; };
+		6320A3AA2A72BF160069E6B9 /* Slider Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider Evaluation.swift"; sourceTree = "<group>"; };
+		6320A3AC2A72BF3A0069E6B9 /* Radio Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radio Evaluation.swift"; sourceTree = "<group>"; };
+		6320A3AE2A72BF7C0069E6B9 /* Cups Checkboxes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cups Checkboxes.swift"; sourceTree = "<group>"; };
+		6320A3B02A72BFB70069E6B9 /* Unsupported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unsupported.swift; sourceTree = "<group>"; };
 		6327BEB728609432000CB3AB /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		632BA4D22A57F8A9006F0BC0 /* Cupping Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Setup.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -94,7 +100,7 @@
 		6371088A288032F60073348C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63729F932A6D7B9300EF0FEE /* Cupping Sample Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Sample Preview.swift"; sourceTree = "<group>"; };
 		63729F952A6DAF6600EF0FEE /* Sample Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Tools.swift"; sourceTree = "<group>"; };
-		63739BB32A71251200C779ED /* QCGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCGroup.swift; sourceTree = "<group>"; };
+		63739BB32A71251200C779ED /* Sample QCGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample QCGroup.swift"; sourceTree = "<group>"; };
 		63742D17287EA998001E8DAB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		63742D6328801CF5001E8DAB /* CupTaster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CupTaster.entitlements; sourceTree = "<group>"; };
 		63742D6528801D02001E8DAB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -110,7 +116,7 @@
 		63A88CFC2A4C90880006AA0F /* All Cuppings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "All Cuppings.swift"; sourceTree = "<group>"; };
 		63A88D032A4C92A40006AA0F /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
 		63A88D052A4C92E00006AA0F /* AppStorage extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage extensions.swift"; sourceTree = "<group>"; };
-		63A88D092A4C98E00006AA0F /* Evaluation Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Evaluation Types.swift"; sourceTree = "<group>"; };
+		63A88D092A4C98E00006AA0F /* Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
 		63A88D0E2A4C9B250006AA0F /* SCA.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SCA.json; sourceTree = "<group>"; };
 		63A88D102A4C9B390006AA0F /* SCI.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SCI.json; sourceTree = "<group>"; };
 		63A88D122A4C9B580006AA0F /* CoE.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CoE.json; sourceTree = "<group>"; };
@@ -179,6 +185,17 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		6320A3A92A72BF000069E6B9 /* Evaluation Types */ = {
+			isa = PBXGroup;
+			children = (
+				6320A3AA2A72BF160069E6B9 /* Slider Evaluation.swift */,
+				6320A3AC2A72BF3A0069E6B9 /* Radio Evaluation.swift */,
+				6320A3AE2A72BF7C0069E6B9 /* Cups Checkboxes.swift */,
+				6320A3B02A72BFB70069E6B9 /* Unsupported.swift */,
+			);
+			path = "Evaluation Types";
+			sourceTree = "<group>";
+		};
 		634D5A502A5ED65800A18B63 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,15 +203,6 @@
 				634D5A512A5ED67200A18B63 /* Radar Chart.swift */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		63739BB22A71247900C779ED /* Evaluation */ = {
-			isa = PBXGroup;
-			children = (
-				63739BB32A71251200C779ED /* QCGroup.swift */,
-				6320A3A72A72B5CB0069E6B9 /* Quality Criteria.swift */,
-			);
-			path = Evaluation;
 			sourceTree = "<group>";
 		};
 		63742D16287EA8AB001E8DAB /* CoreData */ = {
@@ -247,8 +255,8 @@
 		63A88CFE2A4C90C20006AA0F /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				6319F8672A5D59E700EECD62 /* Settings */,
 				63A88CFF2A4C90CC0006AA0F /* Cuppings */,
+				6319F8672A5D59E700EECD62 /* Settings */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -259,6 +267,7 @@
 				63A88CFC2A4C90880006AA0F /* All Cuppings.swift */,
 				63A1A90E2A5579D5008D30CE /* All Cuppings Header.swift */,
 				63198EA02A570846004634ED /* All Cuppings Empty.swift */,
+				639AB6932A57250200CB04F7 /* Cupping */,
 			);
 			path = Cuppings;
 			sourceTree = "<group>";
@@ -280,7 +289,7 @@
 				63B75D962A6D6799002C350A /* Samples Controller.swift */,
 				637935D62A6E6EFA007FD5AB /* Sample Chart.swift */,
 				63729F952A6DAF6600EF0FEE /* Sample Tools.swift */,
-				63739BB22A71247900C779ED /* Evaluation */,
+				63739BB32A71251200C779ED /* Sample QCGroup.swift */,
 			);
 			path = Sample;
 			sourceTree = "<group>";
@@ -289,7 +298,8 @@
 			isa = PBXGroup;
 			children = (
 				63B75D942A6D6549002C350A /* Samples Controller Model.swift */,
-				63A88D092A4C98E00006AA0F /* Evaluation Types.swift */,
+				63A88D092A4C98E00006AA0F /* Evaluation.swift */,
+				6320A3A92A72BF000069E6B9 /* Evaluation Types */,
 				63A88D0C2A4C99380006AA0F /* Cupping Forms */,
 			);
 			path = Models;
@@ -299,9 +309,8 @@
 			isa = PBXGroup;
 			children = (
 				63DC7A572801BE7800010318 /* ContentView.swift */,
-				63A88D072A4C96920006AA0F /* Sample */,
-				639AB6932A57250200CB04F7 /* Cupping */,
 				63A88CFE2A4C90C20006AA0F /* Tabs */,
+				63A88D072A4C96920006AA0F /* Sample */,
 				634D5A502A5ED65800A18B63 /* Components */,
 			);
 			path = Views;
@@ -493,7 +502,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6320A3AD2A72BF3A0069E6B9 /* Radio Evaluation.swift in Sources */,
 				22242C7A28EF26A300138494 /* QCGroup Entity.swift in Sources */,
+				6320A3AF2A72BF7C0069E6B9 /* Cups Checkboxes.swift in Sources */,
 				22242C7628EF263B00138494 /* Cupping Entity.swift in Sources */,
 				639AB6952A57258300CB04F7 /* Cupping.swift in Sources */,
 				6351668F2A52FB32001A0071 /* Integer To Digits.swift in Sources */,
@@ -508,13 +519,14 @@
 				6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */,
 				22242C7C28EF273700138494 /* SampleGeneralInfo Entity.swift in Sources */,
 				63B75D972A6D6799002C350A /* Samples Controller.swift in Sources */,
-				63A88D0A2A4C98E00006AA0F /* Evaluation Types.swift in Sources */,
+				63A88D0A2A4C98E00006AA0F /* Evaluation.swift in Sources */,
 				634D5A522A5ED67200A18B63 /* Radar Chart.swift in Sources */,
 				22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */,
 				632BA4D32A57F8A9006F0BC0 /* Cupping Setup.swift in Sources */,
 				63A88D042A4C92A40006AA0F /* Stopwatch.swift in Sources */,
 				22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */,
-				63739BB42A71251200C779ED /* QCGroup.swift in Sources */,
+				6320A3AB2A72BF160069E6B9 /* Slider Evaluation.swift in Sources */,
+				63739BB42A71251200C779ED /* Sample QCGroup.swift in Sources */,
 				63B75D952A6D6549002C350A /* Samples Controller Model.swift in Sources */,
 				637935D72A6E6EFA007FD5AB /* Sample Chart.swift in Sources */,
 				22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */,
@@ -523,6 +535,7 @@
 				63A88D152A4C9B780006AA0F /* CFModel.swift in Sources */,
 				63729F942A6D7B9300EF0FEE /* Cupping Sample Preview.swift in Sources */,
 				6319F8692A5D59F700EECD62 /* Settings.swift in Sources */,
+				6320A3B12A72BFB70069E6B9 /* Unsupported.swift in Sources */,
 				63A88D062A4C92E00006AA0F /* AppStorage extensions.swift in Sources */,
 				63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */,
 				63742D18287EA998001E8DAB /* Persistence.swift in Sources */,
@@ -530,7 +543,6 @@
 				63A1A9162A55851A008D30CE /* Button Styles.swift in Sources */,
 				63198EA12A570846004634ED /* All Cuppings Empty.swift in Sources */,
 				226CF02428F19FAF00F853B9 /* QCHint Entity.swift in Sources */,
-				6320A3A82A72B5CB0069E6B9 /* Quality Criteria.swift in Sources */,
 				63A88D172A4C9B8C0006AA0F /* CFManager.swift in Sources */,
 				22242C7828EF267500138494 /* Sample Entity.swift in Sources */,
 			);

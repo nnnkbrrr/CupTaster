@@ -58,7 +58,7 @@ extension AllCuppingsTabView {
     func cuppingPreview(_ cupping: Cupping) -> some View {
         NavigationLink(destination: CuppingView(cupping)) {
 #warning("navigation destination: cupping")
-            HStack {
+            HStack(spacing: .regular) {
                 ZStack {
 #warning("cupping color")
                     Rectangle()

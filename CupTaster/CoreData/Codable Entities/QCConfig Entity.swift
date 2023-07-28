@@ -68,7 +68,7 @@ public class QCConfig: QualityCriteria, Codable {
 }
 
 extension QCConfig {
-    public var unwrappedEvaluation: Evaluation {
+    public var unwrappedEvaluation: any Evaluation {
         self.evaluationType.unwrappedEvaluation
     }
 }
@@ -77,7 +77,7 @@ extension QCConfig {
     static func new(
         context: NSManagedObjectContext,
         title: String,
-        evaluationType: Evaluation,
+        evaluationType: any Evaluation,
         ordinalNumber: Int,
         bounds: Range<Double>,
         step: Double,

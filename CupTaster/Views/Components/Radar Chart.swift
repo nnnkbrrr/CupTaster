@@ -157,15 +157,15 @@ struct RadarChart: View {
         sample.qualityCriteriaGroups
             .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
             .flatMap { $0.qualityCriteria }
-            .filter { $0.configuration!.evaluationType.unwrappedEvaluation is SliderEvaluation }
+            .filter { $0.configuration.evaluationType.unwrappedEvaluation is SliderEvaluation }
         
         let isCompleted = sample.isCompleted
         
         if let firstVisibleQC = visibleQC.first {
             GeometryReader { geometry in
                 ZStack {
-                    let qcConfigMin = firstVisibleQC.configuration!.lowerBound
-                    let qcConfigMax = firstVisibleQC.configuration!.upperBound
+                    let qcConfigMin = firstVisibleQC.configuration.lowerBound
+                    let qcConfigMax = firstVisibleQC.configuration.upperBound
 
                     RadarChartGrid(categoriesCount: visibleQC.count, divisionsCount: Int(qcConfigMax - qcConfigMin))
                         .stroke(.gray, lineWidth: 0.5)

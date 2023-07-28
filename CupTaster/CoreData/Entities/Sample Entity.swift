@@ -40,7 +40,7 @@ extension Sample {
         let criteria: [QualityCriteria] = self.qualityCriteriaGroups.flatMap { $0.qualityCriteria }
         
         var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map { criteria in
-            ("qcc_\(criteria.group.configuration.ordinalNumber)_\(criteria.configuration!.ordinalNumber)", Double(criteria.formattedValue))
+            ("qcc_\(criteria.group.configuration.ordinalNumber)_\(criteria.configuration.ordinalNumber)", Double(criteria.formattedValue))
         })
         
         dictionary.updateValue(Double(self.cupping.cupsCount), forKey: "CupsCount")

@@ -29,11 +29,7 @@ struct SampleView: View {
                 .zIndex(1.1)
                 
                 ForEach(sample.sortedQCGroups) { qcGroup in
-                    ForEach(qcGroup.sortedQualityCriteria) { criteria in
-                        if let criteriaConfig: QCConfig = criteria.configuration {
-                            Text(criteriaConfig.title)
-                        }
-                    }
+                    QCGroupView(qcGroup: qcGroup)
                 }
             }
             .padding(.regular)
