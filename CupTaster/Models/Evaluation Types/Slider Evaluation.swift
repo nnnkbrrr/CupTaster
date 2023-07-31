@@ -13,14 +13,13 @@ class SliderEvaluation: Evaluation {
     
     func getEvaluationValue(_ value: CGFloat, cupsCount: Int16 = 0) -> CGFloat { return value }
     
-    func body(value: Binding<Double>, configuration config: QCConfig) -> some View {
-        SliderView(value: value, lowerBound: config.lowerBound, upperBound: config.upperBound, step: config.step)
+    func body(for criteria: QualityCriteria, value: Binding<Double>) -> some View {
+        let config = criteria.configuration
+        return SliderView(value: value, lowerBound: config.lowerBound, upperBound: config.upperBound, step: config.step)
     }
 }
 
-#warning("дописать нормально?")
-
-fileprivate struct SliderView: View {
+private struct SliderView: View {
     private let spacing: Double = 25
     
     @Binding var value: Double
@@ -74,11 +73,13 @@ fileprivate struct SliderView: View {
                 .foregroundColor(.accentColor)
                 .frame(width: 4, height: 35)
         }
-        .mask(LinearGradient(
-            gradient: Gradient(colors: [.clear, .black, .clear]),
-            startPoint: .leading,
-            endPoint: .trailing
-        ))
+        .mask(
+            LinearGradient(
+                gradient: Gradient(colors: [.clear, .black, .clear]),
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        )
         .contentShape(Rectangle())
         .gesture(
             DragGesture()

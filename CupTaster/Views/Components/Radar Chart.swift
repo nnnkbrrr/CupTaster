@@ -144,6 +144,7 @@ private struct RadarChartLabels: View {
 struct RadarChart: View {
     enum Style { case `default`, compact}
     
+    #warning("chart does not update on changes")
     @ObservedObject var sample: Sample
     let style: Self.Style
     

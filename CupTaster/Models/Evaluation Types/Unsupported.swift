@@ -13,7 +13,7 @@ class UnsupportedEvaluation: Evaluation {
     
     func getEvaluationValue(_ value: CGFloat, cupsCount: Int16 = 0) -> CGFloat { return 0 }
     
-    func body(value: Binding<Double>, configuration config: QCConfig) -> some View {
+    func body(for criteria: QualityCriteria, value: Binding<Double>) -> some View {
         VStack(alignment: .leading) {
             Text("Unsupported Quality Criteria")
             Text("This cupping has a deprecated cupping form. Some of the quality criteria might not be displayed.")

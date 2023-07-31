@@ -11,9 +11,11 @@ struct QCGroupView: View {
     @ObservedObject var qcGroup: QCGroup
     
     var body: some View {
-        VStack {
+        VStack(spacing: .small) {
+            let qualityCriteria = qcGroup.sortedQualityCriteria
+            
             HStack {
-                if let firstQC: QualityCriteria = qcGroup.qualityCriteria.sorted().first {
+                if let firstQC: QualityCriteria = qualityCriteria.first {
                     QCGroupHeaderView(criteria: firstQC)
                 }
                 
@@ -24,8 +26,12 @@ struct QCGroupView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             
-            ForEach(qcGroup.sortedQualityCriteria) { criteria in
+            ForEach(Array(qualityCriteria.enumerated()), id: \.offset) { index, criteria in
                 QualityCriteriaView(criteria: criteria)
+                
+                if index + 1 != qualityCriteria.count {
+                    Divider()
+                }
             }
         }
         .padding(.small)
@@ -44,13 +50,21 @@ struct QCGroupView: View {
     }
 
     struct QualityCriteriaView: View {
+        @Environment(\.managedObjectContext) private var moc
         @ObservedObject var criteria: QualityCriteria
         
         var body: some View {
             VStack {
-                Text(criteria.configuration.title)
-                AnyView(criteria.configuration.unwrappedEvaluation.body(value: $criteria.value, configuration: criteria.configuration))
+                let title = criteria.title
+                if title != criteria.group.configuration.title {
+                    Text(title)
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+                }
+                
+                AnyView(criteria.configuration.unwrappedEvaluation.body(for: criteria, value: $criteria.value))
             }
+            .onChange(of: criteria.value) { _ in try? moc.save() }
         }
     }
 }
