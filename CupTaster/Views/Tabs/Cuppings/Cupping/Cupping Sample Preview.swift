@@ -49,11 +49,11 @@ extension CuppingView {
         .contextMenu {
 #warning("context menu")
             Button("Open") {
-                samplesControllerModel.setActiveCupping(cupping: cupping, sample: sample)
+                samplesControllerModel.setSelectedSample(cupping: cupping, sample: sample)
             }
         }
         .onTapGesture {
-            samplesControllerModel.setActiveCupping(cupping: cupping, sample: sample)
+            samplesControllerModel.setSelectedSample(cupping: cupping, sample: sample)
         }
     }
 }

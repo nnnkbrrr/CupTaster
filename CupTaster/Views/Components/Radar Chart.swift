@@ -42,7 +42,7 @@ private struct RadarChartGrid: Shape {
 }
 
 private struct RadarChartPath: Shape {
-    let qualityCriteria: [QualityCriteria]
+    @State var qualityCriteria: [QualityCriteria]
     let minimum: CGFloat
     let maximum: CGFloat
     
@@ -146,20 +146,20 @@ struct RadarChart: View {
     
     #warning("chart does not update on changes")
     @ObservedObject var sample: Sample
+    @State private var visibleQC: [QualityCriteria]
+
     let style: Self.Style
     
     init(sample: Sample, style: Style = .default) {
         self.sample = sample
+        self.visibleQC = sample.qualityCriteriaGroups
+            .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
+            .flatMap { $0.qualityCriteria }
+            .filter { $0.configuration.evaluationType.unwrappedEvaluation is SliderEvaluation }
         self.style = style
     }
     
     var body: some View {
-        let visibleQC: [QualityCriteria] =
-        sample.qualityCriteriaGroups
-            .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
-            .flatMap { $0.qualityCriteria }
-            .filter { $0.configuration.evaluationType.unwrappedEvaluation is SliderEvaluation }
-        
         let isCompleted = sample.isCompleted
         
         if let firstVisibleQC = visibleQC.first {
@@ -167,10 +167,10 @@ struct RadarChart: View {
                 ZStack {
                     let qcConfigMin = firstVisibleQC.configuration.lowerBound
                     let qcConfigMax = firstVisibleQC.configuration.upperBound
-
+                    
                     RadarChartGrid(categoriesCount: visibleQC.count, divisionsCount: Int(qcConfigMax - qcConfigMin))
                         .stroke(.gray, lineWidth: 0.5)
-
+                    
                     RadarChartPath(qualityCriteria: visibleQC, minimum: qcConfigMin, maximum: qcConfigMax)
                         .stroke(Color.accentColor, lineWidth: 1)
                     
@@ -192,4 +192,8 @@ struct RadarChart: View {
             .frame(maxWidth: .infinity)
         } else { EmptyView() }
     }
+}
+
+private class VisibleQualityCriteria: ObservableObject {
+    @Published var qualityCriteria: [QualityCriteria] = []
 }

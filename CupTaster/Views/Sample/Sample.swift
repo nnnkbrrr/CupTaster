@@ -9,46 +9,64 @@ import SwiftUI
 
 struct SampleView: View {
     @Environment(\.managedObjectContext) private var moc
-    @State var sample: Sample
-    
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
-    @State var radarChartZoomed: Bool = false
-    
-    init(_ sample: Sample) {
-        self.sample = sample
-    }
+    @State var radarChartZoomedOnAppear: Bool = false
     
     var body: some View {
-#warning("view: sample")
-        ScrollView {
-            VStack(spacing: .regular) {
-                HStack(spacing: .regular) {
-                    sampleChart
-                    sampleTools
+//        if let sample = samplesControllerModel.selectedSample {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: .regular) {
+                    HStack(spacing: .regular) {
+//                        sampleChart(sample: sample)
+                        sampleTools
+                    }
+                    .frame(height: 220)
+                    
+//                    Text(String(format: "%.1f", sample.finalScore))
+//                        .padding(.small)
+//                        .frame(maxWidth: .infinity)
+//                        .background(
+//                            RoundedRectangle(cornerRadius: .defaultCornerRadius)
+//                                .foregroundColor(.secondarySystemGroupedBackground)
+//                        )
+                    
+                    Text(String(format: "%.1f", samplesControllerModel.selectedSample?.finalScore ?? -1))
+                        .padding(.small)
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: .defaultCornerRadius)
+                                .foregroundColor(.secondarySystemGroupedBackground)
+                        )
+                    
+                    RoundedRectangle(cornerRadius: .defaultCornerRadius)
+                        .frame(height: 500)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.secondarySystemGroupedBackground)
                 }
-                .zIndex(1.1)
-                
-                ForEach(sample.sortedQCGroups) { qcGroup in
-                    QCGroupView(qcGroup: qcGroup)
-                }
+                .padding(.extraSmall)
+                .frame(maxHeight: .infinity, alignment: .top)
             }
-            .padding(.regular)
+            .safeAreaInset(edge: .bottom) {
+                Spacer().frame(height: samplesControllerModel.bottomSheetMinHeight)
+            }
+            .onAppear { chartAppearAnimation() }
+//        }
+    }
+    
+    func chartAppearAnimation() {
+        withAnimation(.bouncy(duration: 0.2)) {
+            radarChartZoomedOnAppear = true
         }
-        .onAppear {
-            withAnimation(.bouncy(duration: 0.2)) {
-                radarChartZoomed = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation(.bouncy(duration: 0.2, extraBounce: 0.2)) {
+                radarChartZoomedOnAppear = false
             }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                withAnimation(.bouncy(duration: 0.2, extraBounce: 0.2)) {
-                    radarChartZoomed = false
-                }
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                let generator = UIImpactFeedbackGenerator(style: .soft)
-                generator.impactOccurred()
-            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            let generator = UIImpactFeedbackGenerator(style: .soft)
+            generator.impactOccurred()
         }
     }
 }

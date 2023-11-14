@@ -88,18 +88,16 @@ private struct SliderView: View {
                     let rangeValue1: CGFloat = -(offset + tempOffset) / spacing * step + lowerBound
                     let rangeValue2: CGFloat = -(offset + translation) / spacing * step + lowerBound
                     let currentRange: ClosedRange<CGFloat> = rangeValue1 < rangeValue2 ? rangeValue1...rangeValue2 : rangeValue2...rangeValue1
-                    for fractionValue in fractionValues {
-                        if currentRange ~= fractionValue && fractionValue != self.value {
-                            self.value = fractionValue
-                            generateSelectionFeedback()
-                        }
+                    for fractionValue in fractionValues where currentRange ~= fractionValue && fractionValue != value {
+                        value = fractionValue
+                        generateSelectionFeedback()
                     }
-                    self.tempOffset = translation
+                    tempOffset = translation
                 }
                 .onEnded { gesture in
                     let translation = gesture.translation.width
-                    self.offset += translation
-                    self.tempOffset = 0
+                    offset += translation
+                    tempOffset = 0
                     withAnimation {
                         if offset > 0 {
                             self.offset = 0

@@ -13,12 +13,15 @@ extension CGFloat {
     static let regular: Self = 15
     static let large: Self = 20
     static let extraLarge: Self = 40
+    
+    static let smallElement: Self = 50
+    static let smallElementContainer: Self = 70
 }
 
 // Corner Radius
 
 extension CGFloat {
-    static let defaultCornerRadius: Self = 10
+    static let defaultCornerRadius: Self = 15
 }
 
 private struct DefaultCornerRadius: ViewModifier {

@@ -16,25 +16,16 @@ extension SampleView {
                 SampleToolButton(systemImageName: "textformat") {
 #warning("action")
                 }
-                SampleToolButton(systemImageName: "camera") {
+                SampleToolButton(systemImageName: "plus") {
 #warning("action")
                 }
             }
             
             HStack(spacing: spacing) {
-                SampleToolButton(systemImageName: "link") {
+                SampleToolButton(systemImageName: "heart") {
 #warning("action")
                 }
-                SampleToolButton(systemImageName: "photo") {
-#warning("action")
-                }
-            }
-            
-            HStack(spacing: spacing) {
-                SampleToolButton(systemImageName: "doc") {
-#warning("action")
-                }
-                SampleToolButton(systemImageName: "folder.badge.gearshape") {
+                SampleToolButton(systemImageName: "rotate.3d.fill") {
 #warning("action")
                 }
             }

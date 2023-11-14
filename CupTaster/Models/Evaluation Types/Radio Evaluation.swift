@@ -32,6 +32,7 @@ private struct RadioView: View {
             if value == 0 {
                 Capsule()
                     .foregroundColor(.accentColor.opacity(0))
+                    .frame(height: 40)
                     .matchedGeometryEffect(id: "background", in: namespace)
             }
                    

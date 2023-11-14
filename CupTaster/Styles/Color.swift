@@ -12,4 +12,6 @@ extension Color {
     static let systemGroupedBackground = Color(uiColor: .systemGroupedBackground)
     static let secondarySystemGroupedBackground = Color(uiColor: .secondarySystemGroupedBackground)
     static let tertiarySystemGroupedBackground = Color(uiColor: .tertiarySystemGroupedBackground)
+    
+    static let background: Color = Color("Background")
 }

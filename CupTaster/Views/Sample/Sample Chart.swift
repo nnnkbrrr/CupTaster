@@ -8,18 +8,11 @@
 import SwiftUI
 
 extension SampleView {
-    var sampleChart: some View {
-        VStack(alignment: .leading) {
-            Text(String(format: "%.1f", sample.finalScore))
-                .font(.largeTitle)
-                .fontWeight(.light)
-            
-            Text("Final Score")
-                .foregroundStyle(.gray)
-            
+    @ViewBuilder func sampleChart(sample: Sample) -> some View {
+        VStack {
             RadarChart(sample: sample, style: .compact)
                 .background(Color.secondarySystemGroupedBackground)
-                .padding(.vertical, .small)
+                .padding(.bottom, .small)
                 .frame(maxWidth: .infinity)
                 .matchedGeometryEffect(id: "radar.chart.\(sample.id)", in: samplesControllerModel.namespace)
                 .zIndex(1.1)
@@ -34,7 +27,7 @@ extension SampleView {
             id: "radar.chart.container.\(sample.id)",
             in: samplesControllerModel.namespace
         )
-        .scaleEffect(radarChartZoomed ? 1.25 : 1)
+        .scaleEffect(radarChartZoomedOnAppear ? 1.25 : 1)
         .zIndex(1.2)
     }
 }
