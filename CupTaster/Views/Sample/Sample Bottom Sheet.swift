@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct SampleBottomSheetView: View {
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     
@@ -18,17 +17,18 @@ struct SampleBottomSheetView: View {
                 .frame(width: 40, height: 5)
                 .padding(.vertical, 5)
             
-            Text("Testing bottom sheet")
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: .large) {
-                    if let sample: Sample = samplesControllerModel.selectedSample { 
-                        ForEach(sample.sortedQCGroups) { qcGroup in
-                            QCGroupView(qcGroup: qcGroup)
-                        }
-                    }
+            if let sample: Sample = samplesControllerModel.selectedSample {
+                TargetHorizontalScrollView(
+                    sample.sortedQCGroups,
+                    selection: $samplesControllerModel.selectedQCGroup,
+                    elementWidth: QCGroupView.elementSize,
+                    spacing: CGFloat.small
+                ) { qcGroup in
+                    QCGroupView(qcGroup: qcGroup)
                 }
             }
+            
+            Text(samplesControllerModel.selectedQCGroup?.configuration.title ?? "none")
             
             Spacer()
                 .frame(height: 500)
@@ -49,7 +49,7 @@ extension SampleBottomSheetView {
                     .background(alignment: .top) {
                         HStack {
                             LinearGradient(
-                                colors: [.background, .background.opacity(0.25), .background.opacity(0)],
+                                colors: [.background.opacity(0.5), .background.opacity(0)],
                                 startPoint: .leading,
                                 endPoint: .trailing
                             )
@@ -76,6 +76,8 @@ extension SampleBottomSheetView {
                     )
                     .offset(y: bottomSheetOffset)
                     .dragGesture(
+                        gestureType: .simultaneous,
+                        direction: .vertical,
                         onUpdate: { value in
                             let translation: CGFloat = value.translation.height
                             if samplesControllerModel.bottomSheetIsExpanded {

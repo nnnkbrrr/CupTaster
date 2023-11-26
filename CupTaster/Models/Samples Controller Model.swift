@@ -52,7 +52,19 @@ extension SamplesControllerModel {
                 self.cupping = cupping
                 self.selectedSample = sample
                 self.selectedSampleIndex = Int(sample.ordinalNumber)
+                self.selectedQCGroup = sample.sortedQCGroups.first(where: { !$0.isCompleted }) ?? sample.sortedQCGroups.first
             }
+        }
+    }
+    
+    public func changeSelectedSample(sample: Sample?) {
+        if let sample {
+            self.selectedSample = sample
+            self.selectedSampleIndex = Int(sample.ordinalNumber)
+            self.selectedQCGroup = sample.sortedQCGroups.first(where: { !$0.isCompleted }) ?? sample.sortedQCGroups.first
+        } else {
+            selectedSample = nil
+            selectedQCGroup = nil
         }
     }
     
@@ -75,8 +87,7 @@ extension SamplesControllerModel {
 
 extension SamplesControllerModel {
     func onSwipeStarted() {
-        selectedSample = nil
-        selectedQCGroup = nil
+        changeSelectedSample(sample: nil)
     }
     
     func onSwipeUpdated(value: DragGesture.Value) {
@@ -159,21 +170,22 @@ extension SamplesControllerModel {
             withAnimation(.smooth) { swipeOffset = 0 }
         }
         
-        selectedSample = cupping.sortedSamples[selectedSampleIndex]
+        changeSelectedSample(sample: cupping.sortedSamples[selectedSampleIndex])
         swipeTransition = false
     }
     
     func onSwipeCanceled() {
         guard let cupping, cupping.samples.count > 0 else { return }
-        if swipeOffset != 0 {
+        
+        if [swipeOffset, firstSampleRotationAngle.degrees, lastSampleRotationAngle.degrees].contains(where: { $0 != 0 }) {
             withAnimation(.smooth) {
                 swipeOffset = 0
-                firstSampleRotationAngle = .zero
-                lastSampleRotationAngle = .zero
-                selectedSample = cupping.sortedSamples[selectedSampleIndex]
+                firstSampleRotationAngle.degrees = 0
+                lastSampleRotationAngle.degrees = 0
+                changeSelectedSample(sample: cupping.sortedSamples[selectedSampleIndex])
             }
         } else {
-            selectedSample = cupping.sortedSamples[selectedSampleIndex]
+            changeSelectedSample(sample: cupping.sortedSamples[selectedSampleIndex])
         }
     }
 }

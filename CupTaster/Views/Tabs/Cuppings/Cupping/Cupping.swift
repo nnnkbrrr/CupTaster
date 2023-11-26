@@ -24,7 +24,16 @@ struct CuppingView: View {
                 CuppingSetupView(cupping: cupping)
             } else {
                 ScrollView {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 150, maximum: 200), spacing: .regular)], spacing: .regular) {
+                    LazyVGrid(
+                        columns: [
+                            GridItem(
+                                .adaptive(minimum: 150, maximum: 200),
+                                spacing: .regular,
+                                alignment: .top
+                            )
+                        ],
+                        spacing: .regular
+                    ) {
                         Section {
                             ForEach(cupping.samples.sorted { $0.ordinalNumber < $1.ordinalNumber } ) { sample in
                                 if samplesControllerModel.selectedSample != sample {

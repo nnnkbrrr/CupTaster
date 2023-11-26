@@ -11,6 +11,8 @@ struct QCGroupView: View {
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     @ObservedObject var qcGroup: QCGroup
     
+    static let elementSize: CGFloat = .smallElement
+    
     var body: some View {
         ZStack {
             let firstSliderQC: QualityCriteria? = qcGroup.qualityCriteria.first(where: {
@@ -26,12 +28,14 @@ struct QCGroupView: View {
                     .frame(width: .smallElement, height: .smallElement)
                     .id(qcGroup.configuration.id)
                 
-                Text(String(format: "%.2f", firstSliderQC.formattedValue))
+//                Text(String(format: "%.2f", firstSliderQC.formattedValue))
             } else {
                 Circle()
-                    .frame(width: .smallElement, height: .smallElement)
-                    .foregroundStyle(.gray)
+                    .frame(width: Self.elementSize, height: Self.elementSize)
+                    .foregroundStyle(.gray.opacity(0.5))
             }
+            
+            Text(qcGroup.configuration.title.prefix(2))
         }
         .id(qcGroup.configuration.id)
     }
