@@ -13,44 +13,42 @@ struct SampleView: View {
     @State var radarChartZoomedOnAppear: Bool = false
     
     var body: some View {
-//        if let sample = samplesControllerModel.selectedSample {
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: .regular) {
-                    HStack(spacing: .regular) {
-//                        sampleChart(sample: sample)
-                        sampleTools
-                    }
-                    .frame(height: 220)
-                    
-//                    Text(String(format: "%.1f", sample.finalScore))
-//                        .padding(.small)
-//                        .frame(maxWidth: .infinity)
-//                        .background(
-//                            RoundedRectangle(cornerRadius: .defaultCornerRadius)
-//                                .foregroundColor(.secondarySystemGroupedBackground)
-//                        )
-                    
-                    Text(String(format: "%.1f", samplesControllerModel.selectedSample?.finalScore ?? -1))
-                        .padding(.small)
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                                .foregroundColor(.secondarySystemGroupedBackground)
-                        )
-                    
-                    RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                        .frame(height: 500)
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(.secondarySystemGroupedBackground)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: .regular) {
+                HStack(spacing: .regular) {
+                    // sampleChart(sample: sample)
+                    sampleTools
                 }
-                .padding(.extraSmall)
-                .frame(maxHeight: .infinity, alignment: .top)
+                .frame(height: 220)
+                
+                // Text(String(format: "%.1f", sample.finalScore))
+                //     .padding(.small)
+                //     .frame(maxWidth: .infinity)
+                //     .background(
+                //         RoundedRectangle(cornerRadius: .defaultCornerRadius)
+                //             .foregroundColor(.secondarySystemGroupedBackground)
+                //     )
+                
+                Text(String(format: "%.1f", samplesControllerModel.selectedSample?.finalScore ?? -1))
+                    .padding(.small)
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: .defaultCornerRadius)
+                            .foregroundColor(.secondarySystemGroupedBackground)
+                    )
+                
+                RoundedRectangle(cornerRadius: .defaultCornerRadius)
+                    .frame(height: 500)
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.secondarySystemGroupedBackground)
             }
-            .safeAreaInset(edge: .bottom) {
-                Spacer().frame(height: samplesControllerModel.bottomSheetMinHeight)
-            }
-            .onAppear { chartAppearAnimation() }
-//        }
+            .padding(.extraSmall)
+            .frame(maxHeight: .infinity, alignment: .top)
+        }
+        .safeAreaInset(edge: .bottom) {
+            Spacer().frame(height: BottomSheetConfiguration.minHeight)
+        }
+        .onAppear { chartAppearAnimation() }
     }
     
     func chartAppearAnimation() {

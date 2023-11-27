@@ -24,6 +24,7 @@ class SamplesControllerModel: ObservableObject {
     @Published private(set) var cupping: Cupping?
     @Published private(set) var selectedSample: Sample?
     @Published public var selectedQCGroup: QCGroup?
+    @Published public var selectedCriteria: QualityCriteria?
     
     // Sample Swipe Gestures
     
@@ -37,7 +38,6 @@ class SamplesControllerModel: ObservableObject {
     // Sample Bottom Sheet Gestures
     
     @Published public var bottomSheetIsExpanded: Bool = false
-    let bottomSheetMinHeight: CGFloat = 200
 }
 
 // General Functions
@@ -52,7 +52,9 @@ extension SamplesControllerModel {
                 self.cupping = cupping
                 self.selectedSample = sample
                 self.selectedSampleIndex = Int(sample.ordinalNumber)
-                self.selectedQCGroup = sample.sortedQCGroups.first(where: { !$0.isCompleted }) ?? sample.sortedQCGroups.first
+                self.changeSelectedQCGroup(qcGroup: sample.sortedQCGroups.first(where: {
+                    !$0.isCompleted
+                }) ?? sample.sortedQCGroups.first)
             }
         }
     }
@@ -61,10 +63,22 @@ extension SamplesControllerModel {
         if let sample {
             self.selectedSample = sample
             self.selectedSampleIndex = Int(sample.ordinalNumber)
-            self.selectedQCGroup = sample.sortedQCGroups.first(where: { !$0.isCompleted }) ?? sample.sortedQCGroups.first
+            self.changeSelectedQCGroup(qcGroup: sample.sortedQCGroups.first(where: {
+                !$0.isCompleted
+            }) ?? sample.sortedQCGroups.first)
         } else {
-            selectedSample = nil
-            selectedQCGroup = nil
+            self.selectedSample = nil
+            self.changeSelectedQCGroup(qcGroup: nil)
+        }
+    }
+    
+    public func changeSelectedQCGroup(qcGroup: QCGroup?) {
+        if let qcGroup {
+            self.selectedQCGroup = qcGroup
+            self.selectedCriteria = selectedQCGroup?.sortedQualityCriteria.first
+        } else {
+            self.selectedQCGroup = nil
+            self.selectedCriteria = nil
         }
     }
     

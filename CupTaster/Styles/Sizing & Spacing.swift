@@ -7,13 +7,19 @@
 
 import SwiftUI
 
+// Spacing
+
 extension CGFloat {
     static let extraSmall: Self = 5
     static let small: Self = 10
     static let regular: Self = 15
     static let large: Self = 20
     static let extraLarge: Self = 40
-    
+}
+
+// Size
+
+extension CGFloat {
     static let smallElement: Self = 50
     static let smallElementContainer: Self = 70
 }

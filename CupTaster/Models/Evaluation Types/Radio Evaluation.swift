@@ -40,30 +40,22 @@ private struct RadioView: View {
             
             HStack {
                 ForEach(values, id: \.self) { value in
-                    Button {
+                    ZStack {
                         if self.value == Double(value) {
-                            self.value = 0
-                        } else {
-                            self.value = Double(value)
+                            Capsule()
+                                .foregroundColor(.gray.opacity(0.25))
+                                .matchedGeometryEffect(id: "background", in: namespace)
                         }
-                    } label: {
-                        ZStack {
-                            if self.value == Double(value) {
-                                Capsule()
-                                    .foregroundColor(.gray.opacity(0.25))
-                                    .matchedGeometryEffect(id: "background", in: namespace)
-                            }
-                            
-                            Text("\(value)")
-                                .bold()
-                                .transition(.scale)
-                                .foregroundColor(self.value == Double(value) ? .accentColor : .primary)
-                                .frame(width: 40, height: 40)
-                        }
-                        .contentShape(Rectangle())
-                        .frame(maxWidth: .infinity)
+                        
+                        Text("\(value)")
+                            .bold()
+                            .transition(.scale)
+                            .foregroundColor(self.value == Double(value) ? .accentColor : .primary)
+                            .frame(width: 40, height: 40)
                     }
-                    .buttonStyle(.plain)
+                    .contentShape(Rectangle())
+                    .frame(maxWidth: .infinity)
+                    .onTapGesture { self.value = self.value == Double(value) ? 0 : Double(value) }
                 }
             }
             .frame(height: 40)

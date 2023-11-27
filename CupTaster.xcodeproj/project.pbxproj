@@ -27,6 +27,7 @@
 		632BA4D32A57F8A9006F0BC0 /* Cupping Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632BA4D22A57F8A9006F0BC0 /* Cupping Setup.swift */; };
 		632F5D2529D83EAE00D7FFB7 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 632F5D2429D83EAE00D7FFB7 /* CodeScanner */; };
 		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
+		6349471E2B13BBDA00A9030B /* Circular Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349471D2B13BBDA00A9030B /* Circular Progress.swift */; };
 		634D5A4D2A5ED5F200A18B63 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634D5A4C2A5ED5F200A18B63 /* Sample.swift */; };
 		634D5A522A5ED67200A18B63 /* Radar Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634D5A512A5ED67200A18B63 /* Radar Chart.swift */; };
 		6351668F2A52FB32001A0071 /* Integer To Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6351668E2A52FB32001A0071 /* Integer To Digits.swift */; };
@@ -96,6 +97,7 @@
 		6327BEB728609432000CB3AB /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		632BA4D22A57F8A9006F0BC0 /* Cupping Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Setup.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		6349471D2B13BBDA00A9030B /* Circular Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circular Progress.swift"; sourceTree = "<group>"; };
 		634D5A4C2A5ED5F200A18B63 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		634D5A512A5ED67200A18B63 /* Radar Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radar Chart.swift"; sourceTree = "<group>"; };
 		6351668E2A52FB32001A0071 /* Integer To Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Integer To Digits.swift"; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				63A88D032A4C92A40006AA0F /* Stopwatch.swift */,
 				634D5A512A5ED67200A18B63 /* Radar Chart.swift */,
 				63E7F9122B0677E600415B13 /* Target Scroll.swift */,
+				6349471D2B13BBDA00A9030B /* Circular Progress.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				63739BB42A71251200C779ED /* Sample Quality Criteria.swift in Sources */,
 				63B75D952A6D6549002C350A /* Samples Controller Model.swift in Sources */,
 				637935D72A6E6EFA007FD5AB /* Sample Chart.swift in Sources */,
+				6349471E2B13BBDA00A9030B /* Circular Progress.swift in Sources */,
 				22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */,
 				22242C8428EF27FF00138494 /* QCGroupConfig Entity.swift in Sources */,
 				22242C7E28EF274900138494 /* QualityCriteria Entity.swift in Sources */,

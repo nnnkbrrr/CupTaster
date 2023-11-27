@@ -12,11 +12,13 @@ struct TargetHorizontalScrollView<
     TargetContent: View
 >: View where Data.Element: Equatable {
     let data: [(index: Int, value: Data.Element)]
-    @Binding var selection: Data.Element?
+    @Binding var selection: Data.Element
     @State var selectionIndex: Int?
     let targetContent: (Data.Element) -> TargetContent
+    let onSelectionChange: (Data.Element) -> ()
     
     let elementWidth: Double
+    let height: Double
     let spacing: Double
     let contentWidth: Double
     
@@ -29,18 +31,22 @@ struct TargetHorizontalScrollView<
     
     init (
         _ data: Data,
-        selection: Binding<Data.Element?>,
+        selection: Binding<Data.Element>,
         elementWidth: Double,
+        height: Double,
         spacing: Double,
         isProcessingGesture: Binding<Bool> = .constant(false),
-        @ViewBuilder content targetContent: @escaping (Data.Element) -> TargetContent
+        @ViewBuilder content targetContent: @escaping (Data.Element) -> TargetContent,
+        onSelectionChange: @escaping (_ newSelection: Data.Element) -> () = { _ in }
     ) {
         let enumeratedData: [(index: Int, value: Data.Element)] = data.enumerated().map { (index: $0.0, value: $0.1) }
         self.data = enumeratedData
         self._selection = selection
         self.targetContent = targetContent
+        self.onSelectionChange = onSelectionChange
         
         self.elementWidth = elementWidth
+        self.height = height
         self.spacing = spacing
         self.contentWidth = (elementWidth + spacing) * Double(data.count - 1)
         
@@ -55,10 +61,21 @@ struct TargetHorizontalScrollView<
     }
     
     var body: some View {
-        Color.clear.frame(height: 55).overlay(alignment: .bottom) {
+        Color.clear.frame(height: height).overlay {
             HStack(alignment: .top, spacing: spacing) {
-                ForEach(data, id: \.index) { targetContent($0.value) }
+                ForEach(data, id: \.index) { element in
+                    targetContent(element.value)
+                        .onTapGesture {
+                            selection = element.value
+                            onSelectionChange(element.value)
+                            generateSelectionFeedback()
+                            withAnimation {
+                                offset = -(elementWidth + spacing) * Double((data.first(where: { $1 == element.value })?.index ?? 0))
+                            }
+                        }
+                }
             }
+            .frame(maxWidth: .infinity)
             .offset(x: contentWidth / 2)
             .offset(x: offset + tempOffset)
         }
@@ -83,7 +100,7 @@ struct TargetHorizontalScrollView<
             let additionalOffset: CGFloat = horizontalTranslation > 0 ? 0 : contentWidth
             
             let boundsOffset: CGFloat = -offset - additionalOffset
-            let outOfBoundsOffset: CGFloat = sqrt(horizontalTranslation * directionMultiplier - boundsOffset) * 2.0 * directionMultiplier
+            let outOfBoundsOffset: CGFloat = sqrt((horizontalTranslation - boundsOffset) * directionMultiplier) * 2.0 * directionMultiplier
             
             tempOffset = boundsOffset + outOfBoundsOffset
         }
@@ -95,7 +112,8 @@ struct TargetHorizontalScrollView<
             
             if (CGFloat(lowerBound)...CGFloat(upperBound)) ~= delta {
                 if element.index != selectionIndex {
-                    selection = element.value
+                    self.selection = element.value
+                    onSelectionChange(element.value)
                     generateSelectionFeedback()
                 }
                 break
@@ -108,7 +126,6 @@ struct TargetHorizontalScrollView<
         tempOffset = 0
         
         withAnimation {
-            guard let selection else { return }
             offset = -(elementWidth + spacing) * Double((data.first(where: { $1 == selection })?.index ?? 0))
         }
         

@@ -7,32 +7,95 @@
 
 import SwiftUI
 
+struct BottomSheetConfiguration {
+    static let spacing: CGFloat = .large
+    static let verticalPadding: CGFloat = .extraSmall
+    static var minHeight: CGFloat {
+        return Capsule.height + QCGroup.height + CriteriaPicker.height + Criteria.height + spacing * 3 + verticalPadding * 2
+    }
+    
+    // Capsule Section
+    struct Capsule {
+        static let width: CGFloat = 40
+        static let height: CGFloat = 5
+    }
+    
+    // Quality Criteria Groups Section
+    struct QCGroup {
+        static let elementSize: CGFloat = .smallElement
+        static let height: CGFloat = elementSize
+        static let spacing: CGFloat = .small
+    }
+    
+    // Criteria Picker Section
+    struct CriteriaPicker {
+        static let height: CGFloat = 25
+    }
+    
+    // Criteria Section
+    struct Criteria {
+        static let height: CGFloat = .smallElement
+    }
+    
+    // Slider Evaluation
+    struct Slider {
+        static let elementWidth: CGFloat = 1
+        static let height: CGFloat = Criteria.height
+        static let spacing: CGFloat = 25
+    }
+}
+
 struct SampleBottomSheetView: View {
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     
     var body: some View {
-        VStack {
+        VStack(spacing: BottomSheetConfiguration.spacing) {
             Capsule()
                 .fill(Color.gray.opacity(0.5))
-                .frame(width: 40, height: 5)
-                .padding(.vertical, 5)
+                .frame(width: BottomSheetConfiguration.Capsule.width, height: BottomSheetConfiguration.Capsule.height)
             
-            if let sample: Sample = samplesControllerModel.selectedSample {
+            if let sample: Sample = samplesControllerModel.selectedSample,
+               let selectedQCGroup: QCGroup = samplesControllerModel.selectedQCGroup {
                 TargetHorizontalScrollView(
                     sample.sortedQCGroups,
-                    selection: $samplesControllerModel.selectedQCGroup,
-                    elementWidth: QCGroupView.elementSize,
-                    spacing: CGFloat.small
+                    selection: Binding(
+                        get: { selectedQCGroup },
+                        set: { samplesControllerModel.changeSelectedQCGroup(qcGroup: $0) }
+                    ),
+                    elementWidth: BottomSheetConfiguration.QCGroup.elementSize,
+                    height: BottomSheetConfiguration.QCGroup.height,
+                    spacing: BottomSheetConfiguration.QCGroup.spacing
                 ) { qcGroup in
                     QCGroupView(qcGroup: qcGroup)
+                } onSelectionChange: { newSelection in
+                    samplesControllerModel.changeSelectedQCGroup(qcGroup: newSelection)
                 }
             }
             
-            Text(samplesControllerModel.selectedQCGroup?.configuration.title ?? "none")
+            if let selectedCriteria = samplesControllerModel.selectedCriteria {
+                QualityCriteriaView(criteria: selectedCriteria)
+                    .frame(height: BottomSheetConfiguration.Criteria.height)
+                    .id(selectedCriteria.id)
+            }
             
-            Spacer()
-                .frame(height: 500)
+            if let selectedQCGroup = samplesControllerModel.selectedQCGroup {
+                HStack {
+                    ForEach(selectedQCGroup.sortedQualityCriteria) { criteria in
+                        Text(criteria.configuration.title)
+                            .opacity(criteria == samplesControllerModel.selectedCriteria ? 1 : 0.5)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: BottomSheetConfiguration.CriteriaPicker.height)
+                            .onTapGesture {
+                                withAnimation {
+                                    samplesControllerModel.selectedCriteria = criteria
+                                }
+                            }
+                    }
+                }
+                .padding(.horizontal, .large)
+            }
         }
+        .padding(.vertical, BottomSheetConfiguration.verticalPadding)
         .modifier(SheetModifier())
     }
 }
@@ -64,15 +127,14 @@ extension SampleBottomSheetView {
                             )
                             .frame(width: .extraLarge)
                         }
-                        .frame(height: geometry.frame(in: .global).height * 2)
+                        .frame(height: geometry.frame(in: .global).height * 2, alignment: .top)
                         .edgesIgnoringSafeArea(.top)
                         .background(Color.background.opacity(0.25))
                         .background(TransparentBlurView())
                     }
-                    .padding(.bottom, geometry.size.height)
                     .offset(
                         y: samplesControllerModel.bottomSheetIsExpanded ?
-                        0 : geometry.frame(in: .global).height - samplesControllerModel.bottomSheetMinHeight
+                        0 : geometry.size.height - BottomSheetConfiguration.minHeight
                     )
                     .offset(y: bottomSheetOffset)
                     .dragGesture(
@@ -88,7 +150,7 @@ extension SampleBottomSheetView {
                                     bottomSheetOffset = 0 + additionalOffset
                                 }
                             } else {
-                                let upperBound: CGFloat = -geometry.frame(in: .global).height + samplesControllerModel.bottomSheetMinHeight
+                                let upperBound: CGFloat = -geometry.size.height + BottomSheetConfiguration.minHeight
                                 if translation > upperBound {
                                     bottomSheetOffset = translation
                                 } else {
