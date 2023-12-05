@@ -39,7 +39,7 @@ private struct SliderView: View {
             ) { _ in
                 Capsule()
                     .fill(.gray)
-                    .frame(width: 1, height: SampleBottomSheetConfiguration.Slider.height - 20)
+                    .frame(width: 1, height: SampleBottomSheetConfiguration.Slider.height/3)
             }
             
             Capsule()

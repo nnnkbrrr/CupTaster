@@ -43,6 +43,7 @@ extension QCGroup {
         let expression = NSExpression(format: formula)
         let values = values
         let expressionValue = expression.expressionValue(with: values, context: nil)
+        
         return expressionValue as? Double ?? 0
     }
 }

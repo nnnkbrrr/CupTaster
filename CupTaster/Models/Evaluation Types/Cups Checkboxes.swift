@@ -11,7 +11,7 @@ class CupsCheckboxesEvaluation: Evaluation {
     let name: String = "Cups Checkboxes"
     let sortOrder: Int = 2
     
-    func getEvaluationValue(_ value: CGFloat, cupsCount: Int16) -> CGFloat { return 10.0 - (10.0 * CGFloat(Int(value).digits.reduce(0, +))) / CGFloat(cupsCount) }
+    func getEvaluationValue(_ value: CGFloat, cupsCount: Int16) -> CGFloat { return CGFloat(Int(value).digits.reduce(0, +)) }
     
     func body(for criteria: QualityCriteria, value: Binding<Double>) -> some View {
         return CupsCheckboxesView(value: value, cuppingCupsCount: criteria.group.sample.cupping.cupsCount)

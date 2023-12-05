@@ -284,7 +284,7 @@
         {
             "title": "Sweetness",
             "ordinalNumber": 7,
-            "scoreFormula": "criteria_1",
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
             "scoreLowerBound": 0,
             "scoreUpperBound": 10,
             "hint": {
@@ -301,14 +301,14 @@
                     "evaluationType": "cups_checkboxes",
                     "step": 1,
                     "lowerBound": 0,
-                    "upperBound": 10
+                    "upperBound": 5
                 }
             ]
         },
         {
             "title": "Clean Cup",
             "ordinalNumber": 8,
-            "scoreFormula": "criteria_1",
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
             "scoreLowerBound": 0,
             "scoreUpperBound": 10,
             "hint": {
@@ -325,14 +325,14 @@
                     "evaluationType": "cups_checkboxes",
                     "step": 1,
                     "lowerBound": 0,
-                    "upperBound": 10
+                    "upperBound": 5
                 }
             ]
         },
         {
             "title": "Uniformity",
             "ordinalNumber": 9,
-            "scoreFormula": "criteria_1",
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
             "scoreLowerBound": 0,
             "scoreUpperBound": 10,
             "hint": {
@@ -349,7 +349,7 @@
                     "evaluationType": "cups_checkboxes",
                     "step": 1,
                     "lowerBound": 0,
-                    "upperBound": 10
+                    "upperBound": 5
                 }
             ]
         },
@@ -380,7 +380,7 @@
         {
             "title": "Defects",
             "ordinalNumber": 11,
-            "scoreFormula": "-(criteria_1 * criteria_2 / cups_count * 5)",
+            "scoreFormula": "criteria_1 * criteria_2 / cups_count * -5",
             "scoreLowerBound": -20,
             "scoreUpperBound": 0,
             "hint": {
@@ -397,7 +397,7 @@
                     "evaluationType": "cups_checkboxes",
                     "step": 1,
                     "lowerBound": 0,
-                    "upperBound": 0
+                    "upperBound": 5
                 },
                 {
                     "lowerBoundTitle": null,

@@ -54,7 +54,8 @@ struct QCGroupView: View {
         .simultaneousGesture(
             TapGesture()
                 .onEnded {
-                    if samplesControllerModel.selectedQCGroup == qcGroup && qcGroup.isCompleted {
+                    guard samplesControllerModel.selectedQCGroup == qcGroup else { return }
+                    if qcGroup.isCompleted {
                         for criteria in qcGroup.qualityCriteria {
                             criteria.value = criteria.configuration.value
                         }
