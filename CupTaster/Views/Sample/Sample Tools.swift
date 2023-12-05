@@ -40,7 +40,7 @@ extension SampleView {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.systemGroupedBackground)
+        .background(Color.background)
         .cornerRadius()
     }
 }
@@ -61,7 +61,7 @@ private struct SampleToolButton: View {
             Image(systemName: systemImageName)
                 .font(.title2)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.secondarySystemGroupedBackground)
+                .background(Color.backgroundSecondary)
         }
     }
 }

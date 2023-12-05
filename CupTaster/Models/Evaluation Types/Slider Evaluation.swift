@@ -33,18 +33,18 @@ private struct SliderView: View {
             TargetHorizontalScrollView(
                 fractionValues,
                 selection: $value,
-                elementWidth: BottomSheetConfiguration.Slider.elementWidth,
-                height: BottomSheetConfiguration.Slider.height,
-                spacing: BottomSheetConfiguration.Slider.spacing
+                elementWidth: SampleBottomSheetConfiguration.Slider.elementWidth,
+                height: SampleBottomSheetConfiguration.Slider.height,
+                spacing: SampleBottomSheetConfiguration.Slider.spacing
             ) { _ in
                 Capsule()
                     .fill(.gray)
-                    .frame(width: 1, height: BottomSheetConfiguration.Slider.height - 20)
+                    .frame(width: 1, height: SampleBottomSheetConfiguration.Slider.height - 20)
             }
             
             Capsule()
                 .foregroundColor(.accentColor)
-                .frame(width: 4, height: BottomSheetConfiguration.Slider.height)
+                .frame(width: 4, height: SampleBottomSheetConfiguration.Slider.height)
         }
         .mask(
             LinearGradient(

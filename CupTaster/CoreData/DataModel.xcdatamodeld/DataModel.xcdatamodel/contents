@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22158.8" systemVersion="23A5276g" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Cupping" representedClassName="Cupping" syncable="YES">
         <attribute name="cupsCount" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="-978318000" usesScalarValueType="NO"/>
@@ -45,6 +45,9 @@
     </entity>
     <entity name="QCGroupConfig" representedClassName="QCGroupConfig" syncable="YES">
         <attribute name="ordinalNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="scoreFormula" attributeType="String" defaultValueString="0"/>
+        <attribute name="scoreLowerBound" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="scoreUpperBound" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String" defaultValueString="Quality Criteria"/>
         <relationship name="form" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CuppingForm" inverseName="qcGroupConfigurations" inverseEntity="CuppingForm"/>
         <relationship name="group" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QCGroup" inverseName="configuration" inverseEntity="QCGroup"/>

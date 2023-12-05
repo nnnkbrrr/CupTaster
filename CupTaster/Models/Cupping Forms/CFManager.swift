@@ -17,7 +17,7 @@ public class CFManager: ObservableObject {
     private init() {
         let SCA_CFModel = CFModel(
             title: "SCA",
-            version: "1.0"
+            version: "1.1"
         )
         let SCI_CFModel = CFModel(
             title: "SCI",

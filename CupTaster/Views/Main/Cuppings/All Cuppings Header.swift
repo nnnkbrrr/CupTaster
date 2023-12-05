@@ -39,7 +39,6 @@ struct AllCuppingHeaderView: View {
                 Button("New Folder") {
 #warning("создать новую папку")
                 }
-                .buttonStyle(.secondary)
                 .padding(.horizontal, .large)
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {

@@ -26,6 +26,25 @@ extension QCGroup {
     public var sortedQualityCriteria: [QualityCriteria] {
         self.qualityCriteria.sorted()
     }
+    
+    var values: [String: Double] {
+        let criteria: [QualityCriteria] = self.sortedQualityCriteria
+        
+        var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map { criteria in
+            ("criteria_\(criteria.configuration.ordinalNumber)", Double(criteria.formattedValue))
+        })
+        
+        dictionary.updateValue(Double(self.sample.cupping.cupsCount), forKey: "cups_count")
+        return dictionary
+    }
+    
+    var score: Double {
+        let formula: String = self.configuration.scoreFormula
+        let expression = NSExpression(format: formula)
+        let values = values
+        let expressionValue = expression.expressionValue(with: values, context: nil)
+        return expressionValue as? Double ?? 0
+    }
 }
 
 extension QCGroup {

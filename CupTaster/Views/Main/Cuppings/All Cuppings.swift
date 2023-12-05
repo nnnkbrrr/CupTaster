@@ -45,6 +45,14 @@ struct AllCuppingsTabView: View {
                     }
                 }
                 .navigationBarTitle("All Cuppings", displayMode: .inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        NavigationLink(destination: SettingsTabView()) {
+                            Image(systemName: "gearshape")
+                        }
+#warning("badge?")
+                    }
+                }
                 .stopwatchToolbarItem()
             } else {
                 isEmpty

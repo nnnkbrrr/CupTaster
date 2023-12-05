@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BottomSheetConfiguration {
+struct SampleBottomSheetConfiguration {
     static let spacing: CGFloat = .large
     static let verticalPadding: CGFloat = .extraSmall
     static var minHeight: CGFloat {
@@ -49,10 +49,10 @@ struct SampleBottomSheetView: View {
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     
     var body: some View {
-        VStack(spacing: BottomSheetConfiguration.spacing) {
+        VStack(spacing: SampleBottomSheetConfiguration.spacing) {
             Capsule()
                 .fill(Color.gray.opacity(0.5))
-                .frame(width: BottomSheetConfiguration.Capsule.width, height: BottomSheetConfiguration.Capsule.height)
+                .frame(width: SampleBottomSheetConfiguration.Capsule.width, height: SampleBottomSheetConfiguration.Capsule.height)
             
             if let sample: Sample = samplesControllerModel.selectedSample,
                let selectedQCGroup: QCGroup = samplesControllerModel.selectedQCGroup {
@@ -62,9 +62,10 @@ struct SampleBottomSheetView: View {
                         get: { selectedQCGroup },
                         set: { samplesControllerModel.changeSelectedQCGroup(qcGroup: $0) }
                     ),
-                    elementWidth: BottomSheetConfiguration.QCGroup.elementSize,
-                    height: BottomSheetConfiguration.QCGroup.height,
-                    spacing: BottomSheetConfiguration.QCGroup.spacing
+                    elementWidth: SampleBottomSheetConfiguration.QCGroup.elementSize,
+                    height: SampleBottomSheetConfiguration.QCGroup.height,
+                    spacing: SampleBottomSheetConfiguration.QCGroup.spacing,
+                    gestureIsActive: $samplesControllerModel.criteriaPickerGestureIsActive
                 ) { qcGroup in
                     QCGroupView(qcGroup: qcGroup)
                 } onSelectionChange: { newSelection in
@@ -74,7 +75,7 @@ struct SampleBottomSheetView: View {
             
             if let selectedCriteria = samplesControllerModel.selectedCriteria {
                 QualityCriteriaView(criteria: selectedCriteria)
-                    .frame(height: BottomSheetConfiguration.Criteria.height)
+                    .frame(height: SampleBottomSheetConfiguration.Criteria.height)
                     .id(selectedCriteria.id)
             }
             
@@ -84,7 +85,7 @@ struct SampleBottomSheetView: View {
                         Text(criteria.configuration.title)
                             .opacity(criteria == samplesControllerModel.selectedCriteria ? 1 : 0.5)
                             .frame(maxWidth: .infinity)
-                            .frame(height: BottomSheetConfiguration.CriteriaPicker.height)
+                            .frame(height: SampleBottomSheetConfiguration.CriteriaPicker.height)
                             .onTapGesture {
                                 withAnimation {
                                     samplesControllerModel.selectedCriteria = criteria
@@ -95,7 +96,7 @@ struct SampleBottomSheetView: View {
                 .padding(.horizontal, .large)
             }
         }
-        .padding(.vertical, BottomSheetConfiguration.verticalPadding)
+        .padding(.vertical, SampleBottomSheetConfiguration.verticalPadding)
         .modifier(SheetModifier())
     }
 }
@@ -103,7 +104,6 @@ struct SampleBottomSheetView: View {
 extension SampleBottomSheetView {
     struct SheetModifier: ViewModifier {
         @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
-        @State var bottomSheetOffset: CGFloat = 0
         
         func body(content: Content) -> some View {
             GeometryReader { geometry in
@@ -134,9 +134,9 @@ extension SampleBottomSheetView {
                     }
                     .offset(
                         y: samplesControllerModel.bottomSheetIsExpanded ?
-                        0 : geometry.size.height - BottomSheetConfiguration.minHeight
+                        0 : geometry.size.height - SampleBottomSheetConfiguration.minHeight
                     )
-                    .offset(y: bottomSheetOffset)
+                    .offset(y: samplesControllerModel.bottomSheetOffset)
                     .dragGesture(
                         gestureType: .simultaneous,
                         direction: .vertical,
@@ -144,18 +144,18 @@ extension SampleBottomSheetView {
                             let translation: CGFloat = value.translation.height
                             if samplesControllerModel.bottomSheetIsExpanded {
                                 if translation > 0 {
-                                    bottomSheetOffset = translation
+                                    samplesControllerModel.bottomSheetOffset = translation
                                 } else {
                                     let additionalOffset: CGFloat = -sqrt(-translation)
-                                    bottomSheetOffset = 0 + additionalOffset
+                                    samplesControllerModel.bottomSheetOffset = 0 + additionalOffset
                                 }
                             } else {
-                                let upperBound: CGFloat = -geometry.size.height + BottomSheetConfiguration.minHeight
+                                let upperBound: CGFloat = -geometry.size.height + SampleBottomSheetConfiguration.minHeight
                                 if translation > upperBound {
-                                    bottomSheetOffset = translation
+                                    samplesControllerModel.bottomSheetOffset = translation
                                 } else {
                                     let additionalOffset: CGFloat = -sqrt(upperBound - translation)
-                                    bottomSheetOffset = upperBound + additionalOffset
+                                    samplesControllerModel.bottomSheetOffset = upperBound + additionalOffset
                                 }
                             }
                         }, onEnd: { value in
@@ -165,11 +165,11 @@ extension SampleBottomSheetView {
                                 } else if value.translation.height > 200 {
                                     samplesControllerModel.bottomSheetIsExpanded = false
                                 }
-                                bottomSheetOffset = 0
+                                samplesControllerModel.bottomSheetOffset = 0
                             }
                         }, onCancel: {
                             withAnimation(.bouncy) {
-                                bottomSheetOffset = 0
+                                samplesControllerModel.bottomSheetOffset = 0
                             }
                         }
                     )

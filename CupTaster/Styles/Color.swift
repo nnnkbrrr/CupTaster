@@ -8,10 +8,9 @@
 import SwiftUI
 
 extension Color {
-    static let systemBackground = Color(uiColor: .systemBackground)
-    static let systemGroupedBackground = Color(uiColor: .systemGroupedBackground)
-    static let secondarySystemGroupedBackground = Color(uiColor: .secondarySystemGroupedBackground)
-    static let tertiarySystemGroupedBackground = Color(uiColor: .tertiarySystemGroupedBackground)
+    static let background: Color = Color("Background Primary")
+    static let backgroundSecondary: Color = Color("Background Secondary")
+    static let backgroundTertiary: Color = Color("Background Tertiary")
     
-    static let background: Color = Color("Background")
+    static let separator: Color = Color("Separator")
 }

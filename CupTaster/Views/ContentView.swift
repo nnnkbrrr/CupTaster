@@ -26,15 +26,8 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            TabView {
-                AllCuppingsTabView()
-                    .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
-                
-                SettingsTabView()
-                    .tabItem { Label("Settings", systemImage: "gearshape") }
-#warning("badge?")
-                //                .badge(CFManager.shared.newerVersionsAvailability(from: cuppingForms))
-            }
+            AllCuppingsTabView()
+                .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
             
             SamplesControllerView()
                 .zIndex(1)

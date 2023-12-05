@@ -13,42 +13,80 @@ struct SampleView: View {
     @State var radarChartZoomedOnAppear: Bool = false
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: .regular) {
-                HStack(spacing: .regular) {
-                    // sampleChart(sample: sample)
-                    sampleTools
+        GeometryReader { geometry in
+            ScrollView(showsIndicators: false) {
+                let spacing: CGFloat = .extraSmall
+                let gridCellSize: CGFloat = (geometry.size.width - spacing * 6) / 5
+                
+                VStack(spacing: spacing) {
+                    HStack(spacing: spacing) {
+                        VStack(spacing: spacing) {
+                            Rectangle()
+                                .frame(width: getElementSize(3, gridCellSize: gridCellSize, spacing: spacing))
+                                .frame(height: gridCellSize)
+                                .cornerRadius()
+                            
+                            Rectangle()
+                                .frame(width: getElementSize(3, gridCellSize: gridCellSize, spacing: spacing))
+                                .frame(height: 300)
+                                .cornerRadius()
+                        }
+                        
+                        VStack(spacing: spacing) {
+                            Rectangle()
+                                .frame(width: getElementSize(2, gridCellSize: gridCellSize, spacing: spacing))
+                                .frame(maxHeight: .infinity)
+                                .cornerRadius()
+                            
+                            Rectangle()
+                                .frame(width: getElementSize(2, gridCellSize: gridCellSize, spacing: spacing))
+                                .frame(maxHeight: .infinity)
+                                .cornerRadius()
+                        }
+                    }
+                    
+                    Rectangle()
+                        .frame(width: getElementSize(5, gridCellSize: gridCellSize, spacing: spacing))
+                        .frame(height: gridCellSize)
+                        .cornerRadius()
                 }
-                .frame(height: 220)
+                .foregroundColor(.backgroundSecondary)
+                .padding(.vertical, .small)
                 
-                // Text(String(format: "%.1f", sample.finalScore))
-                //     .padding(.small)
-                //     .frame(maxWidth: .infinity)
-                //     .background(
-                //         RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                //             .foregroundColor(.secondarySystemGroupedBackground)
-                //     )
+                // old
                 
-                Text(String(format: "%.1f", samplesControllerModel.selectedSample?.finalScore ?? -1))
-                    .padding(.small)
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                            .foregroundColor(.secondarySystemGroupedBackground)
-                    )
-                
-                RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                    .frame(height: 500)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(.secondarySystemGroupedBackground)
+                VStack(spacing: .regular) {
+                    HStack(spacing: .regular) {
+                        // sampleChart(sample: sample)
+                        sampleTools
+                    }
+                    .frame(height: 220)
+                    
+                    Text(String(format: "%.1f", samplesControllerModel.selectedSample?.finalScore ?? -1))
+                        .padding(.small)
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: .defaultCornerRadius)
+                                .foregroundStyle(Color.backgroundSecondary)
+                        )
+                    
+                    RoundedRectangle(cornerRadius: .defaultCornerRadius)
+                        .frame(height: 500)
+                        .frame(maxWidth: .infinity)
+                        .foregroundStyle(Color.backgroundSecondary)
+                }
+                .padding(.extraSmall)
+                .frame(maxHeight: .infinity, alignment: .top)
             }
-            .padding(.extraSmall)
-            .frame(maxHeight: .infinity, alignment: .top)
         }
         .safeAreaInset(edge: .bottom) {
-            Spacer().frame(height: BottomSheetConfiguration.minHeight)
+            Spacer().frame(height: SampleBottomSheetConfiguration.minHeight)
         }
         .onAppear { chartAppearAnimation() }
+    }
+    
+    func getElementSize(_ multiplier: Int, gridCellSize: CGFloat, spacing: CGFloat) -> CGFloat {
+        return gridCellSize * CGFloat(multiplier) + spacing * CGFloat(multiplier - 1)
     }
     
     func chartAppearAnimation() {

@@ -15,7 +15,7 @@ extension CuppingView {
         VStack(alignment: .leading) {
             RadarChart(sample: sample, style: .compact)
                 .frame(maxWidth: .infinity)
-                .background(Color.secondarySystemGroupedBackground)
+                .background(Color.backgroundSecondary)
                 .matchedGeometryEffect(id: "radar.chart.\(sample.id)", in: samplesControllerModel.namespace)
                 .zIndex(1.1)
             
@@ -40,7 +40,7 @@ extension CuppingView {
         .padding(.small)
         .background(
             RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                .foregroundColor(.secondarySystemGroupedBackground)
+                .foregroundStyle(Color.backgroundSecondary)
         )
         .matchedGeometryEffect(
             id: "radar.chart.container.\(sample.id)",

@@ -92,6 +92,7 @@ struct DragGestureViewModifier: ViewModifier {
         }
         
         if gestureDirection == direction { onUpdate(value) }
+        else if gestureState == .started || gestureState == .active { onDragCanceled() }
     }
 
     func onDragEnded(_ value: DragGesture.Value) {

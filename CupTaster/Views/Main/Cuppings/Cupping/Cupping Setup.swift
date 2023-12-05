@@ -9,17 +9,29 @@ import SwiftUI
 
 struct CuppingSetupView: View {
     @Environment(\.managedObjectContext) private var moc
+    @FetchRequest(
+        entity: CuppingForm.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: false)]
+    ) var cuppingForms: FetchedResults<CuppingForm>
     
     @ObservedObject var cupping: Cupping
     
+    @State var selectedCuppingForm: CuppingForm?
     @State var selectedSamplesCount: Int = 1
+    @State var selectedCupsCount: Int = 5
     
     var body: some View {
         List {
 #warning("add cupping form settings")
             Section("Cupping Form") {
-                NavigationLink(destination: { } ) {
-                    Text("SCA")
+                Picker("Cupping Form", selection: $selectedCuppingForm) {
+                    ForEach(cuppingForms) { cuppingForm in
+                        Text(
+                            cuppingForm.isDeprecated ?
+                            "\(cuppingForm.shortDescription) (deprecated)" : cuppingForm.title
+                        )
+                        .tag(Optional(cuppingForm))
+                    }
                 }
             }
             
@@ -37,7 +49,7 @@ struct CuppingSetupView: View {
                             .foregroundStyle(isHighlighted ? Color.accentColor : Color.gray)
                             .opacity(isHighlighted ? 1 : 0.5)
                             .contentShape(Rectangle())
-                            .onTapGesture { cupping.cupsCount = Int16(cupsCount) }
+                            .onTapGesture { selectedCupsCount = cupsCount }
                     }
                 }
                 .animation(.default, value: cupping.cupsCount)
@@ -58,6 +70,9 @@ struct CuppingSetupView: View {
             }
             
             Button("Continue") {
+                if let selectedCuppingForm {
+                    cupping.setup(moc: moc, date: Date(), cuppingForm: selectedCuppingForm, cupsCount: selectedCupsCount, samplesCount: selectedSamplesCount)
+                }
 #warning("action: continue")
             }
             .buttonStyle(.primary)

@@ -52,7 +52,7 @@ struct CuppingView: View {
                     }
                     .padding(.regular)
                 }
-                .background(Color.systemGroupedBackground)
+                .background(Color.background)
             }
         }
         .toolbar {

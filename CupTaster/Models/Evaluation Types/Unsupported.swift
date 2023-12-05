@@ -22,7 +22,7 @@ class UnsupportedEvaluation: Evaluation {
         .font(.caption)
         .padding(.small)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.tertiarySystemGroupedBackground)
+        .background(Color.backgroundSecondary)
         .cornerRadius(.extraSmall)
     }
 }

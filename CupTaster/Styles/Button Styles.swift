@@ -13,7 +13,7 @@ struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.subheadline.weight(.bold))
-            .foregroundColor(.systemBackground)
+            .foregroundColor(.accentColor)
             .frame(maxWidth: .infinity)
             .frame(height: 50)
             .background(.primary)
@@ -23,26 +23,6 @@ struct PrimaryButtonStyle: ButtonStyle {
 
 extension ButtonStyle where Self == PrimaryButtonStyle {
     static var primary: Self {
-        return .init()
-    }
-}
-
-// Secondary
-
-struct SecondaryButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.subheadline.weight(.bold))
-            .foregroundColor(.primary)
-            .frame(maxWidth: .infinity)
-            .frame(height: 50)
-            .background(Color.secondarySystemGroupedBackground)
-            .cornerRadius()
-    }
-}
-
-extension ButtonStyle where Self == SecondaryButtonStyle {
-    static var secondary: Self {
         return .init()
     }
 }

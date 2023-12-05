@@ -11,7 +11,7 @@ extension SampleView {
     @ViewBuilder func sampleChart(sample: Sample) -> some View {
         VStack {
             RadarChart(sample: sample, style: .compact)
-                .background(Color.secondarySystemGroupedBackground)
+                .background(Color.backgroundSecondary)
                 .padding(.bottom, .small)
                 .frame(maxWidth: .infinity)
                 .matchedGeometryEffect(id: "radar.chart.\(sample.id)", in: samplesControllerModel.namespace)
@@ -21,7 +21,7 @@ extension SampleView {
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                .foregroundColor(.secondarySystemGroupedBackground)
+                .foregroundColor(.backgroundSecondary)
         )
         .matchedGeometryEffect(
             id: "radar.chart.container.\(sample.id)",

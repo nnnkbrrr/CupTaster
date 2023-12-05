@@ -24,10 +24,7 @@ struct TargetHorizontalScrollView<
     
     @State private var offset: Double
     @State private var tempOffset: Double
-    
-    // Optional
-    
-    @Binding var isProcessingGesture: Bool
+    @Binding var gestureIsActive: Bool
     
     init (
         _ data: Data,
@@ -35,7 +32,7 @@ struct TargetHorizontalScrollView<
         elementWidth: Double,
         height: Double,
         spacing: Double,
-        isProcessingGesture: Binding<Bool> = .constant(false),
+        gestureIsActive: Binding<Bool> = .constant(false),
         @ViewBuilder content targetContent: @escaping (Data.Element) -> TargetContent,
         onSelectionChange: @escaping (_ newSelection: Data.Element) -> () = { _ in }
     ) {
@@ -50,7 +47,7 @@ struct TargetHorizontalScrollView<
         self.spacing = spacing
         self.contentWidth = (elementWidth + spacing) * Double(data.count - 1)
         
-        self._isProcessingGesture = isProcessingGesture
+        self._gestureIsActive = gestureIsActive
         
         self._tempOffset = State(initialValue: 0)
         self._offset = State(initialValue: {
@@ -65,14 +62,19 @@ struct TargetHorizontalScrollView<
             HStack(alignment: .top, spacing: spacing) {
                 ForEach(data, id: \.index) { element in
                     targetContent(element.value)
-                        .onTapGesture {
-                            selection = element.value
-                            onSelectionChange(element.value)
-                            generateSelectionFeedback()
-                            withAnimation {
-                                offset = -(elementWidth + spacing) * Double((data.first(where: { $1 == element.value })?.index ?? 0))
-                            }
-                        }
+                        .simultaneousGesture(
+                            TapGesture()
+                                .onEnded {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        selection = element.value
+                                        onSelectionChange(element.value)
+                                        generateSelectionFeedback()
+                                        withAnimation(.smooth) {
+                                            offset = -(elementWidth + spacing) * Double((data.first(where: { $1 == element.value })?.index ?? 0))
+                                        }
+                                    }
+                                }
+                        )
                 }
             }
             .frame(maxWidth: .infinity)
@@ -83,7 +85,7 @@ struct TargetHorizontalScrollView<
         .dragGesture(
             gestureType: .simultaneous,
             direction: .horizontal,
-            onStart: { isProcessingGesture = true },
+            onStart: { gestureIsActive = true },
             onUpdate: { updateSwipe(horizontalTranslation: $0.translation.width) },
             onEnd: { _ in completeSwipe() },
             onCancel: { completeSwipe() }
@@ -129,7 +131,7 @@ struct TargetHorizontalScrollView<
             offset = -(elementWidth + spacing) * Double((data.first(where: { $1 == selection })?.index ?? 0))
         }
         
-        isProcessingGesture = false
+        gestureIsActive = false
     }
     
     private func generateSelectionFeedback() {

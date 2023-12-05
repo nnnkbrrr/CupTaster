@@ -19,13 +19,16 @@ extension CFManager {
         }
         
         func createCuppingForm(context: NSManagedObjectContext) -> CuppingForm? {
-            guard let url = Bundle.main.url(forResource: title, withExtension: "json") else { return nil }
-            let data = try? Data(contentsOf: url)
-            guard let form = try? JSONDecoder(context: context).decode(CuppingForm.self, from: data!) else { return nil }
-            form.languageCode = Locale.current.languageCode ?? ""
+            guard let url: URL = Bundle.main.url(forResource: title, withExtension: "json") else { return nil }
             
-            try? context.save()
-            return form
+            do {
+                let data: Data = try Data(contentsOf: url)
+                let form: CuppingForm = try JSONDecoder(context: context).decode(CuppingForm.self, from: data)
+                try context.save()
+                return form
+            } catch {
+                fatalError("\(error)")
+            }
         }
         
         func getCuppingForm(storedCuppingForms: FetchedResults<CuppingForm>) -> CuppingForm? {

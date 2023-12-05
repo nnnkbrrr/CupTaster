@@ -28,16 +28,19 @@ class SamplesControllerModel: ObservableObject {
     
     // Sample Swipe Gestures
     
-    @Published private(set) var selectedSampleIndex: Int = 0 // For swipe gestures only
+    @Published private(set) var selectedSampleIndex: Int = 0
     @Published private(set) var swipeOffset: CGFloat = 0
     @Published private(set) var firstSampleRotationAngle: Angle = .degrees(0)
     @Published private(set) var lastSampleRotationAngle: Angle = .degrees(0)
     @Published private var swipeTransition: Bool = false
+    @Published public var samplePickerGestureIsActive: Bool = false
     let impactStyle: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     // Sample Bottom Sheet Gestures
     
     @Published public var bottomSheetIsExpanded: Bool = false
+    @Published public var bottomSheetOffset: CGFloat = 0
+    @Published public var criteriaPickerGestureIsActive: Bool = false
 }
 
 // General Functions
@@ -101,6 +104,7 @@ extension SamplesControllerModel {
 
 extension SamplesControllerModel {
     func onSwipeStarted() {
+        samplePickerGestureIsActive = true
         changeSelectedSample(sample: nil)
     }
     
@@ -186,6 +190,7 @@ extension SamplesControllerModel {
         
         changeSelectedSample(sample: cupping.sortedSamples[selectedSampleIndex])
         swipeTransition = false
+        samplePickerGestureIsActive = false
     }
     
     func onSwipeCanceled() {
@@ -201,5 +206,6 @@ extension SamplesControllerModel {
         } else {
             changeSelectedSample(sample: cupping.sortedSamples[selectedSampleIndex])
         }
+        samplePickerGestureIsActive = false
     }
 }

@@ -26,6 +26,41 @@ extension Cupping {
     public var sortedSamples: [Sample] {
         self.samples.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
     }
+    
+    public func setup(moc: NSManagedObjectContext, date: Date, cuppingForm: CuppingForm, cupsCount: Int, samplesCount: Int) {
+        self.cupsCount = Int16(cupsCount)
+        self.form = cuppingForm
+        self.date = date
+        
+        for _ in 1...samplesCount {
+            let usedNames: [String] = self.samples.map { $0.name }
+            let defaultName: String = SampleNameGenerator().generateSampleDefaultName(usedNames: usedNames)
+            
+            let sample: Sample = Sample(context: moc)
+            
+            sample.name = defaultName
+            sample.ordinalNumber = Int16(self.samples.count)
+            
+            if let cuppingForm = self.form {
+                for groupConfig in cuppingForm.qcGroupConfigurations {
+                    let qcGroup: QCGroup = QCGroup(context: moc)
+                    qcGroup.sample = sample
+                    qcGroup.configuration = groupConfig
+                    for qcConfig in groupConfig.qcConfigurations {
+                        let qualityCriteria = QualityCriteria(context: moc)
+                        qualityCriteria.title = qcConfig.title
+                        qualityCriteria.value = qcConfig.value
+                        qualityCriteria.group = qcGroup
+                        qualityCriteria.configuration = qcConfig
+                    }
+                }
+            }
+            
+            self.addToSamples(sample)
+        }
+        
+        try? moc.save()
+    }
 }
 
 extension Cupping {

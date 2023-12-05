@@ -14,7 +14,6 @@ public class QCConfig: QualityCriteria, Codable {
     }
 
     @NSManaged public var evaluationType: String
-    
     @NSManaged public var ordinalNumber: Int16
     
     @NSManaged public var lowerBound: Double
@@ -30,7 +29,8 @@ public class QCConfig: QualityCriteria, Codable {
     // Codable
     
     enum CodingKeys: CodingKey {
-        case title, value, evaluationType, ordinalNumber, lowerBound, lowerBoundTitle, step, upperBound, upperBoundTitle
+        case title, value, evaluationType, ordinalNumber
+        case lowerBound, lowerBoundTitle, step, upperBound, upperBoundTitle
         case hints
     }
     
