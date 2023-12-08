@@ -57,6 +57,7 @@ extension Cupping {
             }
             
             self.addToSamples(sample)
+            sample.calculateFinalScore()
         }
         
         try? moc.save()

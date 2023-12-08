@@ -17,6 +17,7 @@
 		22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C8528EF281200138494 /* QCConfig Entity.swift */; };
 		22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C8728EF282900138494 /* QCGHint Entity.swift */; };
 		226CF02428F19FAF00F853B9 /* QCHint Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CF02328F19FAF00F853B9 /* QCHint Entity.swift */; };
+		630AD6132B2361CC0016DBFA /* Sample Final Score Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630AD6122B2361CC0016DBFA /* Sample Final Score Section.swift */; };
 		63198EA12A570846004634ED /* All Cuppings Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63198EA02A570846004634ED /* All Cuppings Empty.swift */; };
 		6319F8692A5D59F700EECD62 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6319F8682A5D59F700EECD62 /* Settings.swift */; };
 		6320A3AB2A72BF160069E6B9 /* Slider Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320A3AA2A72BF160069E6B9 /* Slider Evaluation.swift */; };
@@ -90,6 +91,7 @@
 		22242C8528EF281200138494 /* QCConfig Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCConfig Entity.swift"; sourceTree = "<group>"; };
 		22242C8728EF282900138494 /* QCGHint Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCGHint Entity.swift"; sourceTree = "<group>"; };
 		226CF02328F19FAF00F853B9 /* QCHint Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCHint Entity.swift"; sourceTree = "<group>"; };
+		630AD6122B2361CC0016DBFA /* Sample Final Score Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Final Score Section.swift"; sourceTree = "<group>"; };
 		63198EA02A570846004634ED /* All Cuppings Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "All Cuppings Empty.swift"; sourceTree = "<group>"; };
 		6319F8682A5D59F700EECD62 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		6320A3AA2A72BF160069E6B9 /* Slider Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider Evaluation.swift"; sourceTree = "<group>"; };
@@ -189,6 +191,14 @@
 				22242C7928EF26A300138494 /* QCGroup Entity.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		630AD6112B2361BD0016DBFA /* Sample Sections */ = {
+			isa = PBXGroup;
+			children = (
+				630AD6122B2361CC0016DBFA /* Sample Final Score Section.swift */,
+			);
+			path = "Sample Sections";
 			sourceTree = "<group>";
 		};
 		6319F8672A5D59E700EECD62 /* Settings */ = {
@@ -310,6 +320,7 @@
 				636712EF2AF62F190042DB00 /* Sample Bottom Sheet.swift */,
 				63739BB32A71251200C779ED /* Sample Quality Criteria.swift */,
 				63E12F302B2353C4000FAACA /* Sample Placeholders.swift */,
+				630AD6112B2361BD0016DBFA /* Sample Sections */,
 			);
 			path = Sample;
 			sourceTree = "<group>";
@@ -533,6 +544,7 @@
 				6331CE802B1B90990078984F /* Sample Name Generator.swift in Sources */,
 				63A1A90F2A5579D5008D30CE /* All Cuppings Header.swift in Sources */,
 				63729F962A6DAF6700EF0FEE /* Sample Tools.swift in Sources */,
+				630AD6132B2361CC0016DBFA /* Sample Final Score Section.swift in Sources */,
 				63A1A90B2A556896008D30CE /* Folder Entity.swift in Sources */,
 				63A1A9182A558685008D30CE /* Sizing & Spacing.swift in Sources */,
 				63A1A91A2A558981008D30CE /* Color.swift in Sources */,

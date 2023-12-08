@@ -22,23 +22,27 @@ struct SampleView: View {
                     HStack(spacing: spacing) {
                         VStack(spacing: spacing) {
                             Rectangle()
+                                .foregroundColor(.backgroundSecondary)
                                 .frame(width: getElementSize(3, gridCellSize: gridCellSize, spacing: spacing))
                                 .frame(height: gridCellSize)
                                 .cornerRadius()
                             
                             Rectangle()
+                                .foregroundColor(.backgroundSecondary)
                                 .frame(width: getElementSize(3, gridCellSize: gridCellSize, spacing: spacing))
-                                .frame(height: 250)
+                                .frame(height: 275)
                                 .cornerRadius()
                         }
                         
                         VStack(spacing: spacing) {
-                            Rectangle()
+                            FinalScoreSection()
                                 .frame(width: getElementSize(2, gridCellSize: gridCellSize, spacing: spacing))
                                 .frame(maxHeight: .infinity)
+                                .background(Color.backgroundSecondary)
                                 .cornerRadius()
                             
                             Rectangle()
+                                .foregroundColor(.backgroundSecondary)
                                 .frame(width: getElementSize(2, gridCellSize: gridCellSize, spacing: spacing))
                                 .frame(maxHeight: .infinity)
                                 .cornerRadius()
@@ -46,11 +50,11 @@ struct SampleView: View {
                     }
                     
                     Rectangle()
+                        .foregroundColor(.backgroundSecondary)
                         .frame(width: getElementSize(5, gridCellSize: gridCellSize, spacing: spacing))
                         .frame(height: gridCellSize)
                         .cornerRadius()
                 }
-                .foregroundColor(.backgroundSecondary)
                 .padding(.vertical, .small)
                 
                 // old
@@ -61,14 +65,6 @@ struct SampleView: View {
                         sampleTools
                     }
                     .frame(height: 220)
-                    
-                    Text(String(format: "%.1f", samplesControllerModel.selectedSample?.finalScore ?? -1))
-                        .padding(.small)
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                                .foregroundStyle(Color.backgroundSecondary)
-                        )
                 }
                 .padding(.extraSmall)
                 .frame(maxHeight: .infinity, alignment: .top)

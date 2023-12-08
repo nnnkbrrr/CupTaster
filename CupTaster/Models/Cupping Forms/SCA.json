@@ -1,6 +1,8 @@
 {
     "title": "SCA",
     "finalScoreFormula": "criteria_1_1 + criteria_2_1 + criteria_3_1 + criteria_4_1 + criteria_5_1 + (10 - (10 * criteria_9_1 / cups_count)) + criteria_6_1 + (10 - (10 * criteria_8_1 / cups_count)) + (10 - (10 * criteria_7_1 / cups_count)) + criteria_10_1 - (criteria_11_1 * criteria_11_2 / cups_count * 5)",
+    "finalScoreLowerBound": 22,
+    "finalScoreUpperBound": 100,
     "languageCode": "en",
     "version": "1.1",
     "qcGroupConfigurations": [

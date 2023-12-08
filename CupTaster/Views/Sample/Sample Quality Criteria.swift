@@ -122,7 +122,6 @@ struct QCGroupView: View {
                 EmptyView()
                     .onChange(of: criteria.value) { _ in
                         score = criteria.group.score
-                        criteria.group.isCompleted = true
                     }
             }
         }
@@ -135,6 +134,10 @@ struct QualityCriteriaView: View {
     
     var body: some View {
         AnyView(criteria.configuration.unwrappedEvaluation.body(for: criteria, value: $criteria.value))
-            .onChange(of: criteria.value) { _ in try? moc.save() }
+            .onChange(of: criteria.value) { _ in
+                criteria.group.isCompleted = true
+                criteria.group.sample.calculateFinalScore()
+                try? moc.save()
+            }
     }
 }

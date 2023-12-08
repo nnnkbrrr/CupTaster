@@ -3,7 +3,7 @@
 //  CupTaster
 //
 //  Created by Никита Баранов on 06.10.2022.
-//
+//,
 
 import CoreData
 
@@ -40,7 +40,7 @@ extension Sample {
         let criteria: [QualityCriteria] = self.qualityCriteriaGroups.flatMap { $0.qualityCriteria }
         
         var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map { criteria in
-            ("criteria_\(criteria.group.configuration.ordinalNumber).\(criteria.configuration.ordinalNumber)", Double(criteria.formattedValue))
+            ("criteria_\(criteria.group.configuration.ordinalNumber)_\(criteria.configuration.ordinalNumber)", Double(criteria.formattedValue))
         })
         
         dictionary.updateValue(Double(self.cupping.cupsCount), forKey: "cups_count")
@@ -49,10 +49,9 @@ extension Sample {
     
     public func calculateFinalScore() {
         if let formula: String = self.cupping.form?.finalScoreFormula {
-            let expression = NSExpression(format: formula)
-            let values = getValues()
-            let expressionValue = expression.expressionValue(with: values, context: nil)
-            self.finalScore = expressionValue as? Double ?? 0
+            let expression: NSExpression = NSExpression(format: formula)
+            let values: [String : Double] = getValues()
+            self.finalScore = expression.expressionValue(with: values, context: nil) as? Double ?? 0
         }
     }
 }
