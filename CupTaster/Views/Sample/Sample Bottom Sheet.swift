@@ -71,6 +71,7 @@ struct SampleBottomSheetView: View {
                 } onSelectionChange: { newSelection in
                     samplesControllerModel.changeSelectedQCGroup(qcGroup: newSelection)
                 }
+                .id("\(String(describing: samplesControllerModel.selectedSample?.id)).QCGroups")
             } else {
                 SampleQCGroupsPlaceholderView()
             }

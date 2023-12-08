@@ -49,37 +49,39 @@ extension SampleView {
                             }
                         }
                         
-                        if let finalScore {
+                        HStack(spacing: 0) {
+                            let finalScoreString: String = {
+                                if let finalScore { return String(format: "%.2f", finalScore).filter { $0.isNumber } }
+                                else { return " " }
+                            }()
+                            let finalScoreLen: Int = finalScoreString.count
                             
-                            HStack(spacing: 0) {
-                                let finalScoreString: String = String(format: "%.2f", finalScore).filter { $0.isNumber }
-                                let finalScoreLen: Int = finalScoreString.count
+                            ForEach(0..<finalScoreLen, id: \.self) { index in
+                                Text(String(finalScoreString[index]))
+                                    .font(.title)
+                                    .fontWeight(.light)
+                                    .id("\(String(describing: samplesControllerModel.selectedSample?.id))\(finalScoreString[...index])")
+                                    .transition(
+                                        .scale
+                                            .combined(
+                                                with: .asymmetric(
+                                                    insertion: .move(edge: index.isMultiple(of: 2) ? .bottom : .top),
+                                                    removal: .move(edge: index.isMultiple(of: 2) ? .top : .bottom)
+                                                )
+                                            )
+                                            .combined(with: .opacity)
+                                    )
                                 
-                                ForEach(0..<finalScoreLen, id: \.self) { index in
-                                    Text(String(finalScoreString[index]))
+                                if index == finalScoreLen - 3 {
+                                    Text(".")
                                         .font(.title)
                                         .fontWeight(.light)
-                                        .id(finalScoreString[...index])
-                                        .transition(
-                                            .asymmetric(
-                                                insertion: .move(edge: index.isMultiple(of: 2) ? .bottom : .top),
-                                                removal: .move(edge: index.isMultiple(of: 2) ? .top : .bottom)
-                                            )
-                                            .combined(with: .scale)
-                                            .combined(with: .opacity)
-                                        )
-                                    
-                                    if index == finalScoreLen - 3 {
-                                        Text(".")
-                                            .font(.title)
-                                            .fontWeight(.light)
-                                    }
                                 }
                             }
                         }
                     }
-                    .animation(.bouncy, value: finalScore)
-                    .animation(.bouncy, value: SamplesControllerModel.shared.cupping)
+                    .animation(.default, value: finalScore)
+                    .animation(.default, value: SamplesControllerModel.shared.cupping)
                 }
                 .aspectRatio(1, contentMode: .fit)
                 
