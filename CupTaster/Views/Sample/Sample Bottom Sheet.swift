@@ -71,12 +71,16 @@ struct SampleBottomSheetView: View {
                 } onSelectionChange: { newSelection in
                     samplesControllerModel.changeSelectedQCGroup(qcGroup: newSelection)
                 }
+            } else {
+                SampleQCGroupsPlaceholderView()
             }
             
             if let selectedCriteria = samplesControllerModel.selectedCriteria {
                 QualityCriteriaView(criteria: selectedCriteria)
                     .frame(height: SampleBottomSheetConfiguration.Criteria.height)
                     .id(selectedCriteria.id)
+            } else {
+                SampleCriteriaEvaluationPlaceholderView()
             }
             
             if let selectedQCGroup = samplesControllerModel.selectedQCGroup {
@@ -94,8 +98,13 @@ struct SampleBottomSheetView: View {
                     }
                 }
                 .padding(.horizontal, .large)
+            } else {
+                SampleQCGroupPlaceholderView()
             }
         }
+        .animation(.easeInOut(duration: 0.5), value: samplesControllerModel.selectedSample)
+        .animation(.easeInOut(duration: 0.25), value: samplesControllerModel.selectedCriteria)
+        .animation(.easeInOut(duration: 0.1), value: samplesControllerModel.selectedQCGroup)
         .padding(.vertical, SampleBottomSheetConfiguration.verticalPadding)
         .modifier(SheetModifier())
     }

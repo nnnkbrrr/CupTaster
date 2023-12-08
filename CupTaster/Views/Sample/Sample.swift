@@ -28,7 +28,7 @@ struct SampleView: View {
                             
                             Rectangle()
                                 .frame(width: getElementSize(3, gridCellSize: gridCellSize, spacing: spacing))
-                                .frame(height: 300)
+                                .frame(height: 250)
                                 .cornerRadius()
                         }
                         
@@ -69,11 +69,6 @@ struct SampleView: View {
                             RoundedRectangle(cornerRadius: .defaultCornerRadius)
                                 .foregroundStyle(Color.backgroundSecondary)
                         )
-                    
-                    RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                        .frame(height: 500)
-                        .frame(maxWidth: .infinity)
-                        .foregroundStyle(Color.backgroundSecondary)
                 }
                 .padding(.extraSmall)
                 .frame(maxHeight: .infinity, alignment: .top)

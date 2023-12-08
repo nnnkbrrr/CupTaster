@@ -22,7 +22,6 @@ struct QCGroupView: View {
     var body: some View {
         ZStack {
             CircularQCGroupProgressView(qcGroup: qcGroup, score: $score)
-                .foregroundColor(.black)
                 .frame(width: elementSize, height: elementSize)
             
             var score: Double {
@@ -86,7 +85,6 @@ struct QCGroupView: View {
         private let width: CGFloat = 2
         
         var body: some View {
-            
             ZStack {
                 Circle()
                     .foregroundStyle(Color.backgroundTertiary)

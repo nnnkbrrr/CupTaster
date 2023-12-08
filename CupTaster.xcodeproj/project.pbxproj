@@ -65,6 +65,7 @@
 		63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A592801BE7A00010318 /* Assets.xcassets */; };
 		63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A5C2801BE7A00010318 /* Preview Assets.xcassets */; };
 		63DDB6892A5C0FED00C8ADD6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DDB6882A5C0FED00C8ADD6 /* DateFormatter.swift */; };
+		63E12F312B2353C4000FAACA /* Sample Placeholders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E12F302B2353C4000FAACA /* Sample Placeholders.swift */; };
 		63E7F9132B0677E600415B13 /* Target Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E7F9122B0677E600415B13 /* Target Scroll.swift */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +142,7 @@
 		63DC7A592801BE7A00010318 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63DC7A5C2801BE7A00010318 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		63DDB6882A5C0FED00C8ADD6 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		63E12F302B2353C4000FAACA /* Sample Placeholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Placeholders.swift"; sourceTree = "<group>"; };
 		63E7F9122B0677E600415B13 /* Target Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Target Scroll.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -307,6 +309,7 @@
 				63729F952A6DAF6600EF0FEE /* Sample Tools.swift */,
 				636712EF2AF62F190042DB00 /* Sample Bottom Sheet.swift */,
 				63739BB32A71251200C779ED /* Sample Quality Criteria.swift */,
+				63E12F302B2353C4000FAACA /* Sample Placeholders.swift */,
 			);
 			path = Sample;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				63A88D042A4C92A40006AA0F /* Stopwatch.swift in Sources */,
 				22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */,
 				6320A3AB2A72BF160069E6B9 /* Slider Evaluation.swift in Sources */,
+				63E12F312B2353C4000FAACA /* Sample Placeholders.swift in Sources */,
 				63739BB42A71251200C779ED /* Sample Quality Criteria.swift in Sources */,
 				63B75D952A6D6549002C350A /* Samples Controller Model.swift in Sources */,
 				637935D72A6E6EFA007FD5AB /* Sample Chart.swift in Sources */,
