@@ -10,6 +10,7 @@ import SwiftUI
 extension SampleView {
     struct FinalScoreSection: View {
         @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
+        @State var finalScore: Double? = nil
         let finalScoreLowerBound: Double
         let finalScoreUpperBound: Double
         
@@ -19,12 +20,11 @@ extension SampleView {
             finalScoreUpperBound = cupping?.form?.finalScoreUpperBound ?? 0
         }
         
-        @State var finalScore: Double? = nil
-        
         var body: some View {
             VStack(spacing: .regular) {
                 GeometryReader { geometry in
                     ZStack {
+                        let lineWidth: CGFloat = 5
                         let radius: CGFloat = geometry.size.width / 2
                         let count: CGFloat = 40
                         let relativeDashLength: CGFloat = 0.1
@@ -50,13 +50,36 @@ extension SampleView {
                         }
                         
                         if let finalScore {
-                            Text(String(format: "%.1f", finalScore))
-                                .font(.title)
-                                .fontWeight(.light)
-                                .padding(.small)
-                                .frame(maxWidth: .infinity)
+                            
+                            HStack(spacing: 0) {
+                                let finalScoreString: String = String(format: "%.2f", finalScore).filter { $0.isNumber }
+                                let finalScoreLen: Int = finalScoreString.count
+                                
+                                ForEach(0..<finalScoreLen, id: \.self) { index in
+                                    Text(String(finalScoreString[index]))
+                                        .font(.title)
+                                        .fontWeight(.light)
+                                        .id(finalScoreString[...index])
+                                        .transition(
+                                            .asymmetric(
+                                                insertion: .move(edge: index.isMultiple(of: 2) ? .bottom : .top),
+                                                removal: .move(edge: index.isMultiple(of: 2) ? .top : .bottom)
+                                            )
+                                            .combined(with: .scale)
+                                            .combined(with: .opacity)
+                                        )
+                                    
+                                    if index == finalScoreLen - 3 {
+                                        Text(".")
+                                            .font(.title)
+                                            .fontWeight(.light)
+                                    }
+                                }
+                            }
                         }
                     }
+                    .animation(.bouncy, value: finalScore)
+                    .animation(.bouncy, value: SamplesControllerModel.shared.cupping)
                 }
                 .aspectRatio(1, contentMode: .fit)
                 

@@ -34,7 +34,6 @@ struct CircularProgressView: View {
             
             Circle()
                 .trim(from: 0.0, to: CGFloat(min(self.progress, 1.0)))
-//                .stroke(progressColor, style: style)
                 .stroke(progressColor, style: StrokeStyle(lineWidth: style.lineWidth, lineCap: .round))
                 .rotationEffect(Angle(degrees: 270.0))
                 .mask {
@@ -43,6 +42,5 @@ struct CircularProgressView: View {
                         .rotationEffect(Angle(degrees: 270.0))
                 }
         }
-//        .stroke(color, style: StrokeStyle(lineWidth: 3, lineCap: .butt, dash: [painted, unpainted]))
     }
 }
