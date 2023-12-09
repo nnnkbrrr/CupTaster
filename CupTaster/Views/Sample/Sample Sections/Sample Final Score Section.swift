@@ -24,7 +24,6 @@ extension SampleView {
             VStack(spacing: .regular) {
                 GeometryReader { geometry in
                     ZStack {
-                        let lineWidth: CGFloat = 5
                         let radius: CGFloat = geometry.size.width / 2
                         let count: CGFloat = 40
                         let relativeDashLength: CGFloat = 0.1

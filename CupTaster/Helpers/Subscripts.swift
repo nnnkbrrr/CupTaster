@@ -1,11 +1,17 @@
 //
-//  Substring.swift
+//  Subscripts.swift
 //  CupTaster
 //
 //  Created by Никита Баранов on 08.12.2023.
 //
 
 import Foundation
+
+extension Collection {
+    subscript (safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
 
 extension StringProtocol {
     subscript(offset: Int) -> Character { self[index(startIndex, offsetBy: offset)] }

@@ -17,7 +17,6 @@ public protocol Evaluation {
     func body(for criteria: QualityCriteria, value: Binding<Double>) -> EvaluationView
 }
 
-#warning("evaluations")
 extension String {
     var unwrappedEvaluation: any Evaluation {
         switch self {

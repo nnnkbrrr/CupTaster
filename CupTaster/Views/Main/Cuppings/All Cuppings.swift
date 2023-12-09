@@ -23,7 +23,7 @@ struct AllCuppingsTabView: View {
                         .listRowInsets(EdgeInsets(top: .large, leading: -.large, bottom: .zero, trailing: -.large))
                         .headerProminence(.increased)
                     
-                    ForEach(cuppingsGroupedByMonth.sorted(by: { $0.key > $1.key }), id: \.key) { date, cuppings in
+                    ForEach(cuppingsGroupedByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { date, cuppings in
                         Section {
                             ForEach(cuppings) { cupping in
                                 cuppingPreview(cupping)

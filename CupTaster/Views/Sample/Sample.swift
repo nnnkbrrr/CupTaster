@@ -41,10 +41,10 @@ struct SampleView: View {
                                 .background(Color.backgroundSecondary)
                                 .cornerRadius()
                             
-                            Rectangle()
-                                .foregroundColor(.backgroundSecondary)
+                            CheckboxesSummarySection()
                                 .frame(width: getElementSize(2, gridCellSize: gridCellSize, spacing: spacing))
                                 .frame(maxHeight: .infinity)
+                                .background(Color.backgroundSecondary)
                                 .cornerRadius()
                         }
                     }
