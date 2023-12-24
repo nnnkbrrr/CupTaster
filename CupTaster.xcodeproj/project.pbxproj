@@ -33,6 +33,7 @@
 		6349471E2B13BBDA00A9030B /* Circular Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349471D2B13BBDA00A9030B /* Circular Progress.swift */; };
 		634D5A4D2A5ED5F200A18B63 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634D5A4C2A5ED5F200A18B63 /* Sample.swift */; };
 		634D5A522A5ED67200A18B63 /* Radar Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634D5A512A5ED67200A18B63 /* Radar Chart.swift */; };
+		634E32AA2B38457D00966509 /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = 634E32A92B38457D00966509 /* SwipeActions */; };
 		6351668F2A52FB32001A0071 /* Integer To Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6351668E2A52FB32001A0071 /* Integer To Digits.swift */; };
 		636712F02AF62F190042DB00 /* Sample Bottom Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636712EF2AF62F190042DB00 /* Sample Bottom Sheet.swift */; };
 		636712F42AF637900042DB00 /* Drag Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636712F32AF637900042DB00 /* Drag Gesture.swift */; };
@@ -163,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				632F5D2529D83EAE00D7FFB7 /* CodeScanner in Frameworks */,
+				634E32AA2B38457D00966509 /* SwipeActions in Frameworks */,
 				63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				63A88CFF2A4C90CC0006AA0F /* Cuppings */,
+				639AB6932A57250200CB04F7 /* Cupping */,
 				6319F8672A5D59E700EECD62 /* Settings */,
 			);
 			path = Main;
@@ -296,7 +299,6 @@
 			children = (
 				63A88CFC2A4C90880006AA0F /* All Cuppings.swift */,
 				63198EA02A570846004634ED /* All Cuppings Empty.swift */,
-				639AB6932A57250200CB04F7 /* Cupping */,
 			);
 			path = Cuppings;
 			sourceTree = "<group>";
@@ -453,6 +455,7 @@
 			name = CupTaster;
 			packageProductDependencies = (
 				632F5D2429D83EAE00D7FFB7 /* CodeScanner */,
+				634E32A92B38457D00966509 /* SwipeActions */,
 			);
 			productName = CupTaster;
 			productReference = 63DC7A522801BE7800010318 /* CupTaster.app */;
@@ -489,6 +492,7 @@
 			mainGroup = 63DC7A492801BE7800010318;
 			packageReferences = (
 				632F5D2329D83EAE00D7FFB7 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				634E32A82B38457D00966509 /* XCRemoteSwiftPackageReference "SwipeActions" */,
 			);
 			productRefGroup = 63DC7A532801BE7800010318 /* Products */;
 			projectDirPath = "";
@@ -897,6 +901,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		634E32A82B38457D00966509 /* XCRemoteSwiftPackageReference "SwipeActions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aheze/SwipeActions";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -904,6 +916,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 632F5D2329D83EAE00D7FFB7 /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
+		};
+		634E32A92B38457D00966509 /* SwipeActions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 634E32A82B38457D00966509 /* XCRemoteSwiftPackageReference "SwipeActions" */;
+			productName = SwipeActions;
 		};
 /* End XCSwiftPackageProductDependency section */
 

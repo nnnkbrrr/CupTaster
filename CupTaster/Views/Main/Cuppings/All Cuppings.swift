@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwipeActions
 
 struct AllCuppingsTabView: View {
     @Environment(\.managedObjectContext) private var moc
@@ -13,7 +14,6 @@ struct AllCuppingsTabView: View {
         entity: Cupping.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Cupping.date, ascending: false)]
     ) var cuppings: FetchedResults<Cupping>
-    
     @FetchRequest(
         entity: Folder.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Folder.lastModifiedDate, ascending: false)]
@@ -23,55 +23,137 @@ struct AllCuppingsTabView: View {
     
     var body: some View {
         NavigationView {
-            if let cuppingsGroupedByMonth {
-                ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 0) {
-                        ForEach(cuppingsGroupedByMonth, id: \.key) { date, cuppings in
-                            Text(date)
-                                .frame(height: .smallElement)
-                            
-                            Divider()
-                            
-                            ForEach(cuppings) {
-                                CuppingPreview($0)
-                                    .background(Color.backgroundSecondary)
+            ScrollView {
+                if let cuppingsGroupedByMonth {
+                    SwipeViewGroup {
+                        LazyVStack(alignment: .leading, spacing: 0) {
+                            ForEach(cuppingsGroupedByMonth, id: \.key) { date, cuppings in
+                                Text(date)
+                                    .bold()
+                                    .padding(.small)
+                                    .frame(height: .smallElement)
                                 
                                 Divider()
-                            }
-                            .onDelete { offsets in
-                                for index in offsets {
-                                    moc.delete(cuppings[index])
-                                    try? moc.save()
+                                
+                                ForEach(cuppings) { cupping in
+                                    SwipeView {
+                                        CuppingPreview(cupping)
+                                    } leadingActions: { context in
+                                        SwipeActionView(systemImage: "heart.fill", title: "Favorite", color: .accentColor) {
+#warning("like")
+                                            context.state.wrappedValue = .closed
+                                        }
+                                        
+                                        SwipeActionView(systemImage: "folder.fill.badge.gearshape", title: "Folders", color: .indigo) {
+#warning("folders")
+                                            context.state.wrappedValue = .closed
+                                        }
+                                    } trailingActions: { _ in
+                                        SwipeActionView(systemImage: "trash.fill", title: "Delete", color: .red) {
+                                            withAnimation {
+                                                moc.delete(cupping)
+                                                try? moc.save()
+                                            }
+                                        }
+                                    }
+                                    .swipeActionsStyle(.cascade)
+                                    .swipeActionsMaskCornerRadius(0)
+                                    .swipeActionCornerRadius(0)
+                                    .swipeSpacing(0)
+                                    .swipeActionsVisibleStartPoint(0)
+                                    .swipeActionsVisibleEndPoint(0)
+                                    .swipeMinimumDistance(25)
+                                    .background(Color.backgroundSecondary)
+                                    .contextMenu {
+                                        Section {
+                                            Button {
+#warning("context menu")
+                                            } label: {
+#warning("label depends on if is favorite")
+                                                Label("Add to Favorites", systemImage: "heart")
+                                            }
+                                            
+                                            Button {
+#warning("context menu")
+                                            } label: {
+                                                Label("Manage Folders", systemImage: "folder.badge.gearshape")
+                                            }
+                                        }
+                                        
+                                        Section {
+                                            Button(role: .destructive) {
+                                                withAnimation {
+                                                    moc.delete(cupping)
+                                                    try? moc.save()
+                                                }
+                                            } label: {
+                                                Label("Delete", systemImage: "trash")
+                                            }
+                                        }
+                                    }
+                                    
+                                    Divider()
                                 }
                             }
                         }
                     }
+                } else {
+                    isEmpty
                 }
-                .background(Color.background)
-                .navigationBarTitle("All Cuppings", displayMode: .inline)
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        NavigationLink(destination: SettingsTabView()) {
-                            Image(systemName: "gearshape")
-                        }
-                    }
-                    
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            let newCupping: Cupping = Cupping(context: moc)
-                            newCupping.cupsCount = 5
-                            newCupping.date = Date()
-                            newCupping.name = ""
-                            try? moc.save()
-                            
-                            self.newCupping = newCupping
-                        } label: {
-                            Image(systemName: "plus")
-                        }
+            }
+            .background(Color.background)
+            .navigationBarTitle("All Cuppings", displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationLink(destination: SettingsTabView()) {
+                        Image(systemName: "gearshape")
                     }
                 }
-            } else {
-                isEmpty
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        let newCupping: Cupping = Cupping(context: moc)
+                        newCupping.cupsCount = 5
+                        newCupping.date = Date()
+                        newCupping.name = ""
+                        try? moc.save()
+                        
+                        self.newCupping = newCupping
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+        }
+    }
+}
+ 
+extension AllCuppingsTabView {
+    struct SwipeActionView: View {
+        let systemImage: String
+        let title: String
+        let color: Color
+        let action: () -> ()
+        
+        init(systemImage: String, title: String, color: Color, action: @escaping () -> ()) {
+            self.systemImage = systemImage
+            self.title = title
+            self.color = color
+            self.action = action
+        }
+        
+        var body: some View {
+            SwipeAction {
+                action()
+            } label: { _ in
+                VStack(spacing: .extraSmall) {
+                    Image(systemName: systemImage)
+                    Text(title)
+                }
+                .font(.subheadline)
+                .foregroundStyle(.white)
+            } background: { _ in
+                color
             }
         }
     }
@@ -84,27 +166,31 @@ struct AllCuppingsTabView: View {
         }
         
         var body: some View {
-            NavigationLink(destination: CuppingView(cupping)) {
-                HStack(spacing: .regular) {
-                    VStack(alignment: .leading, spacing: .extraSmall) {
-                        Text(cupping.name == "" ? "New Cupping" : cupping.name)
-                            .font(.callout)
+            if cupping.isFault {
+                EmptyView()
+            } else {
+                NavigationLink(destination: CuppingView(cupping)) {
+                    HStack(spacing: .extraSmall) {
+                        VStack(alignment: .leading, spacing: .extraSmall) {
+                            Text(cupping.name == "" ? "New Cupping" : cupping.name)
+                                .font(.callout)
+                            
+                            Text("\(cupping.form?.title ?? "") • \(cupping.samples.count) Samples • \(cupping.cupsCount) Cups")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                        }
                         
-                        Text("\(cupping.form?.title ?? "") • \(cupping.samples.count) Samples • \(cupping.cupsCount) Cups")
+                        Spacer()
+                        
+                        Text(cupping.date.short)
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .foregroundStyle(.gray)
+                        
+                        Image(systemName: "chevron.right")
+                            .foregroundStyle(.gray)
                     }
-                    
-                    Spacer()
-                    
-                    Text(DateFormatter.short.string(from: cupping.date))
-                        .font(.caption)
-                        .foregroundStyle(.gray)
-                    
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(.gray)
+                    .padding(.regular)
                 }
-                .padding(.regular)
             }
         }
     }
