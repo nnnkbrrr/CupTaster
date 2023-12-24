@@ -21,6 +21,7 @@ extension SampleView {
                                 .filter { $0.configuration.unwrappedEvaluation is CupsCheckboxesEvaluation }
                         } else {
                             form.qcGroupConfigurations
+                                .sorted { $0.ordinalNumber < $1.ordinalNumber }
                                 .flatMap { $0.qcConfigurations }
                                 .filter { $0.unwrappedEvaluation is CupsCheckboxesEvaluation }
                         }
@@ -36,6 +37,8 @@ extension SampleView {
                 }
             }
             .padding(.small)
+            .animation(.smooth, value: samplesControllerModel.selectedSample)
+            .animation(.smooth, value: SamplesControllerModel.shared.cupping)
         }
         
         struct CheckboxesSummaryColumn: View {
@@ -66,6 +69,7 @@ extension SampleView {
                             }
                         }
                         .animation(.smooth, value: criteria.value)
+                        .animation(.smooth, value: SamplesControllerModel.shared.cupping)
                     }
                 }
             }

@@ -96,7 +96,8 @@ struct SamplesControllerView: View {
                 .padding(.horizontal, .extraSmall)
                 .background {
                     ZStack {
-                        BackdropBlurView(radius: .small)
+                        BackdropBlurView(radius: .extraSmall)
+                        
                         TransparentBlurView()
                             .mask(
                                 LinearGradient(

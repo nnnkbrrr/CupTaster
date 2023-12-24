@@ -93,7 +93,7 @@ struct QCGroupView: View {
                     progress: (score - lowerBound) / (upperBound - lowerBound),
                     progressColor: qcGroup.isCompleted ? .accentColor : .gray
                 )
-                .animation(.smooth, value: score)
+                .animation(.default, value: score)
             }
         }
     }

@@ -11,6 +11,10 @@ import CoreData
 // MARK: Content View
 
 struct ContentView: View {
+    @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
+    
+    @ObservedObject var sampleControllerModel: SamplesControllerModel = .shared
+    
     init() {
         // navigation bar background always opaque
         let navigationBarAppearance = UINavigationBarAppearance()
@@ -19,10 +23,6 @@ struct ContentView: View {
         UINavigationBar.appearance().compactAppearance = navigationBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     }
-    
-    @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
-    
-    @ObservedObject var sampleControllerModel: SamplesControllerModel = .shared
     
     var body: some View {
         ZStack {
@@ -33,6 +33,6 @@ struct ContentView: View {
                 .zIndex(1)
         }
 #warning("onboarding")
-//        .modifier(Onboarding())
+        //.modifier(Onboarding())
     }
 }

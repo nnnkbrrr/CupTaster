@@ -19,30 +19,33 @@ struct SampleView: View {
                 let gridCellSize: CGFloat = (geometry.size.width - spacing * 6) / 5
                 
                 VStack(spacing: spacing) {
+                    let gridSize2: CGFloat = getElementSize(2, gridCellSize: gridCellSize, spacing: spacing)
+                    let gridSize3: CGFloat = getElementSize(3, gridCellSize: gridCellSize, spacing: spacing)
+                    
                     HStack(spacing: spacing) {
                         VStack(spacing: spacing) {
                             Rectangle()
                                 .foregroundColor(.backgroundSecondary)
-                                .frame(width: getElementSize(3, gridCellSize: gridCellSize, spacing: spacing))
+                                .frame(width: gridSize3)
                                 .frame(height: gridCellSize)
                                 .cornerRadius()
                             
                             Rectangle()
                                 .foregroundColor(.backgroundSecondary)
-                                .frame(width: getElementSize(3, gridCellSize: gridCellSize, spacing: spacing))
+                                .frame(width: gridSize3)
                                 .frame(height: 275)
                                 .cornerRadius()
                         }
                         
                         VStack(spacing: spacing) {
                             FinalScoreSection()
-                                .frame(width: getElementSize(2, gridCellSize: gridCellSize, spacing: spacing))
+                                .frame(width: gridSize2)
                                 .frame(maxHeight: .infinity)
                                 .background(Color.backgroundSecondary)
                                 .cornerRadius()
                             
                             CheckboxesSummarySection()
-                                .frame(width: getElementSize(2, gridCellSize: gridCellSize, spacing: spacing))
+                                .frame(width: gridSize2)
                                 .frame(maxHeight: .infinity)
                                 .background(Color.backgroundSecondary)
                                 .cornerRadius()

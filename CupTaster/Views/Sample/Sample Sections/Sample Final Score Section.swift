@@ -40,7 +40,6 @@ extension SampleView {
                             ),
                             progressColor: .accentColor
                         )
-                        .animation(.smooth, value: finalScore)
                         
                         if let sample: Sample = samplesControllerModel.selectedSample {
                             ForEach(sample.qualityCriteriaGroups.flatMap { $0.sortedQualityCriteria }) { criteria in

@@ -19,9 +19,14 @@ struct CuppingSetupView: View {
     @State var selectedCuppingForm: CuppingForm?
     @State var selectedSamplesCount: Int = 1
     @State var selectedCupsCount: Int = 5
+    @State var date: Date = Date()
     
     var body: some View {
         List {
+            Section("Date") {
+                DatePicker("Date", selection: $date)
+            }
+            
 #warning("add cupping form settings")
             Section("Cupping Form") {
                 Picker("Cupping Form", selection: $selectedCuppingForm) {
@@ -71,7 +76,7 @@ struct CuppingSetupView: View {
             
             Button("Continue") {
                 if let selectedCuppingForm {
-                    cupping.setup(moc: moc, date: Date(), cuppingForm: selectedCuppingForm, cupsCount: selectedCupsCount, samplesCount: selectedSamplesCount)
+                    cupping.setup(moc: moc, date: date, cuppingForm: selectedCuppingForm, cupsCount: selectedCupsCount, samplesCount: selectedSamplesCount)
                 }
 #warning("action: continue")
             }
