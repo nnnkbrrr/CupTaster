@@ -45,6 +45,7 @@
 		63742D18287EA998001E8DAB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D17287EA998001E8DAB /* Persistence.swift */; };
 		63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
 		637935D72A6E6EFA007FD5AB /* Sample Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637935D62A6E6EFA007FD5AB /* Sample Chart.swift */; };
+		637CB7CE2B386EF50056C32D /* Navigation Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637CB7CD2B386EF50056C32D /* Navigation Appearance.swift */; };
 		6381530528C8DE00008816C9 /* CuppingFormsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381530428C8DE00008816C9 /* CuppingFormsTests.swift */; };
 		639AB6952A57258300CB04F7 /* Cupping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639AB6942A57258300CB04F7 /* Cupping.swift */; };
 		63A1A90B2A556896008D30CE /* Folder Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1A90A2A556896008D30CE /* Folder Entity.swift */; };
@@ -122,6 +123,7 @@
 		63742D6328801CF5001E8DAB /* CupTaster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CupTaster.entitlements; sourceTree = "<group>"; };
 		63742D6528801D02001E8DAB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		637935D62A6E6EFA007FD5AB /* Sample Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Chart.swift"; sourceTree = "<group>"; };
+		637CB7CD2B386EF50056C32D /* Navigation Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Navigation Appearance.swift"; sourceTree = "<group>"; };
 		6381530228C8DE00008816C9 /* CupTasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CupTasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6381530428C8DE00008816C9 /* CuppingFormsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuppingFormsTests.swift; sourceTree = "<group>"; };
 		639AB6942A57258300CB04F7 /* Cupping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cupping.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 		63A1A9142A5584FA008D30CE /* Styles */ = {
 			isa = PBXGroup;
 			children = (
+				637CB7CD2B386EF50056C32D /* Navigation Appearance.swift */,
 				63A1A9152A55851A008D30CE /* Button Styles.swift */,
 				63A1A9172A558685008D30CE /* Sizing & Spacing.swift */,
 				63A1A9192A558981008D30CE /* Color.swift */,
@@ -547,6 +550,7 @@
 				22242C7628EF263B00138494 /* Cupping Entity.swift in Sources */,
 				639AB6952A57258300CB04F7 /* Cupping.swift in Sources */,
 				6351668F2A52FB32001A0071 /* Integer To Digits.swift in Sources */,
+				637CB7CE2B386EF50056C32D /* Navigation Appearance.swift in Sources */,
 				63A88CFD2A4C90880006AA0F /* All Cuppings.swift in Sources */,
 				6331CE802B1B90990078984F /* Sample Name Generator.swift in Sources */,
 				63729F962A6DAF6700EF0FEE /* Sample Tools.swift in Sources */,

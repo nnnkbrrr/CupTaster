@@ -15,15 +15,6 @@ struct ContentView: View {
     
     @ObservedObject var sampleControllerModel: SamplesControllerModel = .shared
     
-    init() {
-        // navigation bar background always opaque
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithDefaultBackground()
-        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
-        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
-    }
-    
     var body: some View {
         ZStack {
             AllCuppingsTabView()

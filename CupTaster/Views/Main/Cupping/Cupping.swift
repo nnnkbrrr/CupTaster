@@ -80,6 +80,7 @@ struct CuppingView: View {
             }
         }
         .stopwatchToolbarItem()
+        .standardNavigation()
     }
 }
 

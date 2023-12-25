@@ -21,6 +21,10 @@ struct AllCuppingsTabView: View {
     
     @State var newCupping: Cupping? = nil
     
+    init() {
+        Navigation.configureWithoutBackground()
+    }
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -122,6 +126,42 @@ struct AllCuppingsTabView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
+                }
+            }
+            .navigationToolbar {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: .large) {
+                        Group {
+                            Image(systemName: "plus")
+                                .foregroundStyle(.gray)
+                                .onTapGesture {
+#warning("add folder")
+                                }
+                            
+#warning("foreground color changed if selected")
+                            Text("All")
+                                .foregroundStyle(Color.accentColor)
+                                .onTapGesture {
+#warning("go to all cuppings")
+                                }
+                            
+                            Text("Favorites")
+                                .foregroundStyle(.gray)
+                                .onTapGesture {
+                                    
+                                }
+                            
+#warning("rectangle at the bottom")
+                            ForEach(folders) { folder in
+                                Text(folder.name)
+                                    .onTapGesture {
+#warning("go to folder")
+                                    }
+                            }
+                        }
+                    }
+                    .padding(.horizontal, .large)
+                    .frame(height: 30)
                 }
             }
         }
