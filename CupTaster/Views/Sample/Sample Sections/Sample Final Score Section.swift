@@ -56,8 +56,6 @@ extension SampleView {
                             
                             ForEach(0..<finalScoreLen, id: \.self) { index in
                                 Text(String(finalScoreString[index]))
-                                    .font(.title)
-                                    .fontWeight(.light)
                                     .id("\(String(describing: samplesControllerModel.selectedSample?.id))\(finalScoreString[...index])")
                                     .transition(
                                         .scale
@@ -72,18 +70,17 @@ extension SampleView {
                                 
                                 if index == finalScoreLen - 3 {
                                     Text(".")
-                                        .font(.title)
-                                        .fontWeight(.light)
                                 }
                             }
                         }
+                        .font(.system(size: 22, weight: .light).monospacedDigit())
                     }
                     .animation(.default, value: finalScore)
                     .animation(.default, value: SamplesControllerModel.shared.cupping)
                 }
                 .aspectRatio(1, contentMode: .fit)
                 
-                Text("Final\nScore")
+                Text("Final Score")
                     .font(.caption)
                     .textCase(.uppercase)
                     .multilineTextAlignment(.center)

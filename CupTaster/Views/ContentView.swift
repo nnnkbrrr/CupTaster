@@ -21,7 +21,6 @@ struct ContentView: View {
                 .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
             
             SamplesControllerView()
-                .zIndex(1)
         }
 #warning("onboarding")
         //.modifier(Onboarding())

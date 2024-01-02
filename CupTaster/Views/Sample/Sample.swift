@@ -24,18 +24,31 @@ struct SampleView: View {
                     
                     HStack(spacing: spacing) {
                         VStack(spacing: spacing) {
-                            Rectangle()
-                                .foregroundColor(.backgroundSecondary)
+                            ActionsToolsSection()
                                 .frame(width: gridSize3)
                                 .frame(height: gridCellSize)
+                                .background(Color.backgroundSecondary)
                                 .cornerRadius()
                             
-                            Rectangle()
-                                .foregroundColor(.backgroundSecondary)
+                            let matchedGeometryId: String = {
+                                if let selectedSample: Sample = samplesControllerModel.selectedSample {
+                                    return "radar.chart.container.\(selectedSample.id)"
+                                }
+                                return ""
+                            }()
+                            
+                            ChartSection()
                                 .frame(width: gridSize3)
-                                .frame(height: 275)
+                                .background(Color.backgroundSecondary)
                                 .cornerRadius()
+                                .matchedGeometryEffect(
+                                    id: matchedGeometryId,
+                                    in: samplesControllerModel.namespace
+                                )
+                                .shadow(color: .background.opacity(0.5), radius: 5, x: 0, y: 0)
+                                .scaleEffect(radarChartZoomedOnAppear ? 1.2 : 1)
                         }
+                        .zIndex(2.2)
                         
                         VStack(spacing: spacing) {
                             FinalScoreSection()
@@ -51,26 +64,16 @@ struct SampleView: View {
                                 .cornerRadius()
                         }
                     }
+                    .zIndex(2.1)
                     
-                    Rectangle()
-                        .foregroundColor(.backgroundSecondary)
-                        .frame(width: getElementSize(5, gridCellSize: gridCellSize, spacing: spacing))
+                    GeneralInfoToolsSection()
+                        .frame(maxWidth: .infinity)
                         .frame(height: gridCellSize)
+                        .background(Color.backgroundSecondary)
                         .cornerRadius()
                 }
                 .padding(.vertical, .small)
-                
-                // old
-                
-                VStack(spacing: .regular) {
-                    HStack(spacing: .regular) {
-                        // sampleChart(sample: sample)
-                        sampleTools
-                    }
-                    .frame(height: 220)
-                }
-                .padding(.extraSmall)
-                .frame(maxHeight: .infinity, alignment: .top)
+                .padding(.horizontal, .extraSmall)
             }
         }
         .safeAreaInset(edge: .bottom) {

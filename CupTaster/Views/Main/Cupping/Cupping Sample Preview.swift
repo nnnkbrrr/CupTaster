@@ -13,11 +13,14 @@ extension CuppingView {
     @ViewBuilder
     func samplePreview(_ sample: Sample) -> some View {
         VStack(alignment: .leading) {
-            RadarChart(sample: sample, style: .compact)
+            RoseChart(sample: sample)
                 .frame(maxWidth: .infinity)
                 .background(Color.backgroundSecondary)
-                .matchedGeometryEffect(id: "radar.chart.\(sample.id)", in: samplesControllerModel.namespace)
-                .zIndex(1.1)
+                .matchedGeometryEffect(
+                    id: "radar.chart.\(sample.id)",
+                    in: samplesControllerModel.namespace
+                )
+                .zIndex(2.1)
             
             Text(sample.name)
                 .font(.subheadline)
@@ -46,6 +49,7 @@ extension CuppingView {
             id: "radar.chart.container.\(sample.id)",
             in: samplesControllerModel.namespace
         )
+        .zIndex(2.1)
         .contextMenu {
 #warning("context menu")
             Button("Open") {

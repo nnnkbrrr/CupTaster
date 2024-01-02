@@ -109,6 +109,12 @@ struct SamplesControllerView: View {
                                     endPoint: .bottom
                                 )
                             )
+                        
+                        LinearGradient(
+                            colors: [.background.opacity(0.5), .background.opacity(0)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
                     }
                     .edgesIgnoringSafeArea(.top)
                 }
