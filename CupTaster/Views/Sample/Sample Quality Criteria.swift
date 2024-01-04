@@ -26,13 +26,16 @@ struct QCGroupView: View {
             
             if samplesControllerModel.selectedQCGroup == qcGroup {
                 QCGroupValueView(qcGroup: qcGroup, score: $score)
-                    .transition(.identity)
+                    .frame(maxWidth: .infinity)
+                    .matchedGeometryEffect(id: qcGroup.id, in: samplesControllerModel.namespace)
             } else {
                 Text(String(qcGroup.configuration.title.prefix(2)))
+                    .frame(maxWidth: .infinity)
+                    .matchedGeometryEffect(id: qcGroup.id, in: samplesControllerModel.namespace)
                     .font(.caption)
-                    .transition(.identity)
             }
         }
+        .animation(.easeInOut, value: samplesControllerModel.selectedSample)
         .simultaneousGesture(
             TapGesture()
                 .onEnded {

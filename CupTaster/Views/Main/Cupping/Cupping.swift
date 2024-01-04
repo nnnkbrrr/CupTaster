@@ -27,11 +27,11 @@ struct CuppingView: View {
                         columns: [
                             GridItem(
                                 .adaptive(minimum: 150, maximum: 200),
-                                spacing: .regular,
+                                spacing: .extraSmall,
                                 alignment: .top
                             )
                         ],
-                        spacing: .regular
+                        spacing: .extraSmall
                     ) {
                         Section {
                             ForEach(cupping.sortedSamples) { sample in
@@ -41,15 +41,9 @@ struct CuppingView: View {
                                     Color.clear
                                 }
                             }
-                        } header: {
-#warning("or to reorder!")
-                            Text("Hold sample to show options")
-                                .font(.caption2)
-                                .textCase(.uppercase)
-                                .foregroundStyle(.gray)
                         }
                     }
-                    .padding(.regular)
+                    .padding(.extraSmall)
                 }
                 .background(Color.background)
             }

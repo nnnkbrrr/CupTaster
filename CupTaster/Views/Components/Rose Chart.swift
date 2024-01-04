@@ -67,7 +67,7 @@ struct RoseChart: View {
                     RoseChartLabels(qualityCriteriaLabels: qualityCriteria.map { $0.title }, geometry: geometry)
                 }
             }
-            .animation(.bouncy(duration: 1).delay(0.2), value: selectedSample)
+            .animation(.bouncy(duration: 0.5).delay(0.2), value: selectedSample)
         }
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

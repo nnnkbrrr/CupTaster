@@ -28,39 +28,10 @@ extension SampleView {
                             in: samplesControllerModel.namespace
                         )
                         .zIndex(2.1)
-                    
-//                    if let sample = samplesControllerModel.selectedSample {
-//                        FoldersSection(sample: sample)
-//                    }
                 }
-                .padding(.small)
+                .padding(.extraSmall)
             } else {
                 Color.clear
-            }
-        }
-        
-        struct FoldersSection: View {
-            @ObservedObject var sample: Sample
-            
-            var body: some View {
-                if sample.folders.isEmpty {
-                    HStack {
-                        Image(systemName: "folder.badge.gearshape")
-                        
-                        Text("Manage Folders")
-                            .font(.caption)
-                    }
-                    .foregroundStyle(Color.accentColor)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: .smallElement)
-                    .background(Color.backgroundTertiary)
-                    .cornerRadius()
-                    .onTapGesture {
-#warning("manage folders")
-                    }
-                } else {
-#warning("folders")
-                }
             }
         }
     }

@@ -32,6 +32,8 @@
 		632F5D2529D83EAE00D7FFB7 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 632F5D2429D83EAE00D7FFB7 /* CodeScanner */; };
 		6331CE802B1B90990078984F /* Sample Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6331CE7F2B1B90990078984F /* Sample Name Generator.swift */; };
 		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
+		6348EE4B2B46F7010061B5AA /* Sample Delete Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348EE4A2B46F7010061B5AA /* Sample Delete Section.swift */; };
+		6348EE4D2B46F7CF0061B5AA /* General Info Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348EE4C2B46F7CF0061B5AA /* General Info Section.swift */; };
 		6349471E2B13BBDA00A9030B /* Circular Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349471D2B13BBDA00A9030B /* Circular Progress.swift */; };
 		634D5A4D2A5ED5F200A18B63 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634D5A4C2A5ED5F200A18B63 /* Sample.swift */; };
 		634E32AA2B38457D00966509 /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = 634E32A92B38457D00966509 /* SwipeActions */; };
@@ -108,6 +110,8 @@
 		632BA4D22A57F8A9006F0BC0 /* Cupping Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Setup.swift"; sourceTree = "<group>"; };
 		6331CE7F2B1B90990078984F /* Sample Name Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Name Generator.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		6348EE4A2B46F7010061B5AA /* Sample Delete Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Delete Section.swift"; sourceTree = "<group>"; };
+		6348EE4C2B46F7CF0061B5AA /* General Info Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "General Info Section.swift"; sourceTree = "<group>"; };
 		6349471D2B13BBDA00A9030B /* Circular Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circular Progress.swift"; sourceTree = "<group>"; };
 		634D5A4C2A5ED5F200A18B63 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		6351668E2A52FB32001A0071 /* Integer To Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Integer To Digits.swift"; sourceTree = "<group>"; };
@@ -206,6 +210,8 @@
 				63A223072B23AC7D0066AFD3 /* Sample Checkboxes Section.swift */,
 				631422722B3AC79200683F7F /* Sample Chart Section.swift */,
 				63729F952A6DAF6600EF0FEE /* Sample Tools Section.swift */,
+				6348EE4C2B46F7CF0061B5AA /* General Info Section.swift */,
+				6348EE4A2B46F7010061B5AA /* Sample Delete Section.swift */,
 			);
 			path = "Sample Sections";
 			sourceTree = "<group>";
@@ -576,8 +582,10 @@
 				63B75D952A6D6549002C350A /* Samples Controller Model.swift in Sources */,
 				6349471E2B13BBDA00A9030B /* Circular Progress.swift in Sources */,
 				22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */,
+				6348EE4D2B46F7CF0061B5AA /* General Info Section.swift in Sources */,
 				22242C8428EF27FF00138494 /* QCGroupConfig Entity.swift in Sources */,
 				22242C7E28EF274900138494 /* QualityCriteria Entity.swift in Sources */,
+				6348EE4B2B46F7010061B5AA /* Sample Delete Section.swift in Sources */,
 				631422732B3AC79200683F7F /* Sample Chart Section.swift in Sources */,
 				63A88D152A4C9B780006AA0F /* CFModel.swift in Sources */,
 				636712F42AF637900042DB00 /* Drag Gesture.swift in Sources */,

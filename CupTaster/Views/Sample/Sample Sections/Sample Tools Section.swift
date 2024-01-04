@@ -26,7 +26,7 @@ extension SampleView {
                 
                 ToolsDivider()
                 
-                SampleToolButton(systemImageName: "trash") {
+                SampleToolButton(systemImageName: "folder.badge.gearshape") {
 #warning("action")
                 }
             }

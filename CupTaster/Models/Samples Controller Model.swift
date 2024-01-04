@@ -19,7 +19,7 @@ class SamplesControllerModel: ObservableObject {
     // Sample General Values
     
     @Published private(set) var isActive: Bool = false
-    @Published private(set) var isTogglingVisibility: Bool = false
+    @Published var isTogglingVisibility: Bool = false
     
     @Published private(set) var cupping: Cupping?
     @Published private(set) var selectedSample: Sample?
@@ -49,6 +49,7 @@ extension SamplesControllerModel {
     public func setSelectedSample(sample: Sample) {
         if !isTogglingVisibility {
             self.isTogglingVisibility = true
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.isTogglingVisibility = false
             }
@@ -90,11 +91,8 @@ extension SamplesControllerModel {
     
     public func exit() {
         self.isTogglingVisibility = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isTogglingVisibility = false
-        }
         
-        withAnimation(.smooth(duration: 0.5, extraBounce: 0.3)) {
+        withAnimation(.bouncy(duration: 0.5)) {
             self.isActive = false
             self.cupping = nil
             self.selectedSample = nil

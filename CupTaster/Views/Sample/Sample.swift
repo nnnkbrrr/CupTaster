@@ -26,7 +26,7 @@ struct SampleView: View {
                         VStack(spacing: spacing) {
                             ActionsToolsSection()
                                 .frame(width: gridSize3)
-                                .frame(height: gridCellSize)
+                                .frame(height: .smallElementContainer)
                                 .background(Color.backgroundSecondary)
                                 .cornerRadius()
                             
@@ -41,6 +41,7 @@ struct SampleView: View {
                             if samplesControllerModel.isActive {
                                 ChartSection()
                                     .frame(width: gridSize3)
+                                    .padding(.vertical, .large)
                                     .background(Color.backgroundSecondary)
                                     .cornerRadius()
                                     .shadow(color: .background.opacity(0.5), radius: 5, x: 0, y: 0)
@@ -73,7 +74,15 @@ struct SampleView: View {
                     
                     GeneralInfoToolsSection()
                         .frame(maxWidth: .infinity)
-                        .frame(height: gridCellSize)
+                        .frame(height: .smallElementContainer)
+                        .background(Color.backgroundSecondary)
+                        .cornerRadius()
+                    
+                    GeneralInfoSection(gridCellSize: gridCellSize)
+                    
+                    DeleteSection()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: .smallElementContainer)
                         .background(Color.backgroundSecondary)
                         .cornerRadius()
                 }
@@ -85,6 +94,9 @@ struct SampleView: View {
             Spacer().frame(height: SampleBottomSheetConfiguration.minHeight)
         }
         .onAppear { chartAppearAnimation() }
+        .onDisappear {
+            samplesControllerModel.isTogglingVisibility = false
+        }
     }
     
     func getElementSize(_ multiplier: Int, gridCellSize: CGFloat, spacing: CGFloat) -> CGFloat {
