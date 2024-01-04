@@ -31,22 +31,27 @@ struct SampleView: View {
                                 .cornerRadius()
                             
                             let matchedGeometryId: String = {
+                                let activityIndicator: String = samplesControllerModel.isTogglingVisibility ? "" : ".inactive"
                                 if let selectedSample: Sample = samplesControllerModel.selectedSample {
-                                    return "radar.chart.container.\(selectedSample.id)"
+                                    return "radar.chart.container.\(selectedSample.id)" + activityIndicator
                                 }
-                                return ""
+                                return "radar.chart.container.empty"
                             }()
                             
-                            ChartSection()
-                                .frame(width: gridSize3)
-                                .background(Color.backgroundSecondary)
-                                .cornerRadius()
-                                .matchedGeometryEffect(
-                                    id: matchedGeometryId,
-                                    in: samplesControllerModel.namespace
-                                )
-                                .shadow(color: .background.opacity(0.5), radius: 5, x: 0, y: 0)
-                                .scaleEffect(radarChartZoomedOnAppear ? 1.2 : 1)
+                            if samplesControllerModel.isActive {
+                                ChartSection()
+                                    .frame(width: gridSize3)
+                                    .background(Color.backgroundSecondary)
+                                    .cornerRadius()
+                                    .shadow(color: .background.opacity(0.5), radius: 5, x: 0, y: 0)
+                                    .scaleEffect(radarChartZoomedOnAppear ? 1.2 : 1)
+                                    .matchedGeometryEffect(
+                                        id: matchedGeometryId,
+                                        in: samplesControllerModel.namespace
+                                    )
+                            } else {
+                                Color.clear
+                            }
                         }
                         .zIndex(2.2)
                         

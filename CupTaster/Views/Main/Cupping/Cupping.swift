@@ -10,9 +10,8 @@ import CoreData
 
 struct CuppingView: View {
     @Environment(\.managedObjectContext) private var moc
-    @State var cupping: Cupping
-    
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
+    @State var cupping: Cupping
     
     init(_ cupping: Cupping) {
         self.cupping = cupping
@@ -35,9 +34,9 @@ struct CuppingView: View {
                         spacing: .regular
                     ) {
                         Section {
-                            ForEach(cupping.samples.sorted { $0.ordinalNumber < $1.ordinalNumber } ) { sample in
+                            ForEach(cupping.sortedSamples) { sample in
                                 if samplesControllerModel.selectedSample != sample {
-                                    samplePreview(sample)
+                                    SamplePreview(sample)
                                 } else {
                                     Color.clear
                                 }

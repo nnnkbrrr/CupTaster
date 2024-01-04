@@ -14,13 +14,6 @@ struct SamplesControllerView: View {
         if samplesControllerModel.isActive {
             ZStack(alignment: .bottom) {
                 SampleView()
-                    .dragGesture (
-                        onStart: { samplesControllerModel.onSwipeStarted() },
-                        onUpdate: { samplesControllerModel.onSwipeUpdated(value: $0) },
-                        onEnd: { samplesControllerModel.onSwipeEnded(value: $0) },
-                        onCancel: { samplesControllerModel.onSwipeCanceled() }
-                    )
-                
                 SampleBottomSheetView()
             }
             .zIndex(1.1)
@@ -118,13 +111,14 @@ struct SamplesControllerView: View {
                     }
                     .edgesIgnoringSafeArea(.top)
                 }
-                .dragGesture(
-                    onStart: { samplesControllerModel.onSwipeStarted() },
-                    onUpdate: { samplesControllerModel.onSwipeUpdated(value: $0) },
-                    onEnd: { samplesControllerModel.onSwipeEnded(value: $0) },
-                    onCancel: { samplesControllerModel.onSwipeCanceled() }
-                )
             }
+            .dragGesture (
+                direction: .horizontal,
+                onStart: { samplesControllerModel.onSwipeStarted() },
+                onUpdate: { samplesControllerModel.onSwipeUpdated(value: $0) },
+                onEnd: { samplesControllerModel.onSwipeEnded(value: $0) },
+                onCancel: { samplesControllerModel.onSwipeCanceled() }
+            )
         }
     }
     

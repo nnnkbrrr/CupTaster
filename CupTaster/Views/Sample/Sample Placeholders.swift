@@ -22,6 +22,13 @@ struct SampleQCGroupsPlaceholderView: View {
             .frame(maxWidth: .infinity)
             .opacity(0.5)
         }
+        .mask(
+            LinearGradient(
+                gradient: Gradient(colors: [.clear, .black, .clear]),
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        )
     }
 }
 

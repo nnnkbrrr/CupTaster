@@ -135,7 +135,6 @@ struct TargetHorizontalScrollView<
     }
     
     private func generateSelectionFeedback() {
-        let generator = UISelectionFeedbackGenerator()
-        generator.selectionChanged()
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 }

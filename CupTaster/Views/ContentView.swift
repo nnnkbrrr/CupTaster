@@ -22,6 +22,7 @@ struct ContentView: View {
             
             SamplesControllerView()
         }
+        .allowsHitTesting(sampleControllerModel.isTogglingVisibility ? false : true)
 #warning("onboarding")
         //.modifier(Onboarding())
     }

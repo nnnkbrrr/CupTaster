@@ -19,7 +19,7 @@ class SamplesControllerModel: ObservableObject {
     // Sample General Values
     
     @Published private(set) var isActive: Bool = false
-    @Published private var isAnimatingOnAppear: Bool = false
+    @Published private(set) var isTogglingVisibility: Bool = false
     
     @Published private(set) var cupping: Cupping?
     @Published private(set) var selectedSample: Sample?
@@ -46,13 +46,16 @@ class SamplesControllerModel: ObservableObject {
 // General Functions
 
 extension SamplesControllerModel {
-    public func setSelectedSample(cupping: Cupping, sample: Sample) {
-        if !isAnimatingOnAppear {
-            guard cupping.samples.contains(sample) else { return }
+    public func setSelectedSample(sample: Sample) {
+        if !isTogglingVisibility {
+            self.isTogglingVisibility = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.isTogglingVisibility = false
+            }
             
             withAnimation(.smooth(duration: 0.3)) {
                 self.isActive = true
-                self.cupping = cupping
+                self.cupping = sample.cupping
                 self.selectedSample = sample
                 self.selectedSampleIndex = Int(sample.ordinalNumber)
                 self.changeSelectedQCGroup(qcGroup: sample.sortedQCGroups.first(where: {
@@ -86,9 +89,9 @@ extension SamplesControllerModel {
     }
     
     public func exit() {
-        self.isAnimatingOnAppear = true
+        self.isTogglingVisibility = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isAnimatingOnAppear = false
+            self.isTogglingVisibility = false
         }
         
         withAnimation(.smooth(duration: 0.5, extraBounce: 0.3)) {
@@ -180,12 +183,12 @@ extension SamplesControllerModel {
             selectedSampleIndex = cupping.sortedSamples.count - 1
             withAnimation(.bouncy) { lastSampleRotationAngle = .zero }
         } else if abs(translation) > 150 || abs(predictedEndTranslation) > 250 {
-            withAnimation(.smooth) {
+            withAnimation(.bouncy) {
                 selectedSampleIndex = selectedSampleIndex - (translation > 0 ? 1 : -1)
                 swipeOffset = 0
             }
         } else {
-            withAnimation(.smooth) { swipeOffset = 0 }
+            withAnimation(.bouncy) { swipeOffset = 0 }
         }
         
         changeSelectedSample(sample: cupping.sortedSamples[selectedSampleIndex])

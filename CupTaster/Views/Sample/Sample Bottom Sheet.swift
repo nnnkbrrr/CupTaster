@@ -91,9 +91,11 @@ struct SampleBottomSheetView: View {
                             .opacity(criteria == samplesControllerModel.selectedCriteria ? 1 : 0.5)
                             .frame(maxWidth: .infinity)
                             .frame(height: SampleBottomSheetConfiguration.CriteriaPicker.height)
+                            .contentShape(Rectangle())
                             .onTapGesture {
                                 withAnimation {
                                     samplesControllerModel.selectedCriteria = criteria
+                                    UISelectionFeedbackGenerator().selectionChanged()
                                 }
                             }
                     }

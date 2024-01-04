@@ -12,28 +12,31 @@ extension SampleView {
         @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
         
         var body: some View {
-            if let sample: Sample = samplesControllerModel.selectedSample {
+            if samplesControllerModel.isActive {
                 VStack(spacing: .extraSmall) {
-                    RoseChart(sample: sample)
+                    let matchedGeometryId: String = {
+                        let activityIndicator: String = samplesControllerModel.isTogglingVisibility ? "" : ".inactive"
+                        if let selectedSample: Sample = samplesControllerModel.selectedSample {
+                            return "radar.chart.\(selectedSample.id)" + activityIndicator
+                        }
+                        return "radar.chart.empty"
+                    }()
+                    
+                    RoseChart()
                         .matchedGeometryEffect(
-                            id: "radar.chart.\(sample.id)",
+                            id: matchedGeometryId,
                             in: samplesControllerModel.namespace
                         )
                         .zIndex(2.1)
                     
-                    FoldersSection(sample: sample)
+//                    if let sample = samplesControllerModel.selectedSample {
+//                        FoldersSection(sample: sample)
+//                    }
                 }
                 .padding(.small)
+            } else {
+                Color.clear
             }
-//            elseif let form: CuppingForm = samplesControllerModel.cupping?.form {
-//                VStack(spacing: .extraSmall) {
-//                    RoseChart(placeholderFrom: form)
-//                    
-//                    Spacer()
-//                        .frame(height: .smallElement)
-//                }
-//                .padding(.small)
-//            }
         }
         
         struct FoldersSection: View {

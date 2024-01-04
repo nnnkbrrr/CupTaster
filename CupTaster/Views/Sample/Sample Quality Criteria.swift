@@ -24,23 +24,6 @@ struct QCGroupView: View {
             CircularQCGroupProgressView(qcGroup: qcGroup, score: $score)
                 .frame(width: elementSize, height: elementSize)
             
-            var score: Double {
-                let formula: String = qcGroup.configuration.scoreFormula
-                let expression = NSExpression(format: formula)
-                let values: [String: Double] = {
-                    let criteria: [QualityCriteria] = qcGroup.sortedQualityCriteria
-                    
-                    var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map { criteria in
-                        ("criteria_\(criteria.configuration.ordinalNumber)", Double(criteria.formattedValue))
-                    })
-                    
-                    dictionary.updateValue(Double(qcGroup.sample.cupping.cupsCount), forKey: "cups_count")
-                    return dictionary
-                }()
-                let expressionValue = expression.expressionValue(with: values, context: nil)
-                return expressionValue as? Double ?? 0
-            }
-            
             if samplesControllerModel.selectedQCGroup == qcGroup {
                 QCGroupValueView(qcGroup: qcGroup, score: $score)
                     .transition(.identity)

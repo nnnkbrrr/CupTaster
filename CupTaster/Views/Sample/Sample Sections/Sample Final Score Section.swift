@@ -40,6 +40,7 @@ extension SampleView {
                             ),
                             progressColor: .accentColor
                         )
+                        .animation(.easeInOut(duration: 0.5).delay(0.2), value: finalScore)
                         
                         if let sample: Sample = samplesControllerModel.selectedSample {
                             ForEach(sample.qualityCriteriaGroups.flatMap { $0.sortedQualityCriteria }) { criteria in
@@ -73,7 +74,7 @@ extension SampleView {
                                 }
                             }
                         }
-                        .font(.system(size: 22, weight: .light).monospacedDigit())
+                        .font(.system(size: 25, weight: .light).monospacedDigit())
                     }
                     .animation(.default, value: finalScore)
                     .animation(.default, value: SamplesControllerModel.shared.cupping)

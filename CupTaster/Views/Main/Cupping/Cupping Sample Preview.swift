@@ -10,54 +10,62 @@ import SwiftUI
 #warning("complete the view")
 
 extension CuppingView {
-    @ViewBuilder
-    func samplePreview(_ sample: Sample) -> some View {
-        VStack(alignment: .leading) {
-            RoseChart(sample: sample)
-                .frame(maxWidth: .infinity)
-                .background(Color.backgroundSecondary)
-                .matchedGeometryEffect(
-                    id: "radar.chart.\(sample.id)",
-                    in: samplesControllerModel.namespace
-                )
-                .zIndex(2.1)
-            
-            Text(sample.name)
-                .font(.subheadline)
-            
-            HStack(spacing: 0) {
-                Text("Final score: ")
-                Text(String(format: "%.1f", sample.finalScore))
+    struct SamplePreview: View {
+        @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
+        let sample: Sample
+        
+        init(_ sample: Sample) {
+            self.sample = sample
+        }
+        
+        var body: some View {
+            VStack(alignment: .leading) {
+                RoseChart(sample: sample)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.backgroundSecondary)
+                    .matchedGeometryEffect(
+                        id: "radar.chart.\(sample.id)",
+                        in: samplesControllerModel.namespace
+                    )
+                    .zIndex(2.1)
                 
-#warning("final score value")
-                Spacer()
+                Text(sample.name)
+                    .font(.subheadline)
                 
-                if sample.isFavorite {
-                    Image(systemName: "heart.fill")
-                        .foregroundStyle(.red)
+                HStack(spacing: 0) {
+                    Text("Final score: ")
+                    Text(String(format: "%.1f", sample.finalScore))
+                    
+    #warning("final score value")
+                    Spacer()
+                    
+                    if sample.isFavorite {
+                        Image(systemName: "heart.fill")
+                            .foregroundStyle(.red)
+                    }
+                }
+                .foregroundStyle(.gray)
+                .font(.caption)
+            }
+            .padding(.small)
+            .background(
+                RoundedRectangle(cornerRadius: .defaultCornerRadius)
+                    .foregroundStyle(Color.backgroundSecondary)
+            )
+            .matchedGeometryEffect(
+                id: "radar.chart.container.\(sample.id)",
+                in: samplesControllerModel.namespace
+            )
+            .zIndex(2.1)
+            .contextMenu {
+    #warning("context menu")
+                Button("Open") {
+                    samplesControllerModel.setSelectedSample(sample: sample)
                 }
             }
-            .foregroundStyle(.gray)
-            .font(.caption)
-        }
-        .padding(.small)
-        .background(
-            RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                .foregroundStyle(Color.backgroundSecondary)
-        )
-        .matchedGeometryEffect(
-            id: "radar.chart.container.\(sample.id)",
-            in: samplesControllerModel.namespace
-        )
-        .zIndex(2.1)
-        .contextMenu {
-#warning("context menu")
-            Button("Open") {
-                samplesControllerModel.setSelectedSample(cupping: cupping, sample: sample)
+            .onTapGesture {
+                samplesControllerModel.setSelectedSample(sample: sample)
             }
-        }
-        .onTapGesture {
-            samplesControllerModel.setSelectedSample(cupping: cupping, sample: sample)
         }
     }
 }

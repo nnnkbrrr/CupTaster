@@ -8,29 +8,66 @@
 import SwiftUI
 
 struct RoseChart: View {
-    let qualityCriteria: [QualityCriteria]
+    let qualityCriteria: [QualityCriteria]?
+    @Binding var selectedSample: Sample?
+    let cuppingForm: CuppingForm?
     
     init(sample: Sample) {
         self.qualityCriteria = sample.qualityCriteriaGroups
             .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
             .flatMap { $0.qualityCriteria }
             .filter { $0.configuration.evaluationType.unwrappedEvaluation is SliderEvaluation }
+        
+        self._selectedSample = .constant(nil)
+        self.cuppingForm = sample.cupping.form
+    }
+    
+    init() {
+        self.qualityCriteria = nil
+        self.cuppingForm = SamplesControllerModel.shared.cupping?.form
+        self._selectedSample = Binding<Sample?>(
+            get: { SamplesControllerModel.shared.selectedSample },
+            set: { _ in }
+        )
     }
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .center) {
-                ForEach(Array(qualityCriteria.enumerated()), id: \.offset) { index, qualityCriteria in
-                    RoseChartSegment(qualityCriteria: qualityCriteria, in: self.qualityCriteria)
-                        .rotationEffect(.degrees(-90))
-                        .animation(.easeInOut(duration: 1), value: qualityCriteria.value)
+            ZStack {
+                if let qualityCriteria: [QualityCriteria] = {
+                    if let qualityCriteria = self.qualityCriteria {
+                        return qualityCriteria
+                    } else if let selectedSample {
+                        return selectedSample.qualityCriteriaGroups
+                            .sorted(by: { $0.configuration.ordinalNumber < $1.configuration.ordinalNumber })
+                            .flatMap { $0.qualityCriteria }
+                            .filter { $0.configuration.evaluationType.unwrappedEvaluation is SliderEvaluation }
+                    }
+                    return nil
+                }() {
+                    ZStack {
+                        ForEach(Array(qualityCriteria.enumerated()), id: \.offset) { index, qualityCriterion in
+                            RoseChartSegment(qualityCriteria: qualityCriterion, in: qualityCriteria)
+                                .animation(.easeInOut(duration: 1), value: qualityCriterion.value)
+                        }
+                    }
+                    .rotationEffect(.degrees(-90))
+                    .transition(.scale)
                 }
                 
-                RoseChartGrid(categoriesCount: qualityCriteria.count, divisionsCount: 4)
-                    .stroke(.gray, lineWidth: 0.5)
-                
-                RoseChartLabels(qualityCriteria: qualityCriteria, geometry: geometry)
+                if let cuppingForm {
+                    let qualityCriteria: [QualityCriteria] = cuppingForm.qcGroupConfigurations
+                        .sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
+                        .flatMap { $0.qcConfigurations }
+                        .filter { $0.evaluationType.unwrappedEvaluation is SliderEvaluation }
+                    
+                    RoseChartGrid(categoriesCount: qualityCriteria.count, divisionsCount: 4)
+                        .stroke(.gray, lineWidth: 0.5)
+                    
+                    RoseChartLabels(qualityCriteriaLabels: qualityCriteria.map { $0.title }, geometry: geometry)
+                }
             }
+            .animation(.bouncy(duration: 1).delay(0.2), value: selectedSample)
         }
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -58,7 +95,8 @@ extension RoseChart {
                 lowerBoundValue: qualityCriteria.configuration.lowerBound,
                 upperBoundValue: qualityCriteria.configuration.upperBound
             )
-            .foregroundColor(qcGroup.isCompleted ? Color.accentColor.opacity(0.5) : .backgroundTertiary)
+            .foregroundColor(Color.accentColor.opacity(0.5))
+            .disabled(!qcGroup.isCompleted)
             .animation(.bouncy, value: qualityCriteria.value)
             .animation(.easeInOut(duration: 0.25), value: qcGroup.isCompleted)
         }
@@ -127,7 +165,7 @@ extension RoseChart {
     }
     
     private struct RoseChartLabels: View {
-        let qualityCriteria: [QualityCriteria]
+        let qualityCriteriaLabels: [String]
         let geometry: GeometryProxy
         
         var body: some View {
@@ -135,12 +173,12 @@ extension RoseChart {
             let radius: CGFloat = min(rect.maxX - rect.midX, rect.maxY - rect.midY) + 10
             
             ZStack {
-                ForEach(Array(qualityCriteria.enumerated()), id: \.offset) { index, qualityCriteria in
-                    let a: CGFloat = 2 * .pi / CGFloat(self.qualityCriteria.count)
-                    let pointX: CGFloat = rect.midX + cos(CGFloat(index) * a - .pi / 2) * radius
-                    let pointY: CGFloat = rect.midY + sin(CGFloat(index) * a - .pi / 2) * radius
+                ForEach(Array(qualityCriteriaLabels.enumerated()), id: \.offset) { index, label in
+                    let a: CGFloat = 2 * .pi / CGFloat(qualityCriteriaLabels.count)
+                    let pointX: CGFloat = rect.midX + cos((CGFloat(index) + 0.5) * a - .pi / 2) * radius
+                    let pointY: CGFloat = rect.midY + sin((CGFloat(index) + 0.5) * a - .pi / 2) * radius
                     
-                    let labelKey: LocalizedStringKey = .init("\(qualityCriteria.title).short")
+                    let labelKey: LocalizedStringKey = .init("\(label).short")
                     Text(labelKey)
                         .font(.caption2)
                         .lineLimit(2)
