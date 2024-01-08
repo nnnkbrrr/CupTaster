@@ -25,10 +25,7 @@ struct SampleView: View {
                     HStack(spacing: spacing) {
                         VStack(spacing: spacing) {
                             ActionsToolsSection()
-                                .frame(width: gridSize3)
-                                .frame(height: .smallElementContainer)
-                                .background(Color.backgroundSecondary)
-                                .cornerRadius()
+                                .sampleBlock(width: gridSize3, height: .smallElementContainer)
                             
                             let matchedGeometryId: String = {
                                 let activityIndicator: String = samplesControllerModel.isTogglingVisibility ? "" : ".inactive"
@@ -40,10 +37,8 @@ struct SampleView: View {
                             
                             if samplesControllerModel.isActive {
                                 ChartSection()
-                                    .frame(width: gridSize3)
                                     .padding(.vertical, .large)
-                                    .background(Color.backgroundSecondary)
-                                    .cornerRadius()
+                                    .sampleBlock(width: gridSize3)
                                     .shadow(color: .background.opacity(0.5), radius: 5, x: 0, y: 0)
                                     .scaleEffect(radarChartZoomedOnAppear ? 1.2 : 1)
                                     .matchedGeometryEffect(
@@ -58,33 +53,20 @@ struct SampleView: View {
                         
                         VStack(spacing: spacing) {
                             FinalScoreSection()
-                                .frame(width: gridSize2)
-                                .frame(maxHeight: .infinity)
-                                .background(Color.backgroundSecondary)
-                                .cornerRadius()
+                                .sampleBlock(width: gridSize2)
                             
                             CheckboxesSummarySection()
-                                .frame(width: gridSize2)
-                                .frame(maxHeight: .infinity)
-                                .background(Color.backgroundSecondary)
-                                .cornerRadius()
+                                .sampleBlock(width: gridSize2)
                         }
                     }
                     .zIndex(2.1)
                     
                     GeneralInfoToolsSection()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: .smallElementContainer)
-                        .background(Color.backgroundSecondary)
-                        .cornerRadius()
+                        .sampleBlock(height: .smallElementContainer)
                     
                     GeneralInfoSection(gridCellSize: gridCellSize)
                     
                     DeleteSection()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: .smallElementContainer)
-                        .background(Color.backgroundSecondary)
-                        .cornerRadius()
                 }
                 .padding(.vertical, .small)
                 .padding(.horizontal, .extraSmall)
@@ -94,9 +76,7 @@ struct SampleView: View {
             Spacer().frame(height: SampleBottomSheetConfiguration.minHeight)
         }
         .onAppear { chartAppearAnimation() }
-        .onDisappear {
-            samplesControllerModel.isTogglingVisibility = false
-        }
+        .onDisappear { samplesControllerModel.isTogglingVisibility = false }
     }
     
     func getElementSize(_ multiplier: Int, gridCellSize: CGFloat, spacing: CGFloat) -> CGFloat {

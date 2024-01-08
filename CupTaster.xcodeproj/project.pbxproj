@@ -30,6 +30,7 @@
 		6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */; };
 		632BA4D32A57F8A9006F0BC0 /* Cupping Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632BA4D22A57F8A9006F0BC0 /* Cupping Setup.swift */; };
 		632F5D2529D83EAE00D7FFB7 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 632F5D2429D83EAE00D7FFB7 /* CodeScanner */; };
+		633042452B4C5ACE005BD8F2 /* Sample Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633042442B4C5ACE005BD8F2 /* Sample Elements.swift */; };
 		6331CE802B1B90990078984F /* Sample Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6331CE7F2B1B90990078984F /* Sample Name Generator.swift */; };
 		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
 		6348EE4B2B46F7010061B5AA /* Sample Delete Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348EE4A2B46F7010061B5AA /* Sample Delete Section.swift */; };
@@ -108,6 +109,7 @@
 		6320A3B02A72BFB70069E6B9 /* Unsupported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unsupported.swift; sourceTree = "<group>"; };
 		6327BEB728609432000CB3AB /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		632BA4D22A57F8A9006F0BC0 /* Cupping Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Setup.swift"; sourceTree = "<group>"; };
+		633042442B4C5ACE005BD8F2 /* Sample Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Elements.swift"; sourceTree = "<group>"; };
 		6331CE7F2B1B90990078984F /* Sample Name Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Name Generator.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		6348EE4A2B46F7010061B5AA /* Sample Delete Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Delete Section.swift"; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				637CB7CD2B386EF50056C32D /* Navigation Appearance.swift */,
+				633042442B4C5ACE005BD8F2 /* Sample Elements.swift */,
 				63A1A9152A55851A008D30CE /* Button Styles.swift */,
 				63A1A9172A558685008D30CE /* Sizing & Spacing.swift */,
 				63A1A9192A558981008D30CE /* Color.swift */,
@@ -557,6 +560,7 @@
 				639AB6952A57258300CB04F7 /* Cupping.swift in Sources */,
 				6351668F2A52FB32001A0071 /* Integer To Digits.swift in Sources */,
 				637CB7CE2B386EF50056C32D /* Navigation Appearance.swift in Sources */,
+				633042452B4C5ACE005BD8F2 /* Sample Elements.swift in Sources */,
 				63A88CFD2A4C90880006AA0F /* All Cuppings.swift in Sources */,
 				6331CE802B1B90990078984F /* Sample Name Generator.swift in Sources */,
 				63729F962A6DAF6700EF0FEE /* Sample Tools Section.swift in Sources */,
