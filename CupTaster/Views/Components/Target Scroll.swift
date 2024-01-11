@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+fileprivate class GestureBinding: ObservableObject {
+    static let shared: GestureBinding = .init()
+    @Published var isActive: Bool
+    init() { self.isActive = false }
+}
+
 struct TargetHorizontalScrollView<
     Data: RandomAccessCollection,
     TargetContent: View
@@ -32,7 +38,7 @@ struct TargetHorizontalScrollView<
         elementWidth: Double,
         height: Double,
         spacing: Double,
-        gestureIsActive: Binding<Bool> = .constant(false),
+        gestureIsActive: Binding<Bool>? = nil,
         @ViewBuilder content targetContent: @escaping (Data.Element) -> TargetContent,
         onSelectionChange: @escaping (_ newSelection: Data.Element) -> () = { _ in }
     ) {
@@ -47,7 +53,10 @@ struct TargetHorizontalScrollView<
         self.spacing = spacing
         self.contentWidth = (elementWidth + spacing) * Double(data.count - 1)
         
-        self._gestureIsActive = gestureIsActive
+        self._gestureIsActive = gestureIsActive ?? Binding(
+            get: { GestureBinding.shared.isActive },
+            set: { GestureBinding.shared.isActive = $0 }
+        )
         
         self._tempOffset = State(initialValue: 0)
         self._offset = State(initialValue: {
@@ -90,6 +99,11 @@ struct TargetHorizontalScrollView<
             onEnd: { _ in completeSwipe() },
             onCancel: { completeSwipe() }
         )
+        .onChange(of: selection) { _ in
+            if !gestureIsActive {
+                completeSwipe()
+            }
+        }
     }
     
     private func updateSwipe(horizontalTranslation: CGFloat) {
@@ -119,6 +133,12 @@ struct TargetHorizontalScrollView<
                     generateSelectionFeedback()
                 }
                 break
+            } else {
+                if delta < CGFloat(lowerBound) && element.index == 0 {
+                    self.selection = element.value
+                } else if delta > CGFloat(upperBound) && element.index == data.count - 1 {
+                    self.selection = element.value
+                }
             }
         }
     }

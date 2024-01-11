@@ -8,8 +8,6 @@
 import SwiftUI
 import CoreData
 
-// MARK: Content View
-
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     

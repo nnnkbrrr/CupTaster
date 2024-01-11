@@ -20,7 +20,7 @@ struct CuppingView: View {
     var body: some View {
         Group {
             if cupping.samples.isEmpty {
-                CuppingSetupView(cupping: cupping)
+                #warning("Empty Cupping")
             } else {
                 ScrollView {
                     LazyVGrid(
@@ -51,12 +51,6 @@ struct CuppingView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 HStack {
-#warning("ui: cupping icon")
-                    Rectangle()
-                        .foregroundColor(.accentColor)
-                        .frame(width: .large, height: .large)
-                        .cornerRadius(.extraSmall)
-                    
                     let showTemplate: Bool = cupping.name == ""
                     
                     Text(showTemplate ? "New Cupping" : cupping.name)

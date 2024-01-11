@@ -62,7 +62,7 @@ struct RoseChart: View {
                         .filter { $0.evaluationType.unwrappedEvaluation is SliderEvaluation }
                     
                     RoseChartGrid(categoriesCount: qualityCriteria.count, divisionsCount: 4)
-                        .stroke(.gray, lineWidth: 0.5)
+                        .stroke(.gray.opacity(0.5), lineWidth: 0.5)
                     
                     RoseChartLabels(qualityCriteriaLabels: qualityCriteria.map { $0.title }, geometry: geometry)
                 }

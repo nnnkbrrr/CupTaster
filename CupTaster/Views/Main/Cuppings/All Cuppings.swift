@@ -19,7 +19,7 @@ struct AllCuppingsTabView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Folder.lastModifiedDate, ascending: false)]
     ) var folders: FetchedResults<Folder>
     
-    @State var newCupping: Cupping? = nil
+    @State var newCuppingModalIsActive: Bool = false
     
     init() {
         Navigation.configureWithoutBackground()
@@ -116,13 +116,7 @@ struct AllCuppingsTabView: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        let newCupping: Cupping = Cupping(context: moc)
-                        newCupping.cupsCount = 5
-                        newCupping.date = Date()
-                        newCupping.name = ""
-                        try? moc.save()
-                        
-                        self.newCupping = newCupping
+                        newCuppingModalIsActive = true
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -164,6 +158,9 @@ struct AllCuppingsTabView: View {
                     .frame(height: 30)
                 }
             }
+        }
+        .adaptiveSizeSheet(isActive: $newCuppingModalIsActive) {
+            NewCuppingModalView(isActive: $newCuppingModalIsActive)
         }
     }
 }
@@ -251,6 +248,6 @@ extension AllCuppingsTabView {
             groupedCuppings[key, default: []].append(nextCupping)
         }
         
-        return groupedCuppings.sorted(by: { $0.key < $1.key })
+        return groupedCuppings.sorted(by: { $0.key > $1.key })
     }
 }

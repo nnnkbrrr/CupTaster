@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct SampleBottomSheetConfiguration {
-    static let spacing: CGFloat = .large
-    static let verticalPadding: CGFloat = .extraSmall
+    static let spacing: CGFloat = BottomSheetConfiguration.spacing
+    static let verticalPadding: CGFloat = BottomSheetConfiguration.verticalPadding
     static var minHeight: CGFloat {
-        return Capsule.height + QCGroup.height + CriteriaPicker.height + Criteria.height + spacing * 3 + verticalPadding * 2
+        Capsule.height + QCGroup.height + CriteriaPicker.height + Criteria.height + spacing * 3 + verticalPadding * 2
     }
     
     // Capsule Section
     struct Capsule {
-        static let width: CGFloat = 40
-        static let height: CGFloat = 5
+        static let width: CGFloat = SampleBottomSheetConfiguration.Capsule.width
+        static let height: CGFloat = SampleBottomSheetConfiguration.Capsule.height
     }
     
     // Quality Criteria Groups Section
@@ -143,6 +143,14 @@ extension SampleBottomSheetView {
                         .edgesIgnoringSafeArea(.top)
                         .background(Color.background.opacity(0.25))
                         .background(TransparentBlurView())
+                    }
+                    .background(alignment: .top) {
+                        LinearGradient(
+                            colors: [.background.opacity(0.5), .background.opacity(0)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                        .frame(height: 150)
                     }
                     .offset(
                         y: samplesControllerModel.bottomSheetIsExpanded ?
