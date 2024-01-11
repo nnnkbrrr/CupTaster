@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct NewCuppingModalView: View {
+    @Environment(\.managedObjectContext) private var moc
+    @FetchRequest(
+        entity: CuppingForm.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: false)]
+    ) var cuppingForms: FetchedResults<CuppingForm>
+    
     @Binding var isActive: Bool
     
     private let nameLengthLimit = 50
     @State var name: String = ""
     @State var cupsCount: Int = 5
-    @State var sampleCount: Int = 10
+    @State var samplesCount: Int = 10
     
     var body: some View {
         VStack(spacing: .extraSmall) {
@@ -29,17 +35,17 @@ struct NewCuppingModalView: View {
                 }
                 .bottomSheetBlock()
             
-            VStack(spacing: .regular) {
+            VStack(spacing: .small) {
                 Text("Cups")
+                    .font(.subheadline)
                     .foregroundStyle(.gray)
                 
                 TargetHorizontalScrollView(
                     1...5, selection: $cupsCount,
-                    elementWidth: .smallElement, height: 30, spacing: .regular
+                    elementWidth: .smallElement, height: 18, spacing: .regular
                 ) { cupsNum in
                     Text("\(cupsNum)")
                         .foregroundStyle(cupsNum == cupsCount ? Color.primary : .gray)
-                        .font(.title2)
                         .frame(width: .smallElement)
                 }
                 .mask(
@@ -50,19 +56,19 @@ struct NewCuppingModalView: View {
                     )
                 )
             }
-            .bottomSheetBlock(height: 100)
+            .bottomSheetBlock()
             
-            VStack(spacing: .regular) {
+            VStack(spacing: .small) {
                 Text("Samples")
+                    .font(.subheadline)
                     .foregroundStyle(.gray)
                 
                 TargetHorizontalScrollView(
-                    1...20, selection: $sampleCount,
-                    elementWidth: .smallElement, height: 30, spacing: .regular
+                    1...20, selection: $samplesCount,
+                    elementWidth: .smallElement, height: 18, spacing: .regular
                 ) { samplesNum in
                     Text("\(samplesNum)")
-                        .foregroundStyle(samplesNum == sampleCount ? Color.primary : .gray)
-                        .font(.title2)
+                        .foregroundStyle(samplesNum == samplesCount ? Color.primary : .gray)
                         .frame(width: .smallElement)
                 }
                 .mask(
@@ -73,7 +79,7 @@ struct NewCuppingModalView: View {
                     )
                 )
             }
-            .bottomSheetBlock(height: 100)
+            .bottomSheetBlock()
             
             HStack(spacing: .extraSmall) {
                 Button("Cancel") {
@@ -82,8 +88,21 @@ struct NewCuppingModalView: View {
                 .buttonStyle(.bottomSheetBlock)
                 
                 Button {
+                    if let defaultCuppingForm: CuppingForm = CFManager.shared.getDefaultCuppingForm(from: cuppingForms) {
+                        let cupping: Cupping = Cupping(context: moc)
+                        cupping.name = name
+                        cupping.setup(
+                            moc: moc,
+                            date: Date(),
+                            cuppingForm: defaultCuppingForm,
+                            cupsCount: cupsCount,
+                            samplesCount: samplesCount
+                        )
+                    } else {
+                        #warning("не выбрана форма по умолчанию")
+                    }
+                    
                     isActive = false
-#warning("continue")
                 } label: {
                     HStack(spacing: .small) {
                         Text("Continue")

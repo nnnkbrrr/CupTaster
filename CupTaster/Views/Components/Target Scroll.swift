@@ -74,13 +74,15 @@ struct TargetHorizontalScrollView<
                         .simultaneousGesture(
                             TapGesture()
                                 .onEnded {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                        selection = element.value
-                                        onSelectionChange(element.value)
-                                        generateSelectionFeedback()
-                                        withAnimation(.smooth) {
-                                            offset = -(elementWidth + spacing) * Double((data.first(where: { $1 == element.value })?.index ?? 0))
-                                        }
+                                    gestureIsActive = true
+                                    selection = element.value
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                                        gestureIsActive = false
+                                    }
+                                    onSelectionChange(element.value)
+                                    generateSelectionFeedback()
+                                    withAnimation(.smooth) {
+                                        offset = -(elementWidth + spacing) * Double((data.first(where: { $1 == element.value })?.index ?? 0))
                                     }
                                 }
                         )

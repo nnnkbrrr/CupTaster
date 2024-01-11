@@ -3,7 +3,7 @@
     <entity name="Cupping" representedClassName="Cupping" isAbstract="YES" syncable="YES">
         <attribute name="cupsCount" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="-978318000" usesScalarValueType="NO"/>
-        <attribute name="name" attributeType="String" defaultValueString="New Folder"/>
+        <attribute name="name" attributeType="String" defaultValueString="New Cupping"/>
         <relationship name="form" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CuppingForm" inverseName="cuppings" inverseEntity="CuppingForm"/>
         <relationship name="samples" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Sample" inverseName="cupping" inverseEntity="Sample"/>
     </entity>

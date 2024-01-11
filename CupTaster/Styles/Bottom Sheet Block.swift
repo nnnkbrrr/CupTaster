@@ -8,38 +8,32 @@
 import SwiftUI
 
 struct BottomSheetBlockView: ViewModifier {
-    let height: CGFloat?
-    
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity)
-            .frame(height: height ?? .smallElementContainer)
+            .frame(height: .smallElementContainer)
             .background(Color.backgroundSecondary)
             .cornerRadius()
     }
 }
 
 extension View {
-    func bottomSheetBlock(height: CGFloat? = nil) -> some View {
-        modifier(BottomSheetBlockView(height: height))
+    func bottomSheetBlock() -> some View {
+        modifier(BottomSheetBlockView())
     }
 }
 
 struct BottomSheetBlockButtonView: ButtonStyle {
-    let height: CGFloat?
-    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
-            .frame(height: height ?? .smallElementContainer)
+            .frame(height: .smallElementContainer)
             .background(configuration.isPressed ? Color.backgroundTertiary : .backgroundSecondary)
             .cornerRadius()
     }
 }
 
 struct BottomSheetBlockAccentButtonView: ButtonStyle {
-    let height: CGFloat?
-    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundStyle(Color.background)
@@ -51,21 +45,9 @@ struct BottomSheetBlockAccentButtonView: ButtonStyle {
 }
 
 extension ButtonStyle where Self == BottomSheetBlockButtonView {
-    static func bottomSheetBlock(height: CGFloat? = nil) -> Self {
-        return .init(height: height)
-    }
-    
-    static var bottomSheetBlock: Self {
-        return .init(height: nil)
-    }
+    static var bottomSheetBlock: Self { return .init() }
 }
 
 extension ButtonStyle where Self == BottomSheetBlockAccentButtonView {
-    static func accentBottomSheetBlock(height: CGFloat? = nil) -> Self {
-        return .init(height: height)
-    }
-    
-    static var accentBottomSheetBlock: Self {
-        return .init(height: nil)
-    }
+    static var accentBottomSheetBlock: Self { return .init() }
 }
