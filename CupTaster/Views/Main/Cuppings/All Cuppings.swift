@@ -32,7 +32,7 @@ struct AllCuppingsTabView: View {
                     SwipeViewGroup {
                         LazyVStack(alignment: .leading, spacing: 0) {
                             ForEach(cuppingsGroupedByMonth, id: \.key) { date, cuppings in
-                                Text(date)
+                                Text(DateFormatter.fullMonthAndYear.string(from: date))
                                     .bold()
                                     .padding(.small)
                                     .frame(height: .smallElement)
@@ -234,16 +234,16 @@ extension AllCuppingsTabView {
 }
 
 extension AllCuppingsTabView {
-    var cuppingsGroupedByMonth: [Dictionary<String, [Cupping]>.Element]? {
+    var cuppingsGroupedByMonth: [Dictionary<Date, [Cupping]>.Element]? {
         guard let firstCupping: Cupping = cuppings.first else { return nil }
         
-        var key: String = DateFormatter.fullMonthAndYear.string(from: firstCupping.date)
-        var groupedCuppings: [String: [Cupping]] = [key : [firstCupping]]
+        var key: Date = firstCupping.date
+        var groupedCuppings: [Date: [Cupping]] = [key : [firstCupping]]
         
         let calendar: Calendar = Calendar.current
         for (prevCupping, nextCupping) in zip(cuppings, cuppings.dropFirst()) {
             if !calendar.isDate(prevCupping.date, equalTo: nextCupping.date, toGranularity: .month) {
-                key = DateFormatter.fullMonthAndYear.string(from: nextCupping.date)
+                key = nextCupping.date
             }
             groupedCuppings[key, default: []].append(nextCupping)
         }

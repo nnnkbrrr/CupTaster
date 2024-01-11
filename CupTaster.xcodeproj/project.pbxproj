@@ -28,7 +28,6 @@
 		6320A3AF2A72BF7C0069E6B9 /* Cups Checkboxes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320A3AE2A72BF7C0069E6B9 /* Cups Checkboxes.swift */; };
 		6320A3B12A72BFB70069E6B9 /* Unsupported.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320A3B02A72BFB70069E6B9 /* Unsupported.swift */; };
 		6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */; };
-		632BA4D32A57F8A9006F0BC0 /* Cupping Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632BA4D22A57F8A9006F0BC0 /* Cupping Setup.swift */; };
 		632F5D2529D83EAE00D7FFB7 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 632F5D2429D83EAE00D7FFB7 /* CodeScanner */; };
 		633042452B4C5ACE005BD8F2 /* Sample Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633042442B4C5ACE005BD8F2 /* Sample Elements.swift */; };
 		6331CE802B1B90990078984F /* Sample Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6331CE7F2B1B90990078984F /* Sample Name Generator.swift */; };
@@ -112,7 +111,6 @@
 		6320A3AE2A72BF7C0069E6B9 /* Cups Checkboxes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cups Checkboxes.swift"; sourceTree = "<group>"; };
 		6320A3B02A72BFB70069E6B9 /* Unsupported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unsupported.swift; sourceTree = "<group>"; };
 		6327BEB728609432000CB3AB /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		632BA4D22A57F8A9006F0BC0 /* Cupping Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Setup.swift"; sourceTree = "<group>"; };
 		633042442B4C5ACE005BD8F2 /* Sample Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Elements.swift"; sourceTree = "<group>"; };
 		6331CE7F2B1B90990078984F /* Sample Name Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Name Generator.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -289,8 +287,6 @@
 			children = (
 				639AB6942A57258300CB04F7 /* Cupping.swift */,
 				63729F932A6D7B9300EF0FEE /* Cupping Sample Preview.swift */,
-				6372A3702B4FEBD300925E0B /* New Cupping Modal.swift */,
-				632BA4D22A57F8A9006F0BC0 /* Cupping Setup.swift */,
 			);
 			path = Cupping;
 			sourceTree = "<group>";
@@ -325,6 +321,7 @@
 			children = (
 				63A88CFC2A4C90880006AA0F /* All Cuppings.swift */,
 				63198EA02A570846004634ED /* All Cuppings Empty.swift */,
+				6372A3702B4FEBD300925E0B /* New Cupping Modal.swift */,
 			);
 			path = Cuppings;
 			sourceTree = "<group>";
@@ -591,7 +588,6 @@
 				636712F82AF66CE80042DB00 /* Blur.swift in Sources */,
 				6372A3712B4FEBD300925E0B /* New Cupping Modal.swift in Sources */,
 				22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */,
-				632BA4D32A57F8A9006F0BC0 /* Cupping Setup.swift in Sources */,
 				63A88D042A4C92A40006AA0F /* Stopwatch.swift in Sources */,
 				22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */,
 				6320A3AB2A72BF160069E6B9 /* Slider Evaluation.swift in Sources */,

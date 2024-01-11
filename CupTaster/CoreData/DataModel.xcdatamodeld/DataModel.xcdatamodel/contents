@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Cupping" representedClassName="Cupping" isAbstract="YES" syncable="YES">
+    <entity name="Cupping" representedClassName="Cupping" syncable="YES">
         <attribute name="cupsCount" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="-978318000" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString="New Cupping"/>
         <relationship name="form" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CuppingForm" inverseName="cuppings" inverseEntity="CuppingForm"/>
         <relationship name="samples" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Sample" inverseName="cupping" inverseEntity="Sample"/>
     </entity>
-    <entity name="CuppingForm" representedClassName="CuppingForm" isAbstract="YES" syncable="YES">
+    <entity name="CuppingForm" representedClassName="CuppingForm" syncable="YES">
         <attribute name="finalScoreFormula" attributeType="String" defaultValueString="0"/>
         <attribute name="finalScoreLowerBound" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="finalScoreUpperBound" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -17,12 +17,12 @@
         <relationship name="cuppings" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Cupping" inverseName="form" inverseEntity="Cupping"/>
         <relationship name="qcGroupConfigurations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QCGroupConfig" inverseName="form" inverseEntity="QCGroupConfig"/>
     </entity>
-    <entity name="Folder" representedClassName="Folder" isAbstract="YES" syncable="YES">
+    <entity name="Folder" representedClassName="Folder" syncable="YES">
         <attribute name="lastModifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <relationship name="samples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sample" inverseName="folders" inverseEntity="Sample"/>
     </entity>
-    <entity name="QCConfig" representedClassName="QCConfig" isAbstract="YES" parentEntity="QualityCriteria" syncable="YES">
+    <entity name="QCConfig" representedClassName="QCConfig" parentEntity="QualityCriteria" syncable="YES">
         <attribute name="evaluationType" attributeType="String" defaultValueString="none"/>
         <attribute name="lowerBound" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="lowerBoundTitle" optional="YES" attributeType="String"/>
@@ -34,18 +34,18 @@
         <relationship name="hints" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QCHint" inverseName="qcConfiguration" inverseEntity="QCHint"/>
         <relationship name="qualityCriteria" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QualityCriteria" inverseName="configuration" inverseEntity="QualityCriteria"/>
     </entity>
-    <entity name="QCGHint" representedClassName="QCGHint" isAbstract="YES" syncable="YES">
+    <entity name="QCGHint" representedClassName="QCGHint" syncable="YES">
         <attribute name="message" optional="YES" attributeType="String"/>
         <relationship name="groupConfiguration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCGroupConfig" inverseName="hint" inverseEntity="QCGroupConfig"/>
     </entity>
-    <entity name="QCGroup" representedClassName="QCGroup" isAbstract="YES" syncable="YES">
+    <entity name="QCGroup" representedClassName="QCGroup" syncable="YES">
         <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="notes" attributeType="String" defaultValueString=""/>
         <relationship name="configuration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCGroupConfig" inverseName="group" inverseEntity="QCGroupConfig"/>
         <relationship name="qualityCriteria" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QualityCriteria" inverseName="group" inverseEntity="QualityCriteria"/>
         <relationship name="sample" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Sample" inverseName="qualityCriteriaGroups" inverseEntity="Sample"/>
     </entity>
-    <entity name="QCGroupConfig" representedClassName="QCGroupConfig" isAbstract="YES" syncable="YES">
+    <entity name="QCGroupConfig" representedClassName="QCGroupConfig" syncable="YES">
         <attribute name="ordinalNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="scoreFormula" attributeType="String" defaultValueString="0"/>
         <attribute name="scoreLowerBound" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
@@ -56,17 +56,17 @@
         <relationship name="hint" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCGHint" inverseName="groupConfiguration" inverseEntity="QCGHint"/>
         <relationship name="qcConfigurations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QCConfig" inverseName="groupConfiguration" inverseEntity="QCConfig"/>
     </entity>
-    <entity name="QCHint" representedClassName="QCHint" isAbstract="YES" parentEntity="QCGHint" syncable="YES">
+    <entity name="QCHint" representedClassName="QCHint" parentEntity="QCGHint" syncable="YES">
         <attribute name="lowerBound" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="qcConfiguration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCConfig" inverseName="hints" inverseEntity="QCConfig"/>
     </entity>
-    <entity name="QualityCriteria" representedClassName="QualityCriteria" isAbstract="YES" syncable="YES">
+    <entity name="QualityCriteria" representedClassName="QualityCriteria" syncable="YES">
         <attribute name="title" attributeType="String" defaultValueString="title"/>
         <attribute name="value" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="configuration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCConfig" inverseName="qualityCriteria" inverseEntity="QCConfig"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCGroup" inverseName="qualityCriteria" inverseEntity="QCGroup"/>
     </entity>
-    <entity name="Sample" representedClassName="Sample" isAbstract="YES" syncable="YES">
+    <entity name="Sample" representedClassName="Sample" syncable="YES">
         <attribute name="finalScore" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="isFavorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
@@ -76,7 +76,7 @@
         <relationship name="generalInfo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SampleGeneralInfo" inverseName="sample" inverseEntity="SampleGeneralInfo"/>
         <relationship name="qualityCriteriaGroups" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QCGroup" inverseName="sample" inverseEntity="QCGroup"/>
     </entity>
-    <entity name="SampleGeneralInfo" representedClassName="SampleGeneralInfo" isAbstract="YES" syncable="YES">
+    <entity name="SampleGeneralInfo" representedClassName="SampleGeneralInfo" syncable="YES">
         <attribute name="attachment" optional="YES" attributeType="Binary"/>
         <attribute name="ordinalNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String" defaultValueString=""/>

@@ -22,8 +22,7 @@ struct Navigation {
 struct NavigationBackgroundViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .safeAreaInset(edge: .top) {
-//                Color.clear.frame(height: 0)
+            .safeAreaInset(edge: .top, spacing: 0) {
                 Divider()
                     .opacity(0.5)
                     .contentShape(Rectangle())
@@ -47,7 +46,7 @@ struct NavigationToolbarViewModifier<ToolbarContent: View>: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .safeAreaInset(edge: .top) {
+            .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(spacing: 0) {
                     toolbarContent()
                     
