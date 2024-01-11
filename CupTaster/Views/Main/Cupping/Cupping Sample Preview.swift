@@ -36,7 +36,6 @@ extension CuppingView {
                     Text("Final score: ")
                     Text(String(format: "%.1f", sample.finalScore))
                     
-    #warning("final score value")
                     Spacer()
                     
                     if sample.isFavorite {

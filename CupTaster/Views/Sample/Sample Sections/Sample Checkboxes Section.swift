@@ -34,6 +34,9 @@ extension SampleView {
                     }
                 } else {
                     Text("Checkboxes summary is unavailable for cuppings with 1 cup per sample")
+                        .font(.caption)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.gray)
                 }
             }
             .padding(.small)

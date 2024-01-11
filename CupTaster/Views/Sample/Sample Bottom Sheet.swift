@@ -16,8 +16,8 @@ struct SampleBottomSheetConfiguration {
     
     // Capsule Section
     struct Capsule {
-        static let width: CGFloat = SampleBottomSheetConfiguration.Capsule.width
-        static let height: CGFloat = SampleBottomSheetConfiguration.Capsule.height
+        static let width: CGFloat = BottomSheetConfiguration.Capsule.width
+        static let height: CGFloat = BottomSheetConfiguration.Capsule.height
     }
     
     // Quality Criteria Groups Section
@@ -52,7 +52,10 @@ struct SampleBottomSheetView: View {
         VStack(spacing: SampleBottomSheetConfiguration.spacing) {
             Capsule()
                 .fill(Color.gray.opacity(0.5))
-                .frame(width: SampleBottomSheetConfiguration.Capsule.width, height: SampleBottomSheetConfiguration.Capsule.height)
+                .frame(
+                    width: SampleBottomSheetConfiguration.Capsule.width,
+                    height: SampleBottomSheetConfiguration.Capsule.height
+                )
             
             if let sample: Sample = samplesControllerModel.selectedSample,
                let selectedQCGroup: QCGroup = samplesControllerModel.selectedQCGroup {
@@ -104,6 +107,22 @@ struct SampleBottomSheetView: View {
             } else {
                 SampleQCGroupPlaceholderView()
             }
+            
+            let additionalSheetContentOpacity: CGFloat = {
+                let bottomSheetOffset: CGFloat = samplesControllerModel.bottomSheetOffset
+                
+                if samplesControllerModel.bottomSheetIsExpanded {
+                    return bottomSheetOffset > 100 ? 0 : 1 - bottomSheetOffset/100
+                } else {
+                    return bottomSheetOffset < -100 ? 1 : -bottomSheetOffset/100
+                }
+            }()
+            
+            VStack(spacing: SampleBottomSheetConfiguration.spacing) {
+                SheetNotesSection()
+            }
+            .padding(.horizontal, .small)
+            .opacity(additionalSheetContentOpacity)
         }
         .animation(.easeInOut(duration: 0.5), value: samplesControllerModel.selectedSample)
         .animation(.easeInOut(duration: 0.25), value: samplesControllerModel.selectedCriteria)
@@ -122,35 +141,38 @@ extension SampleBottomSheetView {
                 content
                     .frame(maxWidth: .infinity)
                     .background(alignment: .top) {
-                        HStack {
-                            LinearGradient(
-                                colors: [.background.opacity(0.5), .background.opacity(0)],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                            .frame(width: .extraLarge)
+                        ZStack(alignment: .top) {
+                            Color.background.opacity(0.25)
                             
-                            Spacer()
+                            TransparentBlurView()
                             
                             LinearGradient(
                                 colors: [.background.opacity(0.5), .background.opacity(0)],
-                                startPoint: .trailing,
-                                endPoint: .leading
+                                startPoint: .top,
+                                endPoint: .bottom
                             )
-                            .frame(width: .extraLarge)
+                            .frame(height: 150)
+                            
+                            HStack {
+                                LinearGradient(
+                                    colors: [.background.opacity(0.5), .background.opacity(0)],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                                .frame(width: .extraLarge)
+                                
+                                Spacer()
+                                
+                                LinearGradient(
+                                    colors: [.background.opacity(0.5), .background.opacity(0)],
+                                    startPoint: .trailing,
+                                    endPoint: .leading
+                                )
+                                .frame(width: .extraLarge)
+                            }
                         }
-                        .frame(height: geometry.frame(in: .global).height * 2, alignment: .top)
+                        .frame(height: geometry.size.height * 2, alignment: .top)
                         .edgesIgnoringSafeArea(.top)
-                        .background(Color.background.opacity(0.25))
-                        .background(TransparentBlurView())
-                    }
-                    .background(alignment: .top) {
-                        LinearGradient(
-                            colors: [.background.opacity(0.5), .background.opacity(0)],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .frame(height: 150)
                     }
                     .offset(
                         y: samplesControllerModel.bottomSheetIsExpanded ?

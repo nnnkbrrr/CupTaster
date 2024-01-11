@@ -56,8 +56,6 @@ struct CuppingView: View {
                     Text(showTemplate ? "New Cupping" : cupping.name)
                         .foregroundStyle(showTemplate ? .gray : .primary)
                     
-#warning("name in all cuppings + foregroundColor gray")
-                    
                     Image(systemName: "chevron.down.circle.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
