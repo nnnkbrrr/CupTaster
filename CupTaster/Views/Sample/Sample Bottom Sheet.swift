@@ -108,21 +108,11 @@ struct SampleBottomSheetView: View {
                 SampleQCGroupPlaceholderView()
             }
             
-            let additionalSheetContentOpacity: CGFloat = {
-                let bottomSheetOffset: CGFloat = samplesControllerModel.bottomSheetOffset
-                
-                if samplesControllerModel.bottomSheetIsExpanded {
-                    return bottomSheetOffset > 100 ? 0 : 1 - bottomSheetOffset/100
-                } else {
-                    return bottomSheetOffset < -100 ? 1 : -bottomSheetOffset/100
-                }
-            }()
-            
             VStack(spacing: SampleBottomSheetConfiguration.spacing) {
                 SheetNotesSection()
             }
             .padding(.horizontal, .small)
-            .opacity(additionalSheetContentOpacity)
+            .opacity(samplesControllerModel.bottomSheetIsExpanded ? 1 : 0)
         }
         .animation(.easeInOut(duration: 0.5), value: samplesControllerModel.selectedSample)
         .animation(.easeInOut(duration: 0.25), value: samplesControllerModel.selectedCriteria)

@@ -1,5 +1,5 @@
 //
-//  General Info Section.swift
+//  Sample General Info Section.swift
 //  CupTaster
 //
 //  Created by Nikita on 04.01.2024.

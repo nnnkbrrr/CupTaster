@@ -18,7 +18,9 @@ struct SampleSheetSection<Content: View>: View {
     
     var body: some View {
         VStack(spacing: .small) {
-            Text(title).bold()
+            Text(title)
+                .bold()
+                .frame(maxWidth: .infinity, alignment: .leading)
             Divider()
             content()
         }

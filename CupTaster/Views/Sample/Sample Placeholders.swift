@@ -63,10 +63,8 @@ struct SampleCriteriaEvaluationPlaceholderView: View {
 struct SampleQCGroupPlaceholderView: View {
     var body: some View {
         Text("Placeholder")
-            .redacted(reason: .placeholder)
-            .opacity(0.5)
+            .opacity(0)
             .frame(maxWidth: .infinity)
             .frame(height: SampleBottomSheetConfiguration.CriteriaPicker.height)
-            .padding(.horizontal, .large)
     }
 }
