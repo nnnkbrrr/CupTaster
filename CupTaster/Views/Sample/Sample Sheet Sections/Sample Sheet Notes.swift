@@ -10,117 +10,99 @@ import SwiftUI
 extension SampleBottomSheetView {
     struct SheetNotesSection: View {
         @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
+        @State private var height: CGFloat = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline).lineHeight
         
         var body: some View {
             SampleSheetSection(title: "Notes") {
-                ZStack {
-                    if let qcGroup: QCGroup = samplesControllerModel.selectedQCGroup {
-                        NotesTextField(qcGroup: qcGroup)
-                    } else {
-                        NotesTextField.Placeholder()
-                    }
-                }
+                NotesTextFieldView(
+                    text: Binding(
+                        get: { samplesControllerModel.selectedQCGroup?.notes ?? "" },
+                        set: { samplesControllerModel.selectedQCGroup?.notes = $0 }
+                    ),
+                    updateViewHeight: self.updateViewHeight
+                )
+                .frame(height: height)
             }
+        }
+        
+        private func updateViewHeight(_ height: CGFloat) {
+            self.height = height
         }
     }
 }
 
-private struct NotesTextField: View {
+private struct NotesTextFieldView: UIViewRepresentable {
     @Environment(\.managedObjectContext) private var moc
-    @ObservedObject var qcGroup: QCGroup
-    @State private var height: CGFloat = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline).lineHeight
-    static let placeholder: String = "What do you taste?"
-    
-    var body: some View {
-        WrappedTextView(text: $qcGroup.notes, placeholder: Self.placeholder, textDidChange: self.textDidChange)
-            .frame(height: height)
-            .onChange(of: qcGroup.notes) { _ in
-                try? moc.save()
-            }
-    }
-    
-    private func textDidChange(_ textView: UITextView) {
-        self.height = textView.contentSize.height
-    }
-    
-    struct Placeholder: View {
-        var body: some View {
-            WrappedTextView(text: .constant(""), placeholder: NotesTextField.placeholder, textDidChange: { _ in } )
-                .frame(height: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline).lineHeight)
-        }
-    }
-}
-
-private struct WrappedTextView: UIViewRepresentable {
     @Binding var text: String
     var placeholderLabel: UILabel!
-    let textDidChange: (UITextView) -> Void
+    let updateViewHeight: (CGFloat) -> ()
     
-    init(text: Binding<String>, placeholder: String = "", textDidChange: @escaping (UITextView) -> ()) {
+    init(text: Binding<String>, updateViewHeight: @escaping (CGFloat) -> ()) {
         self._text = text
-        self.textDidChange = textDidChange
+        self.updateViewHeight = updateViewHeight
         
         placeholderLabel = UILabel()
-        placeholderLabel.text = placeholder
+        placeholderLabel.text = "What do you taste?"
         placeholderLabel.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+        placeholderLabel.textColor = .gray
         placeholderLabel.sizeToFit()
+        placeholderLabel.frame.origin = CGPoint(x: 5, y: HashtagTextView.font.pointSize / 2)
     }
 
     func makeUIView(context: Context) -> HashtagTextView {
         let view = HashtagTextView()
         view.isEditable = true
         view.delegate = context.coordinator
-        
         view.addSubview(placeholderLabel)
-        placeholderLabel.frame.origin = CGPoint(x: 5, y: (view.font?.pointSize)! / 2)
-        placeholderLabel.textColor = .gray
-        placeholderLabel.isHidden = !text.isEmpty
+        updatePlaceholderVisibility(view)
         
         return view
     }
 
     func updateUIView(_ uiView: HashtagTextView, context: Context) {
-        uiView.text = self.text
+        uiView.text = text
+        updatePlaceholderVisibility(uiView)
+        
         DispatchQueue.main.async {
-            self.textDidChange(uiView)
+            self.updateViewHeight(uiView.contentSize.height)
         }
     }
-
+    
     func makeCoordinator() -> Coordinator {
-        return Coordinator(text: $text, placeholderLabelIsHidden: Binding(
-            get: { placeholderLabel.isHidden },
-            set: { placeholderLabel.isHidden = $0 }
-        ), textDidChange: textDidChange)
+        Coordinator(self)
     }
-
+    
     class Coordinator: NSObject, UITextViewDelegate {
-        @Binding var text: String
-        @Binding var placeholderLabelIsHidden: Bool
-        let textDidChange: (UITextView) -> Void
+        let parent: NotesTextFieldView
         
-        init(text: Binding<String>, placeholderLabelIsHidden: Binding<Bool>, textDidChange: @escaping (UITextView) -> ()) {
-            self._text = text
-            self._placeholderLabelIsHidden = placeholderLabelIsHidden
-            self.textDidChange = textDidChange
+        init(_ parent: NotesTextFieldView) {
+            self.parent = parent
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            self.text = textView.text
-            placeholderLabelIsHidden = !text.isEmpty
-            self.textDidChange(textView)
+            parent.text = textView.text
+            parent.updatePlaceholderVisibility(textView)
+            parent.updateViewHeight(textView.contentSize.height)
+            try? parent.moc.save()
         }
         
         func textViewDidEndEditing(_ textView: UITextView) {
-            placeholderLabelIsHidden = !text.isEmpty
+            parent.updatePlaceholderVisibility(textView)
         }
         
         func textViewDidBeginEditing(_ textView: UITextView) {
-            placeholderLabelIsHidden = true
+            parent.updatePlaceholderVisibility(textView, isHidden: true)
         }
+    }
+    
+    private func updatePlaceholderVisibility(_ view: UITextView, isHidden value: Bool? = nil) {
+        let label: UIView? = view.subviews.filter { $0 is UILabel }.first
+        label?.isHidden = value ?? !text.isEmpty
     }
 }
 
 class HashtagTextView: UITextView {
+    static let font: UIFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
     #warning("russian letters in regex")
     let hashtagRegex = "#[-_0-9A-Za-z]+"
     
@@ -129,7 +111,7 @@ class HashtagTextView: UITextView {
     
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-        self.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+        self.font = Self.font
         self.backgroundColor = .clear
         configureView()
     }

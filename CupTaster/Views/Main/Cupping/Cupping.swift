@@ -41,6 +41,11 @@ struct CuppingView: View {
                                     Color.clear
                                 }
                             }
+                        } header: {
+                            Text("\(cupping.form?.title ?? "") • \(cupping.samples.count) Samples • \(cupping.cupsCount) Cups")
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                                .padding(.vertical, .extraSmall)
                         }
                     }
                     .padding(.extraSmall)

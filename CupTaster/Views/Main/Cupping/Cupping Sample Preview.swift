@@ -22,7 +22,6 @@ extension CuppingView {
             VStack(alignment: .leading) {
                 RoseChart(sample: sample)
                     .frame(maxWidth: .infinity)
-                    .background(Color.backgroundSecondary)
                     .matchedGeometryEffect(
                         id: "radar.chart.\(sample.id)",
                         in: samplesControllerModel.namespace
