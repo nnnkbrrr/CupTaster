@@ -105,7 +105,7 @@ struct AllCuppingsTabView: View {
                     isEmpty
                 }
             }
-            .background(Color.background)
+            .background(Color.backgroundPrimary)
             .navigationBarTitle("All Cuppings", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {

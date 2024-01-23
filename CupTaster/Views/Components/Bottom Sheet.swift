@@ -47,7 +47,7 @@ struct SheetModifier<SheetContent: View>: ViewModifier {
                     .padding(.vertical, BottomSheetConfiguration.verticalPadding)
                     .frame(maxWidth: .infinity)
                     .background(alignment: .top) {
-                        Color.background
+                        Color.backgroundPrimary
                             .frame(height: geometry.frame(in: .global).height * 2, alignment: .top)
                     }
                     .offset(y: bottomSheetOffset)

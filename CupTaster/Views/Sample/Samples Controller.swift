@@ -26,7 +26,7 @@ struct SamplesControllerView: View {
                 SampleBottomSheetView()
             }
             .zIndex(1.1)
-            .background(Color.background)
+            .background(Color.backgroundPrimary)
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(spacing: 0) {
                     pageIndicator
@@ -114,7 +114,7 @@ struct SamplesControllerView: View {
                             )
                         
                         LinearGradient(
-                            colors: [.background.opacity(0.5), .background.opacity(0)],
+                            colors: [.backgroundPrimary.opacity(0.5), .backgroundPrimary.opacity(0)],
                             startPoint: .top,
                             endPoint: .bottom
                         )

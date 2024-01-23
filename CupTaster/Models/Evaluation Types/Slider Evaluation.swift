@@ -40,6 +40,7 @@ private struct SliderView: View {
                 Capsule()
                     .fill(.gray)
                     .frame(width: 1, height: SampleBottomSheetConfiguration.Slider.height/3)
+                    .frame(height: SampleBottomSheetConfiguration.Slider.height)
             }
             
             Capsule()

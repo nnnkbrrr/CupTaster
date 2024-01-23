@@ -36,7 +36,7 @@ struct BottomSheetBlockButtonView: ButtonStyle {
 struct BottomSheetBlockAccentButtonView: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .foregroundStyle(Color.background)
+            .foregroundStyle(Color.backgroundPrimary)
             .frame(maxWidth: .infinity)
             .frame(height: .smallElementContainer)
             .background(Color.primary.opacity(configuration.isPressed ? 0.5 : 1))

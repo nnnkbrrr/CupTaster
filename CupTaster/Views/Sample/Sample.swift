@@ -39,7 +39,7 @@ struct SampleView: View {
                                 ChartSection()
                                     .padding(.vertical, .large)
                                     .sampleBlock(width: gridSize3)
-                                    .shadow(color: .background.opacity(0.5), radius: 5, x: 0, y: 0)
+                                    .shadow(color: .backgroundPrimary.opacity(0.5), radius: 5, x: 0, y: 0)
                                     .scaleEffect(radarChartZoomedOnAppear ? 1.2 : 1)
                                     .matchedGeometryEffect(
                                         id: matchedGeometryId,

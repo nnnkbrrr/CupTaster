@@ -108,8 +108,10 @@ struct SampleBottomSheetView: View {
                 SampleQCGroupPlaceholderView()
             }
             
+            #warning("when expanded slider gestures work bad for some reason")
             VStack(spacing: SampleBottomSheetConfiguration.spacing) {
                 SheetNotesSection()
+                SheetSelectedValueHintsSection()
             }
             .padding(.horizontal, .small)
             .opacity(samplesControllerModel.bottomSheetIsExpanded ? 1 : 0)
@@ -132,12 +134,12 @@ extension SampleBottomSheetView {
                     .frame(maxWidth: .infinity)
                     .background(alignment: .top) {
                         ZStack(alignment: .top) {
-                            Color.background.opacity(0.25)
+                            Color.backgroundPrimary.opacity(0.25)
                             
                             TransparentBlurView()
                             
                             LinearGradient(
-                                colors: [.background.opacity(0.5), .background.opacity(0)],
+                                colors: [.backgroundPrimary.opacity(0.5), .backgroundPrimary.opacity(0)],
                                 startPoint: .top,
                                 endPoint: .bottom
                             )
@@ -145,7 +147,7 @@ extension SampleBottomSheetView {
                             
                             HStack {
                                 LinearGradient(
-                                    colors: [.background.opacity(0.5), .background.opacity(0)],
+                                    colors: [.backgroundPrimary.opacity(0.5), .backgroundPrimary.opacity(0)],
                                     startPoint: .leading,
                                     endPoint: .trailing
                                 )
@@ -154,7 +156,7 @@ extension SampleBottomSheetView {
                                 Spacer()
                                 
                                 LinearGradient(
-                                    colors: [.background.opacity(0.5), .background.opacity(0)],
+                                    colors: [.backgroundPrimary.opacity(0.5), .backgroundPrimary.opacity(0)],
                                     startPoint: .trailing,
                                     endPoint: .leading
                                 )
