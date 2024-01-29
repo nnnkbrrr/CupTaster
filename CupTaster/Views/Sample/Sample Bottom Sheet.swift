@@ -176,6 +176,7 @@ extension SampleBottomSheetView {
                             }
                         }
                         .frame(height: geometry.size.height * 2, alignment: .top)
+                        .edgesIgnoringSafeArea(.top)
                     }
                     .offset(
                         y: samplesControllerModel.bottomSheetIsExpanded ?

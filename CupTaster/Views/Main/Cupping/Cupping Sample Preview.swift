@@ -27,6 +27,7 @@ extension CuppingView {
                         in: samplesControllerModel.namespace
                     )
                     .zIndex(2.1)
+                    .aspectRatio(contentMode: .fit)
                 
                 Text(sample.name)
                     .font(.subheadline)
@@ -46,6 +47,7 @@ extension CuppingView {
                 .font(.caption)
             }
             .padding(.small)
+            .frame(maxHeight: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: .defaultCornerRadius)
                     .foregroundStyle(Color.backgroundSecondary)
