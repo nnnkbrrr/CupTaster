@@ -11,7 +11,7 @@ import CoreData
 struct CuppingView: View {
     @Environment(\.managedObjectContext) private var moc
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
-    @State var cupping: Cupping
+    @ObservedObject var cupping: Cupping
     
     init(_ cupping: Cupping) {
         self.cupping = cupping

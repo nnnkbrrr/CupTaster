@@ -30,13 +30,14 @@ struct ResignKeyboardOnGesture: ViewModifier {
                         onResign()
                     }
             )
-            .simultaneousGesture(
-                TapGesture()
-                    .onEnded { _ in
-                        UIApplication.shared.endEditing(true)
-                        onResign()
-                    }
-            )
+        // MARK: - breaks navigation
+        // .simultaneousGesture(
+        //     TapGesture()
+        //         .onEnded { _ in
+        //             UIApplication.shared.endEditing(true)
+        //             onResign()
+        //         }
+        // )
     }
 }
 
