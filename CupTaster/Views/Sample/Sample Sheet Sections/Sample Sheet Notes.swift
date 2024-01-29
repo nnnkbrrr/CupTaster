@@ -43,7 +43,7 @@ private struct NotesTextFieldView: UIViewRepresentable {
         
         placeholderLabel = UILabel()
         placeholderLabel.text = "What do you taste?"
-        placeholderLabel.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+        placeholderLabel.font = HashtagTextView.font
         placeholderLabel.textColor = .gray
         placeholderLabel.sizeToFit()
         placeholderLabel.frame.origin = CGPoint(x: 5, y: HashtagTextView.font.pointSize / 2)
@@ -103,7 +103,7 @@ private struct NotesTextFieldView: UIViewRepresentable {
 
 class HashtagTextView: UITextView {
     static let font: UIFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline)
-    #warning("russian letters in regex")
+    #warning("russian+ letters in regex")
     let hashtagRegex = "#[-_0-9A-Za-z]+"
     
     private var cachedFrames: [CGRect] = []

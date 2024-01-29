@@ -21,7 +21,6 @@ extension SampleBottomSheetView {
                     }
                 }
             }
-            .animation(.easeInOut(duration: 0.2), value: samplesControllerModel.selectedQCGroup)
         }
     }
 }

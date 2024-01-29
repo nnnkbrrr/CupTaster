@@ -54,6 +54,5 @@ private struct SliderView: View {
                 endPoint: .trailing
             )
         )
-        .contentShape(Rectangle())
     }
 }

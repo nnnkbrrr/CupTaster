@@ -80,6 +80,7 @@ struct DragGestureViewModifier: ViewModifier {
     }
     
     func onDragStarted() {
+        print(direction)
         gestureState = .started
         onStart()
     }

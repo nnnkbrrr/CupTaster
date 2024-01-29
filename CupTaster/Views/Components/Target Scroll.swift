@@ -76,9 +76,7 @@ struct TargetHorizontalScrollView<
                                 .onEnded {
                                     gestureIsActive = true
                                     selection = element.value
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                                        gestureIsActive = false
-                                    }
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { gestureIsActive = false }
                                     onSelectionChange(element.value)
                                     generateSelectionFeedback()
                                     withAnimation(.smooth) {

@@ -49,79 +49,88 @@ struct SampleBottomSheetView: View {
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     
     var body: some View {
-        VStack(spacing: SampleBottomSheetConfiguration.spacing) {
-            Capsule()
-                .fill(Color.gray.opacity(0.5))
-                .frame(
-                    width: SampleBottomSheetConfiguration.Capsule.width,
-                    height: SampleBottomSheetConfiguration.Capsule.height
-                )
-            
-            if let sample: Sample = samplesControllerModel.selectedSample,
-               let selectedQCGroup: QCGroup = samplesControllerModel.selectedQCGroup {
-                TargetHorizontalScrollView(
-                    sample.sortedQCGroups,
-                    selection: Binding(
-                        get: { selectedQCGroup },
-                        set: { samplesControllerModel.changeSelectedQCGroup(qcGroup: $0) }
-                    ),
-                    elementWidth: SampleBottomSheetConfiguration.QCGroup.elementSize,
-                    height: SampleBottomSheetConfiguration.QCGroup.height,
-                    spacing: SampleBottomSheetConfiguration.QCGroup.spacing,
-                    gestureIsActive: $samplesControllerModel.criteriaPickerGestureIsActive
-                ) { qcGroup in
-                    QCGroupView(qcGroup: qcGroup)
-                } onSelectionChange: { newSelection in
-                    samplesControllerModel.changeSelectedQCGroup(qcGroup: newSelection)
-                }
-                .id("\(String(describing: samplesControllerModel.selectedSample?.id)).QCGroups")
-            } else {
-                SampleQCGroupsPlaceholderView()
-            }
-            
-            if let selectedCriteria = samplesControllerModel.selectedCriteria {
-                QualityCriteriaView(criteria: selectedCriteria)
-                    .frame(height: SampleBottomSheetConfiguration.Criteria.height)
-                    .id(selectedCriteria.id)
-            } else {
-                SampleCriteriaEvaluationPlaceholderView()
-            }
-            
-            if let selectedQCGroup = samplesControllerModel.selectedQCGroup {
-                HStack {
-                    ForEach(selectedQCGroup.sortedQualityCriteria) { criteria in
-                        Text(criteria.configuration.title)
-                            .opacity(criteria == samplesControllerModel.selectedCriteria ? 1 : 0.5)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: SampleBottomSheetConfiguration.CriteriaPicker.height)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                withAnimation {
-                                    samplesControllerModel.selectedCriteria = criteria
-                                    UISelectionFeedbackGenerator().selectionChanged()
-                                }
-                            }
+        VStack(spacing: 0) {
+            VStack(spacing: SampleBottomSheetConfiguration.spacing) {
+                Capsule()
+                    .fill(Color.gray.opacity(0.5))
+                    .frame(
+                        width: SampleBottomSheetConfiguration.Capsule.width,
+                        height: SampleBottomSheetConfiguration.Capsule.height
+                    )
+                
+                if let sample: Sample = samplesControllerModel.selectedSample,
+                   let selectedQCGroup: QCGroup = samplesControllerModel.selectedQCGroup {
+                    TargetHorizontalScrollView(
+                        sample.sortedQCGroups,
+                        selection: Binding(
+                            get: { selectedQCGroup },
+                            set: { samplesControllerModel.changeSelectedQCGroup(qcGroup: $0) }
+                        ),
+                        elementWidth: SampleBottomSheetConfiguration.QCGroup.elementSize,
+                        height: SampleBottomSheetConfiguration.QCGroup.height,
+                        spacing: SampleBottomSheetConfiguration.QCGroup.spacing,
+                        gestureIsActive: $samplesControllerModel.criteriaPickerGestureIsActive
+                    ) { qcGroup in
+                        QCGroupView(qcGroup: qcGroup)
+                    } onSelectionChange: { newSelection in
+                        samplesControllerModel.changeSelectedQCGroup(qcGroup: newSelection)
                     }
+                    .id("\(String(describing: samplesControllerModel.selectedSample?.id)).QCGroups")
+                } else {
+                    SampleQCGroupsPlaceholderView()
                 }
-                .padding(.horizontal, .large)
-            } else {
-                SampleQCGroupPlaceholderView()
+                
+                if let selectedCriteria = samplesControllerModel.selectedCriteria {
+                    QualityCriteriaView(criteria: selectedCriteria)
+                        .frame(height: SampleBottomSheetConfiguration.Criteria.height)
+                        .id(selectedCriteria.id)
+                } else {
+                    SampleCriteriaEvaluationPlaceholderView()
+                }
+                
+                if let selectedQCGroup = samplesControllerModel.selectedQCGroup {
+                    HStack {
+                        ForEach(selectedQCGroup.sortedQualityCriteria) { criteria in
+                            Text(criteria.configuration.title)
+                                .opacity(criteria == samplesControllerModel.selectedCriteria ? 1 : 0.5)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: SampleBottomSheetConfiguration.CriteriaPicker.height)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    withAnimation {
+                                        samplesControllerModel.selectedCriteria = criteria
+                                        UISelectionFeedbackGenerator().selectionChanged()
+                                    }
+                                }
+                        }
+                    }
+                    .padding(.horizontal, .large)
+                } else {
+                    SampleQCGroupPlaceholderView()
+                }
             }
             
-            #warning("when expanded slider gestures work bad for some reason")
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(spacing: SampleBottomSheetConfiguration.spacing) {
-                    SheetNotesSection()
-                    SheetValueHintsSection()
+                    if let selectedCriteria = samplesControllerModel.selectedCriteria {
+                        SheetNotesSection()
+                        SheetValueHintsSection(criteria: selectedCriteria)
+                    }
                     SheetHintsSection()
                 }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, SampleBottomSheetConfiguration.spacing)
+                .padding(.horizontal, .small)
             }
-            .padding(.horizontal, .small)
+            .frame(maxWidth: .infinity)
+            .mask(
+                RoundedRectangle(cornerRadius: .extraLarge)
+                    .padding(.vertical, SampleBottomSheetConfiguration.spacing - .extraSmall)
+                    .blur(radius: .extraSmall)
+            )
             .opacity(samplesControllerModel.bottomSheetIsExpanded ? 1 : 0)
         }
         .animation(.easeInOut(duration: 0.5), value: samplesControllerModel.selectedSample)
-        .animation(.easeInOut(duration: 0.25), value: samplesControllerModel.selectedCriteria)
-        .animation(.easeInOut(duration: 0.1), value: samplesControllerModel.selectedQCGroup)
         .padding(.vertical, SampleBottomSheetConfiguration.verticalPadding)
         .modifier(SheetModifier())
     }
@@ -137,7 +146,7 @@ extension SampleBottomSheetView {
                     .frame(maxWidth: .infinity)
                     .background(alignment: .top) {
                         ZStack(alignment: .top) {
-                            Color.backgroundPrimary.opacity(samplesControllerModel.bottomSheetIsExpanded ? 0.75 : 0.25)
+                            Color.backgroundPrimary.opacity(0.5)
                             
                             TransparentBlurView()
                             
@@ -167,7 +176,6 @@ extension SampleBottomSheetView {
                             }
                         }
                         .frame(height: geometry.size.height * 2, alignment: .top)
-                        .edgesIgnoringSafeArea(.top)
                     }
                     .offset(
                         y: samplesControllerModel.bottomSheetIsExpanded ?

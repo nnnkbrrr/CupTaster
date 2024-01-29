@@ -23,12 +23,12 @@ struct ResignKeyboardOnGesture: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .simultaneousGesture(
-                DragGesture()
-                    .onChanged { _ in
-                        UIApplication.shared.endEditing(true)
-                        onResign()
-                    }
+            .dragGesture(
+                gestureType: .simultaneous,
+                onUpdate: { _ in
+                    UIApplication.shared.endEditing(true)
+                    onResign()
+                }
             )
             .simultaneousGesture(
                 TapGesture()

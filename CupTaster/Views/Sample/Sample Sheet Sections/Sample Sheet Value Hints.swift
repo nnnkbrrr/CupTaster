@@ -10,85 +10,66 @@ import Combine
 
 extension SampleBottomSheetView {
     struct SheetValueHintsSection: View {
-        class HintsManager: ObservableObject {
-            private class HintsCache {
-                static private var cache: [String: String] = [:]
-                static subscript(description: String) -> String? {
-                    get { HintsCache.cache[description] }
-                    set { HintsCache.cache[description] = newValue }
+        @ObservedObject private var hintsManager: HintsManager
+        
+        init(criteria: QualityCriteria) {
+            self.hintsManager = .init(for: criteria)
+        }
+        
+        var body: some View {
+            if let currentHint: String = hintsManager.currentHint {
+                SampleSheetSection(title: "With the selected value:") {
+                    Text(currentHint)
+                        .font(.subheadline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                
-                static func getDescription(for criteria: QualityCriteria) -> String {
-                    return "\(criteria.configuration.id).\(criteria.value)"
-                }
-            }
-            
-            @Published private var selectedCriteria: QualityCriteria? = SamplesControllerModel.shared.selectedCriteria
-            @Published private var selectedCriteriaValue: Double?
-            
-            @Published var hint: String? = nil
-            
-            var cancellableSet: Set<AnyCancellable> = []
-            
-            init() {
-                hitsPublisher
-                    .receive(on: RunLoop.main)
-                    .removeDuplicates()
-                    .sink(receiveValue: { [weak self] hint in
-                        self?.hint = hint
-                    })
-                    .store(in: &self.cancellableSet)
-                
-                selectedCriteria?.publisher(for: \.value)
-                    .removeDuplicates()
-                    .sink(receiveValue: { [weak self] value in
-                        self?.selectedCriteriaValue = value
-                    })
-                    .store(in: &self.cancellableSet)
-            }
-            
-            var hitsPublisher: AnyPublisher<String?, Never> {
-                Publishers
-                    .CombineLatest($selectedCriteria, $selectedCriteriaValue)
-                    .removeDuplicates(by: { oldValues, newValues in
-                        return oldValues.0?.id == newValues.0?.id && oldValues.1 == newValues.1
-                    })
-                    .map { criteria, value in
-                        if let criteria, let value {
-                            let hintDescription: String = HintsCache.getDescription(for: criteria)
-                            
-                            if let hint: String = HintsCache[hintDescription] {
-                                return hint == "unavailable" ? nil : hint
-                            } else {
-                                for hint in criteria.configuration.hints.sorted(by: { $0.lowerBound > $1.lowerBound }) {
-                                    if value >= hint.lowerBound {
-                                        HintsCache[hintDescription] = hint.message
-                                        return hint.message
-                                    }
-                                }
-                            }
-                            
-                            HintsCache[hintDescription] = "unavailable"
-                        }
-                        return nil
-                    }
-                    .eraseToAnyPublisher()
             }
         }
         
-        @ObservedObject var hintsManager: HintsManager = .init()
-        
-        var body: some View {
-            ZStack {
-                if let hint = hintsManager.hint {
-                    SampleSheetSection(title: "With the selected value:") {
-                        Text(hint)
-                            .font(.subheadline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                }
+        private class HintsManager: ObservableObject {
+            @Published var currentHint: String? = nil
+            
+            var cancellableSet: Set<AnyCancellable> = []
+            init(for criteria: QualityCriteria) {
+                criteria.publisher(for: \.value)
+                    .receive(on: RunLoop.main)
+                    .map { _ in HintsManager.getHint(for: criteria) }
+                    .assign(to: \.currentHint, on: self)
+                    .store(in: &cancellableSet)
+                
+                currentHint = Self.getHint(for: criteria)
             }
-            .animation(.easeInOut(duration: 0.2), value: hintsManager.hint)
+
+            
+            static private var cache: [String: String] = [:]
+            static subscript(description: String) -> String? {
+                get { Self.cache[description] }
+                set { Self.cache[description] = newValue }
+            }
+            
+            private static func getDescription(for criteria: QualityCriteria) -> String {
+                return "\(criteria.configuration.id).\(criteria.value)"
+            }
+            
+            static func getHint(for criteria: QualityCriteria?) -> String? {
+                if let criteria {
+                    let hintDescription: String = getDescription(for: criteria)
+                    
+                    if let hint: String = Self.self[hintDescription] {
+                        return hint == "" ? nil : hint
+                    } else {
+                        for hint in criteria.configuration.hints.sorted(by: { $0.lowerBound > $1.lowerBound }) {
+                            if criteria.value >= hint.lowerBound {
+                                Self.self[hintDescription] = hint.message
+                                return hint.message
+                            }
+                        }
+                    }
+                    
+                    Self.self[hintDescription] = ""
+                }
+                return nil
+            }
         }
     }
 }
