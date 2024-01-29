@@ -109,9 +109,12 @@ struct SampleBottomSheetView: View {
             }
             
             #warning("when expanded slider gestures work bad for some reason")
-            VStack(spacing: SampleBottomSheetConfiguration.spacing) {
-                SheetNotesSection()
-                SheetSelectedValueHintsSection()
+            ScrollView {
+                VStack(spacing: SampleBottomSheetConfiguration.spacing) {
+                    SheetNotesSection()
+                    SheetValueHintsSection()
+                    SheetHintsSection()
+                }
             }
             .padding(.horizontal, .small)
             .opacity(samplesControllerModel.bottomSheetIsExpanded ? 1 : 0)
@@ -134,7 +137,7 @@ extension SampleBottomSheetView {
                     .frame(maxWidth: .infinity)
                     .background(alignment: .top) {
                         ZStack(alignment: .top) {
-                            Color.backgroundPrimary.opacity(0.25)
+                            Color.backgroundPrimary.opacity(samplesControllerModel.bottomSheetIsExpanded ? 0.75 : 0.25)
                             
                             TransparentBlurView()
                             

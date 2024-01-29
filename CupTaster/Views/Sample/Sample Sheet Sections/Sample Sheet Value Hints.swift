@@ -1,5 +1,5 @@
 //
-//  Sample Sheet Selected Value Hints.swift
+//  Sample Sheet Value Hints.swift
 //  CupTaster
 //
 //  Created by Nikita on 22.01.2024.
@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 extension SampleBottomSheetView {
-    struct SheetSelectedValueHintsSection: View {
+    struct SheetValueHintsSection: View {
         class HintsManager: ObservableObject {
             private class HintsCache {
                 static private var cache: [String: String] = [:]
@@ -88,7 +88,7 @@ extension SampleBottomSheetView {
                     }
                 }
             }
-//            .animation(.easeInOut(duration: 0.2), value: hintsManager.hint)
+            .animation(.easeInOut(duration: 0.2), value: hintsManager.hint)
         }
     }
 }
