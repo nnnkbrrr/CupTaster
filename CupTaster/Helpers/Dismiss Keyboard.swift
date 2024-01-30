@@ -6,44 +6,32 @@
 //
 
 import SwiftUI
-import Combine
-import UIKit
+
+class AnyGestureRecognizer: UIGestureRecognizer {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        if let touchedView = touches.first?.view, touchedView is UIControl { state = .cancelled }
+        else if let touchedView = touches.first?.view as? UITextView, touchedView.isEditable { state = .cancelled }
+        else { state = .began }
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) { state = .ended }
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) { state = .cancelled }
+}
 
 extension UIApplication {
-    func endEditing(_ force: Bool) {
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.endEditing(force)
+    func addTapGestureRecognizer() {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first
+        else { return }
+        let tapGesture = AnyGestureRecognizer(target: window, action: #selector(UIView.endEditing))
+        tapGesture.requiresExclusiveTouchType = false
+        tapGesture.cancelsTouchesInView = false
+        tapGesture.delegate = self
+        window.addGestureRecognizer(tapGesture)
     }
 }
 
-struct ResignKeyboardOnGesture: ViewModifier {
-    var onResign: () -> ()
-    
-    func body(content: Content) -> some View {
-        content
-            .simultaneousGesture(
-                DragGesture()
-                    .onChanged { _ in
-                        UIApplication.shared.endEditing(true)
-                        onResign()
-                    }
-            )
-        // MARK: - breaks navigation
-        // .simultaneousGesture(
-        //     TapGesture()
-        //         .onEnded { _ in
-        //             UIApplication.shared.endEditing(true)
-        //             onResign()
-        //         }
-        // )
+extension UIApplication: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return !otherGestureRecognizer.isKind(of: UILongPressGestureRecognizer.self)
     }
 }
-
-extension View {
-    func resignKeyboardOnGesture(onResign: @escaping () -> () = { } ) -> some View {
-        return modifier(ResignKeyboardOnGesture() { onResign() } )
-    }
-}
-

@@ -40,6 +40,7 @@ struct AllCuppingsTabView: View {
                                 Divider()
                                 
                                 ForEach(cuppings) { cupping in
+#warning("swipe actions lag while gesture swipe")
                                     SwipeView {
                                         CuppingPreview(cupping)
                                     } leadingActions: { context in

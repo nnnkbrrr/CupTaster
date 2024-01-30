@@ -19,7 +19,6 @@ struct ContentView: View {
             SamplesControllerView()
         }
         .allowsHitTesting(sampleControllerModel.isTogglingVisibility ? false : true)
-        .resignKeyboardOnGesture()
 #warning("onboarding")
         //.modifier(Onboarding())
     }

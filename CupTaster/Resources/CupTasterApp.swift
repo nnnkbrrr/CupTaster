@@ -15,6 +15,7 @@ struct CupTasterApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onAppear { UIApplication.shared.addTapGestureRecognizer() }
         }
     }
 }

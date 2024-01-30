@@ -62,12 +62,10 @@ struct SamplesControllerPagesView: View {
                     Button {
                         samplesControllerModel.exit()
                     } label: {
-                        ZStack {
-                            Circle()
-                                .frame(width: .smallElement, height: .smallElement)
-                                .foregroundStyle(.bar)
-                            Image(systemName: "chevron.left")
-                        }
+                        Image(systemName: "chevron.left")
+                            .frame(width: .smallElement, height: .smallElement)
+                            .background(Color.backgroundTertiary)
+                            .clipShape(Circle())
                     }
                     
                     Spacer()
@@ -75,12 +73,10 @@ struct SamplesControllerPagesView: View {
                     Button {
                         
                     } label: {
-                        ZStack {
-                            Circle()
-                                .frame(width: .smallElement, height: .smallElement)
-                                .foregroundStyle(.bar)
-                            Image(systemName: "stopwatch")
-                        }
+                        Image(systemName: "stopwatch")
+                            .frame(width: .smallElement, height: .smallElement)
+                            .background(Color.backgroundTertiary)
+                            .clipShape(Circle())
                     }
                 }
                 .padding(.horizontal, .small)
