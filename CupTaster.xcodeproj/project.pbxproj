@@ -53,7 +53,6 @@
 		6372A3752B4FF7F200925E0B /* Resizable Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372A3742B4FF7F200925E0B /* Resizable Text.swift */; };
 		63739BB42A71251200C779ED /* Sample Quality Criteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63739BB32A71251200C779ED /* Sample Quality Criteria.swift */; };
 		63742D18287EA998001E8DAB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63742D17287EA998001E8DAB /* Persistence.swift */; };
-		63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
 		637CB7CE2B386EF50056C32D /* Navigation Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637CB7CD2B386EF50056C32D /* Navigation Appearance.swift */; };
 		6381530528C8DE00008816C9 /* CuppingFormsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381530428C8DE00008816C9 /* CuppingFormsTests.swift */; };
 		639AB6952A57258300CB04F7 /* Cupping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639AB6942A57258300CB04F7 /* Cupping.swift */; };
@@ -80,6 +79,7 @@
 		63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A5C2801BE7A00010318 /* Preview Assets.xcassets */; };
 		63DDB6892A5C0FED00C8ADD6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DDB6882A5C0FED00C8ADD6 /* DateFormatter.swift */; };
 		63DE551F2B67E0AC00A21E24 /* Samples Controller Pages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE551E2B67E0AC00A21E24 /* Samples Controller Pages.swift */; };
+		63DE55202B68088B00A21E24 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
 		63E12F312B2353C4000FAACA /* Sample Placeholders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E12F302B2353C4000FAACA /* Sample Placeholders.swift */; };
 		63E7F9132B0677E600415B13 /* Target Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E7F9122B0677E600415B13 /* Target Scroll.swift */; };
 /* End PBXBuildFile section */
@@ -187,9 +187,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63DE55202B68088B00A21E24 /* CloudKit.framework in Frameworks */,
 				632F5D2529D83EAE00D7FFB7 /* CodeScanner in Frameworks */,
 				634E32AA2B38457D00966509 /* SwipeActions in Frameworks */,
-				63742D6628801D02001E8DAB /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -842,7 +842,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
@@ -884,7 +884,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;

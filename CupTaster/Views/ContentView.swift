@@ -16,8 +16,6 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             AllCuppingsTabView()
-                .tabItem { Label("Cuppings", systemImage: "cup.and.saucer") }
-            
             SamplesControllerView()
         }
         .allowsHitTesting(sampleControllerModel.isTogglingVisibility ? false : true)
