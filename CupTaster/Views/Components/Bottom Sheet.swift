@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
+import Combine
 
 struct BottomSheetConfiguration {
     static let spacing: CGFloat = .large
     static let verticalPadding: CGFloat = .extraSmall
     
-    // Capsule Section
     struct Capsule {
         static let width: CGFloat = 40
         static let height: CGFloat = 5
@@ -19,7 +19,6 @@ struct BottomSheetConfiguration {
 }
 
 struct SheetModifier<SheetContent: View>: ViewModifier {
-    @Environment(\.colorScheme) var colorScheme
     @State private var bottomSheetOffset: CGFloat = 0
     @Binding var isActive: Bool
     let sheetContent: () -> SheetContent
@@ -31,7 +30,6 @@ struct SheetModifier<SheetContent: View>: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .overlay(Color.black.opacity(colorScheme == .dark ? 0.75 : 0.25).opacity(isActive ? 1 : 0))
             .fullScreenCover(isPresented: $isActive) {
                 GeometryReader { geometry in
                     VStack(spacing: BottomSheetConfiguration.spacing) {
@@ -54,7 +52,7 @@ struct SheetModifier<SheetContent: View>: ViewModifier {
                     .frame(maxHeight: .infinity, alignment: .bottom)
                 }
                 .background(
-                    CustomModalBackgroundColorView(backgroundColor: .clear)
+                    ClearModalBackground(isActive: $isActive)
                         .onTapGesture { isActive = false }
                 )
                 .dragGesture(
@@ -93,16 +91,26 @@ extension View {
     }
 }
 
-private struct CustomModalBackgroundColorView: UIViewRepresentable {
-    let backgroundColor: UIColor
+private struct ClearModalBackground: UIViewRepresentable {
+    @Environment(\.colorScheme) var colorScheme
+    @Binding var isActive: Bool
+    
+    @State var sheetBackground: UIView?
+    @State var contentOverlay: UIView?
     
     func makeUIView(context: Context) -> UIView {
         let view = UIView()
         DispatchQueue.main.async {
-            view.superview?.superview?.backgroundColor = backgroundColor
+            sheetBackground = view.superview?.superview
+            contentOverlay = view.superview?.superview?.superview
+            sheetBackground?.backgroundColor = .clear
         }
         return view
     }
-
-    func updateUIView(_ uiView: UIView, context: Context) { }
+    
+    func updateUIView(_ uiView: UIView, context: Context) {
+        UIView.animate(withDuration: 0.3) {
+            contentOverlay?.backgroundColor = UIColor(Color.black.opacity(colorScheme == .dark ? 0.75 : 0.5).opacity(isActive ? 1 : 0))
+        }
+    }
 }

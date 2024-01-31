@@ -13,6 +13,8 @@ struct CuppingView: View {
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     @ObservedObject var cupping: Cupping
     
+    @State private var settingsModalIsActive: Bool = false
+    
     init(_ cupping: Cupping) {
         self.cupping = cupping
     }
@@ -27,50 +29,155 @@ struct CuppingView: View {
                         columns: [
                             GridItem(
                                 .adaptive(minimum: 150, maximum: 200),
-                                spacing: .extraSmall,
+                                spacing: .small,
                                 alignment: .top
                             )
                         ],
-                        spacing: .extraSmall
+                        spacing: .small
                     ) {
-                        Section {
-                            ForEach(cupping.sortedSamples) { sample in
-                                if samplesControllerModel.selectedSample != sample {
-                                    SamplePreview(sample)
-                                } else {
-                                    Color.clear
-                                }
+                        ForEach(cupping.sortedSamples) { sample in
+                            if samplesControllerModel.selectedSample != sample {
+                                SamplePreview(sample)
+                            } else {
+                                Color.clear
                             }
-                        } header: {
-                            Text("\(cupping.form?.title ?? "") • \(cupping.samples.count) Samples • \(cupping.cupsCount) Cups")
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                                .padding(.vertical, .extraSmall)
                         }
                     }
-                    .padding(.extraSmall)
+                    .padding(.small)
                 }
                 .background(Color.backgroundPrimary)
             }
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                HStack {
-                    let showTemplate: Bool = cupping.name == ""
-                    
-                    Text(showTemplate ? "New Cupping" : cupping.name)
-                        .foregroundStyle(showTemplate ? .gray : .primary)
-                    
-                    Image(systemName: "chevron.down.circle.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: .regular, height: .regular)
-                        .foregroundColor(.gray)
+                Button {
+                    settingsModalIsActive = true
+                } label: {
+                    HStack {
+                        let showTemplate: Bool = cupping.name == ""
+                        
+                        Text(showTemplate ? "New Cupping" : cupping.name)
+                            .foregroundStyle(showTemplate ? .gray : .primary)
+                        
+                        Image(systemName: "chevron.down.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: .regular, height: .regular)
+                            .foregroundColor(.gray)
+                    }
                 }
+                .frame(maxWidth: .infinity)
             }
         }
         .stopwatchToolbarItem()
         .standardNavigation()
+        .adaptiveSizeSheet(isActive: $settingsModalIsActive) {
+            CuppingSettingsView(cupping: cupping, isActive: $settingsModalIsActive)
+        }
     }
 }
 
+extension CuppingView {
+    struct CuppingSettingsView: View {
+        @ObservedObject var cupping: Cupping
+        @Binding var isActive: Bool
+        
+        private let nameLengthLimit = 50
+        
+        var body: some View {
+            VStack(spacing: .extraSmall) {
+                TextField("Cupping Name", text: $cupping.name)
+                    .resizableText(weight: .light)
+                    .frame(maxWidth: .infinity)
+                    .multilineTextAlignment(.center)
+                    .padding(.vertical, .regular)
+                    .onChange(of: cupping.name) { name in
+                        if cupping.name.count > nameLengthLimit {
+                            cupping.name = String(cupping.name.prefix(nameLengthLimit))
+                        }
+                    }
+                    .bottomSheetBlock()
+                
+                Text("\(cupping.form?.title ?? "") • \(cupping.samples.count) Samples • \(cupping.cupsCount) Cups")
+                    .font(.caption)
+                    .foregroundStyle(.gray)
+                    .padding(.vertical, .extraSmall)
+                
+//                VStack(spacing: .small) {
+//                    Text("Cups")
+//                        .font(.subheadline)
+//                        .foregroundStyle(.gray)
+//                    
+//                    TargetHorizontalScrollView(
+//                        1...5, selection: $cupsCount,
+//                        elementWidth: .smallElement, height: 18, spacing: .regular
+//                    ) { cupsNum in
+//                        Text("\(cupsNum)")
+//                            .foregroundStyle(cupsNum == cupsCount ? Color.primary : .gray)
+//                            .frame(width: .smallElement)
+//                    }
+//                    .mask(
+//                        LinearGradient(
+//                            gradient: Gradient(colors: [.clear, .black, .clear]),
+//                            startPoint: .leading,
+//                            endPoint: .trailing
+//                        )
+//                    )
+//                }
+//                .bottomSheetBlock()
+//                
+//                VStack(spacing: .small) {
+//                    Text("Samples")
+//                        .font(.subheadline)
+//                        .foregroundStyle(.gray)
+//                    
+//                    TargetHorizontalScrollView(
+//                        1...20, selection: $samplesCount,
+//                        elementWidth: .smallElement, height: 18, spacing: .regular
+//                    ) { samplesNum in
+//                        Text("\(samplesNum)")
+//                            .foregroundStyle(samplesNum == samplesCount ? Color.primary : .gray)
+//                            .frame(width: .smallElement)
+//                    }
+//                    .mask(
+//                        LinearGradient(
+//                            gradient: Gradient(colors: [.clear, .black, .clear]),
+//                            startPoint: .leading,
+//                            endPoint: .trailing
+//                        )
+//                    )
+//                }
+//                .bottomSheetBlock()
+                
+                HStack(spacing: .extraSmall) {
+                    VStack { }.bottomSheetBlock()
+                    VStack { }.bottomSheetBlock()
+                }
+                
+                VStack { }.bottomSheetBlock()
+                
+                HStack(spacing: .extraSmall) {
+                    Button {
+                        #warning("action")
+                    } label: {
+                        Text("Delete")
+                            .foregroundStyle(.red)
+                    }
+                    .buttonStyle(.bottomSheetBlock)
+                    
+                    Button {
+#warning("action")
+                        isActive = false
+                    } label: {
+                        HStack(spacing: .small) {
+                            Text("Continue")
+                            Image(systemName: "arrow.right")
+                        }
+                    }
+                    .buttonStyle(.accentBottomSheetBlock)
+                }
+            }
+            .padding([.horizontal, .bottom], .small)
+        }
+    }
+}

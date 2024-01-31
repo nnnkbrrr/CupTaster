@@ -61,13 +61,7 @@ struct AllCuppingsTabView: View {
                                             }
                                         }
                                     }
-                                    .swipeActionsStyle(.cascade)
-                                    .swipeActionsMaskCornerRadius(0)
-                                    .swipeActionCornerRadius(0)
-                                    .swipeSpacing(0)
-                                    .swipeActionsVisibleStartPoint(0)
-                                    .swipeActionsVisibleEndPoint(0)
-                                    .swipeMinimumDistance(25)
+                                    .allCuppingsActionsStyle()
                                     .background(Color.backgroundSecondary)
                                     .contextMenu {
                                         Section {

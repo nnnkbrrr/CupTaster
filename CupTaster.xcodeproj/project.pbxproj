@@ -82,6 +82,7 @@
 		63DE55202B68088B00A21E24 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
 		63E12F312B2353C4000FAACA /* Sample Placeholders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E12F302B2353C4000FAACA /* Sample Placeholders.swift */; };
 		63E7F9132B0677E600415B13 /* Target Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E7F9122B0677E600415B13 /* Target Scroll.swift */; };
+		63EF652F2B695D3E009A9AF3 /* Swipe Actions Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EF652E2B695D3E009A9AF3 /* Swipe Actions Style.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +174,7 @@
 		63DE551E2B67E0AC00A21E24 /* Samples Controller Pages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Samples Controller Pages.swift"; sourceTree = "<group>"; };
 		63E12F302B2353C4000FAACA /* Sample Placeholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Placeholders.swift"; sourceTree = "<group>"; };
 		63E7F9122B0677E600415B13 /* Target Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Target Scroll.swift"; sourceTree = "<group>"; };
+		63EF652E2B695D3E009A9AF3 /* Swipe Actions Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swipe Actions Style.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,13 +317,14 @@
 			isa = PBXGroup;
 			children = (
 				637CB7CD2B386EF50056C32D /* Navigation Appearance.swift */,
-				6355CAB82B502B100069A7E9 /* Sample Sheet Section.swift */,
 				6372A3722B4FF46400925E0B /* Bottom Sheet Block.swift */,
+				6355CAB82B502B100069A7E9 /* Sample Sheet Section.swift */,
 				633042442B4C5ACE005BD8F2 /* Sample Elements.swift */,
 				63A1A9152A55851A008D30CE /* Button Styles.swift */,
 				63A1A9172A558685008D30CE /* Sizing & Spacing.swift */,
 				6372A3742B4FF7F200925E0B /* Resizable Text.swift */,
 				636712F72AF66CE80042DB00 /* Blur.swift */,
+				63EF652E2B695D3E009A9AF3 /* Swipe Actions Style.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 				63729F962A6DAF6700EF0FEE /* Sample Tools Section.swift in Sources */,
 				630AD6132B2361CC0016DBFA /* Sample Final Score Section.swift in Sources */,
 				63A1A90B2A556896008D30CE /* Folder Entity.swift in Sources */,
+				63EF652F2B695D3E009A9AF3 /* Swipe Actions Style.swift in Sources */,
 				631422712B3AC21C00683F7F /* Rose Chart.swift in Sources */,
 				63A1A9182A558685008D30CE /* Sizing & Spacing.swift in Sources */,
 				634D5A4D2A5ED5F200A18B63 /* Sample.swift in Sources */,
