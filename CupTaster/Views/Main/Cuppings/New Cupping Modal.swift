@@ -25,6 +25,7 @@ struct NewCuppingModalView: View {
         VStack(spacing: .extraSmall) {
             TextField("Cupping Name", text: $name)
                 .resizableText(weight: .light)
+                .submitLabel(.done)
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
                 .padding(.vertical, .regular)

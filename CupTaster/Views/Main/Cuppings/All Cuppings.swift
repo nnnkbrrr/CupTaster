@@ -205,6 +205,7 @@ extension AllCuppingsTabView {
                     HStack(spacing: .extraSmall) {
                         VStack(alignment: .leading, spacing: .extraSmall) {
                             Text(cupping.name == "" ? "New Cupping" : cupping.name)
+                                .multilineTextAlignment(.leading)
                                 .font(.callout)
                             
                             Text("\(cupping.form?.title ?? "") • \(cupping.samples.count) Samples • \(cupping.cupsCount) Cups")

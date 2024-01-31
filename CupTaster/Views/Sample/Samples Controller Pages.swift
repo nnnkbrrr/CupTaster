@@ -109,6 +109,8 @@ struct SamplesControllerPagesView: View {
             .edgesIgnoringSafeArea(.top)
         }
         .onChange(of: SamplesControllerModel.shared.selectedSample) { sample in
+            lastFocusStateChangeDate = sample == nil ? Date() : nil
+            
             if let lastFocusStateChangeDate, let sample, Date().timeIntervalSince(lastFocusStateChangeDate) < 5 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     sampleNameTextfieldFocus = sample.id
@@ -129,6 +131,7 @@ struct SamplesControllerPagesView: View {
         
         var body: some View {
             TextField("Sample name", text: $sample.name)
+                .submitLabel(.done)
                 .focused($sampleNameTextfieldFocus, equals: Optional(sample.id))
                 .submitLabel(.done)
                 .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in

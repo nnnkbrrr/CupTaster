@@ -50,14 +50,14 @@ struct CuppingView: View {
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Button {
-                    settingsModalIsActive = true
-                } label: {
                     HStack {
                         let showTemplate: Bool = cupping.name == ""
                         
                         Text(showTemplate ? "New Cupping" : cupping.name)
+                            .multilineTextAlignment(.center)
+                            .resizableText()
                             .foregroundStyle(showTemplate ? .gray : .primary)
+                            .frame(height: .regular)
                         
                         Image(systemName: "chevron.down.circle.fill")
                             .resizable()
@@ -65,8 +65,11 @@ struct CuppingView: View {
                             .frame(width: .regular, height: .regular)
                             .foregroundColor(.gray)
                     }
-                }
-                .frame(maxWidth: .infinity)
+                    .frame(height: .large)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        settingsModalIsActive = true
+                    }
             }
         }
         .stopwatchToolbarItem()
@@ -88,6 +91,7 @@ extension CuppingView {
             VStack(spacing: .extraSmall) {
                 TextField("Cupping Name", text: $cupping.name)
                     .resizableText(weight: .light)
+                    .submitLabel(.done)
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
                     .padding(.vertical, .regular)
