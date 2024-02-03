@@ -12,6 +12,7 @@ struct SamplesControllerPagesView: View {
     
     @FocusState var sampleNameTextfieldFocus: ObjectIdentifier?
     @State var lastFocusStateChangeDate: Date? = nil
+    @State var lastFocusStateSampleID: ObjectIdentifier? = nil
     
     var body: some View {
         VStack(spacing: 0) {
@@ -109,16 +110,16 @@ struct SamplesControllerPagesView: View {
             .edgesIgnoringSafeArea(.top)
         }
         .onChange(of: SamplesControllerModel.shared.selectedSample) { sample in
-            lastFocusStateChangeDate = sample == nil ? Date() : nil
-            
-            if let lastFocusStateChangeDate, let sample, Date().timeIntervalSince(lastFocusStateChangeDate) < 5 {
+            if let lastFocusStateChangeDate, let sample, Date().timeIntervalSince(lastFocusStateChangeDate) < 5 && lastFocusStateSampleID != sample.id {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     sampleNameTextfieldFocus = sample.id
                 }
             }
+            lastFocusStateSampleID = sample?.id
         }
         .onChange(of: sampleNameTextfieldFocus) { _ in
             lastFocusStateChangeDate = Date()
+            lastFocusStateSampleID = SamplesControllerModel.shared.selectedSample?.id
         }
     }
     

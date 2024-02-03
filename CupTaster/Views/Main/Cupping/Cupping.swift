@@ -57,7 +57,6 @@ struct CuppingView: View {
                             .multilineTextAlignment(.center)
                             .resizableText()
                             .foregroundStyle(showTemplate ? .gray : .primary)
-                            .frame(height: .regular)
                         
                         Image(systemName: "chevron.down.circle.fill")
                             .resizable()
