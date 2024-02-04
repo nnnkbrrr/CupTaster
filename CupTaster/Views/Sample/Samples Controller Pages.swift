@@ -23,7 +23,7 @@ struct SamplesControllerPagesView: View {
                     Capsule()
                         .frame(width: samplesControllerModel.selectedSampleIndex == index ? .large : .extraSmall)
                         .frame(height: .extraSmall)
-                        .foregroundStyle(Color.separator)
+                        .foregroundStyle(Color.separatorPrimary)
                 }
             }
             .frame(maxWidth: .infinity)

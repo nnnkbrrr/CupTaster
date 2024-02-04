@@ -9,10 +9,15 @@ import SwiftUI
 
 extension SampleView {
     struct ActionsToolsSection: View {
+        @Environment(\.managedObjectContext) private var moc
+        @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
+        
         var body: some View {
             SampleToolsSection(tools: [
-                .init(systemImageName: "heart") {
-#warning("action")
+                .init(systemImageName: samplesControllerModel.selectedSample?.isFavorite ?? false ? "heart.fill" : "heart") {
+                    samplesControllerModel.selectedSample?.isFavorite.toggle()
+                    samplesControllerModel.selectedSample?.objectWillChange.send()
+                    try? moc.save()
                 },
                 .init(systemImageName: "square.and.arrow.up") {
 #warning("action")

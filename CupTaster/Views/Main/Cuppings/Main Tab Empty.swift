@@ -8,9 +8,10 @@
 import SwiftUI
 
 #warning("screen: Нет каппингов")
-extension AllCuppingsTabView {
+extension MainTabView {
     var isEmpty: some View {
         Text("No cuppings yet")
+            .frame(maxWidth: .infinity)
     }
 }
 

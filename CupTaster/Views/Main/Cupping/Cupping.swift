@@ -37,7 +37,7 @@ struct CuppingView: View {
                     ) {
                         ForEach(cupping.sortedSamples) { sample in
                             if samplesControllerModel.selectedSample != sample {
-                                SamplePreview(sample)
+                                SamplePreview(sample, page: .cupping)
                             } else {
                                 Color.clear
                             }

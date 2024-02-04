@@ -15,7 +15,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            AllCuppingsTabView()
+            MainTabView()
             SamplesControllerView()
         }
         .allowsHitTesting(sampleControllerModel.isTogglingVisibility ? false : true)

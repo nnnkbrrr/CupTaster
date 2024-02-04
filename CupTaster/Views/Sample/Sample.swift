@@ -30,9 +30,9 @@ struct SampleView: View {
                             let matchedGeometryId: String = {
                                 let activityIndicator: String = samplesControllerModel.isTogglingVisibility ? "" : ".inactive"
                                 if let selectedSample: Sample = samplesControllerModel.selectedSample {
-                                    return "radar.chart.container.\(selectedSample.id)" + activityIndicator
+                                    return "\(samplesControllerModel.currentPage).radar.chart.container.\(selectedSample.id)" + activityIndicator
                                 }
-                                return "radar.chart.container.empty"
+                                return "\(samplesControllerModel.currentPage).radar.chart.container.empty"
                             }()
                             
                             if samplesControllerModel.isActive {

@@ -17,6 +17,7 @@ public class Cupping: NSManagedObject, Identifiable {
     @NSManaged public var notes: String
     @NSManaged public var date: Date
     @NSManaged public var cupsCount: Int16
+    @NSManaged public var isFavorite: Bool
     
     @NSManaged public var form: CuppingForm?
     @NSManaged public var samples: Set<Sample>

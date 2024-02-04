@@ -11,6 +11,8 @@ class SamplesControllerModel: ObservableObject {
     static let shared: SamplesControllerModel = .init()
     var namespace: Namespace.ID
     
+    enum Page { case main, cupping }
+    
     private init() {
         @Namespace var namespace
         self.namespace = namespace
@@ -21,6 +23,7 @@ class SamplesControllerModel: ObservableObject {
     @Published private(set) var isActive: Bool = false
     @Published var isTogglingVisibility: Bool = false
     
+    @Published private(set) var currentPage: Page?
     @Published private(set) var cupping: Cupping?
     @Published private(set) var selectedSample: Sample?
     @Published public var selectedQCGroup: QCGroup?
@@ -46,7 +49,8 @@ class SamplesControllerModel: ObservableObject {
 // General Functions
 
 extension SamplesControllerModel {
-    public func setSelectedSample(sample: Sample) {
+    public func setSelectedSample(_ sample: Sample, page: Page) {
+        currentPage = page
         if !isTogglingVisibility {
             self.isTogglingVisibility = true
             
@@ -97,6 +101,10 @@ extension SamplesControllerModel {
             self.cupping = nil
             self.selectedSample = nil
             self.selectedSampleIndex = 0
+        }
+        
+        DispatchQueue.main.async {
+            self.currentPage = nil
         }
     }
 }
