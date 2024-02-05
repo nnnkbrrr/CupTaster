@@ -10,28 +10,48 @@ import SwiftUI
 struct SamplePreview: View {
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     let sample: Sample
-    let page: SamplesControllerModel.Page
+    let showCupping: Bool
+    let animationId: UUID?
     
-    init(_ sample: Sample, page: SamplesControllerModel.Page) {
+    init(_ sample: Sample, showCupping: Bool = false, animationId: UUID? = nil) {
         self.sample = sample
-        self.page = page
+        self.showCupping = showCupping
+        self.animationId = animationId
     }
     
-    #warning("matched geometry")
-    
     var body: some View {
+        var matchedGeometryId: String {
+            var matchedGeometryAnimationDescription: String {
+                if let animationId { return animationId.uuidString }
+                else { return "no-animation-id" }
+            }
+            return "\(matchedGeometryAnimationDescription).radar.chart.\(sample.id)"
+        }
+        
         VStack(alignment: .leading) {
             RoseChart(sample: sample)
                 .frame(maxWidth: .infinity)
                 .matchedGeometryEffect(
-                    id: "\(Optional(page)).radar.chart.\(sample.id)",
-                    in: samplesControllerModel.namespace
+                    id: matchedGeometryId,
+                    in: NamespaceControllerModel.shared.namespace
                 )
                 .zIndex(2.1)
                 .aspectRatio(contentMode: .fit)
             
             Text(sample.name)
                 .font(.subheadline)
+            
+            if showCupping {
+                NavigationLink(destination: CuppingView(sample.cupping)) {
+                    Group {
+                        Text(Image(systemName: "arrow.turn.down.right")) +
+                        Text(" ") +
+                        Text(sample.cupping.name)
+                    }
+                    .font(.caption)
+                    .multilineTextAlignment(.leading)
+                }
+            }
             
             HStack(spacing: 0) {
                 Text("Final score: ")
@@ -54,18 +74,18 @@ struct SamplePreview: View {
                 .foregroundStyle(Color.backgroundSecondary)
         )
         .matchedGeometryEffect(
-            id: "\(Optional(page)).radar.chart.container.\(sample.id)",
-            in: samplesControllerModel.namespace
+            id: matchedGeometryId + ".container",
+            in: NamespaceControllerModel.shared.namespace
         )
         .zIndex(2.1)
         .contextMenu {
 #warning("context menu")
             Button("Open") {
-                samplesControllerModel.setSelectedSample(sample, page: page)
+                samplesControllerModel.setSelectedSample(sample, animationId: animationId)
             }
         }
         .onTapGesture {
-            samplesControllerModel.setSelectedSample(sample, page: page)
+            samplesControllerModel.setSelectedSample(sample, animationId: animationId)
         }
     }
 }

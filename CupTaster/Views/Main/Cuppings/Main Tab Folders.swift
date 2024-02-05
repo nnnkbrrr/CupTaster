@@ -11,12 +11,9 @@ import CoreData
 protocol FolderElement: NSManagedObject, Identifiable {
     var isFavorite: Bool { get set }
     var date: Date { get }
-    var ordinalNumber: Int16 { get }
 }
 
-extension Cupping: FolderElement { 
-    var ordinalNumber: Int16 { -1 }
-}
+extension Cupping: FolderElement { }
 extension Sample: FolderElement {
     var date: Date { self.cupping.date }
 }
@@ -32,7 +29,6 @@ struct AnyFolderElement: Identifiable, Hashable {
     
     var id: NSManagedObjectID
     var wrapped: any FolderElement
-    var date: Date { self.wrapped.date }
     
     init(wrapped: any FolderElement) {
         self.id = wrapped.objectID
@@ -41,14 +37,14 @@ struct AnyFolderElement: Identifiable, Hashable {
 }
 
 class FolderFilter: Identifiable, Hashable {
-    var animationID: UUID
+    var animationId: UUID
     let ordinalNumber: Int
     let folder: Folder?
     let name: String
     let predicate: ([any FolderElement]) -> ([any FolderElement])
     
     init(folder: Folder) {
-        self.animationID = UUID()
+        self.animationId = UUID()
         self.ordinalNumber = Int.random(in: 0...10)
         self.folder = folder
         self.name = folder.name
@@ -56,7 +52,7 @@ class FolderFilter: Identifiable, Hashable {
     }
     
     init(name: String, ordinalNumber: Int, predicate: @escaping ([any FolderElement]) -> ([any FolderElement])) {
-        self.animationID = UUID()
+        self.animationId = UUID()
         self.ordinalNumber = ordinalNumber
         self.folder = nil
         self.name = name
@@ -81,7 +77,7 @@ struct MainTabToolbar: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 0) {
+            HStack(spacing: .small) {
                 ForEach(allFolderFilters) {
                     FolderFilterView($0, selected: $selectedFolderFilter)
                 }
@@ -108,7 +104,7 @@ struct MainTabToolbar: View {
                     .frame(maxHeight: .infinity)
                     .padding(.horizontal, .small)
                     .onTapGesture {
-                        folderFilter.animationID = UUID()
+                        folderFilter.animationId = UUID()
                         selectedFolderFilter = folderFilter
                     }
                 
@@ -116,6 +112,7 @@ struct MainTabToolbar: View {
                     Capsule()
                         .foregroundStyle(.accent)
                         .frame(height: 3)
+                        .matchedGeometryEffect(id: "folder.underline", in: NamespaceControllerModel.shared.namespace)
                 }
             }
         }

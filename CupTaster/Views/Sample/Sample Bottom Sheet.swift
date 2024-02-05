@@ -46,6 +46,7 @@ struct SampleBottomSheetConfiguration {
 }
 
 struct SampleBottomSheetView: View {
+    @ObservedObject var sampleGesturesControllerModel: SampleGesturesControllerModel = .shared
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     
     var body: some View {
@@ -69,7 +70,7 @@ struct SampleBottomSheetView: View {
                         elementWidth: SampleBottomSheetConfiguration.QCGroup.elementSize,
                         height: SampleBottomSheetConfiguration.QCGroup.height,
                         spacing: SampleBottomSheetConfiguration.QCGroup.spacing,
-                        gestureIsActive: $samplesControllerModel.criteriaPickerGestureIsActive
+                        gestureIsActive: $sampleGesturesControllerModel.criteriaPickerGestureIsActive
                     ) { qcGroup in
                         QCGroupView(qcGroup: qcGroup)
                     } onSelectionChange: { newSelection in
@@ -128,7 +129,7 @@ struct SampleBottomSheetView: View {
                     .padding(.vertical, SampleBottomSheetConfiguration.spacing - .extraSmall)
                     .blur(radius: .extraSmall)
             )
-            .opacity(samplesControllerModel.bottomSheetIsExpanded ? 1 : 0)
+            .opacity(sampleGesturesControllerModel.bottomSheetIsExpanded ? 1 : 0)
         }
         .animation(.easeInOut(duration: 0.5), value: samplesControllerModel.selectedSample)
         .padding(.vertical, SampleBottomSheetConfiguration.verticalPadding)
@@ -138,6 +139,7 @@ struct SampleBottomSheetView: View {
 
 extension SampleBottomSheetView {
     struct SheetModifier: ViewModifier {
+        @ObservedObject var sampleGesturesControllerModel: SampleGesturesControllerModel = .shared
         @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
         
         func body(content: Content) -> some View {
@@ -179,43 +181,43 @@ extension SampleBottomSheetView {
                         .edgesIgnoringSafeArea(.top)
                     }
                     .offset(
-                        y: samplesControllerModel.bottomSheetIsExpanded ?
+                        y: sampleGesturesControllerModel.bottomSheetIsExpanded ?
                         0 : geometry.size.height - SampleBottomSheetConfiguration.minHeight
                     )
-                    .offset(y: samplesControllerModel.bottomSheetOffset)
+                    .offset(y: sampleGesturesControllerModel.bottomSheetOffset)
                     .dragGesture(
                         gestureType: .simultaneous,
                         direction: .vertical,
                         onUpdate: { value in
                             let translation: CGFloat = value.translation.height
-                            if samplesControllerModel.bottomSheetIsExpanded {
+                            if sampleGesturesControllerModel.bottomSheetIsExpanded {
                                 if translation > 0 {
-                                    samplesControllerModel.bottomSheetOffset = translation
+                                    sampleGesturesControllerModel.bottomSheetOffset = translation
                                 } else {
                                     let additionalOffset: CGFloat = -sqrt(-translation)
-                                    samplesControllerModel.bottomSheetOffset = 0 + additionalOffset
+                                    sampleGesturesControllerModel.bottomSheetOffset = 0 + additionalOffset
                                 }
                             } else {
                                 let upperBound: CGFloat = -geometry.size.height + SampleBottomSheetConfiguration.minHeight
                                 if translation > upperBound {
-                                    samplesControllerModel.bottomSheetOffset = translation
+                                    sampleGesturesControllerModel.bottomSheetOffset = translation
                                 } else {
                                     let additionalOffset: CGFloat = -sqrt(upperBound - translation)
-                                    samplesControllerModel.bottomSheetOffset = upperBound + additionalOffset
+                                    sampleGesturesControllerModel.bottomSheetOffset = upperBound + additionalOffset
                                 }
                             }
                         }, onEnd: { value in
                             withAnimation(.bouncy) {
                                 if value.translation.height < -200 {
-                                    samplesControllerModel.bottomSheetIsExpanded = true
+                                    sampleGesturesControllerModel.bottomSheetIsExpanded = true
                                 } else if value.translation.height > 200 {
-                                    samplesControllerModel.bottomSheetIsExpanded = false
+                                    sampleGesturesControllerModel.bottomSheetIsExpanded = false
                                 }
-                                samplesControllerModel.bottomSheetOffset = 0
+                                sampleGesturesControllerModel.bottomSheetOffset = 0
                             }
                         }, onCancel: {
                             withAnimation(.bouncy) {
-                                samplesControllerModel.bottomSheetOffset = 0
+                                sampleGesturesControllerModel.bottomSheetOffset = 0
                             }
                         }
                     )

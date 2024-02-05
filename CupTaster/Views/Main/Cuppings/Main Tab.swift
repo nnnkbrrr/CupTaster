@@ -26,7 +26,6 @@ struct MainTabView: View {
     ) var folders: FetchedResults<Folder>
     @State var selectedFolderFilter: FolderFilter = FolderFilter.all
     @State var prevSelectedFolderFilterOrdinalNumber: Int = FolderFilter.all.ordinalNumber
-    @State var animationID: UUID = UUID()
     
     @State var newCuppingModalIsActive: Bool = false
     
@@ -41,46 +40,42 @@ struct MainTabView: View {
             ZStack {
                 ForEach(allFolderFilters) { folderFilter in
                     if selectedFolderFilter == folderFilter {
-                        GeometryReader { geometry in
-                            ScrollView {
-                                if let folderElementsGroupedByMonth: [Dictionary<Date, [AnyFolderElement]>.Element] =
-                                    getFolderElementsGroupedByMonth(folderFilter: folderFilter)
-                                {
-                                    LazyVStack(alignment: .leading, spacing: 0) {
-                                        ForEach(folderElementsGroupedByMonth, id: \.key) { date, anyFolderElements in
-                                            Text(DateFormatter.fullMonthAndYear.string(from: date))
-                                                .bold()
-                                                .padding(.horizontal, .extraSmall)
-                                                .frame(height: .smallElement)
+                        ScrollView {
+                            if let folderElementsGroupedByMonth: [(key: Date, value: (cuppings: [Cupping], samples: [Sample]))] =
+                                getFolderElementsGroupedByMonth(folderFilter: folderFilter)
+                            {
+                                LazyVStack(alignment: .leading, spacing: 0) {
+                                    ForEach(folderElementsGroupedByMonth, id: \.key) { date, folderElements in
+                                        Text(DateFormatter.fullMonthAndYear.string(from: date))
+                                            .bold()
+                                            .padding(.horizontal, .extraSmall)
+                                            .frame(height: .smallElement)
+                                        
+                                        LazyVStack(spacing: .extraSmall) {
+                                            ForEach(folderElements.cuppings) { CuppingPreview($0) }
                                             
                                             LazyVGrid(
                                                 columns: [
-                                                    GridItem(.flexible(), spacing: .extraSmall, alignment: .topLeading),
-                                                    GridItem(.flexible(), spacing: .extraSmall, alignment: .topLeading)
+                                                    GridItem(
+                                                        .adaptive(minimum: 150, maximum: 200),
+                                                        spacing: .extraSmall,
+                                                        alignment: .top
+                                                    )
                                                 ],
                                                 spacing: .extraSmall
                                             ) {
-                                                ForEach(anyFolderElements) { anyFolderElement in
-                                                    if let cupping: Cupping = anyFolderElement.wrapped as? Cupping {
-                                                        CuppingPreview(cupping)
-                                                            .frame(width: geometry.size.width - .small * 2)
-                                                        
-                                                        Color.clear
-                                                    } else if let sample = anyFolderElement.wrapped as? Sample {
-                                                        SamplePreview(sample, page: .main)
-                                                    }
-                                                }
+                                                ForEach(folderElements.samples) { SamplePreview($0, showCupping: true, animationId: folderFilter.animationId) }
                                             }
                                         }
                                     }
-                                    .padding(.horizontal, .small)
-                                } else {
-                                    isEmpty
                                 }
+                                .padding(.horizontal, .small)
+                            } else {
+                                isEmpty
                             }
                         }
                         .background(Color.backgroundPrimary)
-                        .id(selectedFolderFilter.animationID)
+                        .id(selectedFolderFilter.animationId)
                         .transition(.asymmetric(
                             insertion: .move(
                                 edge: prevSelectedFolderFilterOrdinalNumber > selectedFolderFilter.ordinalNumber ? .leading : .trailing
@@ -122,25 +117,31 @@ struct MainTabView: View {
 }
 
 extension MainTabView {
-    func getFolderElementsGroupedByMonth(folderFilter: FolderFilter) -> [Dictionary<Date, [AnyFolderElement]>.Element]? {
-        let filteredCuppings: [AnyFolderElement] = folderFilter.predicate(Array(cuppings)).map { .init(wrapped: $0) }
-        let filteredSamples: [AnyFolderElement] = folderFilter.predicate(Array(samples)).map { .init(wrapped: $0) }
-        let filteredFolderElements: [AnyFolderElement] = filteredCuppings + filteredSamples
+    func getFolderElementsGroupedByMonth(folderFilter: FolderFilter) -> [(key: Date, value: (cuppings: [Cupping], samples: [Sample]))]? {
+        let filteredCuppings: [Cupping] = folderFilter.predicate(Array(cuppings)).compactMap { $0 as? Cupping ?? nil }
+        let filteredSamples: [Sample] = folderFilter.predicate(Array(samples)).compactMap { $0 as? Sample ?? nil }
         
-        guard let firstElement: AnyFolderElement = filteredFolderElements.first else { return nil }
-        
-        var key: Date = firstElement.date
-        var groupedFolderElements: [Date: [AnyFolderElement]] = [key: [firstElement]]
-        
+        guard let firstCupping: Cupping = filteredCuppings.first else { return nil }
+        var key: Date = firstCupping.date
+        var groupedFolderElements: [Date: (cuppings: [Cupping], samples: [Sample])] = [key: (cuppings: [firstCupping], samples: [])]
+
         let calendar: Calendar = Calendar.current
-        for (prevElement, nextElement) in zip(filteredFolderElements, filteredFolderElements.dropFirst()) {
-            if !calendar.isDate(prevElement.date, equalTo: nextElement.date, toGranularity: .month) {
-                key = nextElement.date
+        for (prevCupping, nextCupping) in zip(filteredCuppings, filteredCuppings.dropFirst()) {
+            if !calendar.isDate(prevCupping.date, equalTo: nextCupping.date, toGranularity: .month) {
+                key = nextCupping.date
             }
-            groupedFolderElements[key, default: []].append(nextElement)
+            groupedFolderElements[key, default: (cuppings: [], samples: [])].cuppings.append(nextCupping)
         }
         
-        #warning("sort inner elements by ordinal number")
-        return groupedFolderElements.sorted(by: { $0.key > $1.key })
+        for (prevSample, nextSample) in zip(filteredSamples, filteredSamples.dropFirst()) {
+            if !calendar.isDate(prevSample.date, equalTo: nextSample.date, toGranularity: .month) {
+                key = nextSample.date
+            }
+            groupedFolderElements[key, default: (cuppings: [], samples: [])].samples.append(nextSample)
+        }
+        
+        return groupedFolderElements.mapValues { (cuppings: [Cupping], samples: [Sample]) in
+            (cuppings: cuppings.sorted(by: { $0.date < $1.date }), samples: samples.sorted(by: { $0.ordinalNumber < $1.ordinalNumber }) )
+        }.sorted(by: { $0.key > $1.key })
     }
 }

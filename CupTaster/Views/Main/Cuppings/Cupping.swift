@@ -29,15 +29,15 @@ struct CuppingView: View {
                         columns: [
                             GridItem(
                                 .adaptive(minimum: 150, maximum: 200),
-                                spacing: .small,
+                                spacing: .extraSmall,
                                 alignment: .top
                             )
                         ],
-                        spacing: .small
+                        spacing: .extraSmall
                     ) {
                         ForEach(cupping.sortedSamples) { sample in
                             if samplesControllerModel.selectedSample != sample {
-                                SamplePreview(sample, page: .cupping)
+                                SamplePreview(sample)
                             } else {
                                 Color.clear
                             }
@@ -106,62 +106,34 @@ extension CuppingView {
                     .foregroundStyle(.gray)
                     .padding(.vertical, .extraSmall)
                 
-//                VStack(spacing: .small) {
-//                    Text("Cups")
-//                        .font(.subheadline)
-//                        .foregroundStyle(.gray)
-//                    
-//                    TargetHorizontalScrollView(
-//                        1...5, selection: $cupsCount,
-//                        elementWidth: .smallElement, height: 18, spacing: .regular
-//                    ) { cupsNum in
-//                        Text("\(cupsNum)")
-//                            .foregroundStyle(cupsNum == cupsCount ? Color.primary : .gray)
-//                            .frame(width: .smallElement)
-//                    }
-//                    .mask(
-//                        LinearGradient(
-//                            gradient: Gradient(colors: [.clear, .black, .clear]),
-//                            startPoint: .leading,
-//                            endPoint: .trailing
-//                        )
-//                    )
-//                }
-//                .bottomSheetBlock()
-//                
-//                VStack(spacing: .small) {
-//                    Text("Samples")
-//                        .font(.subheadline)
-//                        .foregroundStyle(.gray)
-//                    
-//                    TargetHorizontalScrollView(
-//                        1...20, selection: $samplesCount,
-//                        elementWidth: .smallElement, height: 18, spacing: .regular
-//                    ) { samplesNum in
-//                        Text("\(samplesNum)")
-//                            .foregroundStyle(samplesNum == samplesCount ? Color.primary : .gray)
-//                            .frame(width: .smallElement)
-//                    }
-//                    .mask(
-//                        LinearGradient(
-//                            gradient: Gradient(colors: [.clear, .black, .clear]),
-//                            startPoint: .leading,
-//                            endPoint: .trailing
-//                        )
-//                    )
-//                }
-//                .bottomSheetBlock()
-                
                 HStack(spacing: .extraSmall) {
-                    VStack { }.bottomSheetBlock()
-                    VStack { }.bottomSheetBlock()
+                    Button {
+#warning("action")
+                    } label: {
+                        HStack(spacing: .extraSmall) {
+                            Image(systemName: "folder")
+                            Text("Folders")
+                        }
+                    }
+                    .buttonStyle(.bottomSheetBlock)
+                    
+                    Button {
+#warning("action")
+                    } label: {
+                        HStack(spacing: .extraSmall) {
+                            Image(systemName: "square.and.arrow.up")
+                            Text("Share")
+                        }
+                    }
+                    .buttonStyle(.bottomSheetBlock)
                 }
                 
+#warning("location block")
                 VStack { }.bottomSheetBlock()
                 
                 HStack(spacing: .extraSmall) {
                     Button {
-                        #warning("action")
+#warning("action")
                     } label: {
                         Text("Delete")
                             .foregroundStyle(.red)

@@ -9,50 +9,32 @@ import SwiftUI
 
 class SamplesControllerModel: ObservableObject {
     static let shared: SamplesControllerModel = .init()
-    var namespace: Namespace.ID
+    private init() { }
     
     enum Page { case main, cupping }
-    
-    private init() {
-        @Namespace var namespace
-        self.namespace = namespace
-    }
-    
-    // Sample General Values
     
     @Published private(set) var isActive: Bool = false
     @Published var isTogglingVisibility: Bool = false
     
-    @Published private(set) var currentPage: Page?
+    @Published private(set) var sampleAnimationID: UUID?
     @Published private(set) var cupping: Cupping?
     @Published private(set) var selectedSample: Sample?
+    @Published fileprivate(set) var selectedSampleIndex: Int = 0
     @Published public var selectedQCGroup: QCGroup?
     @Published public var selectedCriteria: QualityCriteria?
-    
-    // Sample Swipe Gestures
-    
-    @Published private(set) var selectedSampleIndex: Int = 0
-    @Published private(set) var swipeOffset: CGFloat = 0
-    @Published private(set) var firstSampleRotationAngle: Angle = .degrees(0)
-    @Published private(set) var lastSampleRotationAngle: Angle = .degrees(0)
-    @Published private var swipeTransition: Bool = false
-    @Published public var samplePickerGestureIsActive: Bool = false
-    let impactStyle: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-    
-    // Sample Bottom Sheet Gestures
-    
-    @Published public var bottomSheetIsExpanded: Bool = false
-    @Published public var bottomSheetOffset: CGFloat = 0
-    @Published public var criteriaPickerGestureIsActive: Bool = false
 }
 
-// General Functions
+extension SampleGesturesControllerModel {
+    func setSelectedSampleIndex(_ index: Int) {
+        SamplesControllerModel.shared.selectedSampleIndex = index
+    }
+}
 
 extension SamplesControllerModel {
-    public func setSelectedSample(_ sample: Sample, page: Page) {
-        currentPage = page
+    public func setSelectedSample(_ sample: Sample, animationId: UUID? = nil) {
         if !isTogglingVisibility {
             self.isTogglingVisibility = true
+            self.sampleAnimationID = animationId
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.isTogglingVisibility = false
@@ -104,117 +86,7 @@ extension SamplesControllerModel {
         }
         
         DispatchQueue.main.async {
-            self.currentPage = nil
+            self.sampleAnimationID = nil
         }
-    }
-}
-
-// Sample Swipe Functions
-
-extension SamplesControllerModel {
-    func onSwipeStarted() {
-        samplePickerGestureIsActive = true
-        changeSelectedSample(sample: nil)
-    }
-    
-    func onSwipeUpdated(value: DragGesture.Value) {
-        guard let cupping, cupping.samples.count > 0 else { return }
-        let translation: CGFloat = value.translation.width
-        
-        if translation > 0 {
-            if selectedSampleIndex > 0 && !swipeTransition {
-                swipeOffset = translation
-                firstSampleRotationAngle = .zero
-                lastSampleRotationAngle = .zero
-            } else {
-                self.swipeOffset = 0
-                let angle: CGFloat = translation > 360 ? 180 : translation / 2
-                if angle > 90 {
-                    swipeTransition = true
-                    lastSampleRotationAngle = .degrees(-180 + angle)
-                    firstSampleRotationAngle = .zero
-                    if selectedSampleIndex != cupping.samples.count - 1 {
-                        selectedSampleIndex = cupping.samples.count - 1
-                        impactStyle.impactOccurred()
-                    }
-                } else {
-                    swipeTransition = false
-                    if selectedSampleIndex != 0 {
-                        selectedSampleIndex = 0
-                        impactStyle.impactOccurred()
-                    }
-                    firstSampleRotationAngle = .degrees(angle)
-                    lastSampleRotationAngle = .zero
-                }
-            }
-        } else {
-            if selectedSampleIndex < cupping.sortedSamples.count - 1 && !swipeTransition {
-                self.swipeOffset = translation
-                self.firstSampleRotationAngle = .zero
-                self.lastSampleRotationAngle = .zero
-            } else {
-                self.swipeOffset = 0
-                let angle: CGFloat = translation < -360 ? -180 : translation / 2
-                if angle < -90 {
-                    self.swipeTransition = true
-                    if selectedSampleIndex != 0 {
-                        selectedSampleIndex = 0
-                        impactStyle.impactOccurred()
-                    }
-                    self.firstSampleRotationAngle = .degrees(180 + angle)
-                    self.lastSampleRotationAngle = .zero
-                } else {
-                    self.swipeTransition = false
-                    if selectedSampleIndex != cupping.samples.count - 1 {
-                        selectedSampleIndex = cupping.samples.count - 1
-                        impactStyle.impactOccurred()
-                    }
-                    self.lastSampleRotationAngle = .degrees(angle)
-                    self.firstSampleRotationAngle = .zero
-                }
-            }
-        }
-    }
-    
-    func onSwipeEnded(value: DragGesture.Value) {
-        guard let cupping, cupping.samples.count > 0 else { return }
-        
-        let translation: CGFloat = value.translation.width
-        let predictedEndTranslation: CGFloat = value.predictedEndTranslation.width
-        
-        if firstSampleRotationAngle != .zero {
-            selectedSampleIndex = 0
-            withAnimation(.bouncy) { firstSampleRotationAngle = .zero }
-        } else if lastSampleRotationAngle != .zero {
-            selectedSampleIndex = cupping.sortedSamples.count - 1
-            withAnimation(.bouncy) { lastSampleRotationAngle = .zero }
-        } else if abs(translation) > 150 || abs(predictedEndTranslation) > 250 {
-            withAnimation(.bouncy) {
-                selectedSampleIndex = selectedSampleIndex - (translation > 0 ? 1 : -1)
-                swipeOffset = 0
-            }
-        } else {
-            withAnimation(.bouncy) { swipeOffset = 0 }
-        }
-        
-        changeSelectedSample(sample: cupping.sortedSamples[selectedSampleIndex])
-        swipeTransition = false
-        samplePickerGestureIsActive = false
-    }
-    
-    func onSwipeCanceled() {
-        guard let cupping, cupping.samples.count > 0 else { return }
-        
-        if [swipeOffset, firstSampleRotationAngle.degrees, lastSampleRotationAngle.degrees].contains(where: { $0 != 0 }) {
-            withAnimation(.smooth) {
-                swipeOffset = 0
-                firstSampleRotationAngle.degrees = 0
-                lastSampleRotationAngle.degrees = 0
-                changeSelectedSample(sample: cupping.sortedSamples[selectedSampleIndex])
-            }
-        } else {
-            changeSelectedSample(sample: cupping.sortedSamples[selectedSampleIndex])
-        }
-        samplePickerGestureIsActive = false
     }
 }

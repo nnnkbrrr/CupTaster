@@ -29,10 +29,14 @@ struct SampleView: View {
                             
                             let matchedGeometryId: String = {
                                 let activityIndicator: String = samplesControllerModel.isTogglingVisibility ? "" : ".inactive"
-                                if let selectedSample: Sample = samplesControllerModel.selectedSample {
-                                    return "\(samplesControllerModel.currentPage).radar.chart.container.\(selectedSample.id)" + activityIndicator
+                                var animationId: String {
+                                    if let sampleAnimationID = samplesControllerModel.sampleAnimationID { return sampleAnimationID.uuidString }
+                                    else { return "no-animation-id" }
                                 }
-                                return "\(samplesControllerModel.currentPage).radar.chart.container.empty"
+                                if let selectedSample: Sample = samplesControllerModel.selectedSample {
+                                    return "\(animationId).radar.chart.\(selectedSample.id).container" + activityIndicator
+                                }
+                                return "\(animationId).radar.chart.empty.container"
                             }()
                             
                             if samplesControllerModel.isActive {
@@ -43,7 +47,7 @@ struct SampleView: View {
                                     .scaleEffect(radarChartZoomedOnAppear ? 1.2 : 1)
                                     .matchedGeometryEffect(
                                         id: matchedGeometryId,
-                                        in: samplesControllerModel.namespace
+                                        in: NamespaceControllerModel.shared.namespace
                                     )
                             } else {
                                 Color.clear

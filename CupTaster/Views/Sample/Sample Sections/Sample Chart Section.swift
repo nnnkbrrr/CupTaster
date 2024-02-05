@@ -25,7 +25,7 @@ extension SampleView {
                     RoseChart()
                         .matchedGeometryEffect(
                             id: matchedGeometryId,
-                            in: samplesControllerModel.namespace
+                            in: NamespaceControllerModel.shared.namespace
                         )
                         .zIndex(2.1)
                 }

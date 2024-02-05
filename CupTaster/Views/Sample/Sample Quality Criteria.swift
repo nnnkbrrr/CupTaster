@@ -27,11 +27,11 @@ struct QCGroupView: View {
             if samplesControllerModel.selectedQCGroup == qcGroup {
                 QCGroupValueView(qcGroup: qcGroup, score: $score)
                     .frame(maxWidth: .infinity)
-                    .matchedGeometryEffect(id: qcGroup.id, in: samplesControllerModel.namespace)
+                    .matchedGeometryEffect(id: qcGroup.id, in: NamespaceControllerModel.shared.namespace)
             } else {
                 Text(String(qcGroup.configuration.title.prefix(2)))
                     .frame(maxWidth: .infinity)
-                    .matchedGeometryEffect(id: qcGroup.id, in: samplesControllerModel.namespace)
+                    .matchedGeometryEffect(id: qcGroup.id, in: NamespaceControllerModel.shared.namespace)
                     .font(.caption)
             }
         }

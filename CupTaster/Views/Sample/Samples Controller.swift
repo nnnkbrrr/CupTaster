@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SamplesControllerView: View {
+    @ObservedObject var sampleGesturesControllerModel: SampleGesturesControllerModel = .shared
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     
     var body: some View {
@@ -17,10 +18,10 @@ struct SamplesControllerView: View {
                     .dragGesture (
                         gestureType: .highPriority,
                         direction: .horizontal,
-                        onStart: { samplesControllerModel.onSwipeStarted() },
-                        onUpdate: { samplesControllerModel.onSwipeUpdated(value: $0) },
-                        onEnd: { samplesControllerModel.onSwipeEnded(value: $0) },
-                        onCancel: { samplesControllerModel.onSwipeCanceled() }
+                        onStart: { sampleGesturesControllerModel.onSwipeStarted() },
+                        onUpdate: { sampleGesturesControllerModel.onSwipeUpdated(value: $0) },
+                        onEnd: { sampleGesturesControllerModel.onSwipeEnded(value: $0) },
+                        onCancel: { sampleGesturesControllerModel.onSwipeCanceled() }
                     )
                 
                 SampleBottomSheetView()
@@ -30,13 +31,13 @@ struct SamplesControllerView: View {
             .safeAreaInset(edge: .top, spacing: 0) {
                 SamplesControllerPagesView()
             }
-            .ignoresSafeArea(samplesControllerModel.bottomSheetIsExpanded ? [] : .keyboard)
+            .ignoresSafeArea(sampleGesturesControllerModel.bottomSheetIsExpanded ? [] : .keyboard)
             .dragGesture (
                 direction: .horizontal,
-                onStart: { samplesControllerModel.onSwipeStarted() },
-                onUpdate: { samplesControllerModel.onSwipeUpdated(value: $0) },
-                onEnd: { samplesControllerModel.onSwipeEnded(value: $0) },
-                onCancel: { samplesControllerModel.onSwipeCanceled() }
+                onStart: { sampleGesturesControllerModel.onSwipeStarted() },
+                onUpdate: { sampleGesturesControllerModel.onSwipeUpdated(value: $0) },
+                onEnd: { sampleGesturesControllerModel.onSwipeEnded(value: $0) },
+                onCancel: { sampleGesturesControllerModel.onSwipeCanceled() }
             )
         }
     }

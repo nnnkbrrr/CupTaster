@@ -31,7 +31,7 @@
 		6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6327BEB628609432000CB3AB /* DataModel.xcdatamodeld */; };
 		632F5D2529D83EAE00D7FFB7 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 632F5D2429D83EAE00D7FFB7 /* CodeScanner */; };
 		633042452B4C5ACE005BD8F2 /* Sample Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633042442B4C5ACE005BD8F2 /* Sample Elements.swift */; };
-		6331CE802B1B90990078984F /* Sample Name Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6331CE7F2B1B90990078984F /* Sample Name Generator.swift */; };
+		6331CE802B1B90990078984F /* Sample Name Generator Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6331CE7F2B1B90990078984F /* Sample Name Generator Model.swift */; };
 		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
 		6348EE4B2B46F7010061B5AA /* Sample Delete Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348EE4A2B46F7010061B5AA /* Sample Delete Section.swift */; };
 		6348EE4D2B46F7CF0061B5AA /* Sample General Info Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348EE4C2B46F7CF0061B5AA /* Sample General Info Section.swift */; };
@@ -47,9 +47,9 @@
 		636712F82AF66CE80042DB00 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636712F72AF66CE80042DB00 /* Blur.swift */; };
 		636831392B4D8E91008763B1 /* Bottom Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636831382B4D8E91008763B1 /* Bottom Sheet.swift */; };
 		63684CD929AA78C8009C1BDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 63684CDB29AA78C8009C1BDA /* Localizable.strings */; };
-		63729F942A6D7B9300EF0FEE /* Cupping Sample Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63729F932A6D7B9300EF0FEE /* Cupping Sample Preview.swift */; };
+		63729F942A6D7B9300EF0FEE /* Sample Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63729F932A6D7B9300EF0FEE /* Sample Preview.swift */; };
 		63729F962A6DAF6700EF0FEE /* Sample Tools Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63729F952A6DAF6600EF0FEE /* Sample Tools Section.swift */; };
-		6372A3712B4FEBD300925E0B /* New Cupping Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372A3702B4FEBD300925E0B /* New Cupping Modal.swift */; };
+		6372A3712B4FEBD300925E0B /* Main Tab New Cupping Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372A3702B4FEBD300925E0B /* Main Tab New Cupping Modal.swift */; };
 		6372A3732B4FF46400925E0B /* Bottom Sheet Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372A3722B4FF46400925E0B /* Bottom Sheet Block.swift */; };
 		6372A3752B4FF7F200925E0B /* Resizable Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372A3742B4FF7F200925E0B /* Resizable Text.swift */; };
 		63739BB42A71251200C779ED /* Sample Quality Criteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63739BB32A71251200C779ED /* Sample Quality Criteria.swift */; };
@@ -78,7 +78,9 @@
 		63DC7A582801BE7800010318 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DC7A572801BE7800010318 /* ContentView.swift */; };
 		63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A592801BE7A00010318 /* Assets.xcassets */; };
 		63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DC7A5C2801BE7A00010318 /* Preview Assets.xcassets */; };
-		63DD44E32B6FCFA100F1D256 /* Main Tab Cupping Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD44E22B6FCFA100F1D256 /* Main Tab Cupping Preview.swift */; };
+		63DD44E32B6FCFA100F1D256 /* Cupping Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD44E22B6FCFA100F1D256 /* Cupping Preview.swift */; };
+		63DD44E52B71213D00F1D256 /* Sample Gestures Controller Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD44E42B71213D00F1D256 /* Sample Gestures Controller Model.swift */; };
+		63DD44E72B7133D100F1D256 /* Namespace Controller Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD44E62B7133D100F1D256 /* Namespace Controller Model.swift */; };
 		63DDB6892A5C0FED00C8ADD6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DDB6882A5C0FED00C8ADD6 /* DateFormatter.swift */; };
 		63DE551F2B67E0AC00A21E24 /* Samples Controller Pages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE551E2B67E0AC00A21E24 /* Samples Controller Pages.swift */; };
 		63DE55202B68088B00A21E24 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
@@ -121,7 +123,7 @@
 		6320A3B02A72BFB70069E6B9 /* Unsupported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unsupported.swift; sourceTree = "<group>"; };
 		6327BEB728609432000CB3AB /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		633042442B4C5ACE005BD8F2 /* Sample Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Elements.swift"; sourceTree = "<group>"; };
-		6331CE7F2B1B90990078984F /* Sample Name Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Name Generator.swift"; sourceTree = "<group>"; };
+		6331CE7F2B1B90990078984F /* Sample Name Generator Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Name Generator Model.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		6348EE4A2B46F7010061B5AA /* Sample Delete Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Delete Section.swift"; sourceTree = "<group>"; };
 		6348EE4C2B46F7CF0061B5AA /* Sample General Info Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample General Info Section.swift"; sourceTree = "<group>"; };
@@ -138,9 +140,9 @@
 		63684CDA29AA78C8009C1BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		63684CDD29AA7986009C1BDA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6371088A288032F60073348C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		63729F932A6D7B9300EF0FEE /* Cupping Sample Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Sample Preview.swift"; sourceTree = "<group>"; };
+		63729F932A6D7B9300EF0FEE /* Sample Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Preview.swift"; sourceTree = "<group>"; };
 		63729F952A6DAF6600EF0FEE /* Sample Tools Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Tools Section.swift"; sourceTree = "<group>"; };
-		6372A3702B4FEBD300925E0B /* New Cupping Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Cupping Modal.swift"; sourceTree = "<group>"; };
+		6372A3702B4FEBD300925E0B /* Main Tab New Cupping Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main Tab New Cupping Modal.swift"; sourceTree = "<group>"; };
 		6372A3722B4FF46400925E0B /* Bottom Sheet Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bottom Sheet Block.swift"; sourceTree = "<group>"; };
 		6372A3742B4FF7F200925E0B /* Resizable Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resizable Text.swift"; sourceTree = "<group>"; };
 		63739BB32A71251200C779ED /* Sample Quality Criteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Quality Criteria.swift"; sourceTree = "<group>"; };
@@ -173,7 +175,9 @@
 		63DC7A572801BE7800010318 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		63DC7A592801BE7A00010318 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63DC7A5C2801BE7A00010318 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		63DD44E22B6FCFA100F1D256 /* Main Tab Cupping Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main Tab Cupping Preview.swift"; sourceTree = "<group>"; };
+		63DD44E22B6FCFA100F1D256 /* Cupping Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Preview.swift"; sourceTree = "<group>"; };
+		63DD44E42B71213D00F1D256 /* Sample Gestures Controller Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Gestures Controller Model.swift"; sourceTree = "<group>"; };
+		63DD44E62B7133D100F1D256 /* Namespace Controller Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Namespace Controller Model.swift"; sourceTree = "<group>"; };
 		63DDB6882A5C0FED00C8ADD6 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		63DE551E2B67E0AC00A21E24 /* Samples Controller Pages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Samples Controller Pages.swift"; sourceTree = "<group>"; };
 		63E12F302B2353C4000FAACA /* Sample Placeholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Placeholders.swift"; sourceTree = "<group>"; };
@@ -308,15 +312,6 @@
 			path = CupTasterTests;
 			sourceTree = "<group>";
 		};
-		639AB6932A57250200CB04F7 /* Cupping */ = {
-			isa = PBXGroup;
-			children = (
-				639AB6942A57258300CB04F7 /* Cupping.swift */,
-				63729F932A6D7B9300EF0FEE /* Cupping Sample Preview.swift */,
-			);
-			path = Cupping;
-			sourceTree = "<group>";
-		};
 		63A1A9142A5584FA008D30CE /* Styles */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,8 +331,9 @@
 		63A88CFE2A4C90C20006AA0F /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				63DD44E22B6FCFA100F1D256 /* Cupping Preview.swift */,
+				63729F932A6D7B9300EF0FEE /* Sample Preview.swift */,
 				63A88CFF2A4C90CC0006AA0F /* Cuppings */,
-				639AB6932A57250200CB04F7 /* Cupping */,
 				6319F8672A5D59E700EECD62 /* Settings */,
 			);
 			path = Main;
@@ -347,10 +343,10 @@
 			isa = PBXGroup;
 			children = (
 				63A88CFC2A4C90880006AA0F /* Main Tab.swift */,
-				63DD44E22B6FCFA100F1D256 /* Main Tab Cupping Preview.swift */,
 				631A44C32B6E7842006B6AA7 /* Main Tab Folders.swift */,
 				63198EA02A570846004634ED /* Main Tab Empty.swift */,
-				6372A3702B4FEBD300925E0B /* New Cupping Modal.swift */,
+				6372A3702B4FEBD300925E0B /* Main Tab New Cupping Modal.swift */,
+				639AB6942A57258300CB04F7 /* Cupping.swift */,
 			);
 			path = Cuppings;
 			sourceTree = "<group>";
@@ -387,7 +383,9 @@
 			isa = PBXGroup;
 			children = (
 				63B75D942A6D6549002C350A /* Samples Controller Model.swift */,
-				6331CE7F2B1B90990078984F /* Sample Name Generator.swift */,
+				63DD44E42B71213D00F1D256 /* Sample Gestures Controller Model.swift */,
+				63DD44E62B7133D100F1D256 /* Namespace Controller Model.swift */,
+				6331CE7F2B1B90990078984F /* Sample Name Generator Model.swift */,
 				63A88D092A4C98E00006AA0F /* Evaluation.swift */,
 				6320A3A92A72BF000069E6B9 /* Evaluation Types */,
 				63A88D0C2A4C99380006AA0F /* Cupping Forms */,
@@ -604,7 +602,7 @@
 				6372A3732B4FF46400925E0B /* Bottom Sheet Block.swift in Sources */,
 				633042452B4C5ACE005BD8F2 /* Sample Elements.swift in Sources */,
 				63A88CFD2A4C90880006AA0F /* Main Tab.swift in Sources */,
-				6331CE802B1B90990078984F /* Sample Name Generator.swift in Sources */,
+				6331CE802B1B90990078984F /* Sample Name Generator Model.swift in Sources */,
 				63DE551F2B67E0AC00A21E24 /* Samples Controller Pages.swift in Sources */,
 				63729F962A6DAF6700EF0FEE /* Sample Tools Section.swift in Sources */,
 				630AD6132B2361CC0016DBFA /* Sample Final Score Section.swift in Sources */,
@@ -620,7 +618,7 @@
 				63B75D972A6D6799002C350A /* Samples Controller.swift in Sources */,
 				63A88D0A2A4C98E00006AA0F /* Evaluation.swift in Sources */,
 				636712F82AF66CE80042DB00 /* Blur.swift in Sources */,
-				6372A3712B4FEBD300925E0B /* New Cupping Modal.swift in Sources */,
+				6372A3712B4FEBD300925E0B /* Main Tab New Cupping Modal.swift in Sources */,
 				22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */,
 				63A88D042A4C92A40006AA0F /* Stopwatch.swift in Sources */,
 				22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */,
@@ -641,11 +639,12 @@
 				63A88D152A4C9B780006AA0F /* CFModel.swift in Sources */,
 				636712F42AF637900042DB00 /* Drag Gesture.swift in Sources */,
 				636831392B4D8E91008763B1 /* Bottom Sheet.swift in Sources */,
-				63729F942A6D7B9300EF0FEE /* Cupping Sample Preview.swift in Sources */,
+				63729F942A6D7B9300EF0FEE /* Sample Preview.swift in Sources */,
+				63DD44E72B7133D100F1D256 /* Namespace Controller Model.swift in Sources */,
 				636712F02AF62F190042DB00 /* Sample Bottom Sheet.swift in Sources */,
 				63A223082B23AC7D0066AFD3 /* Sample Checkboxes Section.swift in Sources */,
 				6319F8692A5D59F700EECD62 /* Settings.swift in Sources */,
-				63DD44E32B6FCFA100F1D256 /* Main Tab Cupping Preview.swift in Sources */,
+				63DD44E32B6FCFA100F1D256 /* Cupping Preview.swift in Sources */,
 				6320A3B12A72BFB70069E6B9 /* Unsupported.swift in Sources */,
 				63A88D062A4C92E00006AA0F /* AppStorage Extensions.swift in Sources */,
 				63DC7A562801BE7800010318 /* CupTasterApp.swift in Sources */,
@@ -656,6 +655,7 @@
 				63198EA12A570846004634ED /* Main Tab Empty.swift in Sources */,
 				226CF02428F19FAF00F853B9 /* QCHint Entity.swift in Sources */,
 				63A88D172A4C9B8C0006AA0F /* CFManager.swift in Sources */,
+				63DD44E52B71213D00F1D256 /* Sample Gestures Controller Model.swift in Sources */,
 				22242C7828EF267500138494 /* Sample Entity.swift in Sources */,
 				639B18B42B5EFC9200F21E53 /* Sample Sheet Value Hints.swift in Sources */,
 				63E7F9132B0677E600415B13 /* Target Scroll.swift in Sources */,
@@ -854,7 +854,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
@@ -896,7 +896,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;

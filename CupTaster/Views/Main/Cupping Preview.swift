@@ -65,6 +65,12 @@ extension MainTabView {
                             
                             Spacer()
                             
+                            if cupping.isFavorite {
+                                Image(systemName: "heart.fill")
+                                    .foregroundStyle(.red)
+                                    .font(.caption)
+                            }
+                            
                             Text(cupping.date.short)
                                 .font(.caption)
                                 .foregroundStyle(.gray)
@@ -108,10 +114,14 @@ extension MainTabView {
             .contextMenu {
                 Section {
                     Button {
-#warning("context menu")
+                        cupping.isFavorite.toggle()
+                        try? moc.save()
                     } label: {
-#warning("label depends on if is favorite")
-                        Label("Add to Favorites", systemImage: "heart")
+                        if cupping.isFavorite {
+                            Label("Remove from Favorites", systemImage: "heart.slash.fill")
+                        } else {
+                            Label("Add to Favorites", systemImage: "heart")
+                        }
                     }
                     
                     Button {

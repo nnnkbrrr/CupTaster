@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SampleNameGenerator {
+struct SampleNameGeneratorModel {
     enum GenerationMethod: RawRepresentable {
         case alphabetical, numerical
         
@@ -29,7 +29,7 @@ struct SampleNameGenerator {
     @AppStorage("sample-name-generator-method")
     static var generationMethod: GenerationMethod = .alphabetical
     
-    func generateSampleDefaultName(usedNames: [String]) -> String {
+    static func generateSampleDefaultName(usedNames: [String]) -> String {
         if Self.generationMethod == .alphabetical {
             let letters: [String] = (65..<91).map(UnicodeScalar.init).map { String($0) }
             

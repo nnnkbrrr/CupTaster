@@ -36,6 +36,25 @@ struct NewCuppingModalView: View {
                 }
                 .bottomSheetBlock()
             
+            HStack(spacing: 0) {
+                Group {
+                    if let cuppingForm: CuppingForm = CFManager.shared.getDefaultCuppingForm(from: cuppingForms) {
+                        Text(cuppingForm.title)
+                    }
+                    Text(" • ")
+                    
+                    Text("#BLANK#")
+                        .foregroundStyle(.backgroundTertiary)
+#warning("location service")
+                    
+                    Text(" • ")
+                    Text(Date().short)
+                }
+                .font(.caption)
+                .foregroundStyle(.gray)
+            }
+            .frame(height: .large)
+            
             VStack(spacing: .small) {
                 Text("Cups")
                     .font(.subheadline)

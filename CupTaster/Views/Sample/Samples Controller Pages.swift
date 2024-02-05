@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SamplesControllerPagesView: View {
+    @ObservedObject var sampleGesturesControllerModel: SampleGesturesControllerModel = .shared
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     
     @FocusState var sampleNameTextfieldFocus: ObjectIdentifier?
@@ -43,18 +44,18 @@ struct SamplesControllerPagesView: View {
                                 
                                 SampleNameTextField(sample: sample, gsw: geometry.size.width, sampleNameTextfieldFocus: _sampleNameTextfieldFocus)
                                     .rotation3DEffect(
-                                        isFirst ? samplesControllerModel.firstSampleRotationAngle : .zero,
+                                        isFirst ? sampleGesturesControllerModel.firstSampleRotationAngle : .zero,
                                         axis: (0, 1, 0)
                                     )
                                     .rotation3DEffect(
-                                        isLast ? samplesControllerModel.lastSampleRotationAngle : .zero,
+                                        isLast ? sampleGesturesControllerModel.lastSampleRotationAngle : .zero,
                                         axis: (0, 1, 0)
                                     )
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .offset(x: CGFloat(samplesControllerModel.selectedSampleIndex) * sampleOffset)
-                        .offset(x: samplesControllerModel.swipeOffset)
+                        .offset(x: sampleGesturesControllerModel.swipeOffset)
                     }
                     .frame(height: .smallElementContainer)
                 }

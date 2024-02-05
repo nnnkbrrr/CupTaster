@@ -35,7 +35,7 @@ extension Cupping {
         
         for _ in 1...samplesCount {
             let usedNames: [String] = self.samples.map { $0.name }
-            let defaultName: String = SampleNameGenerator().generateSampleDefaultName(usedNames: usedNames)
+            let defaultName: String = SampleNameGeneratorModel.generateSampleDefaultName(usedNames: usedNames)
             
             let sample: Sample = Sample(context: moc)
             
