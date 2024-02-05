@@ -81,6 +81,8 @@
 		63DD44E32B6FCFA100F1D256 /* Cupping Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD44E22B6FCFA100F1D256 /* Cupping Preview.swift */; };
 		63DD44E52B71213D00F1D256 /* Sample Gestures Controller Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD44E42B71213D00F1D256 /* Sample Gestures Controller Model.swift */; };
 		63DD44E72B7133D100F1D256 /* Namespace Controller Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD44E62B7133D100F1D256 /* Namespace Controller Model.swift */; };
+		63DD44E92B71403900F1D256 /* Cupping Settings Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD44E82B71403900F1D256 /* Cupping Settings Modal.swift */; };
+		63DD44EB2B71503D00F1D256 /* Date Component Extractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD44EA2B71503D00F1D256 /* Date Component Extractor.swift */; };
 		63DDB6892A5C0FED00C8ADD6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DDB6882A5C0FED00C8ADD6 /* DateFormatter.swift */; };
 		63DE551F2B67E0AC00A21E24 /* Samples Controller Pages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE551E2B67E0AC00A21E24 /* Samples Controller Pages.swift */; };
 		63DE55202B68088B00A21E24 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63742D6528801D02001E8DAB /* CloudKit.framework */; };
@@ -178,6 +180,8 @@
 		63DD44E22B6FCFA100F1D256 /* Cupping Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Preview.swift"; sourceTree = "<group>"; };
 		63DD44E42B71213D00F1D256 /* Sample Gestures Controller Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Gestures Controller Model.swift"; sourceTree = "<group>"; };
 		63DD44E62B7133D100F1D256 /* Namespace Controller Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Namespace Controller Model.swift"; sourceTree = "<group>"; };
+		63DD44E82B71403900F1D256 /* Cupping Settings Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cupping Settings Modal.swift"; sourceTree = "<group>"; };
+		63DD44EA2B71503D00F1D256 /* Date Component Extractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date Component Extractor.swift"; sourceTree = "<group>"; };
 		63DDB6882A5C0FED00C8ADD6 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		63DE551E2B67E0AC00A21E24 /* Samples Controller Pages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Samples Controller Pages.swift"; sourceTree = "<group>"; };
 		63E12F302B2353C4000FAACA /* Sample Placeholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Placeholders.swift"; sourceTree = "<group>"; };
@@ -347,6 +351,7 @@
 				63198EA02A570846004634ED /* Main Tab Empty.swift */,
 				6372A3702B4FEBD300925E0B /* Main Tab New Cupping Modal.swift */,
 				639AB6942A57258300CB04F7 /* Cupping.swift */,
+				63DD44E82B71403900F1D256 /* Cupping Settings Modal.swift */,
 			);
 			path = Cuppings;
 			sourceTree = "<group>";
@@ -360,6 +365,7 @@
 				636712F32AF637900042DB00 /* Drag Gesture.swift */,
 				630AD6142B23A0210016DBFA /* Subscripts.swift */,
 				6355CABA2B5038320069A7E9 /* Dismiss Keyboard.swift */,
+				63DD44EA2B71503D00F1D256 /* Date Component Extractor.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -601,6 +607,7 @@
 				637CB7CE2B386EF50056C32D /* Navigation Appearance.swift in Sources */,
 				6372A3732B4FF46400925E0B /* Bottom Sheet Block.swift in Sources */,
 				633042452B4C5ACE005BD8F2 /* Sample Elements.swift in Sources */,
+				63DD44EB2B71503D00F1D256 /* Date Component Extractor.swift in Sources */,
 				63A88CFD2A4C90880006AA0F /* Main Tab.swift in Sources */,
 				6331CE802B1B90990078984F /* Sample Name Generator Model.swift in Sources */,
 				63DE551F2B67E0AC00A21E24 /* Samples Controller Pages.swift in Sources */,
@@ -633,6 +640,7 @@
 				22242C8428EF27FF00138494 /* QCGroupConfig Entity.swift in Sources */,
 				6372A3752B4FF7F200925E0B /* Resizable Text.swift in Sources */,
 				22242C7E28EF274900138494 /* QualityCriteria Entity.swift in Sources */,
+				63DD44E92B71403900F1D256 /* Cupping Settings Modal.swift in Sources */,
 				6348EE4B2B46F7010061B5AA /* Sample Delete Section.swift in Sources */,
 				6355CAB92B502B100069A7E9 /* Sample Sheet Section.swift in Sources */,
 				631422732B3AC79200683F7F /* Sample Chart Section.swift in Sources */,
@@ -854,7 +862,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
@@ -896,7 +904,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;

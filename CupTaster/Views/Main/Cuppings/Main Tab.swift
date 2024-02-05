@@ -41,12 +41,12 @@ struct MainTabView: View {
                 ForEach(allFolderFilters) { folderFilter in
                     if selectedFolderFilter == folderFilter {
                         ScrollView {
-                            if let folderElementsGroupedByMonth: [(key: Date, value: (cuppings: [Cupping], samples: [Sample]))] =
+                            if let folderElementsGroupedByMonth: [(key: MonthAndYear, value: (cuppings: [Cupping], samples: [Sample]))] =
                                 getFolderElementsGroupedByMonth(folderFilter: folderFilter)
                             {
                                 LazyVStack(alignment: .leading, spacing: 0) {
-                                    ForEach(folderElementsGroupedByMonth, id: \.key) { date, folderElements in
-                                        Text(DateFormatter.fullMonthAndYear.string(from: date))
+                                    ForEach(folderElementsGroupedByMonth, id: \.key) { monthAndYear, folderElements in
+                                        Text(monthAndYear.string)
                                             .bold()
                                             .padding(.horizontal, .extraSmall)
                                             .frame(height: .smallElement)
@@ -117,31 +117,24 @@ struct MainTabView: View {
 }
 
 extension MainTabView {
-    func getFolderElementsGroupedByMonth(folderFilter: FolderFilter) -> [(key: Date, value: (cuppings: [Cupping], samples: [Sample]))]? {
+    func getFolderElementsGroupedByMonth(folderFilter: FolderFilter) -> [(key: MonthAndYear, value: (cuppings: [Cupping], samples: [Sample]))]? {
         let filteredCuppings: [Cupping] = folderFilter.predicate(Array(cuppings)).compactMap { $0 as? Cupping ?? nil }
         let filteredSamples: [Sample] = folderFilter.predicate(Array(samples)).compactMap { $0 as? Sample ?? nil }
         
-        guard let firstCupping: Cupping = filteredCuppings.first else { return nil }
-        var key: Date = firstCupping.date
-        var groupedFolderElements: [Date: (cuppings: [Cupping], samples: [Sample])] = [key: (cuppings: [firstCupping], samples: [])]
+        var groupedFolderElements: [MonthAndYear: (cuppings: [Cupping], samples: [Sample])] = [:]
 
-        let calendar: Calendar = Calendar.current
-        for (prevCupping, nextCupping) in zip(filteredCuppings, filteredCuppings.dropFirst()) {
-            if !calendar.isDate(prevCupping.date, equalTo: nextCupping.date, toGranularity: .month) {
-                key = nextCupping.date
-            }
-            groupedFolderElements[key, default: (cuppings: [], samples: [])].cuppings.append(nextCupping)
+        for cupping in filteredCuppings {
+            let key = cupping.date.getMonthAndYear()
+            groupedFolderElements[key, default: (cuppings: [], samples: [])].cuppings.append(cupping)
         }
         
-        for (prevSample, nextSample) in zip(filteredSamples, filteredSamples.dropFirst()) {
-            if !calendar.isDate(prevSample.date, equalTo: nextSample.date, toGranularity: .month) {
-                key = nextSample.date
-            }
-            groupedFolderElements[key, default: (cuppings: [], samples: [])].samples.append(nextSample)
+        for sample in filteredSamples {
+            let key = sample.date.getMonthAndYear()
+            groupedFolderElements[key, default: (cuppings: [], samples: [])].samples.append(sample)
         }
         
         return groupedFolderElements.mapValues { (cuppings: [Cupping], samples: [Sample]) in
-            (cuppings: cuppings.sorted(by: { $0.date < $1.date }), samples: samples.sorted(by: { $0.ordinalNumber < $1.ordinalNumber }) )
+            (cuppings: cuppings.sorted(by: { $0.date < $1.date }), samples: samples.sorted(by: { $0.date < $1.date && $0.ordinalNumber < $1.ordinalNumber }) )
         }.sorted(by: { $0.key > $1.key })
     }
 }

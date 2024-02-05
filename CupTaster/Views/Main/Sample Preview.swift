@@ -41,17 +41,7 @@ struct SamplePreview: View {
             Text(sample.name)
                 .font(.subheadline)
             
-            if showCupping {
-                NavigationLink(destination: CuppingView(sample.cupping)) {
-                    Group {
-                        Text(Image(systemName: "arrow.turn.down.right")) +
-                        Text(" ") +
-                        Text(sample.cupping.name)
-                    }
-                    .font(.caption)
-                    .multilineTextAlignment(.leading)
-                }
-            }
+            if showCupping { CuppingLink(cupping: sample.cupping) }
             
             HStack(spacing: 0) {
                 Text("Final score: ")
@@ -86,6 +76,22 @@ struct SamplePreview: View {
         }
         .onTapGesture {
             samplesControllerModel.setSelectedSample(sample, animationId: animationId)
+        }
+    }
+    
+    struct CuppingLink: View {
+        @ObservedObject var cupping: Cupping
+        
+        var body: some View {
+            NavigationLink(destination: CuppingView(cupping)) {
+                Group {
+                    Text(Image(systemName: "arrow.turn.down.right")) +
+                    Text(" ") +
+                    Text(cupping.name)
+                }
+                .font(.caption)
+                .multilineTextAlignment(.leading)
+            }
         }
     }
 }

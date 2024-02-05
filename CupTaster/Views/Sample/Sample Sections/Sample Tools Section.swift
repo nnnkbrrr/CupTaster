@@ -13,11 +13,12 @@ extension SampleView {
         @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
         
         var body: some View {
-#warning("heart not dynamic")
             SampleToolsSection(tools: [
                 .init(systemImageName: samplesControllerModel.selectedSample?.isFavorite ?? false ? "heart.fill" : "heart") {
-                    samplesControllerModel.selectedSample?.isFavorite.toggle()
-                    samplesControllerModel.selectedSample?.objectWillChange.send()
+                    withAnimation {
+                        samplesControllerModel.selectedSample?.isFavorite.toggle()
+                        samplesControllerModel.objectWillChange.send()
+                    }
                     try? moc.save()
                 },
                 .init(systemImageName: "square.and.arrow.up") {
