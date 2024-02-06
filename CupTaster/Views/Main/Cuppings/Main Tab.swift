@@ -134,7 +134,7 @@ extension MainTabView {
         }
         
         return groupedFolderElements.mapValues { (cuppings: [Cupping], samples: [Sample]) in
-            (cuppings: cuppings.sorted(by: { $0.date < $1.date }), samples: samples.sorted(by: { $0.date < $1.date && $0.ordinalNumber < $1.ordinalNumber }) )
+            (cuppings: cuppings.sorted(by: { $0.date > $1.date }), samples: samples.sorted(by: { $0.date > $1.date && $0.ordinalNumber < $1.ordinalNumber }) )
         }.sorted(by: { $0.key > $1.key })
     }
 }

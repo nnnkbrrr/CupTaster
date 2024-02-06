@@ -32,7 +32,7 @@ struct NavigationBackgroundViewModifier: ViewModifier {
 }
 
 extension View {
-    func standardNavigation() -> some View {
+    func defaultNavigationBar() -> some View {
         modifier(NavigationBackgroundViewModifier())
     }
 }

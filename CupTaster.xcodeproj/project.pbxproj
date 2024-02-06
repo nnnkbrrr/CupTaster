@@ -40,7 +40,7 @@
 		634E32AA2B38457D00966509 /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = 634E32A92B38457D00966509 /* SwipeActions */; };
 		6351668F2A52FB32001A0071 /* Integer To Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6351668E2A52FB32001A0071 /* Integer To Digits.swift */; };
 		6355CAB72B502AA50069A7E9 /* Sample Sheet Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6355CAB62B502AA50069A7E9 /* Sample Sheet Notes.swift */; };
-		6355CAB92B502B100069A7E9 /* Sample Sheet Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6355CAB82B502B100069A7E9 /* Sample Sheet Section.swift */; };
+		6355CAB92B502B100069A7E9 /* Sample Bottom Sheet Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6355CAB82B502B100069A7E9 /* Sample Bottom Sheet Section.swift */; };
 		6355CABB2B5038320069A7E9 /* Dismiss Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6355CABA2B5038320069A7E9 /* Dismiss Keyboard.swift */; };
 		636712F02AF62F190042DB00 /* Sample Bottom Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636712EF2AF62F190042DB00 /* Sample Bottom Sheet.swift */; };
 		636712F42AF637900042DB00 /* Drag Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636712F32AF637900042DB00 /* Drag Gesture.swift */; };
@@ -133,7 +133,7 @@
 		634D5A4C2A5ED5F200A18B63 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		6351668E2A52FB32001A0071 /* Integer To Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Integer To Digits.swift"; sourceTree = "<group>"; };
 		6355CAB62B502AA50069A7E9 /* Sample Sheet Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Sheet Notes.swift"; sourceTree = "<group>"; };
-		6355CAB82B502B100069A7E9 /* Sample Sheet Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Sheet Section.swift"; sourceTree = "<group>"; };
+		6355CAB82B502B100069A7E9 /* Sample Bottom Sheet Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Bottom Sheet Section.swift"; sourceTree = "<group>"; };
 		6355CABA2B5038320069A7E9 /* Dismiss Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dismiss Keyboard.swift"; sourceTree = "<group>"; };
 		636712EF2AF62F190042DB00 /* Sample Bottom Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Bottom Sheet.swift"; sourceTree = "<group>"; };
 		636712F32AF637900042DB00 /* Drag Gesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drag Gesture.swift"; sourceTree = "<group>"; };
@@ -244,6 +244,7 @@
 				63729F952A6DAF6600EF0FEE /* Sample Tools Section.swift */,
 				6348EE4C2B46F7CF0061B5AA /* Sample General Info Section.swift */,
 				6348EE4A2B46F7010061B5AA /* Sample Delete Section.swift */,
+				633042442B4C5ACE005BD8F2 /* Sample Elements.swift */,
 			);
 			path = "Sample Sections";
 			sourceTree = "<group>";
@@ -321,8 +322,6 @@
 			children = (
 				637CB7CD2B386EF50056C32D /* Navigation Appearance.swift */,
 				6372A3722B4FF46400925E0B /* Bottom Sheet Block.swift */,
-				6355CAB82B502B100069A7E9 /* Sample Sheet Section.swift */,
-				633042442B4C5ACE005BD8F2 /* Sample Elements.swift */,
 				63A1A9152A55851A008D30CE /* Button Styles.swift */,
 				63A1A9172A558685008D30CE /* Sizing & Spacing.swift */,
 				6372A3742B4FF7F200925E0B /* Resizable Text.swift */,
@@ -377,6 +376,7 @@
 				63B75D962A6D6799002C350A /* Samples Controller.swift */,
 				634D5A4C2A5ED5F200A18B63 /* Sample.swift */,
 				636712EF2AF62F190042DB00 /* Sample Bottom Sheet.swift */,
+				6355CAB82B502B100069A7E9 /* Sample Bottom Sheet Section.swift */,
 				63739BB32A71251200C779ED /* Sample Quality Criteria.swift */,
 				63E12F302B2353C4000FAACA /* Sample Placeholders.swift */,
 				630AD6112B2361BD0016DBFA /* Sample Sections */,
@@ -642,7 +642,7 @@
 				22242C7E28EF274900138494 /* QualityCriteria Entity.swift in Sources */,
 				63DD44E92B71403900F1D256 /* Cupping Settings Modal.swift in Sources */,
 				6348EE4B2B46F7010061B5AA /* Sample Delete Section.swift in Sources */,
-				6355CAB92B502B100069A7E9 /* Sample Sheet Section.swift in Sources */,
+				6355CAB92B502B100069A7E9 /* Sample Bottom Sheet Section.swift in Sources */,
 				631422732B3AC79200683F7F /* Sample Chart Section.swift in Sources */,
 				63A88D152A4C9B780006AA0F /* CFModel.swift in Sources */,
 				636712F42AF637900042DB00 /* Drag Gesture.swift in Sources */,

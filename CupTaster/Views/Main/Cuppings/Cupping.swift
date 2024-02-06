@@ -72,7 +72,7 @@ struct CuppingView: View {
             }
         }
         .stopwatchToolbarItem()
-        .standardNavigation()
+        .defaultNavigationBar()
         .adaptiveSizeSheet(isActive: $settingsModalIsActive) {
             CuppingSettingsView(cupping: cupping, isActive: $settingsModalIsActive)
         }
