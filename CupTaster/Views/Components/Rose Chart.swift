@@ -53,13 +53,6 @@ struct RoseChart: View {
                     }
                     .rotationEffect(.degrees(-90))
                     .transition(.scale)
-                }
-                
-                if let cuppingForm {
-                    let qualityCriteria: [QualityCriteria] = cuppingForm.qcGroupConfigurations
-                        .sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
-                        .flatMap { $0.qcConfigurations }
-                        .filter { $0.evaluationType.unwrappedEvaluation is SliderEvaluation }
                     
                     RoseChartGrid(categoriesCount: qualityCriteria.count, divisionsCount: 4)
                         .stroke(.gray.opacity(0.5), lineWidth: 0.5)
@@ -139,6 +132,7 @@ extension RoseChart {
             let stride = radius / CGFloat(divisionsCount)
             var path = Path()
             
+            guard categoriesCount > 1 else { return path }
             for category in 1 ... categoriesCount {
                 path.move(to: CGPoint(x: rect.midX, y: rect.midY))
                 path.addLine(to: CGPoint(

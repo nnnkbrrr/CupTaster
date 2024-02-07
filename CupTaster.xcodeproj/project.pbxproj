@@ -89,6 +89,8 @@
 		63E12F312B2353C4000FAACA /* Sample Placeholders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E12F302B2353C4000FAACA /* Sample Placeholders.swift */; };
 		63E7F9132B0677E600415B13 /* Target Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E7F9122B0677E600415B13 /* Target Scroll.swift */; };
 		63EF652F2B695D3E009A9AF3 /* Swipe Actions Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EF652E2B695D3E009A9AF3 /* Swipe Actions Style.swift */; };
+		63F60D562B72C053002A99FE /* Email Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F60D552B72C053002A99FE /* Email Manager.swift */; };
+		63F60D582B72C222002A99FE /* Setting Cupping Forms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F60D572B72C222002A99FE /* Setting Cupping Forms.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +189,8 @@
 		63E12F302B2353C4000FAACA /* Sample Placeholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Placeholders.swift"; sourceTree = "<group>"; };
 		63E7F9122B0677E600415B13 /* Target Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Target Scroll.swift"; sourceTree = "<group>"; };
 		63EF652E2B695D3E009A9AF3 /* Swipe Actions Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swipe Actions Style.swift"; sourceTree = "<group>"; };
+		63F60D552B72C053002A99FE /* Email Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Email Manager.swift"; sourceTree = "<group>"; };
+		63F60D572B72C222002A99FE /* Setting Cupping Forms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting Cupping Forms.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				6319F8682A5D59F700EECD62 /* Settings.swift */,
+				63F60D572B72C222002A99FE /* Setting Cupping Forms.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -395,6 +400,7 @@
 				63A88D092A4C98E00006AA0F /* Evaluation.swift */,
 				6320A3A92A72BF000069E6B9 /* Evaluation Types */,
 				63A88D0C2A4C99380006AA0F /* Cupping Forms */,
+				63F60D552B72C053002A99FE /* Email Manager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -625,6 +631,7 @@
 				63B75D972A6D6799002C350A /* Samples Controller.swift in Sources */,
 				63A88D0A2A4C98E00006AA0F /* Evaluation.swift in Sources */,
 				636712F82AF66CE80042DB00 /* Blur.swift in Sources */,
+				63F60D582B72C222002A99FE /* Setting Cupping Forms.swift in Sources */,
 				6372A3712B4FEBD300925E0B /* Main Tab New Cupping Modal.swift in Sources */,
 				22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */,
 				63A88D042A4C92A40006AA0F /* Stopwatch.swift in Sources */,
@@ -634,6 +641,7 @@
 				63739BB42A71251200C779ED /* Sample Quality Criteria.swift in Sources */,
 				6355CAB72B502AA50069A7E9 /* Sample Sheet Notes.swift in Sources */,
 				63B75D952A6D6549002C350A /* Samples Controller Model.swift in Sources */,
+				63F60D562B72C053002A99FE /* Email Manager.swift in Sources */,
 				6349471E2B13BBDA00A9030B /* Circular Progress.swift in Sources */,
 				22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */,
 				6348EE4D2B46F7CF0061B5AA /* Sample General Info Section.swift in Sources */,

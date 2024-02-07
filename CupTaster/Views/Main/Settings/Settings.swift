@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct SettingsTabView: View {
-#warning("screen: Settings")
+    @AppStorage("sample-name-generator-method") var generationMethod: SampleNameGeneratorModel.GenerationMethod = .alphabetical
+    let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "???"
+    let buildVersion: String = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "???"
+    let systemVersion: String = UIDevice.current.systemVersion
+    let languageCode: String = Locale.current.languageCode ?? "-"
+    
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: .extraSmall) {
@@ -19,11 +24,13 @@ struct SettingsTabView: View {
                     Settings_CuppingForms()
                 }
                 
+#warning("section")
                 NavigationSettingsSection(title: "General Info Fields", systemImageName: "info") {
                     Text("Empty")
                 }
                 .disabled(true)
                 
+#warning("section")
                 NavigationSettingsSection(title: "Folders", systemImageName: "folder") {
                     Text("Empty")
                 }
@@ -33,39 +40,53 @@ struct SettingsTabView: View {
                 
                 SettingsHeader("Conditional")
                 
-                NavigationSettingsSection(title: "Section", systemImageName: "square.dashed") {
-                    Text("Empty")
-                }
-                .disabled(true)
+                ToggleSettingsSection(title: "Alternative sample names", systemImageNames: (on: "abc", off: "textformat.123"), isOn: Binding(
+                    get: { generationMethod == .alphabetical },
+                    set: { generationMethod = $0 ? .alphabetical : .numerical })
+                )
                 
-                NavigationSettingsSection(title: "Section", systemImageName: "square.dashed") {
-                    Text("Empty")
-                }
-                .disabled(true)
+#warning("section")
+                ToggleSettingsSection(title: "Attach location", systemImageNames: (on: "location.fill", off: "location.slash"), isOn: .constant(false))
+                    .opacity(0.5)
+                    .disabled(true)
+                
+#warning("section")
+                ToggleSettingsSection(title: "Reset stopwatch in 1h", systemImageNames: (on: "clock.arrow.circlepath", off: "clock.badge.xmark"), isOn: .constant(false))
+                    .opacity(0.5)
+                    .disabled(true)
                 
                 // MARK: - Contacts
                 
                 SettingsHeader("Contacts")
                 
-                NavigationSettingsSection(title: "Section", systemImageName: "square.dashed") {
+                ButtonSettingsSection(title: "Contact us", systemImageName: "envelope") {
+                    EmailManager.shared.send(
+                        body: emailMessage,
+                        to: "support-cuptaster@nnnkbrrr.space"
+                    )
+                }
+                
+#warning("section")
+                NavigationSettingsSection(title: "Help with translation", systemImageName: "globe") {
                     Text("Empty")
                 }
                 .disabled(true)
                 
-                NavigationSettingsSection(title: "Section", systemImageName: "square.dashed") {
-                    Text("Empty")
+                VStack(spacing: .extraSmall) {
+#warning("Text")
+                    Text("Last iCloud Sync: #DD.MM.YYYY at HH:MM#")
+                    Text("Version \(appVersion) (\(buildVersion))")
                 }
-                .disabled(true)
-                
-                Text("Version \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "???")")
-                    .foregroundStyle(.gray)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 40)
-                    .onTapGesture(count: 10) {
-                        print("tester tab visible")
-                        //                        testerTabVisible = true
+                .font(.subheadline)
+                .foregroundStyle(.gray)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
+                .contentShape(Rectangle())
+                .onTapGesture(count: 10) {
+                    print("tester tab visible")
+                    //                        testerTabVisible = true
 #warning("Tester section")
-                    }
+                }
             }
             .padding(.small)
         }
@@ -91,6 +112,27 @@ extension SettingsTabView {
                 .bold()
                 .frame(height: 40, alignment: .bottom)
                 .padding(.leading, .small)
+        }
+    }
+    
+    struct ButtonSettingsSection: View {
+        let title: String
+        let systemImageName: String
+        let action: () -> ()
+        
+        init(title: String, systemImageName: String, action: @escaping () -> ()) {
+            self.title = title
+            self.systemImageName = systemImageName
+            self.action = action
+        }
+        
+        var body: some View {
+            Button {
+                action()
+            } label: {
+                SettingsSection(title: title, systemImageName: systemImageName) { LeadingNavigationIndicator() }
+            }
+            .buttonStyle(.plain)
         }
     }
     
@@ -181,83 +223,15 @@ extension SettingsTabView {
     }
 }
 
-struct Settings_CuppingForms: View {
-    @Environment(\.managedObjectContext) private var moc
-    @FetchRequest(
-        entity: CuppingForm.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: false)]
-    ) var cuppingForms: FetchedResults<CuppingForm>
-    @StateObject var cfManager = CFManager.shared
+extension SettingsTabView {
+    private var emailMessage: String {
+"""
 
-    @State var deleteAlertActive: Bool = false
-    @State var deleteAlertCuppingForm: CuppingForm? = nil
-    var body: some View {
-        Form {
-            if cuppingForms.count > 0 {
-                Section("Default cupping form") {
-                    ForEach(cuppingForms) { cuppingForm in
-                        let isDeprecated: Bool = cuppingForm.isDeprecated
-                        Button {
-                            cfManager.setDefaultCuppingForm(cuppingForm: cuppingForm)
-                        } label: {
-                            Label {
-                                Text(isDeprecated ? "\(cuppingForm.shortDescription) (deprecated)" : cuppingForm.title)
-                            } icon: {
-                                Image(systemName: "checkmark").opacity(cuppingForm.isDefault ? 1 : 0)
-                            }
-                        }
-                        .foregroundColor(isDeprecated ? .red : .accentColor)
-                    }
-                    .onDelete { offsets in
-                        let cuppingForm: CuppingForm = cuppingForms[offsets.first!]
-                        if cuppingForm.cuppings.count > 0 {
-                            deleteAlertActive = true
-                            deleteAlertCuppingForm = cuppingForm
-                        } else {
-                            moc.delete(cuppingForm)
-                            try? moc.save()
-                        }
-                        cfManager.setDefaultCuppingForm(cuppingForm: cuppingForms.first)
-                    }
-                }
-                .confirmationDialog(
-                    "Are you sure you want to delete cupping form and all related cuppings?",
-                    isPresented: $deleteAlertActive,
-                    titleVisibility: .visible,
-                    actions: {
-                        Button("Delete", role: .destructive) {
-                            if let deleteAlertCuppingForm {
-                                moc.delete(deleteAlertCuppingForm)
-                                try? moc.save()
-                            }
-                            deleteAlertCuppingForm = nil
-                            deleteAlertActive = false
-                        }
-                        Button("Cancel", role: .cancel) {
-                            deleteAlertCuppingForm = nil
-                            deleteAlertActive = false
-                        }
-                    }
-                )
-            }
-            
-            let availableCFsModels = cfManager.allCFModels.filter {
-                $0.getCuppingForm(storedCuppingForms: cuppingForms) == nil
-            }
-            
-            if availableCFsModels.count > 0 {
-                Section("Available cupping forms") {
-                    ForEach(availableCFsModels) { cfModel in
-                        Button {
-                            if let addedForm = cfModel.createCuppingForm(context: moc) {
-                                cfManager.setDefaultCuppingForm(cuppingForm: addedForm)
-                            }
-                        } label: {
-                            Label(cfModel.title, systemImage: "plus")
-                        }
-                    }
-                }
-            }
-        }
+
+--------------------
+App version: \(appVersion) (\(buildVersion))
+System version: \(systemVersion)
+Language code: \(languageCode)
+"""
     }
 }
