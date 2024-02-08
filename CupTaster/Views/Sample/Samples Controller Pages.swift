@@ -10,6 +10,7 @@ import SwiftUI
 struct SamplesControllerPagesView: View {
     @ObservedObject var sampleGesturesControllerModel: SampleGesturesControllerModel = .shared
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
+    @ObservedObject var stopwatchModel: StopwatchModel = .shared
     
     @FocusState var sampleNameTextfieldFocus: ObjectIdentifier?
     @State var lastFocusStateChangeDate: Date? = nil
@@ -38,6 +39,7 @@ struct SamplesControllerPagesView: View {
                         
                         HStack(spacing: spacing) {
                             let sortedSamples = cupping.sortedSamples
+                            
                             ForEach(sortedSamples) { sample in
                                 let isFirst: Bool = sample.ordinalNumber == 0
                                 let isLast: Bool = sample.ordinalNumber == sortedSamples.last?.ordinalNumber ?? 0
@@ -73,12 +75,34 @@ struct SamplesControllerPagesView: View {
                     Spacer()
                     
                     Button {
-                        
+                        withAnimation(.bouncy(duration: 0.5, extraBounce: 0.25)) {
+                            samplesControllerModel.stopwatchOverlayIsActive = true
+                        }
                     } label: {
-                        Image(systemName: "stopwatch")
-                            .frame(width: .smallElement, height: .smallElement)
-                            .background(Color.backgroundTertiary)
-                            .clipShape(Circle())
+                        ZStack {
+                            if stopwatchModel.state == .idle {
+                                Image(systemName: "stopwatch")
+                            } else {
+                                TimelineView(.periodic(from: Date(), by: 1)) { context in
+                                    ZStack {
+                                        CircularProgressView(
+                                            progress: stopwatchModel.seconds / 60,
+                                            style: .init(lineWidth: 2),
+                                            outlineColor: .backgroundTertiary,
+                                            progressColor: stopwatchModel.state == .stopped ? .gray : .accentColor
+                                        )
+                                        .animation(.linear(duration: 1), value: context.date)
+                                        .padding(1)
+                                        
+                                        Text("\(stopwatchModel.minutes)")
+                                            .foregroundStyle(stopwatchModel.state == .stopped ? .gray : .accentColor)
+                                    }
+                                }
+                            }
+                        }
+                        .frame(width: .smallElement, height: .smallElement)
+                        .background(Color.backgroundTertiary)
+                        .clipShape(Circle())
                     }
                 }
                 .padding(.horizontal, .small)
@@ -111,7 +135,7 @@ struct SamplesControllerPagesView: View {
             .edgesIgnoringSafeArea(.top)
         }
         .onChange(of: SamplesControllerModel.shared.selectedSample) { sample in
-            if let lastFocusStateChangeDate, let sample, Date().timeIntervalSince(lastFocusStateChangeDate) < 5 && lastFocusStateSampleID != sample.id {
+            if let lastFocusStateChangeDate, let sample, Date().timeIntervalSince(lastFocusStateChangeDate) < 2 && lastFocusStateSampleID != sample.id {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     sampleNameTextfieldFocus = sample.id
                 }
@@ -126,38 +150,49 @@ struct SamplesControllerPagesView: View {
     
     private struct SampleNameTextField: View {
         @Environment(\.managedObjectContext) private var moc
+        @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
         @ObservedObject var sample: Sample
         let gsw: CGFloat
         private let nameLengthLimit: Int = 50
         @FocusState var sampleNameTextfieldFocus: ObjectIdentifier?
         
         var body: some View {
-            TextField("Sample name", text: $sample.name)
-                .submitLabel(.done)
-                .focused($sampleNameTextfieldFocus, equals: Optional(sample.id))
-                .submitLabel(.done)
-                .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
-                    DispatchQueue.main.async {
-                        if let textField = obj.object as? UITextField {
-                            textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+            ZStack {
+                if !samplesControllerModel.stopwatchOverlayIsActive || samplesControllerModel.selectedSample != sample {
+                    TextField("Sample name", text: $sample.name)
+                        .submitLabel(.done)
+                        .onSubmit { sampleNameTextfieldFocus = nil }
+                        .focused($sampleNameTextfieldFocus, equals: Optional(sample.id))
+                        .submitLabel(.done)
+                        .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
+                            DispatchQueue.main.async {
+                                if let textField = obj.object as? UITextField {
+                                    textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+                                }
+                            }
                         }
-                    }
+                        .resizableText(weight: .light)
+                        .padding(.horizontal, .smallElement + .small) // Tools overlay
+                        .frame(width: gsw, height: .smallElementContainer)
+                        .multilineTextAlignment(.center)
+                        .onChange(of: sample.name) { name in
+                            if name.count > nameLengthLimit {
+                                sample.name = String(name.prefix(nameLengthLimit))
+                            }
+                            try? moc.save()
+                        }
+                        .bottomSheetBlock()
+                        .matchedGeometryEffect(
+                            id: "\(sample.id).page.container",
+                            in: NamespaceControllerModel.shared.namespace
+                        )
+                        .frame(width: gsw, height: .smallElementContainer)
+                        .onTapGesture { sampleNameTextfieldFocus = sample.id }
+                } else {
+                    Color.clear.frame(width: gsw)
                 }
-                .resizableText(weight: .light)
-                .padding(.horizontal, .smallElement + .small) // Tools overlay
-                .frame(width: gsw)
-                .frame(height: .smallElementContainer)
-                .multilineTextAlignment(.center)
-                .onChange(of: sample.name) { name in
-                    if name.count > nameLengthLimit {
-                        sample.name = String(name.prefix(nameLengthLimit))
-                    }
-                    try? moc.save()
-                }
-                .bottomSheetBlock()
-                .cornerRadius()
-                .onTapGesture { sampleNameTextfieldFocus = sample.id }
-                .shadow(color: .backgroundPrimary.opacity(0.75), radius: .small, x: 0, y: 0)
+            }
+            .shadow(color: .backgroundPrimary.opacity(0.75), radius: .small, x: 0, y: 0)
         }
     }
 }

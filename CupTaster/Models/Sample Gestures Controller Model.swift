@@ -30,6 +30,9 @@ class SampleGesturesControllerModel: ObservableObject {
 
 extension SampleGesturesControllerModel {
     func onSwipeStarted() {
+        withAnimation(.bouncy(duration: 0.2)) {
+            samplesControllerModel.stopwatchOverlayIsActive = false
+        }
         samplePickerGestureIsActive = true
         samplesControllerModel.changeSelectedSample(sample: nil)
     }

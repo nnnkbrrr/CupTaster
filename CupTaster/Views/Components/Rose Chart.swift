@@ -34,7 +34,7 @@ struct RoseChart: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                if let qualityCriteria: [QualityCriteria] = {
+                let qualityCriteria: [QualityCriteria]? = {
                     if let qualityCriteria = self.qualityCriteria {
                         return qualityCriteria
                     } else if let selectedSample {
@@ -44,7 +44,19 @@ struct RoseChart: View {
                             .filter { $0.configuration.evaluationType.unwrappedEvaluation is SliderEvaluation }
                     }
                     return nil
-                }() {
+                }()
+                
+                let chartQualityCriteria: [QualityCriteria]? = {
+                    guard let cuppingForm else { return nil }
+                    let qualityCriteria: [QualityCriteria] = cuppingForm.qcGroupConfigurations
+                        .sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
+                        .flatMap { $0.qcConfigurations }
+                        .filter { $0.evaluationType.unwrappedEvaluation is SliderEvaluation }
+                    
+                    return qualityCriteria == [] ? nil : qualityCriteria
+                }()
+                
+                if let qualityCriteria {
                     ZStack {
                         ForEach(Array(qualityCriteria.enumerated()), id: \.offset) { index, qualityCriterion in
                             RoseChartSegment(qualityCriteria: qualityCriterion, in: qualityCriteria)
@@ -53,12 +65,16 @@ struct RoseChart: View {
                     }
                     .rotationEffect(.degrees(-90))
                     .transition(.scale)
-                    
+                }
+                
+                if let qualityCriteria: [QualityCriteria] = chartQualityCriteria ?? qualityCriteria {
                     RoseChartGrid(categoriesCount: qualityCriteria.count, divisionsCount: 4)
                         .stroke(.gray.opacity(0.5), lineWidth: 0.5)
                     
                     RoseChartLabels(qualityCriteriaLabels: qualityCriteria.map { $0.title }, geometry: geometry)
                 }
+                
+                
             }
             .animation(.bouncy(duration: 0.5).delay(0.2), value: selectedSample)
         }

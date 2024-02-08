@@ -15,6 +15,7 @@ class SamplesControllerModel: ObservableObject {
     
     @Published private(set) var isActive: Bool = false
     @Published var isTogglingVisibility: Bool = false
+    @Published var stopwatchOverlayIsActive: Bool = false
     
     @Published private(set) var sampleAnimationID: UUID?
     @Published private(set) var cupping: Cupping?

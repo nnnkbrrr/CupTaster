@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SamplesControllerView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @ObservedObject var sampleGesturesControllerModel: SampleGesturesControllerModel = .shared
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     
@@ -32,6 +34,22 @@ struct SamplesControllerView: View {
                 SamplesControllerPagesView()
             }
             .ignoresSafeArea(sampleGesturesControllerModel.bottomSheetIsExpanded ? [] : .keyboard)
+            .overlay {
+                if samplesControllerModel.stopwatchOverlayIsActive {
+                    ZStack(alignment: .top) {
+                        Color.black.opacity(colorScheme == .dark ? 0.75 : 0.5)
+                            .edgesIgnoringSafeArea(.all)
+                            .onTapGesture {
+                                withAnimation(.bouncy(duration: 0.5)) {
+                                    samplesControllerModel.stopwatchOverlayIsActive = false
+                                }
+                            }
+                        
+                        SampleStopwatchView()
+                    }
+                    .zIndex(3)
+                }
+            }
             .dragGesture (
                 direction: .horizontal,
                 onStart: { sampleGesturesControllerModel.onSwipeStarted() },
