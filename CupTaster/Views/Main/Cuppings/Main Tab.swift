@@ -34,9 +34,9 @@ struct MainTabView: View {
     }
     
     var body: some View {
-        let allFolderFilters: [FolderFilter] = [.all, .favorites] + folders.map { FolderFilter(folder: $0) }
-        
         NavigationView {
+            let allFolderFilters: [FolderFilter] = [.all, .favorites] + folders.map { FolderFilter(folder: $0) }
+            
             ZStack {
                 ForEach(allFolderFilters) { folderFilter in
                     if selectedFolderFilter == folderFilter {
@@ -54,17 +54,19 @@ struct MainTabView: View {
                                         LazyVStack(spacing: .extraSmall) {
                                             ForEach(folderElements.cuppings) { CuppingPreview($0) }
                                             
-                                            LazyVGrid(
-                                                columns: [
-                                                    GridItem(
-                                                        .adaptive(minimum: 150, maximum: 200),
-                                                        spacing: .extraSmall,
-                                                        alignment: .top
-                                                    )
-                                                ],
-                                                spacing: .extraSmall
-                                            ) {
-                                                ForEach(folderElements.samples) { SamplePreview($0, showCupping: true, animationId: folderFilter.animationId) }
+                                            if folderElements.samples != [] {
+                                                LazyVGrid(
+                                                    columns: [
+                                                        GridItem(
+                                                            .adaptive(minimum: 150, maximum: 200),
+                                                            spacing: .extraSmall,
+                                                            alignment: .top
+                                                        )
+                                                    ],
+                                                    spacing: .extraSmall
+                                                ) {
+                                                    ForEach(folderElements.samples) { SamplePreview($0, showCupping: true, animationId: folderFilter.animationId) }
+                                                }
                                             }
                                         }
                                     }

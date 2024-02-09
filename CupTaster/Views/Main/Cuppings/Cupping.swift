@@ -75,5 +75,6 @@ struct CuppingView: View {
         .adaptiveSizeSheet(isActive: $settingsModalIsActive) {
             CuppingSettingsView(cupping: cupping, isActive: $settingsModalIsActive)
         }
+        #warning("add new sample navigation tool")
     }
 }

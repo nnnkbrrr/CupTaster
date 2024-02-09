@@ -19,7 +19,7 @@ struct ContentView: View {
             SamplesControllerView()
         }
         .allowsHitTesting(sampleControllerModel.isTogglingVisibility ? false : true)
-#warning("onboarding")
+#warning("onboarding // show icloud sync if data exist")
         //.modifier(Onboarding())
     }
 }

@@ -29,13 +29,6 @@ private struct RadioView: View {
     
     var body: some View {
         ZStack {
-            if value == 0 {
-                Capsule()
-                    .foregroundColor(.accentColor.opacity(0))
-                    .frame(height: 40)
-                    .matchedGeometryEffect(id: "background", in: namespace)
-            }
-                   
             let values: [Int] = Array(stride(from: lowerBound, through: upperBound, by: step)).map { Int($0) }
             
             HStack {
@@ -43,7 +36,8 @@ private struct RadioView: View {
                     ZStack {
                         if self.value == Double(value) {
                             Capsule()
-                                .foregroundColor(.gray.opacity(0.25))
+                                .foregroundColor(.backgroundSecondary)
+                                .transition(.scale)
                                 .matchedGeometryEffect(id: "background", in: namespace)
                         }
                         
@@ -59,6 +53,7 @@ private struct RadioView: View {
                 }
             }
             .frame(height: 40)
+            .padding(.horizontal, 10)
         }
         .animation(
             .interpolatingSpring(stiffness: 150, damping: 15),

@@ -51,7 +51,7 @@ struct SettingsTabView: View {
                     .disabled(true)
                 
 #warning("section")
-                ToggleSettingsSection(title: "Reset stopwatch in 1h", systemImageNames: (on: "clock.arrow.circlepath", off: "cloc"), isOn: .constant(false))
+                ToggleSettingsSection(title: "Reset stopwatch in 1h", systemImageNames: (on: "clock.arrow.circlepath", off: "clock"), isOn: .constant(false))
                     .opacity(0.5)
                     .disabled(true)
                 
