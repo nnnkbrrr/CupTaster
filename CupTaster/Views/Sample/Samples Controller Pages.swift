@@ -135,7 +135,7 @@ struct SamplesControllerPagesView: View {
             .edgesIgnoringSafeArea(.top)
         }
         .onChange(of: SamplesControllerModel.shared.selectedSample) { sample in
-            if let lastFocusStateChangeDate, let sample, Date().timeIntervalSince(lastFocusStateChangeDate) < 2 && lastFocusStateSampleID != sample.id {
+            if let lastFocusStateChangeDate, let sample, Date().timeIntervalSince(lastFocusStateChangeDate) < 1 && lastFocusStateSampleID != sample.id {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     sampleNameTextfieldFocus = sample.id
                 }

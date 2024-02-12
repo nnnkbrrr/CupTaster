@@ -35,11 +35,11 @@ extension SamplesControllerModel {
     public func setSelectedSample(_ sample: Sample, animationId: UUID? = nil) {
         if !isTogglingVisibility {
             self.isTogglingVisibility = true
-            self.sampleAnimationID = animationId
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.isTogglingVisibility = false
             }
+            
+            self.sampleAnimationID = animationId
             
             withAnimation(.smooth(duration: 0.3)) {
                 self.isActive = true
@@ -77,17 +77,23 @@ extension SamplesControllerModel {
     }
     
     public func exit() {
-        self.isTogglingVisibility = true
-        
-        withAnimation(.bouncy(duration: 0.5)) {
-            self.isActive = false
-            self.cupping = nil
-            self.selectedSample = nil
-            self.selectedSampleIndex = 0
-        }
-        
-        DispatchQueue.main.async {
-            self.sampleAnimationID = nil
+        UIApplication.shared.endEditing(true)
+        if !isTogglingVisibility {
+            self.isTogglingVisibility = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.isTogglingVisibility = false
+            }
+            
+            withAnimation(.bouncy(duration: 0.5)) {
+                self.isActive = false
+                self.cupping = nil
+                self.selectedSample = nil
+                self.selectedSampleIndex = 0
+            }
+            
+            DispatchQueue.main.async {
+                self.sampleAnimationID = nil
+            }
         }
     }
 }

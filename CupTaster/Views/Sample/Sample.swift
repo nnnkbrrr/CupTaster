@@ -80,7 +80,6 @@ struct SampleView: View {
             Spacer().frame(height: SampleBottomSheetConfiguration.minHeight)
         }
         .onAppear { chartAppearAnimation() }
-        .onDisappear { samplesControllerModel.isTogglingVisibility = false }
     }
     
     func getElementSize(_ multiplier: Int, gridCellSize: CGFloat, spacing: CGFloat) -> CGFloat {

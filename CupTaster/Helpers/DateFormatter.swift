@@ -19,6 +19,13 @@ extension DateFormatter {
         formatter.dateFormat = "MMMM yyyy"
         return formatter
     }
+    
+    static var full: DateFormatter {
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        return dateFormatter
+    }
 }
 
 extension Date {
@@ -28,6 +35,10 @@ extension Date {
     
     var fullMonthAndYear: String {
         DateFormatter.fullMonthAndYear.string(from: self)
+    }
+    
+    var full: String {
+        DateFormatter.full.string(from: self)
     }
 }
 

@@ -8,6 +8,15 @@
 import SwiftUI
 
 extension UIApplication {
+    func endEditing(_ force: Bool) {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.endEditing(force)
+    }
+}
+
+extension UIApplication {
     func addPanGestureRecognizer() {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first

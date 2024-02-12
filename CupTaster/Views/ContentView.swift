@@ -11,15 +11,22 @@ import CoreData
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     
-    @ObservedObject var sampleControllerModel: SamplesControllerModel = .shared
+    @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
+    @ObservedObject var testingManager: TestingManager = .shared
     
     var body: some View {
-        ZStack {
-            MainTabView()
-            SamplesControllerView()
-        }
-        .allowsHitTesting(sampleControllerModel.isTogglingVisibility ? false : true)
+        VStack(spacing: 0) {
+            ZStack {
+                MainTabView()
+                SamplesControllerView()
+            }
+            .toolbar {
+                ToolbarItem(placement: .bottomBar) {
+                    TesterOverlayView().ignoresSafeArea(.keyboard)
+                }
+            }
 #warning("onboarding // show icloud sync if data exist")
-        //.modifier(Onboarding())
+            //.modifier(Onboarding())
+        }
     }
 }

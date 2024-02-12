@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Settings_CuppingForms: View {
+struct Settings_CuppingFormsView: View {
     @Environment(\.managedObjectContext) private var moc
     @FetchRequest(
         entity: CuppingForm.entity(),

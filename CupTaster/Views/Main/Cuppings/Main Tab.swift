@@ -71,7 +71,7 @@ struct MainTabView: View {
                                         }
                                     }
                                 }
-                                .padding(.horizontal, .small)
+                                .padding([.horizontal, .bottom], .small)
                             } else {
                                 isEmpty
                             }
