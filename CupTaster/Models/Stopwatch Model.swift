@@ -18,13 +18,9 @@ class StopwatchModel: ObservableObject {
     static let shared: StopwatchModel = .init()
     private init() {
         self.state = {
-            if UserDefaults.standard.string(forKey: "stopwatch-time-since") != "" {
-                if UserDefaults.standard.string(forKey: "stopwatch-time-till") != "" {
-                    return .stopped
-                }
-                return .started
-            }
-            return.idle
+            guard UserDefaults.standard.string(forKey: "stopwatch-time-since") != "" else { return.idle }
+            guard UserDefaults.standard.string(forKey: "stopwatch-time-till") != "" else { return .started }
+            return .stopped
         }()
         
         if let timeSince {
@@ -122,13 +118,6 @@ struct StopwatchTimeSelectorView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            Group {
-                Text("Date since: \(stopwatchModel.timeSince?.formatted(date: .numeric, time: .standard) ?? "")")
-                Text("Date till: \(stopwatchModel.timeTill?.formatted(date: .numeric, time: .standard) ?? "")")
-            }
-            .font(.body)
-            .foregroundStyle(.gray)
-            
             TimelineView(.animation) { _ in
                 Text(stopwatchModel.timeToDisplay)
                     .monospacedDigit()
@@ -179,6 +168,20 @@ struct StopwatchTimeSelectorView: View {
             Divider()
             
             HStack {
+                Group {
+                    Text("\(stopwatchModel.timeSince?.formatted(date: .numeric, time: .standard) ?? "--")")
+                        .frame(maxWidth: .infinity)
+                    Text("->")
+                    Text("\(stopwatchModel.timeTill?.formatted(date: .numeric, time: .standard) ?? "--")")
+                        .frame(maxWidth: .infinity)
+                }
+                .font(.caption2)
+                .foregroundStyle(.gray)
+            }
+            
+            Divider()
+            
+            HStack {
                 Button(stopwatchModel.state == .started ? "STOP" : "START") {
                     stopwatchModel.state == .started ? stopwatchModel.stop() : stopwatchModel.start()
                 }
@@ -198,7 +201,7 @@ struct StopwatchTimeSelectorView: View {
                 .buttonStyle(.primary)
             }
         }
+        .font(.body)
         .padding(.horizontal)
-        .font(.title)
     }
 }

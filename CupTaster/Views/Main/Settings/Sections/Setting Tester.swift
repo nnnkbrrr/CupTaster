@@ -11,6 +11,8 @@ class TestingManager: ObservableObject {
     @PublishedAppStorage("tester-tab-visibility") var isVisible: Bool = false
     @PublishedAppStorage("show-tester-overlay") var testerOverlayIsVisible: Bool = false
     
+    @State var selectedCupping: Cupping? = nil
+    
     public static let shared: TestingManager = .init()
     private init() { }
 }
@@ -23,9 +25,7 @@ struct Settings_TesterView: View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: .extraSmall) {
                 SettingsButtonSection(title: "Toggle tester overlay") {
-                    withAnimation {
-                        testingManager.testerOverlayIsVisible.toggle()
-                    }
+                    testingManager.testerOverlayIsVisible.toggle()
                 }
                 
                 SettingsButtonSection(title: "Hide tester tab") {
@@ -51,12 +51,12 @@ struct TesterOverlayView: View {
     let languageCode: String = Locale.current.languageCode ?? "-"
     
     @AppStorage("tester-selected-page") var currentPage: Int = 0
-    @State var showStopwatchPopover: Bool = false
+    @State var showStopwatchModal: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
             HStack(spacing: 5) {
-                ForEach(0..<3) { index in
+                ForEach(0..<4) { index in
                     Circle()
                         .frame(width: 5, height: 5)
                         .foregroundColor(currentPage == index ? .white : .gray)
@@ -86,13 +86,32 @@ struct TesterOverlayView: View {
                     
                     HStack {
                         TesterButton(title: "Stopwatch", systemImageName: "stopwatch") {
-                            showStopwatchPopover = true
+                            showStopwatchModal = true
                         }
-                        .sheet(isPresented: $showStopwatchPopover) {
+                        .adaptiveSizeSheet(isPresented: $showStopwatchModal) {
                             StopwatchTimeSelectorView()
                         }
                     }
                     .tag(1)
+                    
+                    HStack {
+                        if let cupping = samplesControllerModel.cupping {
+                            Text("Cupping: \(cupping.name)")
+                                .foregroundStyle(.gray)
+                            
+                            Spacer()
+                            
+                            TesterButton(title: "Randomly Fill", systemImageName: "wand.and.stars") {
+                                for sample in cupping.samples {
+                                    randomlyFillSample(sample)
+                                }
+                            }
+                        } else {
+                            Text("Select sample to show its cupping testing page")
+                                .foregroundStyle(.gray)
+                        }
+                    }
+                    .tag(2)
                     
                     HStack {
                         if let sample: Sample = samplesControllerModel.selectedSample {
@@ -101,41 +120,15 @@ struct TesterOverlayView: View {
                             
                             Spacer()
                             
-                            TesterButton(title: "randomly fill", systemImageName: "wand.and.stars") {
-                                for qcGroup in sample.qualityCriteriaGroups {
-                                    for criterion in qcGroup.qualityCriteria {
-                                        let configuration = criterion.configuration
-                                        switch configuration.unwrappedEvaluation {
-                                            case is CupsCheckboxesEvaluation:
-                                                let cupsCount: Int = Int(qcGroup.sample.cupping.cupsCount)
-                                                let checkboxes: [Int] = Array(1...cupsCount)
-                                                criterion.value = 0
-                                                
-                                                for checkbox in checkboxes {
-                                                    if (0...2).randomElement() == 0 {
-                                                        let power: Double = Double(cupsCount - checkbox)
-                                                        criterion.value += pow(10, power)
-                                                    }
-                                                }
-                                            case is SliderEvaluation, is RadioEvaluation:
-                                                criterion.value = Array(stride(
-                                                    from: configuration.lowerBound,
-                                                    through: configuration.upperBound,
-                                                    by: configuration.step
-                                                )).randomElement() ?? 0
-                                            default:
-                                                return
-                                        }
-                                    }
-                                    qcGroup.isCompleted = true
-                                }
+                            TesterButton(title: "Randomly Fill", systemImageName: "wand.and.stars") {
+                                randomlyFillSample(sample)
                             }
                         } else {
                             Text("Select sample to show sample testing page")
                                 .foregroundStyle(.gray)
                         }
                     }
-                    .tag(2)
+                    .tag(3)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .contentShape(Rectangle())
@@ -146,6 +139,38 @@ struct TesterOverlayView: View {
         }
         .frame(height: .smallElement)
         .clipped()
+    }
+    
+    func randomlyFillSample(_ sample: Sample) {
+        sample.name = sampleNames.randomElement() ?? ""
+        
+        for qcGroup in sample.qualityCriteriaGroups {
+            for criterion in qcGroup.qualityCriteria {
+                let configuration = criterion.configuration
+                switch configuration.unwrappedEvaluation {
+                    case is CupsCheckboxesEvaluation:
+                        let cupsCount: Int = Int(qcGroup.sample.cupping.cupsCount)
+                        let checkboxes: [Int] = Array(1...cupsCount)
+                        criterion.value = 0
+                        
+                        for checkbox in checkboxes {
+                            if (0...2).randomElement() == 0 {
+                                let power: Double = Double(cupsCount - checkbox)
+                                criterion.value += pow(10, power)
+                            }
+                        }
+                    case is SliderEvaluation, is RadioEvaluation:
+                        criterion.value = Array(stride(
+                            from: configuration.lowerBound,
+                            through: configuration.upperBound,
+                            by: configuration.step
+                        )).randomElement() ?? 0
+                    default:
+                        return
+                }
+            }
+            qcGroup.isCompleted = true
+        }
     }
 }
 
@@ -223,3 +248,17 @@ extension TesterOverlayView {
         }
     }
 }
+
+private let sampleNames = [
+    "Ethiopian Yirgacheffe", "Colombian Supremo", "Brazilian Santos", "Kenyan AA", "Guatemalan Antigua",
+    "Costa Rican Tarrazu", "Mexican Chiapas", "Honduran Marcala", "Peruvian Cajamarca", "Nicaraguan Jinotega",
+    "Panamanian Boquete", "Tanzanian Peaberry", "Indonesian Sumatra", "Ugandan Bugisu", "Vietnamese Robusta",
+    "Hawaiian Kona", "Jamaican Blue Mountain", "Puerto Rican Yauco", "Ecuadorian Loja", "Bolivian Caranavi",
+    "Ethiopian Harrar", "Colombian Excelso", "Brazilian Cerrado", "Kenyan Peaberry", "Guatemalan Huehuetenango",
+    "Costa Rican Tres Rios", "Mexican Oaxaca", "Honduran Copan", "Peruvian Puno", "Nicaraguan Matagalpa",
+    "Panamanian Volcan Baru", "Tanzanian AA", "Indonesian Java", "Ugandan Sipi Falls", "Vietnamese Arabica",
+    "Hawaiian Maui", "Jamaican Wallenford", "Puerto Rican Adjuntas", "Ecuadorian Zamora", "Bolivian Yungas",
+    "Ethiopian Sidamo", "Colombian Caturra", "Brazilian Mogiana", "Kenyan SL28", "Guatemalan San Marcos",
+    "Costa Rican Dota", "Mexican Veracruz", "Honduran Comayagua", "Peruvian La Libertad", "Nicaraguan Esteli",
+    "Panamanian Geisha", "Tanzanian Peaberries", "Indonesian Bali Kintamani"
+]

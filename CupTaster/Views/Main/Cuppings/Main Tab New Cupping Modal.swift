@@ -14,7 +14,7 @@ struct NewCuppingModalView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: false)]
     ) var cuppingForms: FetchedResults<CuppingForm>
     
-    @Binding var isActive: Bool
+    @Binding var isPresented: Bool
     
     private let nameLengthLimit = 50
     @State var name: String = ""
@@ -102,10 +102,8 @@ struct NewCuppingModalView: View {
             .bottomSheetBlock()
             
             HStack(spacing: .extraSmall) {
-                Button("Cancel") {
-                    isActive = false
-                }
-                .buttonStyle(.bottomSheetBlock)
+                Button("Cancel") { isPresented = false }
+                    .buttonStyle(.bottomSheetBlock)
                 
                 Button {
                     if let defaultCuppingForm: CuppingForm = CFManager.shared.getDefaultCuppingForm(from: cuppingForms) {
@@ -122,7 +120,7 @@ struct NewCuppingModalView: View {
                         #warning("не выбрана форма по умолчанию")
                     }
                     
-                    isActive = false
+                    isPresented = false
                 } label: {
                     HStack(spacing: .small) {
                         Text("Continue")

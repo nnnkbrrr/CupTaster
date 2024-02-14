@@ -20,17 +20,17 @@ struct BottomSheetConfiguration {
 
 struct SheetModifier<SheetContent: View>: ViewModifier {
     @State private var bottomSheetOffset: CGFloat = 0
-    @Binding var isActive: Bool
+    @Binding var isPresented: Bool
     let sheetContent: () -> SheetContent
     
-    init(isActive: Binding<Bool>, content: @escaping () -> SheetContent) {
-        self._isActive = isActive
+    init(isPresented: Binding<Bool>, content: @escaping () -> SheetContent) {
+        self._isPresented = isPresented
         self.sheetContent = content
     }
     
     func body(content: Content) -> some View {
         content
-            .fullScreenCover(isPresented: $isActive) {
+            .fullScreenCover(isPresented: $isPresented) {
                 GeometryReader { geometry in
                     VStack(spacing: BottomSheetConfiguration.spacing) {
                         Capsule()
@@ -52,8 +52,8 @@ struct SheetModifier<SheetContent: View>: ViewModifier {
                     .frame(maxHeight: .infinity, alignment: .bottom)
                 }
                 .background(
-                    ClearModalBackground(isActive: $isActive)
-                        .onTapGesture { isActive = false }
+                    ClearModalBackground(isPresented: $isPresented)
+                        .onTapGesture { isPresented = false }
                 )
                 .dragGesture(
                     gestureType: .simultaneous,
@@ -68,7 +68,7 @@ struct SheetModifier<SheetContent: View>: ViewModifier {
                         }
                     }, onEnd: { value in
                         withAnimation(.bouncy) {
-                            isActive = value.translation.height < 150
+                            isPresented = value.translation.height < 150
                             bottomSheetOffset = 0
                         }
                     }, onCancel: {
@@ -78,22 +78,22 @@ struct SheetModifier<SheetContent: View>: ViewModifier {
                     }
                 )
             }
-            .animation(.spring(), value: isActive)
+            .animation(.spring(), value: isPresented)
     }
 }
 
 extension View {
     func adaptiveSizeSheet<SheetContent: View>(
-        isActive: Binding<Bool>,
+        isPresented: Binding<Bool>,
         content: @escaping () -> SheetContent
     ) -> some View {
-        return modifier(SheetModifier(isActive: isActive, content: content))
+        return modifier(SheetModifier(isPresented: isPresented, content: content))
     }
 }
 
-private struct ClearModalBackground: UIViewRepresentable {
+struct ClearModalBackground: UIViewRepresentable {
     @Environment(\.colorScheme) var colorScheme
-    @Binding var isActive: Bool
+    @Binding var isPresented: Bool
     
     @State var sheetBackground: UIView?
     @State var contentOverlay: UIView?
@@ -110,7 +110,7 @@ private struct ClearModalBackground: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIView, context: Context) {
         UIView.animate(withDuration: 0.3) {
-            contentOverlay?.backgroundColor = UIColor(Color.black.opacity(colorScheme == .dark ? 0.75 : 0.5).opacity(isActive ? 1 : 0))
+            contentOverlay?.backgroundColor = UIColor(Color.black.opacity(colorScheme == .dark ? 0.75 : 0.5).opacity(isPresented ? 1 : 0))
         }
     }
 }

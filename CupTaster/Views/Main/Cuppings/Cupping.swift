@@ -72,7 +72,7 @@ struct CuppingView: View {
             }
         }
         .defaultNavigationBar()
-        .adaptiveSizeSheet(isActive: $settingsModalIsActive) {
+        .adaptiveSizeSheet(isPresented: $settingsModalIsActive) {
             CuppingSettingsView(cupping: cupping, isActive: $settingsModalIsActive)
         }
         #warning("add new sample navigation tool")

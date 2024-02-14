@@ -106,8 +106,8 @@ struct MainTabView: View {
             }
             .navigationToolbar { MainTabToolbar(allFolderFilters: allFolderFilters, selectedFolderFilter: $selectedFolderFilter) }
         }
-        .adaptiveSizeSheet(isActive: $newCuppingModalIsActive) {
-            NewCuppingModalView(isActive: $newCuppingModalIsActive)
+        .adaptiveSizeSheet(isPresented: $newCuppingModalIsActive) {
+            NewCuppingModalView(isPresented: $newCuppingModalIsActive)
         }
         .animation(.smooth(duration: 0.3), value: selectedFolderFilter)
         .onChange(of: selectedFolderFilter) { newValue in

@@ -22,7 +22,9 @@ struct ContentView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
-                    TesterOverlayView().ignoresSafeArea(.keyboard)
+                    if testingManager.testerOverlayIsVisible {
+                        TesterOverlayView().ignoresSafeArea(.keyboard)
+                    }
                 }
             }
 #warning("onboarding // show icloud sync if data exist")
