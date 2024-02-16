@@ -10,12 +10,10 @@ import CloudKitSyncMonitor
 
 struct SettingsTabView: View {
     @AppStorage("sample-name-generator-method") var generationMethod: SampleNameGeneratorModel.GenerationMethod = .alphabetical
-    @State var showLocationAuthorizationSheet: Bool = false
     
     @ObservedObject var testingManager: TestingManager = .shared
     @ObservedObject var syncMonitor: SyncMonitor = .shared
     @ObservedObject var stopwatchModel: StopwatchModel = .shared
-    @ObservedObject var locationManager: LocationManager = .shared
     
     let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "???"
     let buildVersion: String = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "???"
@@ -42,6 +40,8 @@ struct SettingsTabView: View {
                 }
                 .disabled(true)
                 
+                SettingsNavigationSection(title: "Location", systemImageName: "location.fill") { Settings_LocationView() }
+                
                 // MARK: - Conditional
                 
                 SettingsHeader("Conditional")
@@ -50,46 +50,6 @@ struct SettingsTabView: View {
                     get: { generationMethod == .alphabetical },
                     set: { generationMethod = $0 ? .alphabetical : .numerical }
                 ))
-                
-                SettingsToggleSection(title: "Attach location", systemImageNames: (on: "location.fill", off: "location.slash"), isOn: Binding(
-                    get: { locationManager.authorized && locationManager.attachLocation },
-                    set: { value in
-                        if locationManager.authorized {
-                            locationManager.attachLocation = value
-                        } else {
-                            if locationManager.authorizationStatus == .notDetermined {
-                                locationManager.requestAuthorization()
-                            } else {
-                                showLocationAuthorizationSheet = true
-                            }
-                            
-                            locationManager.attachLocation = value
-                        }
-                    }
-                ))
-                .adaptiveSizeSheet(isPresented: $showLocationAuthorizationSheet) {
-                    VStack(spacing: .large) {
-                        Text("Access denied")
-                            .font(.title.bold())
-                        
-                        Image(systemName: "location.slash")
-                            .font(.system(size: 100, weight: .light))
-                            .frame(maxWidth: .infinity)
-                            .foregroundStyle(.gray)
-                        
-                        Text("Turn on Location Services in settings to allow CupTaster determine your location.")
-                            .multilineTextAlignment(.center)
-                            .foregroundStyle(.gray)
-                        
-                        Button {
-                            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-                        } label: {
-                            Text("Go to settings ") + Text(Image(systemName: "arrow.right"))
-                        }
-                        .buttonStyle(.primary)
-                    }
-                    .padding([.horizontal, .bottom], .small)
-                }
                 
                 SettingsToggleSection(title: "Reset stopwatch in 1h", systemImageNames: (on: "clock.arrow.circlepath", off: "clock"), isOn: stopwatchModel.$resetInAnHour)
                 
@@ -116,10 +76,7 @@ struct SettingsTabView: View {
                 
                 if testingManager.isVisible {
                     SettingsHeader("Tester")
-                    
-                    SettingsNavigationSection(title: "Tester", systemImageName: "wrench.and.screwdriver") {
-                        Settings_TesterView()
-                    }
+                    SettingsToggleSection(title: "Tester overlay", systemImageNames: (on: "eye", off: "eye.slash"), isOn: $testingManager.testerOverlayIsVisible)
                 }
                 
                 // MARK: - Info

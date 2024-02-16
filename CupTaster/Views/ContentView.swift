@@ -23,7 +23,7 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     if testingManager.testerOverlayIsVisible {
-                        TesterOverlayView().ignoresSafeArea(.keyboard)
+                        TesterPanelView().ignoresSafeArea(.keyboard)
                     }
                 }
             }

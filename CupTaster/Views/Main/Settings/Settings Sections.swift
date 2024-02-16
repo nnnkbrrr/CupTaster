@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// MARK: Standart Sections
+// MARK: Info Sections
 
 struct SettingsHeader: View {
     let title: String
@@ -24,6 +24,23 @@ struct SettingsHeader: View {
             .padding(.leading, .small)
     }
 }
+
+struct SettingsFooter: View {
+    let text: String
+    
+    init(_ text: String) {
+        self.text = text
+    }
+    
+    var body: some View {
+        Text(text)
+            .font(.caption)
+            .foregroundStyle(.gray)
+            .padding(.leading, .small)
+    }
+}
+
+// MARK: Standart Sections
 
 struct SettingsButtonSection<LeadingContent: View>: View {
     let title: String
@@ -52,16 +69,28 @@ struct SettingsNavigationSection<Destination: View>: View {
     let title: String
     let systemImageName: String?
     let destination: () -> Destination
+    let leadingBadge: String?
     
-    init(title: String, systemImageName: String? = nil, destination: @escaping () -> Destination) {
+    init(title: String, systemImageName: String? = nil, leadingBadge: String? = nil, destination: @escaping () -> Destination) {
         self.title = title
         self.systemImageName = systemImageName
+        self.leadingBadge = leadingBadge
         self.destination = destination
     }
     
     var body: some View {
         NavigationLink(destination: destination) {
-            SettingsSection(title: title, systemImageName: systemImageName) { SettingsLeadingNavigationIndicator() }
+            SettingsSection(title: title, systemImageName: systemImageName) {
+                HStack {
+                    if let leadingBadge {
+                        Text(leadingBadge)
+                            .font(.subheadline)
+                            .foregroundStyle(.gray)
+                    }
+                    
+                    SettingsLeadingNavigationIndicator()
+                }
+            }
         }
         .buttonStyle(.plain)
     }
@@ -82,20 +111,57 @@ struct SettingsToggleSection: View {
     }
 }
 
+struct SettingsTextFieldSection: View {
+    @Binding var text: String
+    let prompt: String
+    
+    var body: some View {
+        TextField(prompt, text: $text)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(height: 60)
+            .padding(.horizontal, 10)
+            .background(Color.backgroundSecondary)
+            .cornerRadius()
+    }
+}
+
+struct SettingsPickerSection<T: Hashable, Content: View>: View {
+    let title: String
+    let systemImageName: String?
+    @Binding var selection: T
+    let content: () -> Content
+    
+    init(title: String, systemImageName: String? = nil, selection: Binding<T>, @ViewBuilder content: @escaping () -> Content) {
+        self.title = title
+        self.systemImageName = systemImageName
+        self._selection = selection
+        self.content = content
+    }
+    
+    var body: some View {
+        SettingsSection(title: title, systemImageName: systemImageName) {
+            Picker(title, selection: $selection) {
+                content()
+            }
+            .labelsHidden()
+        }
+    }
+}
+
 // MARK: Styles
 
-private struct SettingsSection<LeadingContent: View>: View {
+struct SettingsSection<LeadingContent: View>: View {
     let title: String
     @Binding var systemImageName: String?
     let leadingContent: () -> LeadingContent
     
-    init(title: String, systemImageName: @escaping () -> String, leadingContent: @escaping () -> LeadingContent) {
+    init(title: String, systemImageName: @escaping () -> String, leadingContent: @escaping () -> LeadingContent = { EmptyView() }) {
         self.title = title
         self._systemImageName = Binding(get: { systemImageName() }, set: { _ in})
         self.leadingContent = leadingContent
     }
     
-    init(title: String, systemImageName: String?, leadingContent: @escaping () -> LeadingContent) {
+    init(title: String, systemImageName: String? = nil, leadingContent: @escaping () -> LeadingContent = { EmptyView() }) {
         self.title = title
         self._systemImageName = .constant(systemImageName)
         self.leadingContent = leadingContent

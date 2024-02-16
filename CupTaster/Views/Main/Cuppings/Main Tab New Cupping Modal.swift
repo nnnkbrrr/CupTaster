@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct NewCuppingModalView: View {
     @Environment(\.managedObjectContext) private var moc
@@ -13,6 +14,7 @@ struct NewCuppingModalView: View {
         entity: CuppingForm.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: false)]
     ) var cuppingForms: FetchedResults<CuppingForm>
+    @FetchRequest(entity: Location.entity(), sortDescriptors: []) var locations: FetchedResults<Location>
     
     @ObservedObject var locationManager: LocationManager = .shared
     
@@ -23,6 +25,7 @@ struct NewCuppingModalView: View {
     @State var cupsCount: Int = 5
     @State var samplesCount: Int = 10
     
+    @State var location: Location?
     @State var loadingAddress: Bool = true
     @State var address: String = "Location unavailable"
     @State var horizontalAccuracy: Double?
@@ -125,7 +128,9 @@ struct NewCuppingModalView: View {
                             samplesCount: samplesCount
                         )
                         
-                        if let horizontalAccuracy, let latitude, let longitude {
+                        if let location {
+                            cupping.location = location
+                        } else if let horizontalAccuracy, let latitude, let longitude {
                             let location: Location = .init(context: moc)
                             location.address = address
                             location.horizontalAccuracy = horizontalAccuracy
@@ -154,7 +159,21 @@ struct NewCuppingModalView: View {
             Task {
                 if locationManager.attachLocation {
                     if let locationData = await locationManager.getLocationData() {
-                        (self.address, self.horizontalAccuracy, self.latitude, self.longitude) = locationData
+                        let coordinates: CLLocation = .init(latitude: locationData.latitude, longitude: locationData.longitude)
+                        
+                        var minDistance: Double = Double.greatestFiniteMagnitude
+                        for location in locations {
+                            let distance: Double = coordinates.distance(from: location.coordinates)
+                            if distance < locationManager.unionDistance && distance < minDistance {
+                                minDistance = distance
+                                self.location = location
+                                self.address = location.address
+                            }
+                        }
+                        
+                        if self.location == nil {
+                            (self.address, self.horizontalAccuracy, self.latitude, self.longitude) = locationData
+                        }
                     }
                 }
                 withAnimation {

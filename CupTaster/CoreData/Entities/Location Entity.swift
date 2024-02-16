@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import CoreLocation
 
 @objc(Location)
 public class Location: NSManagedObject, Identifiable {
@@ -21,6 +22,12 @@ public class Location: NSManagedObject, Identifiable {
     @NSManaged public var longitude: Double
     
     @NSManaged public var cuppings: Set<Cupping>
+}
+
+extension Location {
+    var coordinates: CLLocation {
+        .init(latitude: latitude, longitude: longitude)
+    }
 }
 
 extension Location {

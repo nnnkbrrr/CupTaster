@@ -17,31 +17,7 @@ class TestingManager: ObservableObject {
     private init() { }
 }
 
-struct Settings_TesterView: View {
-    @Environment(\.dismiss) var dismiss
-    @ObservedObject var testingManager: TestingManager = .shared
-    
-    var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: .extraSmall) {
-                SettingsButtonSection(title: "Toggle tester overlay") {
-                    testingManager.testerOverlayIsVisible.toggle()
-                }
-                
-                SettingsButtonSection(title: "Hide tester tab") {
-                    testingManager.isVisible = false
-                    dismiss()
-                }
-            }
-            .padding(.small)
-        }
-        .background(Color.backgroundPrimary)
-        .navigationTitle("Tester")
-        .defaultNavigationBar()
-    }
-}
-
-struct TesterOverlayView: View {
+struct TesterPanelView: View {
     @ObservedObject var testingManager: TestingManager = .shared
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     @ObservedObject var locationManager: LocationManager = .shared
@@ -212,7 +188,7 @@ struct TesterOverlayView: View {
     }
 }
 
-extension TesterOverlayView {
+extension TesterPanelView {
     struct TesterSectionView<LeadingContent: View>: View {
         let title: String
         @Binding var systemImageName: String?

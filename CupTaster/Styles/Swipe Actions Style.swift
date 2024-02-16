@@ -9,7 +9,7 @@ import SwiftUI
 import SwipeActions
 
 public extension SwipeView {
-    func allCuppingsActionsStyle() -> SwipeView {
+    func defaultSwipeStyle() -> SwipeView {
         return self
             .swipeActionsStyle(.cascade)
             .swipeActionsMaskCornerRadius(0)

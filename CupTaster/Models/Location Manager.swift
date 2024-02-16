@@ -12,6 +12,7 @@ import Contacts
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     @PublishedAppStorage("attach-location") var attachLocation: Bool = false
+    @PublishedAppStorage("location-union-distance") var unionDistance: Double = 100
     
     var authorized: Bool {
         return switch locationManager.authorizationStatus {
