@@ -20,7 +20,9 @@ public class Cupping: NSManagedObject, Identifiable {
     @NSManaged public var isFavorite: Bool
     
     @NSManaged public var form: CuppingForm?
+    @NSManaged public var location: Location?
     @NSManaged public var samples: Set<Sample>
+    @NSManaged public var folders: Set<Folder>
 }
 
 extension Cupping {

@@ -22,7 +22,7 @@ struct MainTabView: View {
     
     @FetchRequest(
         entity: Folder.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Folder.lastModifiedDate, ascending: false)]
+        sortDescriptors: [NSSortDescriptor(keyPath: \Folder.ordinalNumber, ascending: false)]
     ) var folders: FetchedResults<Folder>
     @State var selectedFolderFilter: FolderFilter = FolderFilter.all
     @State var prevSelectedFolderFilterOrdinalNumber: Int = FolderFilter.all.ordinalNumber

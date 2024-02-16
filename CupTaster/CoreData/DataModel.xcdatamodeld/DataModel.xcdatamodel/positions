@@ -1,0 +1,62 @@
+[
+  {
+    "name" : "Cupping",
+    "positionX" : "392.50672912597656",
+    "positionY" : "499.1051330566406"
+  },
+  {
+    "name" : "CuppingForm",
+    "positionX" : "177.9506607055664",
+    "positionY" : "527.3868789672852"
+  },
+  {
+    "name" : "Folder",
+    "positionX" : "175.0",
+    "positionY" : "312.1464157104492"
+  },
+  {
+    "name" : "Location",
+    "positionX" : "622.3696899414062",
+    "positionY" : "507.81063079833984"
+  },
+  {
+    "name" : "QCConfig",
+    "positionX" : "1115.2356414794922",
+    "positionY" : "591.5695037841797"
+  },
+  {
+    "name" : "QCGHint",
+    "positionX" : "1106.2695770263672",
+    "positionY" : "798.993896484375"
+  },
+  {
+    "name" : "QCGroup",
+    "positionX" : "883.3556900024414",
+    "positionY" : "335.8512268066406"
+  },
+  {
+    "name" : "QCGroupConfig",
+    "positionX" : "878.6856536865234",
+    "positionY" : "567.4870147705078"
+  },
+  {
+    "name" : "QCHint",
+    "positionX" : "1105.2898025512695",
+    "positionY" : "914.0460205078125"
+  },
+  {
+    "name" : "QualityCriteria",
+    "positionX" : "1115.488380432129",
+    "positionY" : "327.77622985839844"
+  },
+  {
+    "name" : "Sample",
+    "positionX" : "626.5533142089844",
+    "positionY" : "311.6397705078125"
+  },
+  {
+    "name" : "SampleGeneralInfo",
+    "positionX" : "886.8686294555664",
+    "positionY" : "171.0"
+  }
+]

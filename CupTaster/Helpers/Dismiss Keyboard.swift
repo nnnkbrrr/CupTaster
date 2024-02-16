@@ -18,9 +18,8 @@ extension UIApplication {
 
 extension UIApplication {
     func addPanGestureRecognizer() {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = windowScene.windows.first
-        else { return }
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+        guard let window = windowScene.windows.first else { return }
         let panGesture = UIPanGestureRecognizer(target: window, action: #selector(UIView.endEditing))
         panGesture.requiresExclusiveTouchType = false
         panGesture.cancelsTouchesInView = false

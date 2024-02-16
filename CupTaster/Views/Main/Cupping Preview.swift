@@ -61,6 +61,13 @@ extension MainTabView {
                                 Text("\(cupping.form?.title ?? "") • \(cupping.samples.count) Samples • \(cupping.cupsCount) Cups")
                                     .font(.caption)
                                     .foregroundColor(.gray)
+                                
+                                if let location: Location = cupping.location {
+                                    Text("\(Image(systemName: "mappin.circle")) \(location.address)")
+                                        .multilineTextAlignment(.leading)
+                                        .font(.caption)
+                                        .foregroundStyle(.gray)
+                                }
                             }
                             
                             Spacer()

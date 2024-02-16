@@ -44,6 +44,7 @@ struct Settings_TesterView: View {
 struct TesterOverlayView: View {
     @ObservedObject var testingManager: TestingManager = .shared
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
+    @ObservedObject var locationManager: LocationManager = .shared
     
     let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "???"
     let buildVersion: String = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "???"
@@ -56,7 +57,7 @@ struct TesterOverlayView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             HStack(spacing: 5) {
-                ForEach(0..<4) { index in
+                ForEach(0..<5) { index in
                     Circle()
                         .frame(width: 5, height: 5)
                         .foregroundColor(currentPage == index ? .white : .gray)
@@ -129,6 +130,43 @@ struct TesterOverlayView: View {
                         }
                     }
                     .tag(3)
+                    
+                    HStack {
+                        let locationStatus: String = 
+                        switch locationManager.authorizationStatus {
+                            case .notDetermined: "not determined"
+                            case .restricted: "restricted"
+                            case .denied: "denied"
+                            case .authorizedAlways: "authorized always"
+                            case .authorizedWhenInUse: "authorized when in use"
+                            case .authorized: "authorized"
+                            @unknown default: "unknown"
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Location ") + Text(Image(systemName: locationManager.authorized ? "location.fill" : "location.slash"))
+                            Text("\(locationStatus)")
+                        }
+                        .foregroundStyle(.gray)
+                        
+                        Spacer()
+                        
+                        TesterButton(title: "Get", systemImageName: "location.magnifyingglass") {
+                            Task {
+                                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+                                guard let window = windowScene.windows.first else { return }
+                                let location: String = await locationManager.getLocationAddress() ?? "Undefined"
+                                let alert = UIAlertController(title: "Your Location is", message: location, preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: .destructive))
+                                window.rootViewController?.present(alert, animated: true)
+                            }
+                        }
+                        
+                        TesterButton(title: "Authorize", systemImageName: "location.viewfinder") {
+                            locationManager.requestAuthorization()
+                        }
+                    }
+                    .tag(4)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .contentShape(Rectangle())

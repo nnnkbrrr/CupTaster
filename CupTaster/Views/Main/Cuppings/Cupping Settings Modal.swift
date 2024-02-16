@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import MapKit
+import CoreLocation
 
 extension CuppingView {
     struct CuppingSettingsView: View {
         @Environment(\.managedObjectContext) private var moc
         @ObservedObject var cupping: Cupping
         @Binding var isActive: Bool
+        @State var mapIsExpanded: Bool = false
         
         private let nameLengthLimit = 50
         
@@ -58,8 +61,54 @@ extension CuppingView {
                     .buttonStyle(.bottomSheetBlock)
                 }
                 
-#warning("location block")
-                VStack { }.bottomSheetBlock()
+                HStack(spacing: .regular) {
+                    let address: String = cupping.location?.address ?? "No location"
+                    
+                    ZStack {
+                        if let location = cupping.location {
+                            Map (
+                                coordinateRegion: .constant(
+                                    MKCoordinateRegion(
+                                        center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
+                                        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                                    )
+                                ),
+                                annotationItems: [location],
+                                annotationContent: {
+                                    MapMarker(coordinate: .init(latitude: $0.latitude, longitude: $0.longitude))
+                                }
+                            )
+                            .frame(width: .smallElement * 2, height: .smallElement * 2)
+                            .scaleEffect(0.5)
+                            .fullScreenCover(isPresented: $mapIsExpanded) {
+                                MapModalView(location: location)
+                            }
+                        } else {
+                            Image(systemName: "mappin.slash")
+                        }
+                    }
+                    .frame(width: .smallElement, height: .smallElement)
+                    .cornerRadius(.small)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: .small)
+                            .stroke(Color.separatorPrimary, lineWidth: 2)
+                    }
+                    .allowsHitTesting(false)
+                    
+                    VStack(alignment: .leading) {
+                        Text(address)
+                            .lineLimit(1)
+                        
+                        Text(cupping.date, style: .date)
+                            .foregroundStyle(.gray)
+                            .font(.caption)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(.small)
+                .bottomSheetBlock()
+                .contentShape(Rectangle())
+                .onTapGesture { if cupping.location != nil { mapIsExpanded = true } }
                 
                 HStack(spacing: .extraSmall) {
                     Button {
@@ -77,6 +126,62 @@ extension CuppingView {
                 }
             }
             .padding([.horizontal, .bottom], .small)
+        }
+    }
+}
+
+struct MapModalView: View {    
+    @Environment(\.dismiss) private var dismiss
+    @ObservedObject var location: Location
+    @State var region: MKCoordinateRegion
+    
+    init(location: Location) {
+        self.location = location
+        self._region = State(initialValue: .init(
+            center: .init(latitude: location.latitude, longitude: location.longitude),
+            span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+        ))
+    }
+    
+    var body: some View {
+        ZStack(alignment: .top) {
+            Map (
+                coordinateRegion: $region,
+                showsUserLocation: true,
+                annotationItems: [location],
+                annotationContent: {
+                    MapMarker(
+                        coordinate: .init(latitude: $0.latitude, longitude: $0.longitude),
+                        tint: .red
+                    )
+                }
+            )
+            .edgesIgnoringSafeArea(.all)
+            
+            HStack {
+                Text(location.address)
+                    .font(.title2)
+                
+                Spacer()
+                
+                Image(systemName: "xmark")
+                    .font(.subheadline.bold())
+                    .frame(width: 40, height: 40)
+                    .background(Color.gray.opacity(0.2))
+                    .background(.bar)
+                    .clipShape(Circle())
+                    .onTapGesture { dismiss() }
+            }
+            .padding(.horizontal, .small)
+            .padding(.top, .large)
+            .background(
+                LinearGradient(
+                    colors: [.backgroundPrimary.opacity(0.5), .backgroundPrimary.opacity(0)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                ),
+                ignoresSafeAreaEdges: .top
+            )
         }
     }
 }

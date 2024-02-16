@@ -5,7 +5,9 @@
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="-978318000" usesScalarValueType="NO"/>
         <attribute name="isFavorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString="New Cupping"/>
+        <relationship name="folders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Folder" inverseName="cuppings" inverseEntity="Folder"/>
         <relationship name="form" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CuppingForm" inverseName="cuppings" inverseEntity="CuppingForm"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="cuppings" inverseEntity="Location"/>
         <relationship name="samples" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Sample" inverseName="cupping" inverseEntity="Sample"/>
     </entity>
     <entity name="CuppingForm" representedClassName="CuppingForm" syncable="YES">
@@ -19,9 +21,17 @@
         <relationship name="qcGroupConfigurations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QCGroupConfig" inverseName="form" inverseEntity="QCGroupConfig"/>
     </entity>
     <entity name="Folder" representedClassName="Folder" syncable="YES">
-        <attribute name="lastModifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
+        <attribute name="ordinalNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="cuppings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Cupping" inverseName="folders" inverseEntity="Cupping"/>
         <relationship name="samples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sample" inverseName="folders" inverseEntity="Sample"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES">
+        <attribute name="address" attributeType="String" defaultValueString="Unavailable"/>
+        <attribute name="horizontalAccuracy" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="cuppings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Cupping" inverseName="location" inverseEntity="Cupping"/>
     </entity>
     <entity name="QCConfig" representedClassName="QCConfig" parentEntity="QualityCriteria" syncable="YES">
         <attribute name="evaluationType" attributeType="String" defaultValueString="none"/>
