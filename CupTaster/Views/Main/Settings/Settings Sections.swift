@@ -119,7 +119,7 @@ struct SettingsTextFieldSection: View {
         TextField(prompt, text: $text)
             .frame(maxWidth: .infinity, alignment: .leading)
             .frame(height: 60)
-            .padding(.horizontal, 10)
+            .padding(.horizontal, .regular)
             .background(Color.backgroundSecondary)
             .cornerRadius()
     }
@@ -183,6 +183,7 @@ struct SettingsSection<LeadingContent: View>: View {
             Text(title)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, systemImageName == nil ? .extraSmall : 0)
             
             leadingContent()
         }

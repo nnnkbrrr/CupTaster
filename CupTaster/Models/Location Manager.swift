@@ -71,4 +71,36 @@ enum AddressDecoder {
         guard let shortAddress: String = fullAddress.components(separatedBy: CharacterSet.newlines).first else { throw AddressError.noAddressFound }
         return shortAddress
     }
+    
+    static func getAddress(for location: CLLocationCoordinate2D) async throws -> String {
+        if let address = try? await self.getAddress(for: CLLocation(latitude: location.latitude, longitude: location.longitude)) {
+            return address
+        } else {
+            throw AddressError.noAddressFound
+        }
+    }
+    
+    static func getShortAddress(for location: CLLocationCoordinate2D) async throws -> String {
+        if let address = try? await self.getShortAddress(for: CLLocation(latitude: location.latitude, longitude: location.longitude)) {
+            return address
+        } else {
+            throw AddressError.noAddressFound
+        }
+    }
+    
+    static func getAddress(for location: Location) async throws -> String {
+        if let address = try? await self.getAddress(for: CLLocation(latitude: location.latitude, longitude: location.longitude)) {
+            return address
+        } else {
+            throw AddressError.noAddressFound
+        }
+    }
+    
+    static func getShortAddress(for location: Location) async throws -> String {
+        if let address = try? await self.getShortAddress(for: CLLocation(latitude: location.latitude, longitude: location.longitude)) {
+            return address
+        } else {
+            throw AddressError.noAddressFound
+        }
+    }
 }
