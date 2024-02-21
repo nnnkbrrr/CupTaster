@@ -28,7 +28,7 @@
     </entity>
     <entity name="Location" representedClassName="Location" syncable="YES">
         <attribute name="address" attributeType="String" defaultValueString="Unavailable"/>
-        <attribute name="horizontalAccuracy" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="horizontalAccuracy" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="cuppings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Cupping" inverseName="location" inverseEntity="Cupping"/>

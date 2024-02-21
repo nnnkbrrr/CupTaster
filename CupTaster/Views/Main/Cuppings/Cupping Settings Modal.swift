@@ -19,113 +19,124 @@ extension CuppingView {
         private let nameLengthLimit = 50
         
         var body: some View {
-            VStack(spacing: .extraSmall) {
-                TextField("Cupping Name", text: $cupping.name)
-                    .resizableText(weight: .light)
-                    .submitLabel(.done)
-                    .frame(maxWidth: .infinity)
-                    .multilineTextAlignment(.center)
-                    .padding(.vertical, .regular)
-                    .onChange(of: cupping.name) { name in
-                        if cupping.name.count > nameLengthLimit {
-                            cupping.name = String(cupping.name.prefix(nameLengthLimit))
-                        }
-                        try? moc.save()
-                    }
-                    .bottomSheetBlock()
-                
-                Text("\(cupping.form?.title ?? "") • \(cupping.samples.count) Samples • \(cupping.cupsCount) Cups")
-                    .font(.caption)
-                    .foregroundStyle(.gray)
-                    .padding(.vertical, .extraSmall)
-                
-                HStack(spacing: .extraSmall) {
-                    Button {
-#warning("action")
-                    } label: {
-                        HStack(spacing: .extraSmall) {
-                            Image(systemName: "folder")
-                            Text("Folders")
-                        }
-                    }
-                    .buttonStyle(.bottomSheetBlock)
-                    
-                    Button {
-#warning("action")
-                    } label: {
-                        HStack(spacing: .extraSmall) {
-                            Image(systemName: "square.and.arrow.up")
-                            Text("Share")
-                        }
-                    }
-                    .buttonStyle(.bottomSheetBlock)
-                }
-                
-                HStack(spacing: .regular) {
-                    let address: String = cupping.location?.address ?? "No location"
-                    
-                    ZStack {
-                        if let location = cupping.location {
-                            Map (
-                                coordinateRegion: .constant(
-                                    MKCoordinateRegion(
-                                        center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
-                                        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-                                    )
-                                ),
-                                annotationItems: [location],
-                                annotationContent: {
-                                    MapMarker(coordinate: .init(latitude: $0.latitude, longitude: $0.longitude))
-                                }
-                            )
-                            .frame(width: .smallElement * 2, height: .smallElement * 2)
-                            .scaleEffect(0.5)
-                            .fullScreenCover(isPresented: $mapIsExpanded) {
-                                MapModalView(location: location)
+            if cupping.isFault {
+                EmptyView()
+            } else {
+                VStack(spacing: .extraSmall) {
+                    TextField("Cupping Name", text: $cupping.name)
+                        .resizableText(weight: .light)
+                        .submitLabel(.done)
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.center)
+                        .padding(.vertical, .regular)
+                        .onChange(of: cupping.name) { name in
+                            if cupping.name.count > nameLengthLimit {
+                                cupping.name = String(cupping.name.prefix(nameLengthLimit))
                             }
-                        } else {
-                            Image(systemName: "mappin.slash")
+                            try? moc.save()
                         }
-                    }
-                    .frame(width: .smallElement, height: .smallElement)
-                    .cornerRadius(.small)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: .small)
-                            .stroke(Color.separatorPrimary, lineWidth: 2)
-                    }
-                    .allowsHitTesting(false)
+                        .bottomSheetBlock()
                     
-                    VStack(alignment: .leading) {
-                        Text(address)
-                            .lineLimit(1)
-                        
-                        Text(cupping.date, style: .date)
-                            .foregroundStyle(.gray)
-                            .font(.caption)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .padding(.small)
-                .bottomSheetBlock()
-                .contentShape(Rectangle())
-                .onTapGesture { if cupping.location != nil { mapIsExpanded = true } }
-                
-                HStack(spacing: .extraSmall) {
-                    Button {
+                    Text("\(cupping.form?.title ?? "") • \(cupping.samples.count) Samples • \(cupping.cupsCount) Cups")
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+                        .padding(.vertical, .extraSmall)
+                    
+                    HStack(spacing: .extraSmall) {
+                        Button {
 #warning("action")
-                    } label: {
-                        Text("Delete")
-                            .foregroundStyle(.red)
+                        } label: {
+                            HStack(spacing: .extraSmall) {
+                                Image(systemName: "folder")
+                                Text("Folders")
+                            }
+                        }
+                        .buttonStyle(.bottomSheetBlock)
+                        
+                        Button {
+#warning("action")
+                        } label: {
+                            HStack(spacing: .extraSmall) {
+                                Image(systemName: "square.and.arrow.up")
+                                Text("Share")
+                            }
+                        }
+                        .buttonStyle(.bottomSheetBlock)
                     }
-                    .buttonStyle(.bottomSheetBlock)
                     
-                    Button("Done") {
-                        isActive = false
+                    HStack(spacing: .regular) {
+                        let address: String = cupping.location?.address ?? "No location"
+                        
+                        ZStack {
+                            if let location = cupping.location {
+                                Map (
+                                    coordinateRegion: .constant(
+                                        MKCoordinateRegion(
+                                            center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
+                                            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                                        )
+                                    ),
+                                    annotationItems: [location],
+                                    annotationContent: { MapMarker(coordinate: .init(latitude: $0.latitude, longitude: $0.longitude)) }
+                                )
+                                .frame(width: .smallElement * 2, height: .smallElement * 2)
+                                .scaleEffect(0.5)
+                                .fullScreenCover(isPresented: $mapIsExpanded) {
+                                    MapModalView(location: location) { newLocation, coordinates, address in
+                                        if let newLocation {
+                                            cupping.location = newLocation
+                                        } else {
+                                            (location.latitude, location.longitude) = (coordinates.latitude, coordinates.longitude)
+                                            location.address = address
+                                        }
+                                        try? moc.save()
+                                    }
+                                    .edgesIgnoringSafeArea(.all)
+                                }
+                            } else {
+                                Image(systemName: "mappin.slash")
+                            }
+                        }
+                        .frame(width: .smallElement, height: .smallElement)
+                        .cornerRadius(.small)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: .small)
+                                .stroke(Color.separatorPrimary, lineWidth: 2)
+                        }
+                        .allowsHitTesting(false)
+                        
+                        VStack(alignment: .leading) {
+                            Text(address)
+                                .lineLimit(1)
+                            
+                            Text(cupping.date, style: .date)
+                                .foregroundStyle(.gray)
+                                .font(.caption)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .buttonStyle(.accentBottomSheetBlock)
+                    .padding(.small)
+                    .bottomSheetBlock()
+                    .contentShape(Rectangle())
+                    .onTapGesture { if cupping.location != nil { mapIsExpanded = true } }
+                    
+                    HStack(spacing: .extraSmall) {
+                        Button {
+#warning("action")
+                        } label: {
+                            Text("Delete")
+                                .foregroundStyle(.red)
+                        }
+                        .buttonStyle(.bottomSheetBlock)
+                        
+                        Button("Done") {
+                            isActive = false
+                        }
+                        .buttonStyle(.accentBottomSheetBlock)
+                    }
                 }
+                .padding([.horizontal, .bottom], .small)
             }
-            .padding([.horizontal, .bottom], .small)
         }
     }
 }

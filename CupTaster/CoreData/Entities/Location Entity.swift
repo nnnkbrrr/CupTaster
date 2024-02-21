@@ -28,6 +28,11 @@ extension Location {
     var coordinates: CLLocation {
         .init(latitude: latitude, longitude: longitude)
     }
+    
+    func reinit(_ location: Location) {
+        (self.address, self.horizontalAccuracy, self.latitude, self.longitude) =
+        (location.address, location.horizontalAccuracy, location.latitude, location.longitude)
+    }
 }
 
 extension Location {

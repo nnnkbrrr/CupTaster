@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 import CoreLocation
 
 struct NewCuppingModalView: View {
@@ -19,6 +20,7 @@ struct NewCuppingModalView: View {
     @ObservedObject var locationManager: LocationManager = .shared
     
     @Binding var isPresented: Bool
+    @State var mapIsExpanded = false
     
     private let nameLengthLimit = 50
     @State var name: String = ""
@@ -27,7 +29,7 @@ struct NewCuppingModalView: View {
     
     @State var location: Location?
     @State var loadingAddress: Bool = true
-    @State var address: String = "Location unavailable"
+    @State var address: String = "Location is unavailable"
     @State var horizontalAccuracy: Double?
     @State var latitude: Double?
     @State var longitude: Double?
@@ -47,75 +49,170 @@ struct NewCuppingModalView: View {
                 }
                 .bottomSheetBlock()
             
-            HStack(spacing: 0) {
-                Group {
-                    if let cuppingForm: CuppingForm = CFManager.shared.getDefaultCuppingForm(from: cuppingForms) {
-                        Text(cuppingForm.title)
-                    }
+            HStack(spacing: .extraSmall) {
+                VStack(spacing: .small) {
+                    Text("Cups")
+                        .font(.subheadline)
+                        .foregroundStyle(.gray)
                     
-                    if !loadingAddress {
-                        Text(" • ")
-                        Text(address)
+                    TargetHorizontalScrollView(
+                        1...5, selection: $cupsCount,
+                        elementWidth: .smallElement, height: 18, spacing: .extraSmall
+                    ) { cupsNum in
+                        Text("\(cupsNum)")
+                            .foregroundStyle(cupsNum == cupsCount ? Color.primary : .gray)
+                            .frame(width: .smallElement)
                     }
+                    .mask(
+                        LinearGradient(
+                            gradient: Gradient(colors: [.clear, .black, .clear]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                }
+                .bottomSheetBlock()
+                
+                VStack(spacing: .small) {
+                    Text("Samples")
+                        .font(.subheadline)
+                        .foregroundStyle(.gray)
                     
-                    Text(" • ")
-                    Text(Date().short)
-                }
-                .font(.caption)
-                .foregroundStyle(.gray)
-            }
-            .frame(height: .large)
-            
-            VStack(spacing: .small) {
-                Text("Cups")
-                    .font(.subheadline)
-                    .foregroundStyle(.gray)
-                
-                TargetHorizontalScrollView(
-                    1...5, selection: $cupsCount,
-                    elementWidth: .smallElement, height: 18, spacing: .regular
-                ) { cupsNum in
-                    Text("\(cupsNum)")
-                        .foregroundStyle(cupsNum == cupsCount ? Color.primary : .gray)
-                        .frame(width: .smallElement)
-                }
-                .mask(
-                    LinearGradient(
-                        gradient: Gradient(colors: [.clear, .black, .clear]),
-                        startPoint: .leading,
-                        endPoint: .trailing
+                    TargetHorizontalScrollView(
+                        1...20, selection: $samplesCount,
+                        elementWidth: .smallElement, height: 18, spacing: .extraSmall
+                    ) { samplesNum in
+                        Text("\(samplesNum)")
+                            .foregroundStyle(samplesNum == samplesCount ? Color.primary : .gray)
+                            .frame(width: .smallElement)
+                    }
+                    .mask(
+                        LinearGradient(
+                            gradient: Gradient(colors: [.clear, .black, .clear]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
                     )
-                )
-            }
-            .bottomSheetBlock()
-            
-            VStack(spacing: .small) {
-                Text("Samples")
-                    .font(.subheadline)
-                    .foregroundStyle(.gray)
-                
-                TargetHorizontalScrollView(
-                    1...20, selection: $samplesCount,
-                    elementWidth: .smallElement, height: 18, spacing: .regular
-                ) { samplesNum in
-                    Text("\(samplesNum)")
-                        .foregroundStyle(samplesNum == samplesCount ? Color.primary : .gray)
-                        .frame(width: .smallElement)
                 }
-                .mask(
-                    LinearGradient(
-                        gradient: Gradient(colors: [.clear, .black, .clear]),
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
+                .bottomSheetBlock()
             }
+            
+            HStack(spacing: .regular) {
+                ZStack {
+                    if let location {
+                        Map (
+                            coordinateRegion: .constant(
+                                MKCoordinateRegion(
+                                    center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
+                                    span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                                )
+                            ),
+                            annotationItems: [CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)],
+                            annotationContent: { MapMarker(coordinate: .init(latitude: $0.latitude, longitude: $0.longitude)) }
+                        )
+                        .frame(width: .smallElement * 2, height: .smallElement * 2)
+                        .scaleEffect(0.5)
+                        .fullScreenCover(isPresented: $mapIsExpanded) {
+                            MapModalView (
+                                location: location,
+                                specifyingLocation: true
+                            ) { newLocation, coordinates, address in
+                                if let newLocation {
+                                    self.location = newLocation
+                                } else {
+                                    self.location = nil
+                                    (self.latitude, self.longitude) = (coordinates.latitude, coordinates.longitude)
+                                    self.address = address
+                                }
+                                try? moc.save()
+                            }
+                            .edgesIgnoringSafeArea(.all)
+                        }
+                    } else if let latitude, let longitude {
+                        Map (
+                            coordinateRegion: .constant(
+                                MKCoordinateRegion(
+                                    center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+                                    span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                                )
+                            ),
+                            annotationItems: [CLLocationCoordinate2D(latitude: latitude, longitude: longitude)],
+                            annotationContent: { MapMarker(coordinate: .init(latitude: $0.latitude, longitude: $0.longitude)) }
+                        )
+                        .frame(width: .smallElement * 2, height: .smallElement * 2)
+                        .scaleEffect(0.5)
+                        .fullScreenCover(isPresented: $mapIsExpanded) {
+                            MapModalView (
+                                coordinates: .init(latitude: latitude, longitude: longitude),
+                                address: address,
+                                specifyingLocation: true
+                            ) { newLocation, coordinates, address in
+                                if let newLocation {
+                                    self.location = newLocation
+                                } else {
+                                    self.location = nil
+                                    (self.latitude, self.longitude) = (coordinates.latitude, coordinates.longitude)
+                                    self.address = address
+                                }
+                                try? moc.save()
+                            }
+                            .edgesIgnoringSafeArea(.all)
+                        }
+                    } else {
+                        Image(systemName: "mappin.slash")
+                    }
+                }
+                .frame(width: .smallElement, height: .smallElement)
+                .cornerRadius(.small)
+                .overlay {
+                    RoundedRectangle(cornerRadius: .small)
+                        .stroke(Color.separatorPrimary, lineWidth: 2)
+                }
+                .allowsHitTesting(false)
+                
+                VStack(alignment: .leading) {
+                    Text(address)
+                        .lineLimit(1)
+                    
+                    Text("\(Image(systemName: "mappin.and.ellipse")) Specify")
+                        .foregroundStyle(Color.accentColor)
+                        .font(.caption)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(.small)
             .bottomSheetBlock()
+            .contentShape(Rectangle())
+            .onTapGesture {
+                if location != nil || (latitude != nil && longitude != nil) {
+                    mapIsExpanded = true
+                }
+            }
             
             HStack(spacing: .extraSmall) {
-                Button("Cancel") { isPresented = false }
-                    .buttonStyle(.bottomSheetBlock)
+                Button {
+#warning("action")
+                } label: {
+                    HStack(spacing: .extraSmall) {
+                        Image(systemName: "doc.plaintext")
+                        Text(CFManager.shared.getDefaultCuppingForm(from: cuppingForms)?.title ?? "Cupping Form")
+#warning("CF not selected")
+                    }
+                }
+                .buttonStyle(.bottomSheetBlock)
                 
+                Button {
+#warning("action")
+                } label: {
+                    HStack(spacing: .extraSmall) {
+                        Image(systemName: "folder")
+                        Text("Folders")
+                    }
+                }
+                .buttonStyle(.bottomSheetBlock)
+            }
+            
+            HStack(spacing: .extraSmall) {
                 Button {
                     if let defaultCuppingForm: CuppingForm = CFManager.shared.getDefaultCuppingForm(from: cuppingForms) {
                         let cupping: Cupping = .init(context: moc)
@@ -130,12 +227,12 @@ struct NewCuppingModalView: View {
                         
                         if let location {
                             cupping.location = location
-                        } else if let horizontalAccuracy, let latitude, let longitude {
+                        } else if let latitude, let longitude {
                             let location: Location = .init(context: moc)
                             location.address = address
-                            location.horizontalAccuracy = horizontalAccuracy
                             location.latitude = latitude
                             location.longitude = longitude
+                            if let horizontalAccuracy { location.horizontalAccuracy = horizontalAccuracy }
                             cupping.location = location
                         }
                         

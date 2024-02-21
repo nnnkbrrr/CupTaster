@@ -40,7 +40,7 @@ struct SettingsTabView: View {
                 }
                 .disabled(true)
                 
-                SettingsNavigationSection(title: "Location", systemImageName: "location.fill") { Settings_LocationView() }
+                SettingsNavigationSection(title: "Location", systemImageName: "location") { Settings_LocationView() }
                 
                 // MARK: - Conditional
                 
