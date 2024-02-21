@@ -62,7 +62,11 @@ struct SampleBottomSheetView: View {
                 if let sample: Sample = samplesControllerModel.selectedSample,
                    let selectedQCGroup: QCGroup = samplesControllerModel.selectedQCGroup {
                     TargetHorizontalScrollView(
-                        sample.sortedQCGroups,
+                        sample.sortedQCGroups.filter { qcGroup in
+                            return !qcGroup.qualityCriteria.contains(where: {
+                                $0.configuration.unwrappedEvaluation is CupsCheckboxesEvaluation
+                            }) || sample.cupping.cupsCount > 1
+                        },
                         selection: Binding(
                             get: { selectedQCGroup },
                             set: { samplesControllerModel.changeSelectedQCGroup(qcGroup: $0) }

@@ -421,10 +421,10 @@
 				6331CE7F2B1B90990078984F /* Sample Name Generator Model.swift */,
 				630DB3042B750C6500DF08DC /* Stopwatch Model.swift */,
 				63343FFD2B7E5F870073658B /* Location Manager.swift */,
+				63F60D552B72C053002A99FE /* Email Manager.swift */,
 				63A88D092A4C98E00006AA0F /* Evaluation.swift */,
 				6320A3A92A72BF000069E6B9 /* Evaluation Types */,
 				63A88D0C2A4C99380006AA0F /* Cupping Forms */,
-				63F60D552B72C053002A99FE /* Email Manager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

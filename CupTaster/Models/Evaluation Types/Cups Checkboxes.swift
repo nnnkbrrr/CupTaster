@@ -14,7 +14,12 @@ class CupsCheckboxesEvaluation: Evaluation {
     func getEvaluationValue(_ value: CGFloat, cupsCount: Int16) -> CGFloat { return CGFloat(Int(value).digits.reduce(0, +)) }
     
     func body(for criteria: QualityCriteria, value: Binding<Double>) -> some View {
-        return CupsCheckboxesView(value: value, cupsCount: criteria.group.sample.cupping.cupsCount)
+        return CupsCheckboxesView(
+            value: value,
+            lowerBoundTitle: criteria.configuration.lowerBoundTitle,
+            upperBoundTitle: criteria.configuration.upperBoundTitle,
+            cupsCount: criteria.group.sample.cupping.cupsCount
+        )
     }
     
     // Additional
@@ -35,46 +40,60 @@ class CupsCheckboxesEvaluation: Evaluation {
 private struct CupsCheckboxesView: View {
     @Binding var value: Double
     let cupsCount: Int
+    let lowerBoundTitle: String?
+    let upperBoundTitle: String?
     
-    init(value: Binding<Double>, cupsCount: Int16) {
+    init(value: Binding<Double>, lowerBoundTitle: String?, upperBoundTitle: String?, cupsCount: Int16) {
         self._value = value
         self.cupsCount = Int(cupsCount)
+        
+        self.lowerBoundTitle = lowerBoundTitle
+        self.upperBoundTitle = upperBoundTitle
     }
     
     var body: some View {
-        HStack {
-            let checkboxes: [Int] = Array(1...cupsCount)
-            let values: [Bool] = CupsCheckboxesEvaluation.checkboxesValues(value: self.value, cupsCount: Int16(cupsCount))
-            
-            ForEach(checkboxes, id: \.self) { checkbox in
-                let isActive: Bool = values[checkbox - 1]
-                
-                ZStack {
-                    Image(systemName: isActive ? "cup.and.saucer" : "cup.and.saucer.fill")
-                        .font(.largeTitle.weight(.ultraLight))
-                        .foregroundColor(.accentColor)
-                        .scaleEffect(isActive ? 0.8 : 1)
-                        .opacity(isActive ? 0.5 : 1)
-                    
-                    Image(systemName: "xmark")
-                        .font(.largeTitle)
-                        .foregroundColor(.accentColor)
-                        .rotationEffect(isActive ? Angle(degrees: 0) : Angle(degrees: 90))
-                        .opacity(isActive ? 1 : 0)
-                        .scaleEffect(isActive ? 1 : 0.5)
+        VStack(spacing: .extraSmall) {
+            if lowerBoundTitle != nil || upperBoundTitle != nil {
+                HStack {
+                    if let lowerBoundTitle { Text(lowerBoundTitle) }
+                    Spacer()
+                    if let upperBoundTitle { Text(upperBoundTitle) }
                 }
-                .frame(maxWidth: .infinity)
-                .contentShape(Rectangle())
-                .padding(.vertical, 5)
-                .animation(
-                    .interpolatingSpring(stiffness: 100, damping: 10),
-                    value: value
-                )
-                .onTapGesture {
-                    let power: Double = Double(cupsCount - checkbox)
-                    value += pow(10, power) * (isActive ? -1 : 1)
+                .font(.caption)
+                .foregroundStyle(.gray)
+            }
+            
+            HStack(spacing: .extraSmall) {
+                let checkboxes: [Int] = Array(1...cupsCount)
+                let values: [Bool] = CupsCheckboxesEvaluation.checkboxesValues(value: self.value, cupsCount: Int16(cupsCount))
+                
+                ForEach(checkboxes, id: \.self) { checkbox in
+                    let isActive: Bool = values[checkbox - 1]
+                    
+                    ZStack {
+                        Image(systemName: isActive ? "cup.and.saucer" : "cup.and.saucer.fill")
+                            .font(.largeTitle.weight(.ultraLight))
+                            .foregroundColor(.accentColor)
+                            .scaleEffect(isActive ? 0.8 : 1)
+                            .opacity(isActive ? 0.5 : 1)
+                        
+                        Image(systemName: "xmark")
+                            .font(.largeTitle)
+                            .foregroundColor(.accentColor)
+                            .rotationEffect(isActive ? Angle(degrees: 0) : Angle(degrees: 90))
+                            .opacity(isActive ? 1 : 0)
+                            .scaleEffect(isActive ? 1 : 0.5)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .contentShape(Rectangle())
+                    .animation(.interpolatingSpring(stiffness: 100, damping: 10), value: value)
+                    .onTapGesture {
+                        let power: Double = Double(cupsCount - checkbox)
+                        value += pow(10, power) * (isActive ? -1 : 1)
+                    }
                 }
             }
         }
+        .padding(.vertical, .small)
     }
 }
