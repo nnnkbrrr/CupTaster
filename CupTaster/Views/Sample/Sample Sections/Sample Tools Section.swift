@@ -12,6 +12,8 @@ extension SampleView {
         @Environment(\.managedObjectContext) private var moc
         @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
         
+        @State var deleteModalIsActive: Bool = false
+        
         var body: some View {
             SampleToolsSection(tools: [
                 .init(systemImageName: samplesControllerModel.selectedSample?.isFavorite ?? false ? "heart.fill" : "heart") {
@@ -21,13 +23,38 @@ extension SampleView {
                     }
                     try? moc.save()
                 },
-                .init(systemImageName: "square.and.arrow.up") {
-#warning("action")
-                },
                 .init(systemImageName: "folder.badge.gearshape") {
 #warning("action")
+                },
+                .init(systemImageName: "trash") {
+                    deleteModalIsActive = true
                 }
             ])
+            .adaptiveSizeSheet(isPresented: $deleteModalIsActive) {
+                VStack(spacing: .small) {
+                    Text("Delete \(samplesControllerModel.selectedSample?.name ?? "Sample")?")
+                        .resizableText(initialSize: 30)
+                    
+                    HStack(spacing: .extraSmall) {
+                        if let selectedSample: Sample = samplesControllerModel.selectedSample {
+                            Button("Delete") {
+                                #warning("does not work")
+//                                selectedSample.cupping.objectWillChange.send()
+//                                moc.delete(selectedSample)
+//                                deleteModalIsActive = false
+//                                try? moc.save()
+                            }
+                            .buttonStyle(.bottomSheetBlock)
+                        }
+                        
+                        Button("Cancel") {
+                            deleteModalIsActive = false
+                        }
+                        .buttonStyle(.accentBottomSheetBlock)
+                    }
+                }
+                .padding(.small)
+            }
         }
     }
     

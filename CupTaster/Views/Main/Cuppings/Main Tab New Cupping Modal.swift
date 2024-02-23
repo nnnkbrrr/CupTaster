@@ -174,9 +174,11 @@ struct NewCuppingModalView: View {
                     Text(address)
                         .lineLimit(1)
                     
-                    Text("\(Image(systemName: "mappin.and.ellipse")) Specify")
-                        .foregroundStyle(Color.accentColor)
-                        .font(.caption)
+                    if location != nil || (latitude != nil && longitude != nil) {
+                        Text("\(Image(systemName: "mappin.and.ellipse")) Specify")
+                            .foregroundStyle(Color.accentColor)
+                            .font(.caption)
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }

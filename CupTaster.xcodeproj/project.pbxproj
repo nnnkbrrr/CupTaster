@@ -38,7 +38,6 @@
 		63343FFE2B7E5F870073658B /* Location Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63343FFD2B7E5F870073658B /* Location Manager.swift */; };
 		633440082B7E83570073658B /* Location Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633440072B7E83570073658B /* Location Entity.swift */; };
 		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
-		6348EE4B2B46F7010061B5AA /* Sample Delete Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348EE4A2B46F7010061B5AA /* Sample Delete Section.swift */; };
 		6348EE4D2B46F7CF0061B5AA /* Sample General Info Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348EE4C2B46F7CF0061B5AA /* Sample General Info Section.swift */; };
 		6349471E2B13BBDA00A9030B /* Circular Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349471D2B13BBDA00A9030B /* Circular Progress.swift */; };
 		634D5A4D2A5ED5F200A18B63 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634D5A4C2A5ED5F200A18B63 /* Sample.swift */; };
@@ -142,7 +141,6 @@
 		63343FFD2B7E5F870073658B /* Location Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location Manager.swift"; sourceTree = "<group>"; };
 		633440072B7E83570073658B /* Location Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location Entity.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		6348EE4A2B46F7010061B5AA /* Sample Delete Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Delete Section.swift"; sourceTree = "<group>"; };
 		6348EE4C2B46F7CF0061B5AA /* Sample General Info Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample General Info Section.swift"; sourceTree = "<group>"; };
 		6349471D2B13BBDA00A9030B /* Circular Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circular Progress.swift"; sourceTree = "<group>"; };
 		634D5A4C2A5ED5F200A18B63 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
@@ -266,7 +264,6 @@
 				631422722B3AC79200683F7F /* Sample Chart Section.swift */,
 				63729F952A6DAF6600EF0FEE /* Sample Tools Section.swift */,
 				6348EE4C2B46F7CF0061B5AA /* Sample General Info Section.swift */,
-				6348EE4A2B46F7010061B5AA /* Sample Delete Section.swift */,
 				633042442B4C5ACE005BD8F2 /* Sample Elements.swift */,
 			);
 			path = "Sample Sections";
@@ -688,7 +685,6 @@
 				6372A3752B4FF7F200925E0B /* Resizable Text.swift in Sources */,
 				22242C7E28EF274900138494 /* QualityCriteria Entity.swift in Sources */,
 				63DD44E92B71403900F1D256 /* Cupping Settings Modal.swift in Sources */,
-				6348EE4B2B46F7010061B5AA /* Sample Delete Section.swift in Sources */,
 				6355CAB92B502B100069A7E9 /* Sample Bottom Sheet Section.swift in Sources */,
 				63CCA3832B7A70C40087103A /* Settings Sections.swift in Sources */,
 				6385BDD42B8511ED003DE15E /* Map Modal.swift in Sources */,

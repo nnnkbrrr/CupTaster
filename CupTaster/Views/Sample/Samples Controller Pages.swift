@@ -66,7 +66,7 @@ struct SamplesControllerPagesView: View {
                     Button {
                         samplesControllerModel.exit()
                     } label: {
-                        Image(systemName: "chevron.left")
+                        Image(systemName: "checkmark")
                             .frame(width: .smallElement, height: .smallElement)
                             .background(Color.backgroundTertiary)
                             .clipShape(Circle())

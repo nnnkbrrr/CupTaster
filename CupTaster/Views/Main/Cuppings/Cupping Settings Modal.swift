@@ -53,15 +53,15 @@ extension CuppingView {
                         }
                         .buttonStyle(.bottomSheetBlock)
                         
-                        Button {
-#warning("action")
-                        } label: {
-                            HStack(spacing: .extraSmall) {
-                                Image(systemName: "square.and.arrow.up")
-                                Text("Share")
-                            }
-                        }
-                        .buttonStyle(.bottomSheetBlock)
+//                        Button {
+//#warning("action")
+//                        } label: {
+//                            HStack(spacing: .extraSmall) {
+//                                Image(systemName: "square.and.arrow.up")
+//                                Text("Share")
+//                            }
+//                        }
+//                        .buttonStyle(.bottomSheetBlock)
                     }
                     
                     HStack(spacing: .regular) {

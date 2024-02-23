@@ -69,8 +69,6 @@ struct SampleView: View {
                         .sampleBlock(height: .smallElementContainer)
                     
                     GeneralInfoSection(gridCellSize: gridCellSize)
-                    
-                    DeleteSection()
                 }
                 .padding(.vertical, .small)
                 .padding(.horizontal, .extraSmall)
