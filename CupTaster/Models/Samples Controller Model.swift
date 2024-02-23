@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 class SamplesControllerModel: ObservableObject {
     static let shared: SamplesControllerModel = .init()
@@ -94,6 +95,34 @@ extension SamplesControllerModel {
             DispatchQueue.main.async {
                 self.sampleAnimationID = nil
             }
+        }
+    }
+    
+    public func deleteSelectedSample(moc: NSManagedObjectContext) {
+        guard let sample = selectedSample else { return }
+        
+        let deletedSampleOrdinalNumber: Int16 = sample.ordinalNumber
+        moc.delete(sample)
+        
+        let sortedSamples: [Sample] = sample.cupping.sortedSamples
+        
+        for sample in sortedSamples {
+            if sample.ordinalNumber > deletedSampleOrdinalNumber {
+                sample.ordinalNumber -= 1
+            }
+        }
+        
+        if sortedSamples.count > 1 {
+            if selectedSampleIndex != 0 {
+                selectedSampleIndex -= 1
+                changeSelectedSample(sample: sortedSamples[selectedSampleIndex])
+            } else {
+                selectedSampleIndex += 1
+                changeSelectedSample(sample: sortedSamples[selectedSampleIndex])
+            }
+        } else {
+            moc.delete(sample.cupping)
+            self.isActive = false
         }
     }
 }

@@ -12,15 +12,13 @@ struct SampleToolsSection: View {
     private static let dividerWidth: CGFloat = 3
     
     var body: some View {
-        ZStack {
-            GeometryReader { geometry in
-                HStack(spacing: -Self.dividerWidth) {
-                    ForEach(tools) { tool in
-                        SampleToolButton(systemImageName: tool.systemImageName, action: tool.action)
-                        
-                        if tool.id != tools.last?.id {
-                            ToolsDivider()
-                        }
+        GeometryReader { geometry in
+            HStack(spacing: -Self.dividerWidth) {
+                ForEach(tools) { tool in
+                    SampleToolButton(systemImageName: tool.systemImageName, action: tool.action)
+                    
+                    if tool.id != tools.last?.id {
+                        ToolsDivider()
                     }
                 }
             }

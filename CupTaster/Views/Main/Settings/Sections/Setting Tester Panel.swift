@@ -73,8 +73,12 @@ struct TesterPanelView: View {
                     
                     HStack {
                         if let cupping = samplesControllerModel.cupping {
-                            Text("Cupping: \(cupping.name)")
-                                .foregroundStyle(.gray)
+                            VStack(alignment: .leading) {
+                                Text("Cupping: \(cupping.name)")
+                                Text("Samples: \(cupping.samples.count)")
+                                Text("Selected Sample Index: \(samplesControllerModel.selectedSampleIndex)")
+                            }
+                            .foregroundStyle(.gray)
                             
                             Spacer()
                             

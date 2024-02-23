@@ -36,16 +36,14 @@ extension SampleView {
                         .resizableText(initialSize: 30)
                     
                     HStack(spacing: .extraSmall) {
-                        if let selectedSample: Sample = samplesControllerModel.selectedSample {
-                            Button("Delete") {
-                                #warning("does not work")
-//                                selectedSample.cupping.objectWillChange.send()
-//                                moc.delete(selectedSample)
-//                                deleteModalIsActive = false
-//                                try? moc.save()
+                        Button("Delete") {
+                            withAnimation {
+                                samplesControllerModel.deleteSelectedSample(moc: moc)
+                                try? moc.save()
+                                deleteModalIsActive = false
                             }
-                            .buttonStyle(.bottomSheetBlock)
                         }
+                        .buttonStyle(.bottomSheetBlock)
                         
                         Button("Cancel") {
                             deleteModalIsActive = false
@@ -59,24 +57,79 @@ extension SampleView {
     }
     
     struct GeneralInfoToolsSection: View {
+        @Environment(\.managedObjectContext) private var moc
+        @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
+        
+        @State var cameraPhotoPickerIsActive: Bool = false
+        @State var libraryPhotoPickerIsActive: Bool = false
+        @State var fileImporterIsActive: Bool = false
+        
         var body: some View {
             SampleToolsSection(tools: [
                 .init(systemImageName: "textformat") {
 #warning("action")
                 },
                 .init(systemImageName: "photo") {
-#warning("action")
+                    libraryPhotoPickerIsActive = true
                 },
                 .init(systemImageName: "camera") {
-#warning("action")
+                    cameraPhotoPickerIsActive = true
                 },
                 .init(systemImageName: "qrcode.viewfinder") {
 #warning("action")
                 },
                 .init(systemImageName: "doc") {
-#warning("action")
+                    fileImporterIsActive = true
                 }
             ])
+            .fullScreenCover(isPresented: $cameraPhotoPickerIsActive) {
+                ImagePickerController(sourceType: .camera) { uiImage in
+                    addImage(uiImage: uiImage)
+                }.ignoresSafeArea()
+            }
+            .fullScreenCover(isPresented: $libraryPhotoPickerIsActive) {
+                ImagePickerController(sourceType: .photoLibrary) { uiImage in
+                    addImage(uiImage: uiImage)
+                }.ignoresSafeArea()
+            }
+            .fileImporter(
+                isPresented: $fileImporterIsActive,
+                allowedContentTypes: [.item]
+            ) { result in
+                addFile(result)
+            }
+        }
+        
+        func addImage(uiImage: UIImage) {
+            guard let sample: Sample = samplesControllerModel.selectedSample else { return }
+            let newSGIField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
+            newSGIField.title = "Image"
+            newSGIField.ordinalNumber = Int16((sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0) + 1)
+            newSGIField.sample = sample
+            newSGIField.attachment = uiImage.encodeToData() ?? Data()
+            try? moc.save()
+        }
+        
+        func addFile(_ file: Result<URL, any Error>) {
+            guard let sample: Sample = samplesControllerModel.selectedSample else { return }
+            
+            let newSGIField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
+            newSGIField.ordinalNumber = Int16((sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0) + 1)
+            newSGIField.sample = sample
+            
+            if let fileURL = try? file.get() {
+                newSGIField.title = fileURL.lastPathComponent
+                
+                if fileURL.startAccessingSecurityScopedResource(), let fileData = try? Data(contentsOf: fileURL) {
+                    newSGIField.attachment = fileData
+                } else {
+                    newSGIField.attachment = Data("error".utf8)
+                }
+            } else {
+                newSGIField.title = "Error"
+            }
+            
+            try? moc.save()
         }
     }
 }
