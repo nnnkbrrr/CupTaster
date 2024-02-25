@@ -13,17 +13,25 @@ extension SampleView {
         let gridCellSize: CGFloat
         
         var body: some View {
-            LazyVGrid(
-                columns: [
-                    GridItem(
-                        .adaptive(minimum: 150, maximum: 200),
-                        spacing: .extraSmall,
-                        alignment: .top
-                    )
-                ],
-                spacing: .extraSmall
-            ) {
-                if let sample: Sample = samplesControllerModel.selectedSample {
+            if let sample: Sample = samplesControllerModel.selectedSample {
+                WrappedGeneralInfoSection(sample: sample)
+            }
+        }
+        
+        private struct WrappedGeneralInfoSection: View {
+            @ObservedObject var sample: Sample
+            
+            var body: some View {
+                LazyVGrid(
+                    columns: [
+                        GridItem(
+                            .adaptive(minimum: 150, maximum: 200),
+                            spacing: .extraSmall,
+                            alignment: .top
+                        )
+                    ],
+                    spacing: .extraSmall
+                ) {
                     ForEach(sample.generalInfo.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })) {
                         SampleGeneralInfoFieldView(generalInfo: $0)
                     }
@@ -46,81 +54,71 @@ struct SampleGeneralInfoFieldView: View {
             let attachment: Data = generalInfo.attachment
             if attachment != Data() {
                 if attachment == Data("error".utf8) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(.red)
+                    AttachmentPreview {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.red)
+                    }
                 } else if generalInfo.title == "Image" || generalInfo.title == "JPEG Image" {
                     let image: UIImage = attachment.decodeToUIImage() ?? UIImage(systemName: "exclamationmark.triangle.fill")!
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 40, height: 40)
-                        .cornerRadius(5)
-                        .onTapGesture {
-                            let docDirPath = NSSearchPathForDirectoriesInDomains(
-                                .documentDirectory, .userDomainMask, true
-                            )[0] as NSString
-                            let filePath = docDirPath.appendingPathComponent("image.jpeg")
-                            try? attachment.write(to: URL(fileURLWithPath: filePath), options: .atomic)
-                            quickLookItem = URL(fileURLWithPath: filePath)
-                        }
+                    AttachmentPreview {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } action: {
+                        let docDirPath = NSSearchPathForDirectoriesInDomains(
+                            .documentDirectory, .userDomainMask, true
+                        )[0] as NSString
+                        let filePath = docDirPath.appendingPathComponent("image.jpeg")
+                        try? attachment.write(to: URL(fileURLWithPath: filePath), options: .atomic)
+                        quickLookItem = URL(fileURLWithPath: filePath)
+                    }
                 } else if generalInfo.title == "URL" {
-                    Image(systemName: "link")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.accentColor)
-                        .frame(width: 40, height: 40)
-                        .background(Color(uiColor: .systemGray4))
-                        .cornerRadius(5)
-                        .onTapGesture {
-                            let sampleURL: String = String(decoding: generalInfo.attachment, as: UTF8.self)
-                            if sampleURL.starts(with: "http") {
-                                if let url: URL = URL(string: sampleURL) { websiteURL = url }
-                            } else {
-                                if let url: URL = URL(string: "http://" + sampleURL) { websiteURL = url }
-                            }
-                        }
+                    AttachmentPreview {
+                        Image(systemName: "safari")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 20, height: 20)
+                    } action: {
+                        let sampleURL: String = String(decoding: generalInfo.attachment, as: UTF8.self)
+                        
+                        if sampleURL.starts(with: "http") { websiteURL = URL(string: sampleURL) }
+                        else { websiteURL = URL(string: "http://" + sampleURL) }
+                    }
                 } else {
-                    Text(generalInfo.title.components(separatedBy: ".").last!.uppercased())
-                        .fontWeight(.bold)
-                        .foregroundColor(.accentColor)
-                        .padding(7)
-                        .minimumScaleFactor(0.01)
-                        .frame(width: 40, height: 40)
-                        .background(Color(uiColor: .systemGray4))
-                        .cornerRadius(5)
-                        .onTapGesture {
-                            let docDirPath = NSSearchPathForDirectoriesInDomains(
-                                .documentDirectory, .userDomainMask, true
-                            )[0] as NSString
-                            let filePath = docDirPath.appendingPathComponent(generalInfo.title)
-                            try? attachment.write(to: URL(fileURLWithPath: filePath), options: .atomic)
-                            quickLookItem = URL(fileURLWithPath: filePath)
-                        }
+                    AttachmentPreview {
+                        Text(generalInfo.title.components(separatedBy: ".").last!.uppercased())
+                            .resizableText()
+                            .padding(7)
+                    } action: {
+                        let docDirPath = NSSearchPathForDirectoriesInDomains(
+                            .documentDirectory, .userDomainMask, true
+                        )[0] as NSString
+                        let filePath = docDirPath.appendingPathComponent(generalInfo.title)
+                        try? attachment.write(to: URL(fileURLWithPath: filePath), options: .atomic)
+                        quickLookItem = URL(fileURLWithPath: filePath)
+                    }
                 }
             }
             
             VStack(alignment: .leading, spacing: 2) {
-                Text(generalInfo.title)
+                let title: String = generalInfo.title == "URL" ? String(decoding: generalInfo.attachment, as: UTF8.self) : generalInfo.title
+                let textFieldPrompt: String = generalInfo.attachment == Data() ? generalInfo.title : "Notes"
+                
+                Text(title)
                     .resizableText(initialSize: 12)
                     .frame(height: 12, alignment: .top)
                     .foregroundStyle(.gray)
                 
-                TextField(
-                    generalInfo.attachment == Data() ? generalInfo.title : "Notes",
-                    text: $generalInfo.value,
-                    onCommit: { try? moc.save() }
-                )
-                .submitLabel(.done)
-                .resizableText(initialSize: 15)
-                .frame(height: 15)
-                .onChange(of: generalInfo.value) { note in
-                    if note.count > 25 { generalInfo.value = String(note.prefix(25)) }
-                    try? moc.save()
-                }
+                TextField(textFieldPrompt, text: $generalInfo.value, onCommit: { try? moc.save() })
+                    .submitLabel(.done)
+                    .resizableText(initialSize: 15)
+                    .frame(height: 15)
+                    .onChange(of: generalInfo.value) { note in
+                        if note.count > 25 { generalInfo.value = String(note.prefix(25)) }
+                        try? moc.save()
+                    }
             }
         }
         .padding(.leading, .regular)
@@ -131,5 +129,48 @@ struct SampleGeneralInfoFieldView: View {
         .cornerRadius()
         .quickLook(item: $quickLookItem)
         .previewInSafari(url: $websiteURL)
+        .contextMenu {
+            Section {
+                Button(role: .destructive) {
+                    withAnimation {
+                        let deletedGeneralInfoOrdinalNumber: Int16 = generalInfo.ordinalNumber
+                        let sortedGeneralInfo: [SampleGeneralInfo] = generalInfo.sample?.generalInfo
+                            .filter { $0 != generalInfo }
+                            .sorted(by: { $0.ordinalNumber < $1.ordinalNumber }) ?? []
+                        
+                        moc.delete(generalInfo)
+                        
+                        for generalInfo in sortedGeneralInfo {
+                            if generalInfo.ordinalNumber > deletedGeneralInfoOrdinalNumber {
+                                generalInfo.ordinalNumber -= 1
+                            }
+                        }
+                        
+                        try? moc.save()
+                    }
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+            }
+        }
+    }
+    
+    struct AttachmentPreview<Content: View>: View {
+        let content: () -> Content
+        let action: () -> ()
+        
+        init(content: @escaping () -> Content, action: @escaping () -> () = { }) {
+            self.content = content
+            self.action = action
+        }
+        
+        var body: some View {
+            content()
+                .foregroundColor(.accentColor)
+                .frame(width: 40, height: 40)
+                .background(Color.backgroundTertiary)
+                .cornerRadius(5)
+                .onTapGesture { action() }
+        }
     }
 }

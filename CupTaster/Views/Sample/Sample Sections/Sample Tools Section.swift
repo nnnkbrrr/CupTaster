@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CodeScanner
 
 extension SampleView {
     struct ActionsToolsSection: View {
@@ -62,25 +63,18 @@ extension SampleView {
         
         @State var cameraPhotoPickerIsActive: Bool = false
         @State var libraryPhotoPickerIsActive: Bool = false
+        @State var qrScannerIsActive: Bool = false
         @State var fileImporterIsActive: Bool = false
         
         var body: some View {
             SampleToolsSection(tools: [
-                .init(systemImageName: "textformat") {
+                .init(systemImageName: "textformat", disabled: true) {
 #warning("action")
                 },
-                .init(systemImageName: "photo") {
-                    libraryPhotoPickerIsActive = true
-                },
-                .init(systemImageName: "camera") {
-                    cameraPhotoPickerIsActive = true
-                },
-                .init(systemImageName: "qrcode.viewfinder") {
-#warning("action")
-                },
-                .init(systemImageName: "doc") {
-                    fileImporterIsActive = true
-                }
+                .init(systemImageName: "photo") { libraryPhotoPickerIsActive = true },
+                .init(systemImageName: "camera", disabled: CameraManager.isAuthorized == false) { cameraPhotoPickerIsActive = true },
+                .init(systemImageName: "qrcode.viewfinder", disabled: CameraManager.isAuthorized == false) { qrScannerIsActive = true },
+                .init(systemImageName: "doc") { fileImporterIsActive = true }
             ])
             .fullScreenCover(isPresented: $cameraPhotoPickerIsActive) {
                 ImagePickerController(sourceType: .camera) { uiImage in
@@ -92,12 +86,27 @@ extension SampleView {
                     addImage(uiImage: uiImage)
                 }.ignoresSafeArea()
             }
-            .fileImporter(
-                isPresented: $fileImporterIsActive,
-                allowedContentTypes: [.item]
-            ) { result in
+            .fullScreenCover(isPresented: $qrScannerIsActive) {
+                QRScannerView(isActive: $qrScannerIsActive) { response in
+                    addLink(response: response)
+                }
+            }
+            .fileImporter(isPresented: $fileImporterIsActive, allowedContentTypes: [.item]) { result in
                 addFile(result)
             }
+        }
+        
+        func addLink(response: (Result<ScanResult, ScanError>)) {
+            guard let sample: Sample = samplesControllerModel.selectedSample else { return }
+            let newLinkField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
+            newLinkField.title = "URL"
+            switch response {
+                case .success(let result): newLinkField.attachment = Data(result.string.utf8)
+                case .failure(_): newLinkField.attachment = Data("Error".utf8)
+            }
+            newLinkField.ordinalNumber = Int16((sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0) + 1)
+            newLinkField.sample = sample
+            try? moc.save()
         }
         
         func addImage(uiImage: UIImage) {

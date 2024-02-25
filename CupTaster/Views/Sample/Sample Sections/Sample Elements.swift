@@ -15,7 +15,7 @@ struct SampleToolsSection: View {
         GeometryReader { geometry in
             HStack(spacing: -Self.dividerWidth) {
                 ForEach(tools) { tool in
-                    SampleToolButton(systemImageName: tool.systemImageName, action: tool.action)
+                    SampleToolButton(tool)
                     
                     if tool.id != tools.last?.id {
                         ToolsDivider()
@@ -27,31 +27,32 @@ struct SampleToolsSection: View {
     
     class SampleTool: Identifiable {
         let systemImageName: String
+        let disabled: Bool
         let action: () -> ()
         
-        init(systemImageName: String, action: @escaping () -> Void) {
+        init(systemImageName: String, disabled: Bool = false, action: @escaping () -> Void) {
             self.systemImageName = systemImageName
+            self.disabled = disabled
             self.action = action
         }
     }
     
     private struct SampleToolButton: View {
-        let systemImageName: String
-        let action: () -> ()
+        let sampleTool: SampleTool
         
-        init(systemImageName: String, action: @escaping () -> Void) {
-            self.systemImageName = systemImageName
-            self.action = action
+        init(_ sampleTool: SampleTool) {
+            self.sampleTool = sampleTool
         }
         
         var body: some View {
             Button {
-                action()
+                sampleTool.action()
             } label: {
-                Image(systemName: systemImageName)
+                Image(systemName: sampleTool.systemImageName)
                     .font(.title2)
             }
             .buttonStyle(SampleToolButtonStyle())
+            .disabled(sampleTool.disabled)
         }
     }
 

@@ -96,8 +96,12 @@ struct TesterPanelView: View {
                     
                     HStack {
                         if let sample: Sample = samplesControllerModel.selectedSample {
-                            Text("Sample: \(sample.name)")
-                                .foregroundStyle(.gray)
+                            VStack(alignment: .leading) {
+                                Text("Sample: \(sample.name)")
+                                Text("General Info: \((sample.generalInfo.map { $0.title } ).description)")
+                                    .resizableText(initialSize: 12)
+                            }
+                            .foregroundStyle(.gray)
                             
                             Spacer()
                             

@@ -73,6 +73,7 @@ struct SampleView: View {
                 .padding(.vertical, .small)
                 .padding(.horizontal, .extraSmall)
             }
+            .animation(.default, value: samplesControllerModel.selectedSample)
         }
         .safeAreaInset(edge: .bottom) {
             Spacer().frame(height: SampleBottomSheetConfiguration.minHeight)

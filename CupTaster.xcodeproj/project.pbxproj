@@ -38,6 +38,8 @@
 		63343FFE2B7E5F870073658B /* Location Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63343FFD2B7E5F870073658B /* Location Manager.swift */; };
 		633440082B7E83570073658B /* Location Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633440072B7E83570073658B /* Location Entity.swift */; };
 		633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 633B68C828916F77005D32C0 /* Launch Screen.storyboard */; };
+		6342E7662B8BB59100D08ACB /* QR Scanner Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6342E7652B8BB59100D08ACB /* QR Scanner Controller.swift */; };
+		6342E7682B8BBA3600D08ACB /* Camera Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6342E7672B8BBA3600D08ACB /* Camera Manager.swift */; };
 		6348EE4D2B46F7CF0061B5AA /* Sample General Info Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348EE4C2B46F7CF0061B5AA /* Sample General Info Section.swift */; };
 		6349471E2B13BBDA00A9030B /* Circular Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349471D2B13BBDA00A9030B /* Circular Progress.swift */; };
 		634D5A4D2A5ED5F200A18B63 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634D5A4C2A5ED5F200A18B63 /* Sample.swift */; };
@@ -144,6 +146,8 @@
 		63343FFD2B7E5F870073658B /* Location Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location Manager.swift"; sourceTree = "<group>"; };
 		633440072B7E83570073658B /* Location Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location Entity.swift"; sourceTree = "<group>"; };
 		633B68C828916F77005D32C0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		6342E7652B8BB59100D08ACB /* QR Scanner Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QR Scanner Controller.swift"; sourceTree = "<group>"; };
+		6342E7672B8BBA3600D08ACB /* Camera Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Camera Manager.swift"; sourceTree = "<group>"; };
 		6348EE4C2B46F7CF0061B5AA /* Sample General Info Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample General Info Section.swift"; sourceTree = "<group>"; };
 		6349471D2B13BBDA00A9030B /* Circular Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circular Progress.swift"; sourceTree = "<group>"; };
 		634D5A4C2A5ED5F200A18B63 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
@@ -305,6 +309,7 @@
 				636831382B4D8E91008763B1 /* Bottom Sheet.swift */,
 				6385BDD32B8511ED003DE15E /* Map Modal.swift */,
 				63AC0EB32B88FD13001C65E8 /* Safari Controller.swift */,
+				6342E7652B8BB59100D08ACB /* QR Scanner Controller.swift */,
 				63AC0EB12B88F705001C65E8 /* Preview Controller.swift */,
 				63AC0EAD2B88E396001C65E8 /* Image Picker Controller .swift */,
 			);
@@ -426,6 +431,7 @@
 				63DD44E62B7133D100F1D256 /* Namespace Controller Model.swift */,
 				6331CE7F2B1B90990078984F /* Sample Name Generator Model.swift */,
 				630DB3042B750C6500DF08DC /* Stopwatch Model.swift */,
+				6342E7672B8BBA3600D08ACB /* Camera Manager.swift */,
 				63343FFD2B7E5F870073658B /* Location Manager.swift */,
 				63F60D552B72C053002A99FE /* Email Manager.swift */,
 				63A88D092A4C98E00006AA0F /* Evaluation.swift */,
@@ -646,6 +652,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6342E7662B8BB59100D08ACB /* QR Scanner Controller.swift in Sources */,
 				63AC0EAE2B88E396001C65E8 /* Image Picker Controller .swift in Sources */,
 				63CCA3852B7A775A0087103A /* Publushed App Storage.swift in Sources */,
 				6320A3AD2A72BF3A0069E6B9 /* Radio Evaluation.swift in Sources */,
@@ -666,6 +673,7 @@
 				63729F962A6DAF6700EF0FEE /* Sample Tools Section.swift in Sources */,
 				630AD6132B2361CC0016DBFA /* Sample Final Score Section.swift in Sources */,
 				633440082B7E83570073658B /* Location Entity.swift in Sources */,
+				6342E7682B8BBA3600D08ACB /* Camera Manager.swift in Sources */,
 				63A1A90B2A556896008D30CE /* Folder Entity.swift in Sources */,
 				63EF652F2B695D3E009A9AF3 /* Swipe Actions Style.swift in Sources */,
 				631422712B3AC21C00683F7F /* Rose Chart.swift in Sources */,
@@ -922,7 +930,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
@@ -965,7 +973,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CupTaster/Resources/CupTaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"CupTaster/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XW6LRWG87C;
 				ENABLE_PREVIEWS = YES;
