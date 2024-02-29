@@ -41,30 +41,26 @@ struct MainTabView: View {
                 ForEach(allFolderFilters) { folderFilter in
                     if selectedFolderFilter == folderFilter {
                         ScrollView {
-                            if let folderElementsGroupedByMonth: [(key: MonthAndYear, value: (cuppings: [Cupping], samples: [Sample]))] =
-                                getFolderElementsGroupedByMonth(folderFilter: folderFilter)
-                            {
+                            let sectionsData: [SectionData] = getSectionsData(folderFilter: folderFilter)
+                            
+                            if sectionsData.isEmpty { isEmpty } else {
                                 LazyVStack(alignment: .leading, spacing: 0) {
-                                    ForEach(folderElementsGroupedByMonth, id: \.key) { monthAndYear, folderElements in
+                                    ForEach(sectionsData) { sectionData in
                                         MonthSection(
-                                            title: monthAndYear.string,
-                                            cuppings: folderElements.cuppings,
-                                            samples: folderElements.samples,
+                                            title: sectionData.monthAndYear.string,
+                                            cuppings: sectionData.cuppings,
+                                            samples: sectionData.samples,
                                             folderFilter: selectedFolderFilter
                                         )
                                     }
                                 }
                                 .padding([.horizontal, .bottom], .small)
-                            } else {
-                                isEmpty
                             }
                         }
                         .background(Color.backgroundPrimary)
                         .id(selectedFolderFilter.animationId)
                         .transition(.asymmetric(
-                            insertion: .move(
-                                edge: prevSelectedFolderFilterOrdinalNumber > selectedFolderFilter.ordinalNumber ? .leading : .trailing
-                            ),
+                            insertion: .move(edge: prevSelectedFolderFilterOrdinalNumber > selectedFolderFilter.ordinalNumber ? .leading : .trailing),
                             removal: .opacity.combined(with: .scale(scale: 0.75))
                         ))
                     }
@@ -153,10 +149,28 @@ struct MainTabView: View {
             }
         }
     }
+    
+    class SectionData: Identifiable {
+        var id: String { monthAndYear.string }
+        let monthAndYear: MonthAndYear
+        var cuppings: [Cupping]
+        var samples: [Sample]
+        
+        init(monthAndYear: MonthAndYear, cuppings: [Cupping], samples: [Sample]) {
+            self.monthAndYear = monthAndYear
+            self.cuppings = cuppings
+            self.samples = samples
+        }
+        
+        func sortData() {
+            cuppings.sort(by: { $0.date > $1.date })
+            samples.sort(by: { $0.date > $1.date && $0.ordinalNumber < $1.ordinalNumber })
+        }
+    }
 }
 
 extension MainTabView {
-    func getFolderElementsGroupedByMonth(folderFilter: FolderFilter) -> [(key: MonthAndYear, value: (cuppings: [Cupping], samples: [Sample]))]? {
+    func getSectionsData(folderFilter: FolderFilter) -> [MainTabView.SectionData] {
         let filteredCuppings: [Cupping] = folderFilter.predicate(Array(cuppings)).compactMap { $0 as? Cupping ?? nil }
         let filteredSamples: [Sample] = folderFilter.predicate(Array(samples)).compactMap { $0 as? Sample ?? nil }
         
@@ -172,8 +186,12 @@ extension MainTabView {
             groupedFolderElements[key, default: (cuppings: [], samples: [])].samples.append(sample)
         }
         
-        return groupedFolderElements.mapValues { (cuppings: [Cupping], samples: [Sample]) in
-            (cuppings: cuppings.sorted(by: { $0.date > $1.date }), samples: samples.sorted(by: { $0.date > $1.date && $0.ordinalNumber < $1.ordinalNumber }) )
-        }.sorted(by: { $0.key > $1.key })
+        let sectionsData: [MainTabView.SectionData] = groupedFolderElements.map { (key: MonthAndYear, folderElements: (cuppings: [Cupping], samples: [Sample])) in
+            MainTabView.SectionData(monthAndYear: key, cuppings: folderElements.cuppings, samples: folderElements.samples)
+        }
+        
+        for sectionData in sectionsData { sectionData.sortData() }
+        
+        return sectionsData.sorted(by: { $0.monthAndYear < $1.monthAndYear })
     }
 }

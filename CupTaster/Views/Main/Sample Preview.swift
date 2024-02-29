@@ -28,54 +28,59 @@ struct SamplePreview: View {
             return "\(matchedGeometryAnimationDescription).radar.chart.\(sample.id)"
         }
         
-        VStack(alignment: .leading) {
-            RoseChart(sample: sample)
-                .frame(maxWidth: .infinity)
-                .matchedGeometryEffect(
-                    id: matchedGeometryId,
-                    in: NamespaceControllerModel.shared.namespace
-                )
-                .zIndex(2.1)
-                .aspectRatio(contentMode: .fit)
-            
-            Text(sample.name)
-                .font(.subheadline)
-            
-            if showCupping { CuppingLink(cupping: sample.cupping) }
-            
-            HStack(spacing: 0) {
-                Text("Final score: ")
-                Text(String(format: "%.1f", sample.finalScore))
+        if samplesControllerModel.selectedSample != sample {
+            VStack(alignment: .leading) {
+                RoseChart(sample: sample)
+                    .frame(maxWidth: .infinity)
+                    .matchedGeometryEffect(
+                        id: matchedGeometryId,
+                        in: NamespaceControllerModel.shared.namespace
+                    )
+                    .zIndex(2.1)
+                    .aspectRatio(contentMode: .fit)
                 
-                Spacer()
+                Text(sample.name)
+                    .font(.subheadline)
                 
-                if sample.isFavorite {
-                    Image(systemName: "heart.fill")
-                        .foregroundStyle(.red)
+                if showCupping { CuppingLink(cupping: sample.cupping) }
+                
+                HStack(spacing: 0) {
+                    Text("Final score: ")
+                    Text(String(format: "%.1f", sample.finalScore))
+                    
+                    Spacer()
+                    
+                    if sample.isFavorite {
+                        Image(systemName: "heart.fill")
+                            .foregroundStyle(.red)
+                    }
+                }
+                .foregroundStyle(.gray)
+                .font(.caption)
+            }
+            .padding(.small)
+            .frame(maxHeight: .infinity)
+            .background(
+                RoundedRectangle(cornerRadius: .defaultCornerRadius)
+                    .foregroundStyle(Color.backgroundSecondary)
+            )
+            .matchedGeometryEffect(
+                id: matchedGeometryId + ".container",
+                in: NamespaceControllerModel.shared.namespace
+            )
+            .zIndex(2.1)
+            .contextMenu {
+#warning("context menu")
+                Button("Open") {
+                    samplesControllerModel.setSelectedSample(sample, animationId: animationId)
                 }
             }
-            .foregroundStyle(.gray)
-            .font(.caption)
-        }
-        .padding(.small)
-        .frame(maxHeight: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: .defaultCornerRadius)
-                .foregroundStyle(Color.backgroundSecondary)
-        )
-        .matchedGeometryEffect(
-            id: matchedGeometryId + ".container",
-            in: NamespaceControllerModel.shared.namespace
-        )
-        .zIndex(2.1)
-        .contextMenu {
-#warning("context menu")
-            Button("Open") {
+            .onTapGesture {
                 samplesControllerModel.setSelectedSample(sample, animationId: animationId)
             }
-        }
-        .onTapGesture {
-            samplesControllerModel.setSelectedSample(sample, animationId: animationId)
+        } else {
+            Color.clear
+                .frame(minHeight: 200)
         }
     }
     

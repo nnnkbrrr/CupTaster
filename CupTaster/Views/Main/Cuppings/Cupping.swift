@@ -36,11 +36,7 @@ struct CuppingView: View {
                         spacing: .extraSmall
                     ) {
                         ForEach(cupping.sortedSamples) { sample in
-                            if samplesControllerModel.selectedSample != sample {
-                                SamplePreview(sample)
-                            } else {
-                                Color.clear
-                            }
+                            SamplePreview(sample)
                         }
                     }
                     .padding(.small)

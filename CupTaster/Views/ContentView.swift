@@ -18,7 +18,7 @@ struct ContentView: View {
         VStack(spacing: 0) {
             ZStack {
                 MainTabView()
-                SamplesControllerView()
+                SamplesControllerView().opacity(testingManager.hideSampleOverlay ? 0 : 1)
             }
             .allowsHitTesting(!samplesControllerModel.isTogglingVisibility)
             .toolbar {
