@@ -156,8 +156,6 @@ class LocationPickerController: UIViewController {
         self.mapView.delegate = self
         self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        let centerCoordinate = coordinates
-        let span = MKCoordinateSpan.init(latitudeDelta: 0.005, longitudeDelta: 0.005)
         self.view.addSubview(self.mapView)
         
         self.mapView.addAnnotations(locations.map {
@@ -321,7 +319,7 @@ extension LocationPickerController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         if !animated {
             if self.specifyingLocation {
-                self.setPrompt("Locating...")
+                self.setPrompt()
                 
                 UIView.animate(withDuration: 0.25) {
                     self.mapSpecifyingPinImage.center.y = mapView.center.y - 25
@@ -334,7 +332,7 @@ extension LocationPickerController: MKMapViewDelegate {
         if !animated && self.specifyingLocation {
             if location != nil {
                 self.location = nil
-                self.setPrompt("Locating...")
+                self.setPrompt()
                 
                 mapSpecifyingPinImage.layer.opacity = 1
                 mapSpecifyingPoint.layer.opacity = 1
@@ -391,8 +389,8 @@ extension LocationPickerController: CLLocationManagerDelegate {
         self.locationManager.stopUpdatingLocation()
     }
     
-    private func setPrompt(_ prompt: String) {
-        self.navigationItem.prompt = prompt
+    private func setPrompt(_ prompt: String? = nil) {
+        self.navigationItem.prompt = prompt ?? "Locating..."
         
         for view in self.navigationController?.navigationBar.subviews ?? [] {
             let subviews = view.subviews

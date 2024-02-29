@@ -20,6 +20,7 @@ struct ContentView: View {
                 MainTabView()
                 SamplesControllerView()
             }
+            .allowsHitTesting(!samplesControllerModel.isTogglingVisibility)
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     if testingManager.testerOverlayIsVisible {
