@@ -1,62 +1,62 @@
 [
   {
     "name" : "Cupping",
-    "positionX" : "392.50672912597656",
+    "positionX" : "384.5057067871094",
     "positionY" : "499.1051330566406"
   },
   {
     "name" : "CuppingForm",
-    "positionX" : "177.9506607055664",
-    "positionY" : "527.3868789672852"
+    "positionX" : "176.97368621826172",
+    "positionY" : "503.1745147705078"
   },
   {
     "name" : "Folder",
     "positionX" : "175.0",
-    "positionY" : "312.1464157104492"
+    "positionY" : "224.61803436279297"
   },
   {
     "name" : "Location",
-    "positionX" : "622.3696899414062",
+    "positionX" : "614.3686676025391",
     "positionY" : "507.81063079833984"
   },
   {
     "name" : "QCConfig",
-    "positionX" : "1115.2356414794922",
-    "positionY" : "591.5695037841797"
+    "positionX" : "1121.8780517578125",
+    "positionY" : "558.6196899414062"
   },
   {
     "name" : "QCGHint",
-    "positionX" : "1106.2695770263672",
-    "positionY" : "798.993896484375"
+    "positionX" : "1105.2104187011719",
+    "positionY" : "747.2731018066406"
   },
   {
     "name" : "QCGroup",
-    "positionX" : "883.3556900024414",
+    "positionX" : "875.3546676635742",
     "positionY" : "335.8512268066406"
   },
   {
     "name" : "QCGroupConfig",
-    "positionX" : "878.6856536865234",
-    "positionY" : "567.4870147705078"
+    "positionX" : "874.3752288818359",
+    "positionY" : "567.4356079101562"
   },
   {
     "name" : "QCHint",
-    "positionX" : "1105.2898025512695",
-    "positionY" : "914.0460205078125"
+    "positionX" : "1105.4292297363281",
+    "positionY" : "867.2816467285156"
   },
   {
     "name" : "QualityCriteria",
-    "positionX" : "1115.488380432129",
-    "positionY" : "327.77622985839844"
+    "positionX" : "1122.4679565429688",
+    "positionY" : "327.75978088378906"
   },
   {
     "name" : "Sample",
-    "positionX" : "626.5533142089844",
+    "positionX" : "618.5522918701172",
     "positionY" : "311.6397705078125"
   },
   {
     "name" : "SampleGeneralInfo",
-    "positionX" : "886.8686294555664",
+    "positionX" : "878.8676071166992",
     "positionY" : "171.0"
   }
 ]

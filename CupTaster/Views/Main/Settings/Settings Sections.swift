@@ -9,34 +9,52 @@ import SwiftUI
 
 // MARK: Info Sections
 
-struct SettingsHeader: View {
-    let title: String
+struct SettingsSection<Content: View>: View {
+    let header: String?
+    let isFoldable: Bool
+    let footer: String?
+    let content: () -> Content
     
-    init(_ title: String) {
-        self.title = title
+    @State var isFolded: Bool = false
+    
+    init(_ header: String? = nil, isFoldable: Bool = false, footer: String? = nil, @ViewBuilder content: @escaping () -> Content) {
+        self.header = header
+        self.isFoldable = isFoldable
+        self.footer = footer
+        self.content = content
     }
     
     var body: some View {
-        Text(title)
-            .font(.subheadline)
-            .bold()
-            .frame(height: 40, alignment: .bottom)
-            .padding(.leading, .small)
-    }
-}
-
-struct SettingsFooter: View {
-    let text: String
-    
-    init(_ text: String) {
-        self.text = text
-    }
-    
-    var body: some View {
-        Text(text)
-            .font(.caption)
-            .foregroundStyle(.gray)
-            .padding(.leading, .small)
+        LazyVStack(alignment: .leading, spacing: .extraSmall) {
+            if let header { 
+                HStack {
+                    Text(header)
+                        .font(.subheadline)
+                        .bold()
+                        .frame(height: 40, alignment: .bottom)
+                        .padding(.leading, .small)
+                    
+                    if isFoldable {
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .padding(.trailing, .extraSmall)
+                            .rotationEffect(.degrees(isFolded ? 0 : 90))
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture { withAnimation { isFolded.toggle() } }
+            }
+            
+            content()
+            
+            if let footer { 
+                Text(footer)
+                    .font(.caption)
+                    .foregroundStyle(.gray)
+                    .padding(.leading, .small)
+            }
+        }
     }
 }
 
@@ -59,7 +77,7 @@ struct SettingsButtonSection<LeadingContent: View>: View {
         Button {
             action()
         } label: {
-            SettingsSection(title: title, systemImageName: systemImageName) { leadingContent() }
+            SettingsRow(title: title, systemImageName: systemImageName) { leadingContent() }
         }
         .buttonStyle(.plain)
     }
@@ -80,7 +98,7 @@ struct SettingsNavigationSection<Destination: View>: View {
     
     var body: some View {
         NavigationLink(destination: destination) {
-            SettingsSection(title: title, systemImageName: systemImageName) {
+            SettingsRow(title: title, systemImageName: systemImageName) {
                 HStack {
                     if let leadingBadge {
                         Text(leadingBadge)
@@ -102,7 +120,7 @@ struct SettingsToggleSection: View {
     @Binding var isOn: Bool
     
     var body: some View {
-        SettingsSection(title: title) {
+        SettingsRow(title: title) {
             isOn ? systemImageNames.on : systemImageNames.off
         } leadingContent: {
             Toggle("", isOn: $isOn)
@@ -139,7 +157,7 @@ struct SettingsPickerSection<T: Hashable, Content: View>: View {
     }
     
     var body: some View {
-        SettingsSection(title: title, systemImageName: systemImageName) {
+        SettingsRow(title: title, systemImageName: systemImageName) {
             Picker(title, selection: $selection) {
                 content()
             }
@@ -150,7 +168,7 @@ struct SettingsPickerSection<T: Hashable, Content: View>: View {
 
 // MARK: Styles
 
-struct SettingsSection<LeadingContent: View>: View {
+struct SettingsRow<LeadingContent: View>: View {
     let title: String
     @Binding var systemImageName: String?
     let leadingContent: () -> LeadingContent

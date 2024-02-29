@@ -192,6 +192,6 @@ extension MainTabView {
         
         for sectionData in sectionsData { sectionData.sortData() }
         
-        return sectionsData.sorted(by: { $0.monthAndYear < $1.monthAndYear })
+        return sectionsData.sorted(by: { $0.monthAndYear > $1.monthAndYear })
     }
 }

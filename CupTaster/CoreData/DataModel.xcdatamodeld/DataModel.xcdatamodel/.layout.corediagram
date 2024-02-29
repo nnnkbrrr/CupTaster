@@ -1,14 +1,15 @@
 {
-  "sidebarWidth" : 0,
   "offset" : [
     0,
     0
   ],
+  "sidebarWidth" : 0,
+  "zoom" : 1,
   "offsets" : [
 
   ],
   "colours" : [
-    "Cupping",
+    "QualityCriteria",
     {
       "colorSpace" : "kCGColorSpaceSRGB",
       "components" : [
@@ -27,6 +28,36 @@
         0.5
       ],
       "colorSpace" : "kCGColorSpaceSRGB"
+    },
+    "Cupping",
+    {
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ],
+      "colorSpace" : "kCGColorSpaceSRGB"
+    },
+    "QCHint",
+    {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
+    },
+    "CuppingForm",
+    {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
     },
     "QCGHint",
     {
@@ -48,7 +79,7 @@
         0.5
       ]
     },
-    "SampleGeneralInfo",
+    "Location",
     {
       "colorSpace" : "kCGColorSpaceSRGB",
       "components" : [
@@ -57,56 +88,26 @@
         0.37254901960784315,
         0.5
       ]
+    },
+    "SampleGeneralInfo",
+    {
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ],
+      "colorSpace" : "kCGColorSpaceSRGB"
     },
     "Sample",
     {
-      "colorSpace" : "kCGColorSpaceSRGB",
       "components" : [
         1,
         0.21568627450980393,
         0.37254901960784315,
         0.5
-      ]
-    },
-    "CuppingForm",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
-    "QCHint",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
-    "QCGroup",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
-    "QualityCriteria",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
+      ],
+      "colorSpace" : "kCGColorSpaceSRGB"
     },
     "QCConfig",
     {
@@ -117,7 +118,16 @@
         0.5
       ],
       "colorSpace" : "kCGColorSpaceSRGB"
+    },
+    "QCGroup",
+    {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
     }
-  ],
-  "zoom" : 1
+  ]
 }

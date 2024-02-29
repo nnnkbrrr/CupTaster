@@ -26,57 +26,57 @@ struct SettingsTabView: View {
                 
                 // MARK: - Main
                 
-                SettingsNavigationSection(title: "Default Cupping Form", systemImageName: "doc.plaintext") { Settings_CuppingFormsView() }
-                
+                SettingsSection {
+                    SettingsNavigationSection(title: "Default Cupping Form", systemImageName: "doc.plaintext") { Settings_CuppingFormsView() }
 #warning("section")
-                SettingsNavigationSection(title: "General Info Fields", systemImageName: "info") {
-                    Text("Empty")
-                }
-                .disabled(true)
-                
+                    SettingsNavigationSection(title: "General Info Fields", systemImageName: "info") {
+                        Text("Empty")
+                    }
+                    .disabled(true)
 #warning("section")
-                SettingsNavigationSection(title: "Folders", systemImageName: "folder") {
-                    Text("Empty")
+                    SettingsNavigationSection(title: "Folders", systemImageName: "folder") {
+                        Text("Empty")
+                    }
+                    .disabled(true)
+                    SettingsNavigationSection(title: "Location", systemImageName: "location") { Settings_LocationView() }
                 }
-                .disabled(true)
-                
-                SettingsNavigationSection(title: "Location", systemImageName: "location") { Settings_LocationView() }
                 
                 // MARK: - Conditional
                 
-                SettingsHeader("Conditional")
-                
-                SettingsToggleSection(title: "Alternative sample names", systemImageNames: (on: "abc", off: "textformat.123"), isOn: Binding(
-                    get: { generationMethod == .alphabetical },
-                    set: { generationMethod = $0 ? .alphabetical : .numerical }
-                ))
-                
-                SettingsToggleSection(title: "Reset stopwatch in 1h", systemImageNames: (on: "clock.arrow.circlepath", off: "clock"), isOn: stopwatchModel.$resetInAnHour)
-                
-                // MARK: - Contacts
-                
-                SettingsHeader("Contacts")
-                
-                SettingsButtonSection(title: "Contact us", systemImageName: "envelope") {
-                    EmailManager.shared.send(
-                        body: emailMessage,
-                        to: "support-cuptaster@nnnkbrrr.space"
-                    )
-                } leadingContent: {
-                    SettingsLeadingNavigationIndicator()
+                SettingsSection("Conditional") {
+                    SettingsToggleSection(title: "Alternative sample names", systemImageNames: (on: "abc", off: "textformat.123"), isOn: Binding(
+                        get: { generationMethod == .alphabetical },
+                        set: { generationMethod = $0 ? .alphabetical : .numerical }
+                    ))
+                    
+                    SettingsToggleSection(title: "Reset stopwatch in 1h", systemImageNames: (on: "clock.arrow.circlepath", off: "clock"), isOn: stopwatchModel.$resetInAnHour)
                 }
                 
+                    // MARK: - Contacts
+                
+                SettingsSection("Contacts") {
+                    SettingsButtonSection(title: "Contact us", systemImageName: "envelope") {
+                        EmailManager.shared.send(
+                            body: emailMessage,
+                            to: "support-cuptaster@nnnkbrrr.space"
+                        )
+                    } leadingContent: {
+                        SettingsLeadingNavigationIndicator()
+                    }
+                    
 #warning("section")
-                SettingsNavigationSection(title: "Help with translation", systemImageName: "globe") {
-                    Text("Empty")
+                    SettingsNavigationSection(title: "Help with translation", systemImageName: "globe") {
+                        Text("Empty")
+                    }
+                    .disabled(true)
                 }
-                .disabled(true)
                 
                 // MARK: - Tester
                 
                 if testingManager.isVisible {
-                    SettingsHeader("Tester")
-                    SettingsToggleSection(title: "Tester overlay", systemImageNames: (on: "eye", off: "eye.slash"), isOn: $testingManager.testerOverlayIsVisible)
+                    SettingsSection("Tester") {
+                        SettingsToggleSection(title: "Tester overlay", systemImageNames: (on: "eye", off: "eye.slash"), isOn: $testingManager.testerOverlayIsVisible)
+                    }
                 }
                 
                 // MARK: - Info

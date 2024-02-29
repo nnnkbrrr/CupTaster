@@ -19,15 +19,16 @@ public class CFManager: ObservableObject {
             title: "SCA",
             version: "1.1"
         )
-        let SCI_CFModel = CFModel(
-            title: "SCI",
-            version: "1.0"
-        )
-        let CoE_CFModel = CFModel(
-            title: "CoE",
-            version: "1.0"
-        )
-        allCFModels = [SCA_CFModel, SCI_CFModel, CoE_CFModel]
+        #warning("cupping forms")
+//        let SCI_CFModel = CFModel(
+//            title: "SCI",
+//            version: "1.0"
+//        )
+//        let CoE_CFModel = CFModel(
+//            title: "CoE",
+//            version: "1.0"
+//        )
+        allCFModels = [SCA_CFModel]//, SCI_CFModel, CoE_CFModel]
     }
 }
 
