@@ -24,7 +24,7 @@ extension SampleView {
                     }
                     try? moc.save()
                 },
-                .init(systemImageName: "folder.badge.gearshape") {
+                .init(systemImageName: "folder.badge.gearshape", disabled: true) {
 #warning("action")
                 },
                 .init(systemImageName: "trash") {

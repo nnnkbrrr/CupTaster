@@ -46,29 +46,12 @@ struct MainTabView: View {
                             {
                                 LazyVStack(alignment: .leading, spacing: 0) {
                                     ForEach(folderElementsGroupedByMonth, id: \.key) { monthAndYear, folderElements in
-                                        Text(monthAndYear.string)
-                                            .bold()
-                                            .padding(.horizontal, .extraSmall)
-                                            .frame(height: .smallElement)
-                                        
-                                        LazyVStack(spacing: .extraSmall) {
-                                            ForEach(folderElements.cuppings) { CuppingPreview($0) }
-                                            
-                                            if folderElements.samples != [] {
-                                                LazyVGrid(
-                                                    columns: [
-                                                        GridItem(
-                                                            .adaptive(minimum: 150, maximum: 200),
-                                                            spacing: .extraSmall,
-                                                            alignment: .top
-                                                        )
-                                                    ],
-                                                    spacing: .extraSmall
-                                                ) {
-                                                    ForEach(folderElements.samples) { SamplePreview($0, showCupping: true, animationId: folderFilter.animationId) }
-                                                }
-                                            }
-                                        }
+                                        MonthSection(
+                                            title: monthAndYear.string,
+                                            cuppings: folderElements.cuppings,
+                                            samples: folderElements.samples,
+                                            folderFilter: selectedFolderFilter
+                                        )
                                     }
                                 }
                                 .padding([.horizontal, .bottom], .small)
@@ -113,6 +96,60 @@ struct MainTabView: View {
         .onChange(of: selectedFolderFilter) { newValue in
             DispatchQueue.main.async {
                 self.prevSelectedFolderFilterOrdinalNumber = newValue.ordinalNumber
+            }
+        }
+    }
+    
+    struct MonthSection: View {
+        let title: String
+        let cuppings: [Cupping]
+        let samples: [Sample]
+        let folderFilter: FolderFilter
+        
+        @State var isExpanded: Bool = true
+        
+        var body: some View {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    Text(title)
+                        .bold()
+                        .padding(.horizontal, .extraSmall)
+                        .frame(height: .smallElement)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "chevron.right")
+                        .rotationEffect(.degrees(isExpanded ? 90 : 0))
+                        .padding(.trailing, .extraSmall)
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    withAnimation(.smooth) {
+                        isExpanded.toggle()
+                    }
+                }
+                
+                if isExpanded {
+                    VStack(spacing: .extraSmall) {
+                        ForEach(cuppings) { CuppingPreview($0) }
+                        
+                        if samples != [] {
+                            LazyVGrid(
+                                columns: [
+                                    GridItem(
+                                        .adaptive(minimum: 150, maximum: 200),
+                                        spacing: .extraSmall,
+                                        alignment: .top
+                                    )
+                                ],
+                                spacing: .extraSmall
+                            ) {
+                                ForEach(samples) { SamplePreview($0, showCupping: true, animationId: folderFilter.animationId) }
+                            }
+                        }
+                    }
+                    .transition(.offset(y: 100).combined(with: .opacity).combined(with: .scale(scale: 0, anchor: .top)))
+                }
             }
         }
     }
