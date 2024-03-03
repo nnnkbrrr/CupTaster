@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwipeActions
 
 struct SwipeActionView: View {
     let systemImage: String
@@ -40,10 +39,9 @@ struct SwipeActionView: View {
 public extension SwipeView {
     func defaultSwipeStyle() -> SwipeView {
         return self
-            .swipeActionsStyle(.cascade)
-            .swipeActionsMaskCornerRadius(0)
-            .swipeActionCornerRadius(0)
-            .swipeSpacing(0)
+            .swipeActionsMaskCornerRadius(.defaultCornerRadius)
+            .swipeActionCornerRadius(.defaultCornerRadius)
+            .swipeSpacing(.extraSmall)
             .swipeActionsVisibleStartPoint(0)
             .swipeActionsVisibleEndPoint(0)
             .swipeMinimumDistance(25)

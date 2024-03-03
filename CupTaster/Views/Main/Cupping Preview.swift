@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwipeActions
 
 struct CuppingPreview: View {
     @Environment(\.managedObjectContext) private var moc
@@ -56,6 +55,8 @@ struct CuppingPreview: View {
                             .foregroundStyle(.gray)
                     }
                     .padding(.regular)
+                    .background(Color.backgroundSecondary)
+                    .cornerRadius()
                 }
             }
         } leadingActions: { context in
@@ -86,8 +87,6 @@ struct CuppingPreview: View {
             }
         }
         .defaultSwipeStyle()
-        .background(Color.backgroundSecondary)
-        .cornerRadius()
         .contextMenu {
             Section {
                 Button {

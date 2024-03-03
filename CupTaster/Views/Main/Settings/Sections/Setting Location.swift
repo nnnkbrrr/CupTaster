@@ -7,7 +7,6 @@
 
 import SwiftUI
 import MapKit
-import SwipeActions
 
 struct Settings_LocationView: View {
     @Environment(\.managedObjectContext) private var moc
@@ -82,7 +81,7 @@ struct Settings_LocationView: View {
                         
                         ForEach(sortedLocations) { location in
                             SwipeView {
-                                SettingsNavigationSection(title: location.address, leadingBadge: "\(location.cuppings.count)") {
+                                SettingsNavigationSection(title: location.address, trailingBadge: "\(location.cuppings.count)") {
                                     Settings_LocationAdjustmentView(location: location)
                                 }
                             } trailingActions: { _ in
@@ -103,9 +102,6 @@ struct Settings_LocationView: View {
                                 }
                             }
                             .defaultSwipeStyle()
-                            .cornerRadius()
-                            .background(Color.backgroundSecondary)
-                            .cornerRadius()
                         }
                     }
                 }

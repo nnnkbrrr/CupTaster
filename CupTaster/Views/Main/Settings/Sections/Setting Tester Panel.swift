@@ -203,15 +203,15 @@ struct TesterPanelView: View {
 }
 
 extension TesterPanelView {
-    struct TesterSectionView<LeadingContent: View>: View {
+    struct TesterSectionView<TrailingContent: View>: View {
         let title: String
         @Binding var systemImageName: String?
-        let leadingContent: () -> LeadingContent
+        let trailingContent: () -> TrailingContent
         
-        init(title: String, systemImageName: String? = nil, leadingContent: @escaping () -> LeadingContent = { EmptyView() } ) {
+        init(title: String, systemImageName: String? = nil, trailingContent: @escaping () -> TrailingContent = { EmptyView() } ) {
             self.title = title
             self._systemImageName = .constant(systemImageName)
-            self.leadingContent = leadingContent
+            self.trailingContent = trailingContent
         }
         
         var body: some View {
@@ -226,7 +226,7 @@ extension TesterPanelView {
                 Text(title)
                     .multilineTextAlignment(.leading)
                 
-                leadingContent()
+                trailingContent()
             }
             .foregroundStyle(.primary)
             .frame(height: 35)

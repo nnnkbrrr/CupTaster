@@ -53,7 +53,7 @@ struct SettingsTabView: View {
                             body: emailMessage,
                             to: "support-cuptaster@nnnkbrrr.space"
                         )
-                    } leadingContent: {
+                    } trailingContent: {
                         SettingsLeadingNavigationIndicator()
                     }
                     

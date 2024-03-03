@@ -43,13 +43,14 @@
 		6348EE4D2B46F7CF0061B5AA /* Sample General Info Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348EE4C2B46F7CF0061B5AA /* Sample General Info Section.swift */; };
 		6349471E2B13BBDA00A9030B /* Circular Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349471D2B13BBDA00A9030B /* Circular Progress.swift */; };
 		634D5A4D2A5ED5F200A18B63 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634D5A4C2A5ED5F200A18B63 /* Sample.swift */; };
-		634E32AA2B38457D00966509 /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = 634E32A92B38457D00966509 /* SwipeActions */; };
 		6351668F2A52FB32001A0071 /* Integer To Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6351668E2A52FB32001A0071 /* Integer To Digits.swift */; };
 		6355CAB72B502AA50069A7E9 /* Sample Sheet Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6355CAB62B502AA50069A7E9 /* Sample Sheet Notes.swift */; };
 		6355CAB92B502B100069A7E9 /* Sample Bottom Sheet Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6355CAB82B502B100069A7E9 /* Sample Bottom Sheet Section.swift */; };
 		6355CABB2B5038320069A7E9 /* Dismiss Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6355CABA2B5038320069A7E9 /* Dismiss Keyboard.swift */; };
 		635CE8192B91EA4000D473FE /* Setting Folders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635CE8182B91EA4000D473FE /* Setting Folders.swift */; };
 		635CE81B2B91EECF00D473FE /* Folders Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635CE81A2B91EECF00D473FE /* Folders Model.swift */; };
+		635CE81D2B94ADFF00D473FE /* Modal View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635CE81C2B94ADFF00D473FE /* Modal View.swift */; };
+		635CE81F2B94D93200D473FE /* Swipe Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635CE81E2B94D93100D473FE /* Swipe Actions.swift */; };
 		636712F02AF62F190042DB00 /* Sample Bottom Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636712EF2AF62F190042DB00 /* Sample Bottom Sheet.swift */; };
 		636712F42AF637900042DB00 /* Drag Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636712F32AF637900042DB00 /* Drag Gesture.swift */; };
 		636712F82AF66CE80042DB00 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636712F72AF66CE80042DB00 /* Blur.swift */; };
@@ -159,6 +160,8 @@
 		6355CABA2B5038320069A7E9 /* Dismiss Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dismiss Keyboard.swift"; sourceTree = "<group>"; };
 		635CE8182B91EA4000D473FE /* Setting Folders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting Folders.swift"; sourceTree = "<group>"; };
 		635CE81A2B91EECF00D473FE /* Folders Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Folders Model.swift"; sourceTree = "<group>"; };
+		635CE81C2B94ADFF00D473FE /* Modal View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Modal View.swift"; sourceTree = "<group>"; };
+		635CE81E2B94D93100D473FE /* Swipe Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swipe Actions.swift"; sourceTree = "<group>"; };
 		636712EF2AF62F190042DB00 /* Sample Bottom Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Bottom Sheet.swift"; sourceTree = "<group>"; };
 		636712F32AF637900042DB00 /* Drag Gesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drag Gesture.swift"; sourceTree = "<group>"; };
 		636712F72AF66CE80042DB00 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
@@ -236,7 +239,6 @@
 			files = (
 				63DE55202B68088B00A21E24 /* CloudKit.framework in Frameworks */,
 				632F5D2529D83EAE00D7FFB7 /* CodeScanner in Frameworks */,
-				634E32AA2B38457D00966509 /* SwipeActions in Frameworks */,
 				630704352B7652A00008A846 /* CloudKitSyncMonitor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,7 +313,9 @@
 				6349471D2B13BBDA00A9030B /* Circular Progress.swift */,
 				631422702B3AC21C00683F7F /* Rose Chart.swift */,
 				636831382B4D8E91008763B1 /* Bottom Sheet.swift */,
+				635CE81C2B94ADFF00D473FE /* Modal View.swift */,
 				6385BDD32B8511ED003DE15E /* Map Modal.swift */,
+				635CE81E2B94D93100D473FE /* Swipe Actions.swift */,
 				63AC0EB32B88FD13001C65E8 /* Safari Controller.swift */,
 				6342E7652B8BB59100D08ACB /* QR Scanner Controller.swift */,
 				63AC0EB12B88F705001C65E8 /* Preview Controller.swift */,
@@ -570,7 +574,6 @@
 			name = CupTaster;
 			packageProductDependencies = (
 				632F5D2429D83EAE00D7FFB7 /* CodeScanner */,
-				634E32A92B38457D00966509 /* SwipeActions */,
 				630704342B7652A00008A846 /* CloudKitSyncMonitor */,
 			);
 			productName = CupTaster;
@@ -608,7 +611,6 @@
 			mainGroup = 63DC7A492801BE7800010318;
 			packageReferences = (
 				632F5D2329D83EAE00D7FFB7 /* XCRemoteSwiftPackageReference "CodeScanner" */,
-				634E32A82B38457D00966509 /* XCRemoteSwiftPackageReference "SwipeActions" */,
 				630704332B7652A00008A846 /* XCRemoteSwiftPackageReference "CloudKitSyncMonitor" */,
 			);
 			productRefGroup = 63DC7A532801BE7800010318 /* Products */;
@@ -669,6 +671,7 @@
 				639AB6952A57258300CB04F7 /* Cupping.swift in Sources */,
 				6351668F2A52FB32001A0071 /* Integer To Digits.swift in Sources */,
 				637CB7CE2B386EF50056C32D /* Navigation Appearance.swift in Sources */,
+				635CE81F2B94D93200D473FE /* Swipe Actions.swift in Sources */,
 				63EC8FC32B7F984D0091429B /* Setting Location.swift in Sources */,
 				6372A3732B4FF46400925E0B /* Bottom Sheet Block.swift in Sources */,
 				633042452B4C5ACE005BD8F2 /* Sample Elements.swift in Sources */,
@@ -703,6 +706,7 @@
 				6355CAB72B502AA50069A7E9 /* Sample Sheet Notes.swift in Sources */,
 				63B75D952A6D6549002C350A /* Samples Controller Model.swift in Sources */,
 				63F60D562B72C053002A99FE /* Email Manager.swift in Sources */,
+				635CE81D2B94ADFF00D473FE /* Modal View.swift in Sources */,
 				6349471E2B13BBDA00A9030B /* Circular Progress.swift in Sources */,
 				22242C8228EF27DD00138494 /* CuppingForm Entity.swift in Sources */,
 				6348EE4D2B46F7CF0061B5AA /* Sample General Info Section.swift in Sources */,
@@ -968,9 +972,10 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1010,9 +1015,10 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1065,14 +1071,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		634E32A82B38457D00966509 /* XCRemoteSwiftPackageReference "SwipeActions" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/aheze/SwipeActions";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1085,11 +1083,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 632F5D2329D83EAE00D7FFB7 /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
-		};
-		634E32A92B38457D00966509 /* SwipeActions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 634E32A82B38457D00966509 /* XCRemoteSwiftPackageReference "SwipeActions" */;
-			productName = SwipeActions;
 		};
 /* End XCSwiftPackageProductDependency section */
 

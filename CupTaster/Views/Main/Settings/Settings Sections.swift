@@ -60,24 +60,61 @@ struct SettingsSection<Content: View>: View {
 
 // MARK: Standart Sections
 
-struct SettingsButtonSection<LeadingContent: View>: View {
+struct SettingsButtonSection<LeadingContent: View, TrailingContent: View>: View {
     let title: String
-    let systemImageName: String?
+    @Binding var systemImageName: String?
     let action: () -> ()
-    let leadingContent: () -> LeadingContent
+    let leadingContent: (() -> LeadingContent)?
+    let trailingContent: () -> TrailingContent
     
-    init(title: String, systemImageName: String? = nil, action: @escaping () -> (), leadingContent: @escaping () -> LeadingContent = { EmptyView() }) {
+    init(
+        title: String,
+        action: @escaping () -> (),
+        leadingContent: @escaping () -> LeadingContent,
+        trailingContent: @escaping () -> TrailingContent = { EmptyView() }
+    ) {
         self.title = title
-        self.systemImageName = systemImageName
-        self.action = action
         self.leadingContent = leadingContent
+        self._systemImageName = .constant(nil)
+        self.action = action
+        self.trailingContent = trailingContent
+    }
+    
+    init(
+        title: String,
+        systemImageName: @escaping () -> String,
+        action: @escaping () -> (),
+        trailingContent: @escaping () -> TrailingContent = { EmptyView() }
+    ) where LeadingContent == Image {
+        self.title = title
+        self._systemImageName = Binding(get: { systemImageName() }, set: { _ in })
+        self.action = action
+        self.leadingContent = nil
+        self.trailingContent = trailingContent
+    }
+    
+    init(
+        title: String,
+        systemImageName: String? = nil,
+        action: @escaping () -> (),
+        trailingContent: @escaping () -> TrailingContent = { EmptyView() }
+    ) where LeadingContent == Image {
+        self.title = title
+        self._systemImageName = .constant(systemImageName)
+        self.action = action
+        self.leadingContent = nil
+        self.trailingContent = trailingContent
     }
     
     var body: some View {
         Button {
             action()
         } label: {
-            SettingsRow(title: title, systemImageName: systemImageName) { leadingContent() }
+            if let leadingContent {
+                SettingsRow(title: title, leadingContent: leadingContent, trailingContent: trailingContent)
+            } else {
+                SettingsRow(title: title, systemImageName: $systemImageName, trailingContent: trailingContent)
+            }
         }
         .buttonStyle(.plain)
     }
@@ -87,12 +124,12 @@ struct SettingsNavigationSection<Destination: View>: View {
     let title: String
     let systemImageName: String?
     let destination: () -> Destination
-    let leadingBadge: String?
+    let trailingBadge: String?
     
-    init(title: String, systemImageName: String? = nil, leadingBadge: String? = nil, destination: @escaping () -> Destination) {
+    init(title: String, systemImageName: String? = nil, trailingBadge: String? = nil, destination: @escaping () -> Destination) {
         self.title = title
         self.systemImageName = systemImageName
-        self.leadingBadge = leadingBadge
+        self.trailingBadge = trailingBadge
         self.destination = destination
     }
     
@@ -100,8 +137,8 @@ struct SettingsNavigationSection<Destination: View>: View {
         NavigationLink(destination: destination) {
             SettingsRow(title: title, systemImageName: systemImageName) {
                 HStack {
-                    if let leadingBadge {
-                        Text(leadingBadge)
+                    if let trailingBadge {
+                        Text(trailingBadge)
                             .font(.subheadline)
                             .foregroundStyle(.gray)
                     }
@@ -122,24 +159,24 @@ struct SettingsToggleSection: View {
     var body: some View {
         SettingsRow(title: title) {
             isOn ? systemImageNames.on : systemImageNames.off
-        } leadingContent: {
+        } trailingContent: {
             Toggle("", isOn: $isOn)
                 .labelsHidden()
         }
     }
 }
 
-struct SettingsTextFieldSection<LeadingContent: View>: View {
+struct SettingsTextFieldSection<TrailingContent: View>: View {
     @Binding var text: String
     let prompt: String
     let systemImageName: String?
-    let leadingContent: () -> LeadingContent
+    let trailingContent: () -> TrailingContent
     
-    init(text: Binding<String>, prompt: String, systemImageName: String? = nil, leadingContent: @escaping () -> LeadingContent = { EmptyView() }) {
+    init(text: Binding<String>, prompt: String, systemImageName: String? = nil, trailingContent: @escaping () -> TrailingContent = { EmptyView() }) {
         self._text = text
         self.prompt = prompt
         self.systemImageName = systemImageName
-        self.leadingContent = leadingContent
+        self.trailingContent = trailingContent
     }
     
     var body: some View {
@@ -158,7 +195,7 @@ struct SettingsTextFieldSection<LeadingContent: View>: View {
             TextField(prompt, text: $text)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            leadingContent()
+            trailingContent()
         }
         .frame(height: 60)
         .padding(.horizontal, .regular)
@@ -192,26 +229,49 @@ struct SettingsPickerSection<T: Hashable, Content: View>: View {
 
 // MARK: Styles
 
-struct SettingsRow<LeadingContent: View>: View {
+struct SettingsRow<LeadingContent: View, TrailingContent: View>: View {
     let title: String
+    let leadingContent: (() -> LeadingContent)?
     @Binding var systemImageName: String?
-    let leadingContent: () -> LeadingContent
+    let trailingContent: () -> TrailingContent
     
-    init(title: String, systemImageName: @escaping () -> String, leadingContent: @escaping () -> LeadingContent = { EmptyView() }) {
+    init(title: String, leadingContent: @escaping () -> LeadingContent, trailingContent: @escaping () -> TrailingContent = { EmptyView() }) {
         self.title = title
-        self._systemImageName = Binding(get: { systemImageName() }, set: { _ in})
         self.leadingContent = leadingContent
+        self._systemImageName = .constant(nil)
+        self.trailingContent = trailingContent
     }
     
-    init(title: String, systemImageName: String? = nil, leadingContent: @escaping () -> LeadingContent = { EmptyView() }) {
+    init(title: String, systemImageName: @escaping () -> String, trailingContent: @escaping () -> TrailingContent = { EmptyView() }) where LeadingContent == Image {
         self.title = title
+        self.leadingContent = nil
+        self._systemImageName = Binding(get: { systemImageName() }, set: { _ in })
+        self.trailingContent = trailingContent
+    }
+    
+    init(title: String, systemImageName: Binding<String?>, trailingContent: @escaping () -> TrailingContent = { EmptyView() }) where LeadingContent == Image {
+        self.title = title
+        self.leadingContent = nil
+        self._systemImageName = systemImageName
+        self.trailingContent = trailingContent
+    }
+    
+    init(title: String, systemImageName: String? = nil, trailingContent: @escaping () -> TrailingContent = { EmptyView() }) where LeadingContent == Image {
+        self.title = title
+        self.leadingContent = nil
         self._systemImageName = .constant(systemImageName)
-        self.leadingContent = leadingContent
+        self.trailingContent = trailingContent
     }
     
     var body: some View {
         HStack {
-            if let systemImageName {
+            if let leadingContent {
+                leadingContent()
+                    .frame(width: 40, height: 40)
+                    .foregroundStyle(.gray)
+                    .background(Color.backgroundTertiary)
+                    .cornerRadius()
+            } else if let systemImageName {
                 Image(systemName: systemImageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -227,7 +287,7 @@ struct SettingsRow<LeadingContent: View>: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, systemImageName == nil ? .extraSmall : 0)
             
-            leadingContent()
+            trailingContent()
         }
         .frame(height: 60)
         .padding(.horizontal, 10)

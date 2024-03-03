@@ -28,14 +28,14 @@ struct Settings_CuppingFormsView: View {
                                 let isDeprecated: Bool = cuppingForm.isDeprecated
                                 
 #warning("is deprecated vs min version")
-                                
-                                SettingsButtonSection(
-                                    title: cuppingForm.title,
-                                    systemImageName: cuppingForm.isDefault ? "checkmark" : ""
-                                ) {
+                                SettingsButtonSection(title: cuppingForm.title) {
                                     cfManager.setDefaultCuppingForm(cuppingForm: cuppingForm)
+                                } leadingContent: {
+                                    Image(systemName: isDeprecated ? "exclamationmark.triangle" : "checkmark")
+                                        .foregroundStyle(isDeprecated ? Color.red : Color.accentColor)
+                                        .opacity(cuppingForm.isDefault || isDeprecated ? 1 : 0)
                                 }
-                                .foregroundStyle(isDeprecated ? Color.red : .primary)
+                                .foregroundStyle(isDeprecated ? Color.red : Color.primary)
 #warning("actions")
                                 //.onDelete { offsets in
                                 //    let cuppingForm: CuppingForm = cuppingForms[offsets.first!]
