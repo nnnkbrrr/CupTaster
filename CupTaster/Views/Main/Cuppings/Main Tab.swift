@@ -41,33 +41,27 @@ struct MainTabView: View {
                 else { return selectedFolderFilter.name ?? "New Folder" }
             }()
             
-            ZStack {
-                ForEach(allFolderFilters) { folderFilter in
-                    if selectedFolderFilter == folderFilter {
-                        ScrollView {
-                            let sectionsData: [SectionData] = getSectionsData(folderFilter: folderFilter)
-                            
-                            if sectionsData.isEmpty { isEmpty } else {
-                                LazyVStack(alignment: .leading, spacing: 0) {
-                                    ForEach(sectionsData) { sectionData in
-                                        MonthSection(
-                                            title: sectionData.monthAndYear.string,
-                                            cuppings: sectionData.cuppings,
-                                            samples: sectionData.samples,
-                                            folderFilter: selectedFolderFilter
-                                        )
-                                    }
-                                }
-                                .padding([.horizontal, .bottom], .small)
-                            }
+            ScrollView {
+                let sectionsData: [SectionData] = getSectionsData(folderFilter: selectedFolderFilter)
+                
+                if sectionsData.isEmpty { isEmpty } else {
+                    LazyVStack(alignment: .leading, spacing: 0) {
+                        ForEach(sectionsData) { sectionData in
+                            MonthSection(
+                                title: sectionData.monthAndYear.string,
+                                cuppings: sectionData.cuppings,
+                                samples: sectionData.samples,
+                                folderFilter: selectedFolderFilter
+                            )
                         }
-                        .background(Color.backgroundPrimary)
-                        .id(selectedFolderFilter.animationId)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: prevSelectedFolderFilterOrdinalNumber > selectedFolderFilter.ordinalNumber ? .leading : .trailing),
-                            removal: .opacity.combined(with: .scale(scale: 0.75))
-                        ))
                     }
+                    .padding([.horizontal, .bottom], .small)
+                    .background(Color.backgroundPrimary)
+                    .id(selectedFolderFilter.animationId)
+                    .transition(.asymmetric(
+                        insertion: .move(edge: prevSelectedFolderFilterOrdinalNumber > selectedFolderFilter.ordinalNumber ? .leading : .trailing),
+                        removal: .opacity.combined(with: .scale(scale: 0.75))
+                    ))
                 }
             }
             .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)

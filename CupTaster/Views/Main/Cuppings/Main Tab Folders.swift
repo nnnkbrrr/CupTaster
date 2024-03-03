@@ -28,8 +28,8 @@ struct MainTabToolbar: View {
                             },
                             isSelected: { selectedFolderFilter == folderFilter },
                             onSelect: {
-                                folderFilter.animationId = UUID()
                                 selectedFolderFilter = folderFilter
+                                folderFilter.animationId = UUID()
                             }
                         )
                     }
