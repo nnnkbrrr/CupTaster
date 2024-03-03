@@ -22,7 +22,7 @@ struct MainTabView: View {
     
     @FetchRequest(
         entity: Folder.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Folder.ordinalNumber, ascending: false)]
+        sortDescriptors: [NSSortDescriptor(keyPath: \Folder.ordinalNumber, ascending: true)]
     ) var folders: FetchedResults<Folder>
     @State var selectedFolderFilter: FolderFilter = FolderFilter.all
     @State var prevSelectedFolderFilterOrdinalNumber: Int = FolderFilter.all.ordinalNumber
@@ -36,6 +36,10 @@ struct MainTabView: View {
     var body: some View {
         NavigationView {
             let allFolderFilters: [FolderFilter] = [.all, .favorites] + folders.map { FolderFilter(folder: $0) }
+            let folderFilterName: String = {
+                if let folder = selectedFolderFilter.folder { return folder.name == "" ? "New Folder" : folder.name }
+                else { return selectedFolderFilter.name ?? "New Folder" }
+            }()
             
             ZStack {
                 ForEach(allFolderFilters) { folderFilter in
@@ -66,8 +70,8 @@ struct MainTabView: View {
                     }
                 }
             }
-            .background(Color.backgroundPrimary)
-            .navigationBarTitle(selectedFolderFilter.name, displayMode: .inline)
+            .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
+            .navigationBarTitle(folderFilterName, displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     NavigationLink(destination: SettingsTabView()) {
@@ -85,6 +89,7 @@ struct MainTabView: View {
             }
             .navigationToolbar { MainTabToolbar(allFolderFilters: allFolderFilters, selectedFolderFilter: $selectedFolderFilter) }
         }
+        .navigationViewStyle(.stack) 
         .adaptiveSizeSheet(isPresented: $newCuppingModalIsActive) {
             NewCuppingModalView(isPresented: $newCuppingModalIsActive)
         }
@@ -171,8 +176,14 @@ struct MainTabView: View {
 
 extension MainTabView {
     func getSectionsData(folderFilter: FolderFilter) -> [MainTabView.SectionData] {
-        let filteredCuppings: [Cupping] = folderFilter.predicate(Array(cuppings)).compactMap { $0 as? Cupping ?? nil }
-        let filteredSamples: [Sample] = folderFilter.predicate(Array(samples)).compactMap { $0 as? Sample ?? nil }
+        let filteredCuppings: [Cupping] = {
+            if let folderCuppings = folderFilter.folder?.cuppings { return Array(folderCuppings) }
+            else { return folderFilter.predicate(Array(cuppings)).compactMap { $0 as? Cupping ?? nil } }
+        }()
+        let filteredSamples: [Sample] = {
+            if let folderSamples = folderFilter.folder?.samples { return Array(folderSamples) }
+            else { return folderFilter.predicate(Array(samples)).compactMap { $0 as? Sample ?? nil } }
+        }()
         
         var groupedFolderElements: [MonthAndYear: (cuppings: [Cupping], samples: [Sample])] = [:]
 

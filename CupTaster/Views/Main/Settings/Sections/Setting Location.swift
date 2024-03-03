@@ -112,7 +112,7 @@ struct Settings_LocationView: View {
             }
             .padding(.small)
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
         .navigationTitle("Location")
         .defaultNavigationBar()
     }
@@ -191,7 +191,7 @@ struct Settings_LocationAdjustmentView: View {
             }
             .padding(.small)
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
         .defaultNavigationBar()
     }
 }

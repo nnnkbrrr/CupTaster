@@ -12,6 +12,7 @@ extension MainTabView {
     var isEmpty: some View {
         Text("No cuppings yet")
             .frame(maxWidth: .infinity)
+            .background(Color.backgroundPrimary)
     }
 }
 

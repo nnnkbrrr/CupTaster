@@ -29,15 +29,8 @@ struct SettingsTabView: View {
                 SettingsSection {
                     SettingsNavigationSection(title: "Default Cupping Form", systemImageName: "doc.plaintext") { Settings_CuppingFormsView() }
 #warning("section")
-                    SettingsNavigationSection(title: "General Info Fields", systemImageName: "info") {
-                        Text("Empty")
-                    }
-                    .disabled(true)
-#warning("section")
-                    SettingsNavigationSection(title: "Folders", systemImageName: "folder") {
-                        Text("Empty")
-                    }
-                    .disabled(true)
+                    SettingsNavigationSection(title: "General Info Fields", systemImageName: "info") { Text("Empty") }.disabled(true)
+                    SettingsNavigationSection(title: "Folders", systemImageName: "folder") { Settings_FoldersView() }
                     SettingsNavigationSection(title: "Location", systemImageName: "location") { Settings_LocationView() }
                 }
                 
@@ -52,7 +45,7 @@ struct SettingsTabView: View {
                     SettingsToggleSection(title: "Reset stopwatch in 1h", systemImageNames: (on: "clock.arrow.circlepath", off: "clock"), isOn: stopwatchModel.$resetInAnHour)
                 }
                 
-                    // MARK: - Contacts
+                // MARK: - Contacts
                 
                 SettingsSection("Contacts") {
                     SettingsButtonSection(title: "Contact us", systemImageName: "envelope") {
@@ -99,7 +92,7 @@ struct SettingsTabView: View {
             }
             .padding(.small)
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
         .navigationTitle("Settings")
         .defaultNavigationBar()
     }

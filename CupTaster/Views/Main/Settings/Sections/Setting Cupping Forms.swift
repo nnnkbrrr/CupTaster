@@ -27,7 +27,7 @@ struct Settings_CuppingFormsView: View {
                             ForEach(cuppingForms) { cuppingForm in
                                 let isDeprecated: Bool = cuppingForm.isDeprecated
                                 
-                                #warning("is deprecated vs min version")
+#warning("is deprecated vs min version")
                                 
                                 SettingsButtonSection(
                                     title: cuppingForm.title,
@@ -36,6 +36,7 @@ struct Settings_CuppingFormsView: View {
                                     cfManager.setDefaultCuppingForm(cuppingForm: cuppingForm)
                                 }
                                 .foregroundStyle(isDeprecated ? Color.red : .primary)
+#warning("actions")
                                 //.onDelete { offsets in
                                 //    let cuppingForm: CuppingForm = cuppingForms[offsets.first!]
                                 //    if cuppingForm.cuppings.count > 0 {
@@ -89,7 +90,7 @@ struct Settings_CuppingFormsView: View {
             }
             .padding(.small)
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
         .navigationTitle("Cupping Forms")
         .defaultNavigationBar()
     }

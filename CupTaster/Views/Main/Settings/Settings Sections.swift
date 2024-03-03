@@ -129,17 +129,41 @@ struct SettingsToggleSection: View {
     }
 }
 
-struct SettingsTextFieldSection: View {
+struct SettingsTextFieldSection<LeadingContent: View>: View {
     @Binding var text: String
     let prompt: String
+    let systemImageName: String?
+    let leadingContent: () -> LeadingContent
+    
+    init(text: Binding<String>, prompt: String, systemImageName: String? = nil, leadingContent: @escaping () -> LeadingContent = { EmptyView() }) {
+        self._text = text
+        self.prompt = prompt
+        self.systemImageName = systemImageName
+        self.leadingContent = leadingContent
+    }
     
     var body: some View {
-        TextField(prompt, text: $text)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: 60)
-            .padding(.horizontal, .regular)
-            .background(Color.backgroundSecondary)
-            .cornerRadius()
+        HStack {
+            if let systemImageName {
+                Image(systemName: systemImageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+                    .frame(width: 40, height: 40)
+                    .foregroundStyle(.gray)
+                    .background(Color.backgroundTertiary)
+                    .cornerRadius()
+            }
+            
+            TextField(prompt, text: $text)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            leadingContent()
+        }
+        .frame(height: 60)
+        .padding(.horizontal, .regular)
+        .background(Color.backgroundSecondary)
+        .cornerRadius()
     }
 }
 

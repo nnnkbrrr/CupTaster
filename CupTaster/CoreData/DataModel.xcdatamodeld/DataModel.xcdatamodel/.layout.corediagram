@@ -3,113 +3,9 @@
     0,
     0
   ],
-  "sidebarWidth" : 0,
   "zoom" : 1,
-  "offsets" : [
-
-  ],
   "colours" : [
-    "QualityCriteria",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
-    "Folder",
-    {
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ],
-      "colorSpace" : "kCGColorSpaceSRGB"
-    },
-    "Cupping",
-    {
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ],
-      "colorSpace" : "kCGColorSpaceSRGB"
-    },
     "QCHint",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
-    "CuppingForm",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
-    "QCGHint",
-    {
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ],
-      "colorSpace" : "kCGColorSpaceSRGB"
-    },
-    "QCGroupConfig",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
-    "Location",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
-    "SampleGeneralInfo",
-    {
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ],
-      "colorSpace" : "kCGColorSpaceSRGB"
-    },
-    "Sample",
-    {
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ],
-      "colorSpace" : "kCGColorSpaceSRGB"
-    },
-    "QCConfig",
     {
       "components" : [
         1,
@@ -128,6 +24,110 @@
         0.37254901960784315,
         0.5
       ]
+    },
+    "QCConfig",
+    {
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ],
+      "colorSpace" : "kCGColorSpaceSRGB"
+    },
+    "Location",
+    {
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ],
+      "colorSpace" : "kCGColorSpaceSRGB"
+    },
+    "Folder",
+    {
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ],
+      "colorSpace" : "kCGColorSpaceSRGB"
+    },
+    "CuppingForm",
+    {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
+    },
+    "Cupping",
+    {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
+    },
+    "QCGHint",
+    {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
+    },
+    "QualityCriteria",
+    {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
+    },
+    "SampleGeneralInfo",
+    {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
+    },
+    "Sample",
+    {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
+    },
+    "QCGroupConfig",
+    {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
     }
+  ],
+  "sidebarWidth" : 0,
+  "offsets" : [
+
   ]
 }

@@ -41,7 +41,7 @@ struct CuppingView: View {
                     }
                     .padding(.small)
                 }
-                .background(Color.backgroundPrimary)
+                .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
             }
         }
         .toolbar {
