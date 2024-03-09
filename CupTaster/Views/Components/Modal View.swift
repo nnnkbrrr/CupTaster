@@ -65,6 +65,12 @@ struct ModalViewToolbarView: View {
     let title: String
     let trailingToolbarItem: FullScreenToolbarButton
     
+    init(leadingToolbarItem: FullScreenToolbarButton? = nil, title: String, trailingToolbarItem: FullScreenToolbarButton) {
+        self.leadingToolbarItem = leadingToolbarItem
+        self.title = title
+        self.trailingToolbarItem = trailingToolbarItem
+    }
+    
     var body: some View {
         ZStack {
             if let leadingToolbarItem {

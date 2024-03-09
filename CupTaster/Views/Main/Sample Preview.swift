@@ -92,7 +92,7 @@ struct SamplePreview: View {
                 Group {
                     Text(Image(systemName: "arrow.turn.down.right")) +
                     Text(" ") +
-                    Text(cupping.name)
+                    Text(cupping.name == "" ? "New Cupping" : cupping.name)
                 }
                 .font(.caption)
                 .multilineTextAlignment(.leading)

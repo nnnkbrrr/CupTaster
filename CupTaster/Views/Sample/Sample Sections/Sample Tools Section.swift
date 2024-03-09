@@ -11,8 +11,14 @@ import CodeScanner
 extension SampleView {
     struct ActionsToolsSection: View {
         @Environment(\.managedObjectContext) private var moc
+        @FetchRequest(
+            entity: Folder.entity(),
+            sortDescriptors: [NSSortDescriptor(keyPath: \Folder.ordinalNumber, ascending: true)]
+        ) var folders: FetchedResults<Folder>
+        
         @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
         
+        @State var foldersModalIsActive: Bool = false
         @State var deleteModalIsActive: Bool = false
         
         var body: some View {
@@ -24,12 +30,8 @@ extension SampleView {
                     }
                     try? moc.save()
                 },
-                .init(systemImageName: "folder.badge.gearshape", disabled: true) {
-#warning("action")
-                },
-                .init(systemImageName: "trash") {
-                    deleteModalIsActive = true
-                }
+                .init(systemImageName: "folder.badge.gearshape") { foldersModalIsActive = true },
+                .init(systemImageName: "trash") { deleteModalIsActive = true }
             ])
             .adaptiveSizeSheet(isPresented: $deleteModalIsActive) {
                 VStack(spacing: .small) {
@@ -50,6 +52,30 @@ extension SampleView {
                             deleteModalIsActive = false
                         }
                         .buttonStyle(.accentBottomSheetBlock)
+                    }
+                }
+                .padding(.small)
+            }
+            .modalView(
+                isPresented: $foldersModalIsActive,
+                toolbar: .init(
+                    title: "Folders",
+                    trailingToolbarItem: .init("Done", action: { foldersModalIsActive = false })
+                )
+            ) {
+                LazyVStack(spacing: .extraSmall) {
+                    ForEach(Array(folders)) { folder in
+                        SettingsButtonSection(title: folder.name == "" ? "New Folder" : folder.name) {
+                            if let selectedSample = samplesControllerModel.selectedSample {
+                                if selectedSample.folders.contains(folder) { selectedSample.folders.remove(folder) }
+                                else { selectedSample.folders.insert(folder) }
+                            }
+                            try? moc.save()
+                        } leadingContent: {
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(Color.accentColor)
+                                .opacity(samplesControllerModel.selectedSample?.folders.contains(folder) ?? false ? 1 : 0)
+                        }
                     }
                 }
                 .padding(.small)
