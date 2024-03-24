@@ -136,7 +136,7 @@ struct TesterPanelView: View {
                         }
                         .fullScreenCover(isPresented: $onboardingModalIsActive) {
                             ZStack(alignment: .topTrailing) {
-                                OnboardingView()
+                                OnboardingView(onboardingIsCompleted: $onboardingIsCompleted)
                                 
                                 Button("Done") { onboardingModalIsActive = false }
                                     .buttonStyle(.bordered)

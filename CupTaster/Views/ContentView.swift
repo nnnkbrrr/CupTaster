@@ -42,7 +42,7 @@ struct ContentView: View {
                             iCloudLoading = false
                         }
                 } else {
-                    OnboardingView()
+                    OnboardingView(onboardingIsCompleted: $onboardingIsCompleted)
                 }
             }
             .onAppear { iCloudLoading = true }

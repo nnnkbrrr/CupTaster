@@ -40,7 +40,7 @@ struct OnboardingView: View {
                     case .greetings: Onboarding_GreetingsView(namespace: namespace, currentPage: $currentPage)
                     case .formPicker: Onboarding_FormPickerPage(currentPage: $currentPage)
                     case .additionalFields: Onboarding_AdditionalFieldsPage(currentPage: $currentPage)
-                    case .location: Onboarding_LocationPage(currentPage: $currentPage)
+                    case .location: Onboarding_LocationPage(currentPage: $currentPage, onboardingIsCompleted: $onboardingIsCompleted)
                 }
                 
                 HStack(spacing: .small) {
