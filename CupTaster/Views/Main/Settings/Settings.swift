@@ -79,6 +79,7 @@ struct SettingsTabView: View {
                         Text(syncMonitor.syncStateSummary.description)
                         Image(systemName: syncMonitor.syncStateSummary.symbolName)
                     }
+                    
                     Text("Version \(appVersion) (\(buildVersion))")
                 }
                 .font(.subheadline)

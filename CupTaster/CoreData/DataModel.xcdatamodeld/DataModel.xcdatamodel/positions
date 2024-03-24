@@ -1,62 +1,62 @@
 [
   {
     "name" : "Cupping",
-    "positionX" : "384.5057067871094",
+    "positionX" : "390.77655029296875",
     "positionY" : "499.1051330566406"
   },
   {
     "name" : "CuppingForm",
-    "positionX" : "176.97368621826172",
-    "positionY" : "503.1745147705078"
+    "positionX" : "175.75",
+    "positionY" : "527.5559692382812"
   },
   {
     "name" : "Folder",
-    "positionX" : "175.0",
+    "positionX" : "181.27084350585938",
     "positionY" : "224.61803436279297"
   },
   {
     "name" : "Location",
-    "positionX" : "614.3686676025391",
+    "positionX" : "620.6395111083984",
     "positionY" : "507.81063079833984"
   },
   {
     "name" : "QCConfig",
-    "positionX" : "1121.8780517578125",
+    "positionX" : "1128.1488952636719",
     "positionY" : "558.6196899414062"
   },
   {
     "name" : "QCGHint",
-    "positionX" : "1105.2104187011719",
-    "positionY" : "747.2731018066406"
+    "positionX" : "919.0879821777344",
+    "positionY" : "770.5093994140625"
   },
   {
     "name" : "QCGroup",
-    "positionX" : "875.3546676635742",
+    "positionX" : "881.6255111694336",
     "positionY" : "335.8512268066406"
   },
   {
     "name" : "QCGroupConfig",
-    "positionX" : "874.3752288818359",
+    "positionX" : "880.6460723876953",
     "positionY" : "567.4356079101562"
   },
   {
     "name" : "QCHint",
-    "positionX" : "1105.4292297363281",
-    "positionY" : "867.2816467285156"
+    "positionX" : "919.0295104980469",
+    "positionY" : "892.91064453125"
   },
   {
     "name" : "QualityCriteria",
-    "positionX" : "1122.4679565429688",
+    "positionX" : "1128.7388000488281",
     "positionY" : "327.75978088378906"
   },
   {
     "name" : "Sample",
-    "positionX" : "618.5522918701172",
+    "positionX" : "624.8231353759766",
     "positionY" : "311.6397705078125"
   },
   {
     "name" : "SampleGeneralInfo",
-    "positionX" : "878.8676071166992",
+    "positionX" : "885.1384506225586",
     "positionY" : "171.0"
   }
 ]

@@ -7,15 +7,20 @@
 
 import SwiftUI
 import CoreData
+import CloudKitSyncMonitor
 
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     
+    @AppStorage("onboarding-is-completed") var onboardingIsCompleted: Bool = false
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     @ObservedObject var testingManager: TestingManager = .shared
+    @ObservedObject var syncMonitor: SyncMonitor = .shared
+    
+    @State var iCloudLoading = false
     
     var body: some View {
-        VStack(spacing: 0) {
+        if onboardingIsCompleted && !iCloudLoading {
             ZStack {
                 MainTabView()
                 SamplesControllerView().opacity(testingManager.hideSampleOverlay ? 0 : 1)
@@ -28,8 +33,19 @@ struct ContentView: View {
                     }
                 }
             }
-#warning("onboarding // show icloud sync if data exist")
-            //.modifier(Onboarding())
+        } else {
+            ZStack {
+                if syncMonitor.syncStateSummary.inProgress && iCloudLoading == true {
+                    OnboardingView.iCloudLoadingView()
+                        .onDisappear {
+                            if cuppingForms.count > 0 { onboardingIsCompleted = true }
+                            iCloudLoading = false
+                        }
+                } else {
+                    OnboardingView()
+                }
+            }
+            .onAppear { iCloudLoading = true }
         }
     }
 }

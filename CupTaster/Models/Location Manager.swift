@@ -35,6 +35,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         self.authorizationStatus = status
+        self.attachLocation = switch status {
+            case .notDetermined: false
+            case .denied: false
+            default: true
+        }
     }
     
     func getLocationData() async -> (address: String, horizontalAccuracy: Double, latitude: Double, longitude: Double)? {

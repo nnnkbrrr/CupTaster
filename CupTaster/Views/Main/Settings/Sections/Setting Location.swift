@@ -33,8 +33,6 @@ struct Settings_LocationView: View {
                                 } else {
                                     showLocationAuthorizationSheet = true
                                 }
-                                
-                                locationManager.attachLocation = value
                             }
                         }
                     ))
@@ -54,6 +52,9 @@ struct Settings_LocationView: View {
                             
                             Button {
                                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    showLocationAuthorizationSheet = false
+                                }
                             } label: {
                                 Text("Go to settings ") + Text(Image(systemName: "arrow.right"))
                             }

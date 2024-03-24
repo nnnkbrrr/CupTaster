@@ -11,13 +11,13 @@ struct Onboarding_FormPickerPage: View {
     @Binding var currentPage: OnboardingView.OnboardingPage
     
     var body: some View {
-        OnboardingPageContents("Cupping Form", description: "pick Cupping Form") {
+        OnboardingPageContents("Cupping Form", description: "description") {
             Text("Cupping Form Picker")
         } conditionIsFulfilled: {
             return true
         } action: {
             withAnimation(.smooth) {
-                currentPage = .additionalFields
+                currentPage.nextPage()
             }
         }
     }

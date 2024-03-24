@@ -14,6 +14,7 @@ struct Onboarding_GreetingsView: View {
     var body: some View {
         Spacer()
         
+        #warning("logo is different")
         Image("Logo")
             .resizable()
             .aspectRatio(contentMode: .fit)
@@ -25,6 +26,7 @@ struct Onboarding_GreetingsView: View {
                 .font(.system(size: 40, weight: .bold))
             
             Text("Taste, Analyze, Take Notes")
+                .font(.subheadline)
                 .textCase(.uppercase)
         }
         .transition(.scale.combined(with: .offset(y: -250)).combined(with: .opacity))
@@ -38,7 +40,7 @@ struct Onboarding_GreetingsView: View {
             .clipShape(Circle())
             .onTapGesture {
                 withAnimation(.smooth) {
-                    currentPage = .formPicker
+                    currentPage.nextPage()
                 }
             }
     }

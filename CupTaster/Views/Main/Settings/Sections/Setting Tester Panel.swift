@@ -27,13 +27,15 @@ struct TesterPanelView: View {
     let systemVersion: String = UIDevice.current.systemVersion
     let languageCode: String = Locale.current.languageCode ?? "-"
     
+    @AppStorage("onboarding-is-completed") var onboardingIsCompleted: Bool = false
     @AppStorage("tester-selected-page") var currentPage: Int = 0
-    @State var showStopwatchModal: Bool = false
+    @State var stopwatchModalIsActive: Bool = false
+    @State var onboardingModalIsActive: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
             HStack(spacing: 5) {
-                ForEach(0..<5) { index in
+                ForEach(0..<6) { index in
                     Circle()
                         .frame(width: 5, height: 5)
                         .foregroundColor(currentPage == index ? .white : .gray)
@@ -62,6 +64,8 @@ struct TesterPanelView: View {
                     .tag(0)
                     
                     HStack {
+                        Spacer()
+                        
                         TesterButton(title: "Sample Overlay", systemImageName: testingManager.hideSampleOverlay ? "eye.slash.fill" : "eye.fill") {
                             testingManager.hideSampleOverlay.toggle()
                         }
@@ -69,9 +73,9 @@ struct TesterPanelView: View {
                             samplesControllerModel.isTogglingVisibility.toggle()
                         }
                         TesterButton(title: "Stopwatch", systemImageName: "stopwatch") {
-                            showStopwatchModal = true
+                            stopwatchModalIsActive = true
                         }
-                        .adaptiveSizeSheet(isPresented: $showStopwatchModal) {
+                        .adaptiveSizeSheet(isPresented: $stopwatchModalIsActive) {
                             StopwatchTimeSelectorView()
                         }
                     }
@@ -122,6 +126,31 @@ struct TesterPanelView: View {
                     .tag(3)
                     
                     HStack {
+                        Text("Onboarding")
+                            .foregroundStyle(.gray)
+                        
+                        Spacer()
+                        
+                        TesterButton(title: "Show", systemImageName: "eye") {
+                            onboardingModalIsActive = true
+                        }
+                        .fullScreenCover(isPresented: $onboardingModalIsActive) {
+                            ZStack(alignment: .topTrailing) {
+                                OnboardingView()
+                                
+                                Button("Done") { onboardingModalIsActive = false }
+                                    .buttonStyle(.bordered)
+                                    .padding(.small)
+                            }
+                        }
+                        
+                        TesterButton(title: "Reset", systemImageName: "arrow.clockwise") {
+                            onboardingIsCompleted = false
+                        }
+                    }
+                    .tag(4)
+                    
+                    HStack {
                         let locationStatus: String = 
                         switch locationManager.authorizationStatus {
                             case .notDetermined: "not determined"
@@ -156,7 +185,7 @@ struct TesterPanelView: View {
                             locationManager.requestAuthorization()
                         }
                     }
-                    .tag(4)
+                    .tag(5)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .contentShape(Rectangle())
