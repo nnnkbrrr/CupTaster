@@ -8,7 +8,14 @@
 import SwiftUI
 
 struct SamplePreview: View {
+    @Environment(\.managedObjectContext) private var moc
+    @FetchRequest(
+        entity: Folder.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Folder.ordinalNumber, ascending: true)]
+    ) var folders: FetchedResults<Folder>
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
+    @State var foldersModalIsActive: Bool = false
+    
     let sample: Sample
     let showCupping: Bool
     let animationId: UUID?
@@ -70,10 +77,62 @@ struct SamplePreview: View {
             )
             .zIndex(2.1)
             .contextMenu {
-#warning("context menu")
-                Button("Open") {
-                    samplesControllerModel.setSelectedSample(sample, animationId: animationId)
+                Section {
+                    Button {
+                        sample.cupping.objectWillChange.send()
+                        sample.isFavorite.toggle()
+                        try? moc.save()
+                    } label: {
+                        if sample.isFavorite {
+                            Label("Remove from Favorites", systemImage: "heart.slash.fill")
+                        } else {
+                            Label("Add to Favorites", systemImage: "heart")
+                        }
+                    }
+                    
+                    Button {
+                        foldersModalIsActive = true
+                    } label: {
+                        Label("Manage Folders", systemImage: "folder.badge.gearshape")
+                    }
                 }
+                
+                Section {
+                    Button(role: .destructive) {
+                        withAnimation {
+                            moc.delete(sample)
+                            try? moc.save()
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
+            }
+            .modalView(
+                isPresented: $foldersModalIsActive,
+                toolbar: .init(
+                    title: "Folders",
+                    trailingToolbarItem: .init("Done", action: { foldersModalIsActive = false })
+                )
+            ) {
+                ScrollView {
+                    LazyVStack(spacing: .extraSmall) {
+                        ForEach([FolderFilter.favorites] + folders.map { FolderFilter(folder: $0) }) { folderFilter in
+                            let folderContainsSample: Bool = folderFilter.containsSample(sample)
+                            
+                            SettingsButtonSection(title: folderFilter.name ?? folderFilter.folder?.name ?? "New Folder") {
+                                if folderContainsSample { folderFilter.removeSample(sample, context: moc) }
+                                else { folderFilter.addSample(sample, context: moc) }
+                                sample.cupping.objectWillChange.send()
+                            } leadingContent: {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(Color.accentColor)
+                                    .opacity(folderContainsSample ? 1 : 0)
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal, .small)
             }
             .onTapGesture {
                 samplesControllerModel.setSelectedSample(sample, animationId: animationId)

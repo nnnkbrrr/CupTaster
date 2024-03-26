@@ -9,7 +9,10 @@ import SwiftUI
 
 struct CuppingPreview: View {
     @Environment(\.managedObjectContext) private var moc
-    @FetchRequest(entity: Folder.entity(), sortDescriptors: []) var folders: FetchedResults<Folder>
+    @FetchRequest(
+        entity: Folder.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Folder.ordinalNumber, ascending: true)]
+    ) var folders: FetchedResults<Folder>
     @ObservedObject var cupping: Cupping
     @State var foldersModalIsActive: Bool = false
     
@@ -80,34 +83,6 @@ struct CuppingPreview: View {
                 foldersModalIsActive = true
                 context.state.wrappedValue = .closed
             }
-            .modalView(
-                isPresented: $foldersModalIsActive,
-                toolbar: .init(
-                    title: "Folders",
-                    trailingToolbarItem: .init("Done") {
-                        foldersModalIsActive = false
-                    }
-                )
-            ) {
-                ScrollView {
-                    LazyVStack(spacing: .extraSmall) {
-                        ForEach([FolderFilter.favorites] + folders.map { FolderFilter(folder: $0) }) { folderFilter in
-                            let folderContainsCupping: Bool = folderFilter.containsCupping(cupping)
-                            
-                            SettingsButtonSection(title: folderFilter.name ?? folderFilter.folder?.name ?? "New Folder") {
-                                if folderContainsCupping { folderFilter.removeCupping(cupping) }
-                                else { folderFilter.addCupping(cupping) }
-                                try? moc.save()
-                            } leadingContent: {
-                                Image(systemName: "checkmark")
-                                    .foregroundStyle(Color.accentColor)
-                                    .opacity(folderContainsCupping ? 1 : 0)
-                            }
-                        }
-                    }
-                }
-                .padding(.horizontal, .small)
-            }
         } trailingActions: { _ in
             SwipeActionView(systemImage: "trash.fill", title: "Delete", color: .red) {
                 withAnimation {
@@ -131,7 +106,7 @@ struct CuppingPreview: View {
                 }
                 
                 Button {
-#warning("context menu")
+                    foldersModalIsActive = true
                 } label: {
                     Label("Manage Folders", systemImage: "folder.badge.gearshape")
                 }
@@ -147,6 +122,33 @@ struct CuppingPreview: View {
                     Label("Delete", systemImage: "trash")
                 }
             }
+        }
+        .modalView(
+            isPresented: $foldersModalIsActive,
+            toolbar: .init(
+                title: "Folders",
+                trailingToolbarItem: .init("Done") {
+                    foldersModalIsActive = false
+                }
+            )
+        ) {
+            ScrollView {
+                LazyVStack(spacing: .extraSmall) {
+                    ForEach([FolderFilter.favorites] + folders.map { FolderFilter(folder: $0) }) { folderFilter in
+                        let folderContainsCupping: Bool = folderFilter.containsCupping(cupping)
+                        
+                        SettingsButtonSection(title: folderFilter.name ?? folderFilter.folder?.name ?? "New Folder") {
+                            if folderContainsCupping { folderFilter.removeCupping(cupping, context: moc) }
+                            else { folderFilter.addCupping(cupping, context: moc) }
+                        } leadingContent: {
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(Color.accentColor)
+                                .opacity(folderContainsCupping ? 1 : 0)
+                        }
+                    }
+                }
+            }
+            .padding(.horizontal, .small)
         }
     }
 }

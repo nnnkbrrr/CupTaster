@@ -12,7 +12,10 @@ import CoreLocation
 extension CuppingView {
     struct CuppingSettingsView: View {
         @Environment(\.managedObjectContext) private var moc
-        @FetchRequest(entity: Folder.entity(), sortDescriptors: []) var folders: FetchedResults<Folder>
+        @FetchRequest(
+            entity: Folder.entity(),
+            sortDescriptors: [NSSortDescriptor(keyPath: \Folder.ordinalNumber, ascending: true)]
+        ) var folders: FetchedResults<Folder>
         
         @ObservedObject var cupping: Cupping
         @Binding var isActive: Bool
@@ -70,9 +73,8 @@ extension CuppingView {
                                         let folderContainsCupping: Bool = folderFilter.containsCupping(cupping)
                                         
                                         SettingsButtonSection(title: folderFilter.name ?? folderFilter.folder?.name ?? "New Folder") {
-                                            if folderContainsCupping { folderFilter.removeCupping(cupping) }
-                                            else { folderFilter.addCupping(cupping) }
-                                            try? moc.save()
+                                            if folderContainsCupping { folderFilter.removeCupping(cupping, context: moc) }
+                                            else { folderFilter.addCupping(cupping, context: moc) }
                                         } leadingContent: {
                                             Image(systemName: "checkmark")
                                                 .foregroundStyle(Color.accentColor)

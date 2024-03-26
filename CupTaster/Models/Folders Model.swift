@@ -81,16 +81,18 @@ extension FolderFilter {
         return false
     }
     
-    func addCupping(_ cupping: Cupping) {
+    func addCupping(_ cupping: Cupping, context: NSManagedObjectContext) {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { cupping.isFavorite = true }
         else { folder?.addToCuppings(cupping) }
+        try? context.save()
     }
     
-    func removeCupping(_ cupping: Cupping) {
+    func removeCupping(_ cupping: Cupping, context: NSManagedObjectContext) {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { cupping.isFavorite = false }
         else { folder?.removeFromCuppings(cupping) }
+        try? context.save()
     }
     
     // Samples
@@ -101,15 +103,17 @@ extension FolderFilter {
         return false
     }
     
-    func addSample(_ sample: Sample) {
+    func addSample(_ sample: Sample, context: NSManagedObjectContext) {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { sample.isFavorite = true }
         else { folder?.addToSamples(sample) }
+        try? context.save()
     }
     
-    func removeSample(_ sample: Sample) {
+    func removeSample(_ sample: Sample, context: NSManagedObjectContext) {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { sample.isFavorite = false }
         else { folder?.removeFromSamples(sample) }
+        try? context.save()
     }
 }

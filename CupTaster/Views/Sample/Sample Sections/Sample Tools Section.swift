@@ -70,9 +70,9 @@ extension SampleView {
                                 let folderContainsSample: Bool = folderFilter.containsSample(selectedSample)
                                 
                                 SettingsButtonSection(title: folderFilter.name ?? folderFilter.folder?.name ?? "New Folder") {
-                                    if folderContainsSample { folderFilter.removeSample(selectedSample) }
-                                    else { folderFilter.addSample(selectedSample) }
-                                    try? moc.save()
+                                    if folderContainsSample { folderFilter.removeSample(selectedSample, context: moc) }
+                                    else { folderFilter.addSample(selectedSample, context: moc) }
+                                    samplesControllerModel.objectWillChange.send()
                                 } leadingContent: {
                                     Image(systemName: "checkmark")
                                         .foregroundStyle(Color.accentColor)
