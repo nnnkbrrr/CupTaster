@@ -42,7 +42,6 @@ extension SampleView {
                         Button("Delete") {
                             withAnimation {
                                 samplesControllerModel.deleteSelectedSample(moc: moc)
-                                try? moc.save()
                                 deleteModalIsActive = false
                             }
                         }

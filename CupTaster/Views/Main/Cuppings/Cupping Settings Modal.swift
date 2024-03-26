@@ -11,6 +11,7 @@ import CoreLocation
 
 extension CuppingView {
     struct CuppingSettingsView: View {
+        @Environment(\.dismiss) var dismiss
         @Environment(\.managedObjectContext) private var moc
         @FetchRequest(
             entity: Folder.entity(),
@@ -19,6 +20,8 @@ extension CuppingView {
         
         @ObservedObject var cupping: Cupping
         @Binding var isActive: Bool
+        let onDelete: () -> ()
+        
         @State var foldersModalIsActive: Bool = false
         @State var mapIsExpanded: Bool = false
         
@@ -86,9 +89,7 @@ extension CuppingView {
                             .padding(.horizontal, .small)
                         }
                         
-//                        Button {
-//#warning("action")
-//                        } label: {
+//                        Button { } label: {
 //                            HStack(spacing: .extraSmall) {
 //                                Image(systemName: "square.and.arrow.up")
 //                                Text("Share")
@@ -154,8 +155,11 @@ extension CuppingView {
                     .onTapGesture { if cupping.location != nil { mapIsExpanded = true } }
                     
                     HStack(spacing: .extraSmall) {
-                        Button {
-#warning("action")
+                        Menu {
+                            Button("Delete", role: .destructive) {
+                                dismiss()
+                                onDelete()
+                            }
                         } label: {
                             Text("Delete")
                                 .foregroundStyle(.red)

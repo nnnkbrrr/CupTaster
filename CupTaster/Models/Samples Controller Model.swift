@@ -100,29 +100,35 @@ extension SamplesControllerModel {
     
     public func deleteSelectedSample(moc: NSManagedObjectContext) {
         guard let sample = selectedSample else { return }
+        deleteSample(sample, moc: moc)
+    }
+    
+    public func deleteSample(_ sample: Sample, moc: NSManagedObjectContext) {
+        let cupping = sample.cupping
         
         let deletedSampleOrdinalNumber: Int16 = sample.ordinalNumber
+        cupping.removeFromSamples(sample)
         moc.delete(sample)
+        let sortedSamples: [Sample] = cupping.sortedSamples
         
-        let sortedSamples: [Sample] = sample.cupping.sortedSamples
-        
-        for sample in sortedSamples {
-            if sample.ordinalNumber > deletedSampleOrdinalNumber {
-                sample.ordinalNumber -= 1
-            }
-        }
-        
-        if sortedSamples.count > 1 {
-            if selectedSampleIndex != 0 {
-                selectedSampleIndex -= 1
-                changeSelectedSample(sample: sortedSamples[selectedSampleIndex])
-            } else {
-                selectedSampleIndex += 1
-                changeSelectedSample(sample: sortedSamples[selectedSampleIndex])
-            }
-        } else {
-            moc.delete(sample.cupping)
+        if sortedSamples.isEmpty {
             self.isActive = false
+        } else {
+            for (index, sample) in sortedSamples.enumerated() {
+                if sample.ordinalNumber > deletedSampleOrdinalNumber {
+                    sample.ordinalNumber = Int16(index)
+                }
+            }
+            
+            if selectedSample != nil {
+                if selectedSampleIndex < sortedSamples.count - 1 {
+                    changeSelectedSample(sample: sortedSamples[selectedSampleIndex])
+                } else {
+                    changeSelectedSample(sample: sortedSamples[selectedSampleIndex - 1])
+                }
+            }
         }
+        
+        try? moc.save()
     }
 }

@@ -45,7 +45,7 @@ struct RoseChart: View {
                     }
                     return nil
                 }()
-                
+
                 let chartQualityCriteria: [QualityCriteria]? = {
                     guard let cuppingForm else { return nil }
                     let qualityCriteria: [QualityCriteria] = cuppingForm.qcGroupConfigurations
@@ -59,8 +59,12 @@ struct RoseChart: View {
                 if let qualityCriteria {
                     ZStack {
                         ForEach(Array(qualityCriteria.enumerated()), id: \.offset) { index, qualityCriterion in
-                            RoseChartSegment(qualityCriteria: qualityCriterion, in: qualityCriteria)
-                                .animation(.easeInOut(duration: 1), value: qualityCriterion.value)
+                            if qualityCriterion.isFault {
+                                EmptyView()
+                            } else {
+                                RoseChartSegment(qualityCriteria: qualityCriterion, in: qualityCriteria)
+                                    .animation(.easeInOut(duration: 1), value: qualityCriterion.value)
+                            }
                         }
                     }
                     .rotationEffect(.degrees(-90))
@@ -73,8 +77,6 @@ struct RoseChart: View {
                     
                     RoseChartLabels(qualityCriteriaLabels: qualityCriteria.map { $0.title }, geometry: geometry)
                 }
-                
-                
             }
             .animation(.bouncy(duration: 0.5).delay(0.2), value: selectedSample)
         }
