@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import CoreData
+import CloudKit
 
 struct OnboardingView: View {
     @Binding var onboardingIsCompleted: Bool
@@ -69,15 +71,81 @@ struct OnboardingView: View {
 
 extension OnboardingView {
     struct iCloudLoadingView: View {
+        @Environment(\.managedObjectContext) private var moc
+        @FetchRequest(entity: Cupping.entity(), sortDescriptors: []) var cuppings: FetchedResults<Cupping>
+        @FetchRequest(entity: Sample.entity(), sortDescriptors: []) var samples: FetchedResults<Sample>
+        
+        let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+        
+        let date: Date = Date()
+        
+        @State var totalSamplesCount: Double = 1
+        @State var importedSamplesCount: Double = 0
+        
+        @State var importedObjects: Set<NSManagedObject> = []
+        @State var newImportedObjects: [String] = Array(repeating: "", count: 15)
+        
         var body: some View {
             VStack(spacing: .regular) {
+                Text(date, style: .timer)
+                
+                ProgressView(value: Double(samples.count), total: totalSamplesCount)
+                
+                Spacer()
+                    .frame(maxHeight: .infinity)
+                
                 ProgressView()
+                
                 Text("Loading data from iCloud...")
+                
+                VStack(spacing: .small) {
+                    ForEach(Array(newImportedObjects.enumerated()), id: \.offset) { index, object in
+                        Text(object)
+                            .font(.caption)
+                            .opacity(1.0 - Double(index) / 15.0)
+                            .scaleEffect(1.0 - Double(index) / 15.0)
+                    }
+                }
+                .frame(maxHeight: .infinity, alignment: .top)
+                .clipped()
             }
             .background {
                 OnboardingView.OnboardingBackgroundView()
                     .edgesIgnoringSafeArea(.all)
             }
+            .onAppear {
+                let queryOperation = CKQueryOperation(query: .init(recordType: "CD_Sample", predicate: NSPredicate(value: true)))
+                queryOperation.resultsLimit = CKQueryOperation.maximumResults
+                queryOperation.recordMatchedBlock = { _, _ in totalSamplesCount += 1 }
+                
+                let cloudContainer = CKContainer.init(identifier: "iCloud.CupTaster")
+                let privateDatabase = cloudContainer.privateCloudDatabase
+                
+                privateDatabase.add(queryOperation)
+            }
+            .onReceive(timer) { time in
+                subscribeToChanges()
+            }
+        }
+
+        func subscribeToChanges() {
+            for obj in moc.registeredObjects {
+                if !importedObjects.contains(obj) {
+                    if let sample = obj as? Sample {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0...15)) {
+                            newImportedObjects.insert("Sample: \(sample.name)", at: 0)
+                            newImportedObjects.removeLast()
+                        }
+                    } else if let cupping = obj as? Cupping {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0...15)) {
+                            newImportedObjects.insert("Cupping: \(cupping.name)", at: 0)
+                            newImportedObjects.removeLast()
+                        }
+                    }
+                }
+            }
+            
+            importedObjects = moc.registeredObjects
         }
     }
 }

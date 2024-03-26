@@ -26,7 +26,7 @@ struct Onboarding_GreetingsView: View {
                 .font(.system(size: 40, weight: .bold))
             
             Text("Taste, Analyze, Take Notes")
-                .font(.subheadline)
+                .font(.caption)
                 .textCase(.uppercase)
         }
         .transition(.scale.combined(with: .offset(y: -250)).combined(with: .opacity))
