@@ -70,7 +70,7 @@ struct SettingsButtonSection<LeadingContent: View, TrailingContent: View>: View 
     init(
         title: String,
         action: @escaping () -> (),
-        leadingContent: @escaping () -> LeadingContent,
+        @ViewBuilder leadingContent: @escaping () -> LeadingContent,
         trailingContent: @escaping () -> TrailingContent = { EmptyView() }
     ) {
         self.title = title

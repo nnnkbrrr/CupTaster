@@ -9,7 +9,9 @@ import SwiftUI
 
 struct CuppingPreview: View {
     @Environment(\.managedObjectContext) private var moc
+    @FetchRequest(entity: Folder.entity(), sortDescriptors: []) var folders: FetchedResults<Folder>
     @ObservedObject var cupping: Cupping
+    @State var foldersModalIsActive: Bool = false
     
     init(_ cupping: Cupping) {
         self.cupping = cupping
@@ -75,8 +77,36 @@ struct CuppingPreview: View {
             }
             
             SwipeActionView(systemImage: "folder.fill.badge.gearshape", title: "Folders", color: .indigo) {
-#warning("folders")
+                foldersModalIsActive = true
                 context.state.wrappedValue = .closed
+            }
+            .modalView(
+                isPresented: $foldersModalIsActive,
+                toolbar: .init(
+                    title: "Folders",
+                    trailingToolbarItem: .init("Done") {
+                        foldersModalIsActive = false
+                    }
+                )
+            ) {
+                ScrollView {
+                    LazyVStack(spacing: .extraSmall) {
+                        ForEach([FolderFilter.favorites] + folders.map { FolderFilter(folder: $0) }) { folderFilter in
+                            let folderContainsCupping: Bool = folderFilter.containsCupping(cupping)
+                            
+                            SettingsButtonSection(title: folderFilter.name ?? folderFilter.folder?.name ?? "New Folder") {
+                                if folderContainsCupping { folderFilter.removeCupping(cupping) }
+                                else { folderFilter.addCupping(cupping) }
+                                try? moc.save()
+                            } leadingContent: {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(Color.accentColor)
+                                    .opacity(folderContainsCupping ? 1 : 0)
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal, .small)
             }
         } trailingActions: { _ in
             SwipeActionView(systemImage: "trash.fill", title: "Delete", color: .red) {

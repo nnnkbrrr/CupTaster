@@ -63,22 +63,26 @@ extension SampleView {
                     trailingToolbarItem: .init("Done", action: { foldersModalIsActive = false })
                 )
             ) {
-                LazyVStack(spacing: .extraSmall) {
-                    ForEach(Array(folders)) { folder in
-                        SettingsButtonSection(title: folder.name == "" ? "New Folder" : folder.name) {
+                ScrollView {
+                    LazyVStack(spacing: .extraSmall) {
+                        ForEach([FolderFilter.favorites] + folders.map { FolderFilter(folder: $0) }) { folderFilter in
                             if let selectedSample = samplesControllerModel.selectedSample {
-                                if selectedSample.folders.contains(folder) { selectedSample.folders.remove(folder) }
-                                else { selectedSample.folders.insert(folder) }
+                                let folderContainsSample: Bool = folderFilter.containsSample(selectedSample)
+                                
+                                SettingsButtonSection(title: folderFilter.name ?? folderFilter.folder?.name ?? "New Folder") {
+                                    if folderContainsSample { folderFilter.removeSample(selectedSample) }
+                                    else { folderFilter.addSample(selectedSample) }
+                                    try? moc.save()
+                                } leadingContent: {
+                                    Image(systemName: "checkmark")
+                                        .foregroundStyle(Color.accentColor)
+                                        .opacity(folderContainsSample ? 1 : 0)
+                                }
                             }
-                            try? moc.save()
-                        } leadingContent: {
-                            Image(systemName: "checkmark")
-                                .foregroundStyle(Color.accentColor)
-                                .opacity(samplesControllerModel.selectedSample?.folders.contains(folder) ?? false ? 1 : 0)
                         }
                     }
                 }
-                .padding(.small)
+                .padding(.horizontal, .small)
             }
         }
     }

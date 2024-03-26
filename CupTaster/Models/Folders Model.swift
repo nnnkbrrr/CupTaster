@@ -71,3 +71,45 @@ class FolderFilter: Identifiable, Hashable {
         return hasher.combine(folder)
     }
 }
+
+extension FolderFilter {
+    // Cuppings
+    func containsCupping(_ cupping: Cupping) -> Bool {
+        if folder?.cuppings.contains(cupping) ?? false { return true }
+        else if self == FolderFilter.all { return true }
+        else if self == FolderFilter.favorites { return cupping.isFavorite }
+        return false
+    }
+    
+    func addCupping(_ cupping: Cupping) {
+        if self == FolderFilter.all { return }
+        else if self == FolderFilter.favorites { cupping.isFavorite = true }
+        else { folder?.addToCuppings(cupping) }
+    }
+    
+    func removeCupping(_ cupping: Cupping) {
+        if self == FolderFilter.all { return }
+        else if self == FolderFilter.favorites { cupping.isFavorite = false }
+        else { folder?.removeFromCuppings(cupping) }
+    }
+    
+    // Samples
+    func containsSample(_ sample: Sample) -> Bool {
+        if folder?.samples.contains(sample) ?? false { return true }
+        else if self == FolderFilter.all { return true }
+        else if self == FolderFilter.favorites { return sample.isFavorite }
+        return false
+    }
+    
+    func addSample(_ sample: Sample) {
+        if self == FolderFilter.all { return }
+        else if self == FolderFilter.favorites { sample.isFavorite = true }
+        else { folder?.addToSamples(sample) }
+    }
+    
+    func removeSample(_ sample: Sample) {
+        if self == FolderFilter.all { return }
+        else if self == FolderFilter.favorites { sample.isFavorite = false }
+        else { folder?.removeFromSamples(sample) }
+    }
+}

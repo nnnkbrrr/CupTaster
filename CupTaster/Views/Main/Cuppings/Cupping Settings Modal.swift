@@ -12,8 +12,11 @@ import CoreLocation
 extension CuppingView {
     struct CuppingSettingsView: View {
         @Environment(\.managedObjectContext) private var moc
+        @FetchRequest(entity: Folder.entity(), sortDescriptors: []) var folders: FetchedResults<Folder>
+        
         @ObservedObject var cupping: Cupping
         @Binding var isActive: Bool
+        @State var foldersModalIsActive: Bool = false
         @State var mapIsExpanded: Bool = false
         
         private let nameLengthLimit = 50
@@ -44,7 +47,7 @@ extension CuppingView {
                     
                     HStack(spacing: .extraSmall) {
                         Button {
-#warning("action")
+                            foldersModalIsActive = true
                         } label: {
                             HStack(spacing: .extraSmall) {
                                 Image(systemName: "folder")
@@ -52,6 +55,34 @@ extension CuppingView {
                             }
                         }
                         .buttonStyle(.bottomSheetBlock)
+                        .modalView(
+                            isPresented: $foldersModalIsActive,
+                            toolbar: .init(
+                                title: "Folders",
+                                trailingToolbarItem: .init("Done") {
+                                    foldersModalIsActive = false
+                                }
+                            )
+                        ) {
+                            ScrollView {
+                                LazyVStack(spacing: .extraSmall) {
+                                    ForEach([FolderFilter.favorites] + folders.map { FolderFilter(folder: $0) }) { folderFilter in
+                                        let folderContainsCupping: Bool = folderFilter.containsCupping(cupping)
+                                        
+                                        SettingsButtonSection(title: folderFilter.name ?? folderFilter.folder?.name ?? "New Folder") {
+                                            if folderContainsCupping { folderFilter.removeCupping(cupping) }
+                                            else { folderFilter.addCupping(cupping) }
+                                            try? moc.save()
+                                        } leadingContent: {
+                                            Image(systemName: "checkmark")
+                                                .foregroundStyle(Color.accentColor)
+                                                .opacity(folderContainsCupping ? 1 : 0)
+                                        }
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, .small)
+                        }
                         
 //                        Button {
 //#warning("action")
