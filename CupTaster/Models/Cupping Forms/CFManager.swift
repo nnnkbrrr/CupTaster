@@ -45,7 +45,7 @@ extension CFManager {
     public func getDefaultCuppingForm(from cuppingForms: FetchedResults<CuppingForm>) -> CuppingForm? {
         if let defaultCuppingForm = cuppingForms.first(where: { $0.shortDescription == defaultCFDescription }) {
             return defaultCuppingForm
-        } else if let firstCuppingForm = cuppingForms.first {
+        } else if let firstCuppingForm = cuppingForms.first(where: { !$0.isDeprecated } ) {
             defaultCFDescription = firstCuppingForm.shortDescription
             return firstCuppingForm
         }

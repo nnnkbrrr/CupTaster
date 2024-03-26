@@ -27,10 +27,11 @@ struct TesterPanelView: View {
     let systemVersion: String = UIDevice.current.systemVersion
     let languageCode: String = Locale.current.languageCode ?? "-"
     
-    @AppStorage("onboarding-is-completed") var onboardingIsCompleted: Bool = false
-    @AppStorage("tester-selected-page") var currentPage: Int = 0
-    @State var stopwatchModalIsActive: Bool = false
-    @State var onboardingModalIsActive: Bool = false
+    @AppStorage("default-cupping-form-description") private(set) var defaultCFDescription: String = ""
+    @AppStorage("onboarding-is-completed") private var onboardingIsCompleted: Bool = false
+    @AppStorage("tester-selected-page") private var currentPage: Int = 0
+    @State private var stopwatchModalIsActive: Bool = false
+    @State private var onboardingModalIsActive: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -63,20 +64,23 @@ struct TesterPanelView: View {
                     }
                     .tag(0)
                     
-                    HStack {
-                        Spacer()
-                        
-                        TesterButton(title: "Sample Overlay", systemImageName: testingManager.hideSampleOverlay ? "eye.slash.fill" : "eye.fill") {
-                            testingManager.hideSampleOverlay.toggle()
-                        }
-                        TesterButton(title: "Lock", systemImageName: samplesControllerModel.isTogglingVisibility ? "lock" : "lock.open") {
-                            samplesControllerModel.isTogglingVisibility.toggle()
-                        }
-                        TesterButton(title: "Stopwatch", systemImageName: "stopwatch") {
-                            stopwatchModalIsActive = true
-                        }
-                        .adaptiveSizeSheet(isPresented: $stopwatchModalIsActive) {
-                            StopwatchTimeSelectorView()
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            TesterButton(title: "Sample Overlay", systemImageName: testingManager.hideSampleOverlay ? "eye.slash.fill" : "eye.fill") {
+                                testingManager.hideSampleOverlay.toggle()
+                            }
+                            TesterButton(title: "Lock", systemImageName: samplesControllerModel.isTogglingVisibility ? "lock" : "lock.open") {
+                                samplesControllerModel.isTogglingVisibility.toggle()
+                            }
+                            TesterButton(title: "Stopwatch", systemImageName: "stopwatch") {
+                                stopwatchModalIsActive = true
+                            }
+                            .adaptiveSizeSheet(isPresented: $stopwatchModalIsActive) {
+                                StopwatchTimeSelectorView()
+                            }
+                            TesterButton(title: "Reset Default Cupping Form", systemImageName: "arrow.clockwise") {
+                                defaultCFDescription = ""
+                            }
                         }
                     }
                     .tag(1)

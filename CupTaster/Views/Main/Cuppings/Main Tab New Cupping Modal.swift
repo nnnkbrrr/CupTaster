@@ -15,17 +15,25 @@ struct NewCuppingModalView: View {
         entity: CuppingForm.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: false)]
     ) var cuppingForms: FetchedResults<CuppingForm>
+    @FetchRequest(
+        entity: Folder.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Folder.ordinalNumber, ascending: true)]
+    ) var folders: FetchedResults<Folder>
     @FetchRequest(entity: Location.entity(), sortDescriptors: []) var locations: FetchedResults<Location>
     
+    @StateObject var cfManager = CFManager.shared
     @ObservedObject var locationManager: LocationManager = .shared
     
     @Binding var isPresented: Bool
     @State var mapIsExpanded = false
+    @State var cuppingFormPickerIsActive: Bool = false
+    @State var foldersModalIsActive = false
     
     private let nameLengthLimit = 50
     @State var name: String = ""
     @State var cupsCount: Int = 5
     @State var samplesCount: Int = 10
+    @State var folderFilters: [FolderFilter] = []
     
     @State var location: Location?
     @State var loadingAddress: Bool = true
@@ -193,22 +201,24 @@ struct NewCuppingModalView: View {
             
             HStack(spacing: .extraSmall) {
                 Button {
-#warning("action")
+                    cuppingFormPickerIsActive = true
                 } label: {
                     HStack(spacing: .extraSmall) {
                         Image(systemName: "doc.plaintext")
-                        Text(CFManager.shared.getDefaultCuppingForm(from: cuppingForms)?.title ?? "Cupping Form")
-#warning("CF not selected")
+                        let defaultCuppingFormTitle: String? = cfManager.getDefaultCuppingForm(from: cuppingForms)?.title
+                        Text(defaultCuppingFormTitle ?? "Cupping Form")
+                            .foregroundStyle(defaultCuppingFormTitle == nil ? .red : .primary)
                     }
                 }
                 .buttonStyle(.bottomSheetBlock)
                 
                 Button {
-#warning("action")
+                    foldersModalIsActive = true
                 } label: {
                     HStack(spacing: .extraSmall) {
                         Image(systemName: "folder")
-                        Text("Folders")
+                        let foldersCount: Int = folderFilters.count
+                        Text("Folders \(foldersCount == 0 ? "" : "(\(foldersCount))")")
                     }
                 }
                 .buttonStyle(.bottomSheetBlock)
@@ -216,7 +226,7 @@ struct NewCuppingModalView: View {
             
             HStack(spacing: .extraSmall) {
                 Button {
-                    if let defaultCuppingForm: CuppingForm = CFManager.shared.getDefaultCuppingForm(from: cuppingForms) {
+                    if let defaultCuppingForm: CuppingForm = cfManager.getDefaultCuppingForm(from: cuppingForms) {
                         let cupping: Cupping = .init(context: moc)
                         cupping.name = name
                         cupping.setup(
@@ -238,12 +248,15 @@ struct NewCuppingModalView: View {
                             cupping.location = location
                         }
                         
+                        for folderFilter in folderFilters {
+                            folderFilter.addCupping(cupping, context: moc)
+                        }
+                        
                         try? moc.save()
+                        isPresented = false
                     } else {
-                        #warning("не выбрана форма по умолчанию")
+                        cuppingFormPickerIsActive = true
                     }
-                    
-                    isPresented = false
                 } label: {
                     HStack(spacing: .small) {
                         Text("Continue")
@@ -252,6 +265,45 @@ struct NewCuppingModalView: View {
                 }
                 .buttonStyle(.accentBottomSheetBlock)
             }
+        }
+        .modalView(
+            isPresented: $cuppingFormPickerIsActive,
+            toolbar: .init(
+                title: "Default Cupping Form",
+                trailingToolbarItem: .init("Done") {
+                    cuppingFormPickerIsActive = false
+                    cfManager.objectWillChange.send()
+                }
+            )
+        ) {
+            Settings_CuppingFormsView(showNavigationBar: false)
+        }
+        .modalView(
+            isPresented: $foldersModalIsActive,
+            toolbar: .init(
+                title: "Folders",
+                trailingToolbarItem: .init("Done") {
+                    foldersModalIsActive = false
+                }
+            )
+        ) {
+            ScrollView {
+                LazyVStack(spacing: .extraSmall) {
+                    ForEach([FolderFilter.favorites] + folders.map { FolderFilter(folder: $0) }) { folderFilter in
+                        let folderFilterIsSelected: Bool = folderFilters.contains(folderFilter)
+                        
+                        SettingsButtonSection(title: folderFilter.name ?? folderFilter.folder?.name ?? "New Folder") {
+                            if folderFilterIsSelected { folderFilters.removeAll(where: { $0 == folderFilter }) }
+                            else { folderFilters.append(folderFilter) }
+                        } leadingContent: {
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(Color.accentColor)
+                                .opacity(folderFilterIsSelected ? 1 : 0)
+                        }
+                    }
+                }
+            }
+            .padding(.horizontal, .small)
         }
         .padding([.horizontal, .bottom], .small)
         .onAppear {

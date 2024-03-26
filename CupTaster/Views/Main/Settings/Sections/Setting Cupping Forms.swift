@@ -18,6 +18,12 @@ struct Settings_CuppingFormsView: View {
     @State var deleteAlertActive: Bool = false
     @State var deleteAlertCuppingForm: CuppingForm? = nil
     
+    let showNavigationBar: Bool
+    
+    init(showNavigationBar: Bool = true) {
+        self.showNavigationBar = showNavigationBar
+    }
+    
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: .extraSmall) {
@@ -91,7 +97,24 @@ struct Settings_CuppingFormsView: View {
             .padding(.small)
         }
         .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
-        .navigationTitle("Cupping Forms")
-        .defaultNavigationBar()
+        .modifier(NavigationBarModifier(show: showNavigationBar))
+    }
+    
+    private struct NavigationBarModifier: ViewModifier {
+        let showNavigationBar: Bool
+        
+        init(show showNavigationBar: Bool) {
+            self.showNavigationBar = showNavigationBar
+        }
+        
+        func body(content: Content) -> some View {
+            if showNavigationBar {
+                content
+                    .navigationTitle("Cupping Forms")
+                    .defaultNavigationBar()
+            } else {
+                content
+            }
+        }
     }
 }
