@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreLocation
 
+#warning("last page end onboarding")
 struct Onboarding_LocationPage: View {
     @Binding var currentPage: OnboardingView.OnboardingPage
     @Binding var onboardingIsCompleted: Bool

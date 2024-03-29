@@ -103,7 +103,6 @@ private struct NotesTextFieldView: UIViewRepresentable {
 
 class HashtagTextView: UITextView {
     static let font: UIFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline)
-    #warning("russian+ letters in regex")
     let hashtagRegex = "#[-_0-9A-Za-z]+"
     
     private var cachedFrames: [CGRect] = []

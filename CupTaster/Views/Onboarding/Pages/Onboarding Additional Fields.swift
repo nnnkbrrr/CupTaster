@@ -11,8 +11,9 @@ struct Onboarding_AdditionalFieldsPage: View {
     @Binding var currentPage: OnboardingView.OnboardingPage
     
     var body: some View {
+#warning("Additional Fields Picker")
         OnboardingPageContents("Additional Fields", description: "description") {
-            Text("Cupping Form Picker")
+            Text("Additional Fields Picker")
         } conditionIsFulfilled: {
             return true
         } action: {

@@ -17,11 +17,6 @@ public class CuppingForm: NSManagedObject, Identifiable, Codable {
     @NSManaged public var version: String
     @NSManaged public var languageCode: String
     
-    #warning("additional variables")
-//    @NSManaged public var info: String
-//    @NSManaged public var requiredAppVersion: String
-//    @NSManaged public var updateDetails: String
-    
     @NSManaged public var finalScoreFormula: String
     @NSManaged public var finalScoreLowerBound: Double
     @NSManaged public var finalScoreUpperBound: Double
