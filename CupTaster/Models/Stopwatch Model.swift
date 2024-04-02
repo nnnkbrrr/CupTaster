@@ -126,60 +126,54 @@ struct StopwatchTimeSelectorView: View {
                     .frame(maxWidth: .infinity)
             }
             
-            Divider()
-            
-            Text("Hours")
-            
-            TargetHorizontalScrollView(
-                (0...23), selection: $hours, elementWidth: 25, height: 20, spacing: 10
-            ) { hour in
-                Text("\(hour)")
-                    .font(.headline)
-                    .frame(width: 25, height: 20)
-                    .foregroundStyle(hours == hour ? Color.primary : .gray)
-            }
-            
-            Divider()
-            
-            Text("Minutes")
-            
-            TargetHorizontalScrollView(
-                (0...59), selection: $minutes, elementWidth: 25, height: 20, spacing: 10
-            ) { minute in
-                Text("\(minute)")
-                    .font(.headline)
-                    .frame(width: 25, height: 20)
-                    .foregroundStyle(minutes == minute ? Color.primary : .gray)
-            }
-            
-            Divider()
-            
-            Text("Seconds")
-            
-            TargetHorizontalScrollView(
-                (0...59), selection: $seconds, elementWidth: 25, height: 20, spacing: 10
-            ) { second in
-                Text("\(second)")
-                    .font(.headline)
-                    .frame(width: 25, height: 20)
-                    .foregroundStyle(seconds == second ? Color.primary : .gray)
-            }
-            
-            Divider()
-            
-            HStack {
-                Group {
-                    Text("\(stopwatchModel.timeSince?.formatted(date: .numeric, time: .standard) ?? "--")")
-                        .frame(maxWidth: .infinity)
-                    Text("->")
-                    Text("\(stopwatchModel.timeTill?.formatted(date: .numeric, time: .standard) ?? "--")")
-                        .frame(maxWidth: .infinity)
+            VStack {
+                Divider()
+                Text("Hours")
+                TargetHorizontalScrollView(
+                    (0...23), selection: $hours, elementWidth: 25, height: 20, spacing: 10
+                ) { hour in
+                    Text("\(hour)")
+                        .font(.headline)
+                        .frame(width: 25, height: 20)
+                        .foregroundStyle(hours == hour ? Color.primary : .gray)
                 }
-                .font(.caption2)
-                .foregroundStyle(.gray)
+                
+                Divider()
+                Text("Minutes")
+                TargetHorizontalScrollView(
+                    (0...59), selection: $minutes, elementWidth: 25, height: 20, spacing: 10
+                ) { minute in
+                    Text("\(minute)")
+                        .font(.headline)
+                        .frame(width: 25, height: 20)
+                        .foregroundStyle(minutes == minute ? Color.primary : .gray)
+                }
+                
+                Divider()
+                Text("Seconds")
+                TargetHorizontalScrollView(
+                    (0...59), selection: $seconds, elementWidth: 25, height: 20, spacing: 10
+                ) { second in
+                    Text("\(second)")
+                        .font(.headline)
+                        .frame(width: 25, height: 20)
+                        .foregroundStyle(seconds == second ? Color.primary : .gray)
+                }
+                
+                Divider()
+                HStack {
+                    Group {
+                        Text("\(stopwatchModel.timeSince?.formatted(date: .numeric, time: .standard) ?? "--")")
+                            .frame(maxWidth: .infinity)
+                        Text("->")
+                        Text("\(stopwatchModel.timeTill?.formatted(date: .numeric, time: .standard) ?? "--")")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .font(.caption2)
+                    .foregroundStyle(.gray)
+                }
+                Divider()
             }
-            
-            Divider()
             
             HStack {
                 Button(stopwatchModel.state == .started ? "STOP" : "START") {
@@ -187,14 +181,14 @@ struct StopwatchTimeSelectorView: View {
                 }
                 .buttonStyle(.primary)
                 
-                
                 Button("RESET") {
                     stopwatchModel.reset()
                 }
                 .buttonStyle(.primary)
                 
                 Button("SET") {
-                    stopwatchModel.timeSince = Date(timeIntervalSinceNow: TimeInterval(-(seconds + minutes * 60 + hours * 60 * 60)))
+                    let timeSinceIntervalValue: Int = -(seconds + minutes * 60 + hours * 60 * 60)
+                    stopwatchModel.timeSince = Date(timeIntervalSinceNow: TimeInterval(timeSinceIntervalValue))
                     stopwatchModel.timeTill = Date()
                     stopwatchModel.state = .stopped
                 }

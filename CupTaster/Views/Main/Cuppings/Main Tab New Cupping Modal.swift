@@ -8,6 +8,50 @@
 import SwiftUI
 import MapKit
 import CoreLocation
+import CoreData
+
+class NewCupping: ObservableObject {
+    @Published var name: String = ""
+    @Published var cupsCount: Int = 5
+    @Published var samplesCount: Int = 10
+    @Published var folderFilters: [FolderFilter] = []
+    @Published var location: Location?
+    @Published var address: String = "Location is unavailable"
+    @Published var horizontalAccuracy: Double?
+    @Published var latitude: Double?
+    @Published var longitude: Double?
+    
+    init() { }
+    
+    func create(cuppingForm: CuppingForm, context moc: NSManagedObjectContext) {
+        let cupping: Cupping = .init(context: moc)
+        cupping.name = name
+        cupping.setup(
+            moc: moc,
+            date: Date(),
+            cuppingForm: cuppingForm,
+            cupsCount: cupsCount,
+            samplesCount: samplesCount
+        )
+        
+        if let location {
+            cupping.location = location
+        } else if let latitude, let longitude {
+            let location: Location = .init(context: moc)
+            location.address = address
+            location.latitude = latitude
+            location.longitude = longitude
+            if let horizontalAccuracy { location.horizontalAccuracy = horizontalAccuracy }
+            cupping.location = location
+        }
+        
+        for folderFilter in folderFilters {
+            folderFilter.addCupping(cupping, context: moc)
+        }
+        
+        try? moc.save()
+    }
+}
 
 struct NewCuppingModalView: View {
     @Environment(\.managedObjectContext) private var moc
@@ -28,31 +72,23 @@ struct NewCuppingModalView: View {
     @State var mapIsExpanded = false
     @State var cuppingFormPickerIsActive: Bool = false
     @State var foldersModalIsActive = false
+    @State var loadingAddress: Bool = true
     
     private let nameLengthLimit = 50
-    @State var name: String = ""
-    @State var cupsCount: Int = 5
-    @State var samplesCount: Int = 10
-    @State var folderFilters: [FolderFilter] = []
     
-    @State var location: Location?
-    @State var loadingAddress: Bool = true
-    @State var address: String = "Location is unavailable"
-    @State var horizontalAccuracy: Double?
-    @State var latitude: Double?
-    @State var longitude: Double?
+    @ObservedObject var newCupping: NewCupping = .init()
     
     var body: some View {
         VStack(spacing: .extraSmall) {
-            TextField("Cupping Name", text: $name)
+            TextField("Cupping Name", text: $newCupping.name)
                 .resizableText(weight: .light)
                 .submitLabel(.done)
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
                 .padding(.vertical, .regular)
-                .onChange(of: name) { name in
+                .onChange(of: newCupping.name) { name in
                     if name.count > nameLengthLimit {
-                        self.name = String(name.prefix(nameLengthLimit))
+                        newCupping.name = String(name.prefix(nameLengthLimit))
                     }
                 }
                 .bottomSheetBlock()
@@ -64,11 +100,11 @@ struct NewCuppingModalView: View {
                         .foregroundStyle(.gray)
                     
                     TargetHorizontalScrollView(
-                        1...5, selection: $cupsCount,
+                        1...5, selection: $newCupping.cupsCount,
                         elementWidth: .smallElement, height: 18, spacing: .extraSmall
                     ) { cupsNum in
                         Text("\(cupsNum)")
-                            .foregroundStyle(cupsNum == cupsCount ? Color.primary : .gray)
+                            .foregroundStyle(cupsNum == newCupping.cupsCount ? Color.primary : .gray)
                             .frame(width: .smallElement)
                     }
                     .mask(
@@ -87,11 +123,11 @@ struct NewCuppingModalView: View {
                         .foregroundStyle(.gray)
                     
                     TargetHorizontalScrollView(
-                        1...20, selection: $samplesCount,
+                        1...20, selection: $newCupping.samplesCount,
                         elementWidth: .smallElement, height: 18, spacing: .extraSmall
                     ) { samplesNum in
                         Text("\(samplesNum)")
-                            .foregroundStyle(samplesNum == samplesCount ? Color.primary : .gray)
+                            .foregroundStyle(samplesNum == newCupping.samplesCount ? Color.primary : .gray)
                             .frame(width: .smallElement)
                     }
                     .mask(
@@ -107,7 +143,7 @@ struct NewCuppingModalView: View {
             
             HStack(spacing: .regular) {
                 ZStack {
-                    if let location {
+                    if let location = newCupping.location {
                         Map (
                             coordinateRegion: .constant(
                                 MKCoordinateRegion(
@@ -126,17 +162,17 @@ struct NewCuppingModalView: View {
                                 specifyingLocation: true
                             ) { newLocation, coordinates, address in
                                 if let newLocation {
-                                    self.location = newLocation
+                                    newCupping.location = newLocation
                                 } else {
-                                    self.location = nil
-                                    (self.latitude, self.longitude) = (coordinates.latitude, coordinates.longitude)
-                                    self.address = address
+                                    newCupping.location = nil
+                                    (newCupping.latitude, newCupping.longitude) = (coordinates.latitude, coordinates.longitude)
+                                    newCupping.address = address
                                 }
                                 try? moc.save()
                             }
                             .edgesIgnoringSafeArea(.all)
                         }
-                    } else if let latitude, let longitude {
+                    } else if let latitude = newCupping.latitude, let longitude = newCupping.longitude {
                         Map (
                             coordinateRegion: .constant(
                                 MKCoordinateRegion(
@@ -152,15 +188,15 @@ struct NewCuppingModalView: View {
                         .fullScreenCover(isPresented: $mapIsExpanded) {
                             MapModalView (
                                 coordinates: .init(latitude: latitude, longitude: longitude),
-                                address: address,
+                                address: newCupping.address,
                                 specifyingLocation: true
                             ) { newLocation, coordinates, address in
                                 if let newLocation {
-                                    self.location = newLocation
+                                    newCupping.location = newLocation
                                 } else {
-                                    self.location = nil
-                                    (self.latitude, self.longitude) = (coordinates.latitude, coordinates.longitude)
-                                    self.address = address
+                                    newCupping.location = nil
+                                    (newCupping.latitude, newCupping.longitude) = (coordinates.latitude, coordinates.longitude)
+                                    newCupping.address = address
                                 }
                                 try? moc.save()
                             }
@@ -179,10 +215,10 @@ struct NewCuppingModalView: View {
                 .allowsHitTesting(false)
                 
                 VStack(alignment: .leading) {
-                    Text(address)
+                    Text(newCupping.address)
                         .lineLimit(1)
                     
-                    if location != nil || (latitude != nil && longitude != nil) {
+                    if newCupping.location != nil || (newCupping.latitude != nil && newCupping.longitude != nil) {
                         Text("\(Image(systemName: "mappin.and.ellipse")) Specify")
                             .foregroundStyle(Color.accentColor)
                             .font(.caption)
@@ -194,7 +230,7 @@ struct NewCuppingModalView: View {
             .bottomSheetBlock()
             .contentShape(Rectangle())
             .onTapGesture {
-                if location != nil || (latitude != nil && longitude != nil) {
+                if newCupping.location != nil || (newCupping.latitude != nil && newCupping.longitude != nil) {
                     mapIsExpanded = true
                 }
             }
@@ -217,7 +253,7 @@ struct NewCuppingModalView: View {
                 } label: {
                     HStack(spacing: .extraSmall) {
                         Image(systemName: "folder")
-                        let foldersCount: Int = folderFilters.count
+                        let foldersCount: Int = newCupping.folderFilters.count
                         Text("Folders \(foldersCount == 0 ? "" : "(\(foldersCount))")")
                     }
                 }
@@ -227,32 +263,7 @@ struct NewCuppingModalView: View {
             HStack(spacing: .extraSmall) {
                 Button {
                     if let defaultCuppingForm: CuppingForm = cfManager.getDefaultCuppingForm(from: cuppingForms) {
-                        let cupping: Cupping = .init(context: moc)
-                        cupping.name = name
-                        cupping.setup(
-                            moc: moc,
-                            date: Date(),
-                            cuppingForm: defaultCuppingForm,
-                            cupsCount: cupsCount,
-                            samplesCount: samplesCount
-                        )
-                        
-                        if let location {
-                            cupping.location = location
-                        } else if let latitude, let longitude {
-                            let location: Location = .init(context: moc)
-                            location.address = address
-                            location.latitude = latitude
-                            location.longitude = longitude
-                            if let horizontalAccuracy { location.horizontalAccuracy = horizontalAccuracy }
-                            cupping.location = location
-                        }
-                        
-                        for folderFilter in folderFilters {
-                            folderFilter.addCupping(cupping, context: moc)
-                        }
-                        
-                        try? moc.save()
+                        newCupping.create(cuppingForm: defaultCuppingForm, context: moc)
                         isPresented = false
                     } else {
                         cuppingFormPickerIsActive = true
@@ -290,11 +301,11 @@ struct NewCuppingModalView: View {
             ScrollView {
                 LazyVStack(spacing: .extraSmall) {
                     ForEach([FolderFilter.favorites] + folders.map { FolderFilter(folder: $0) }) { folderFilter in
-                        let folderFilterIsSelected: Bool = folderFilters.contains(folderFilter)
+                        let folderFilterIsSelected: Bool = newCupping.folderFilters.contains(folderFilter)
                         
                         SettingsButtonSection(title: folderFilter.name ?? folderFilter.folder?.name ?? "New Folder") {
-                            if folderFilterIsSelected { folderFilters.removeAll(where: { $0 == folderFilter }) }
-                            else { folderFilters.append(folderFilter) }
+                            if folderFilterIsSelected { newCupping.folderFilters.removeAll(where: { $0 == folderFilter }) }
+                            else { newCupping.folderFilters.append(folderFilter) }
                         } leadingContent: {
                             Image(systemName: "checkmark")
                                 .foregroundStyle(Color.accentColor)
@@ -317,16 +328,20 @@ struct NewCuppingModalView: View {
                             let distance: Double = coordinates.distance(from: location.coordinates)
                             if distance < locationManager.unionDistance && distance < minDistance {
                                 minDistance = distance
-                                self.location = location
-                                self.address = location.address
+                                newCupping.location = location
+                                newCupping.address = location.address
                             }
                         }
                         
-                        if self.location == nil {
-                            (self.address, self.horizontalAccuracy, self.latitude, self.longitude) = locationData
-                        }
+                        if newCupping.location == nil {(
+                            newCupping.address,
+                            newCupping.horizontalAccuracy,
+                            newCupping.latitude,
+                            newCupping.longitude
+                        ) = locationData }
                     }
                 }
+                
                 withAnimation {
                     loadingAddress = false
                 }

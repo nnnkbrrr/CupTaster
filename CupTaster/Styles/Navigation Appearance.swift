@@ -19,6 +19,8 @@ struct Navigation {
     }
 }
 
+// default navigation
+
 struct NavigationBackgroundViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -36,6 +38,8 @@ extension View {
         modifier(NavigationBackgroundViewModifier())
     }
 }
+
+// navigation with toolbar
 
 struct NavigationToolbarViewModifier<ToolbarContent: View>: ViewModifier {
     let toolbarContent: () -> ToolbarContent

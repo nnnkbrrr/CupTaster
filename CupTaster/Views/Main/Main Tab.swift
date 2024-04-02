@@ -47,12 +47,7 @@ struct MainTabView: View {
                 if sectionsData.isEmpty { isEmpty } else {
                     LazyVStack(alignment: .leading, spacing: 0) {
                         ForEach(sectionsData) { sectionData in
-                            MonthSection(
-                                title: sectionData.monthAndYear.string,
-                                cuppings: sectionData.cuppings,
-                                samples: sectionData.samples,
-                                folderFilter: selectedFolderFilter
-                            )
+                            MonthSection(sectionData: sectionData, folderFilter: selectedFolderFilter)
                         }
                     }
                     .padding([.horizontal, .bottom], .small)
@@ -80,10 +75,31 @@ struct MainTabView: View {
                         Image(systemName: "plus")
                     }
                 }
+                
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .font(.caption)
+                        
+                        Text(folderFilterName)
+                            .font(.subheadline)
+                    }
+                    .foregroundStyle(.gray)
+                    .padding(7)
+                    .padding(.trailing, .extraSmall)
+                    .background(.bar)
+                    .clipShape(Capsule())
+                    .id(selectedFolderFilter.animationId)
+                    .onTapGesture {
+                        withAnimation {
+                            newCuppingModalIsActive = true
+                        }
+                    }
+                }
             }
             .navigationToolbar { MainTabToolbar(allFolderFilters: allFolderFilters, selectedFolderFilter: $selectedFolderFilter) }
         }
-        .navigationViewStyle(.stack) 
+        .navigationViewStyle(.stack)
         .adaptiveSizeSheet(isPresented: $newCuppingModalIsActive) {
             NewCuppingModalView(isPresented: $newCuppingModalIsActive)
         }
@@ -96,9 +112,7 @@ struct MainTabView: View {
     }
     
     struct MonthSection: View {
-        let title: String
-        let cuppings: [Cupping]
-        let samples: [Sample]
+        let sectionData: SectionData
         let folderFilter: FolderFilter
         
         @State var isExpanded: Bool = true
@@ -106,7 +120,7 @@ struct MainTabView: View {
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text(title)
+                    Text(sectionData.id)
                         .bold()
                         .padding(.horizontal, .extraSmall)
                         .frame(height: .smallElement)
@@ -126,9 +140,9 @@ struct MainTabView: View {
                 
                 if isExpanded {
                     VStack(spacing: .extraSmall) {
-                        ForEach(cuppings) { CuppingPreview($0) }
+                        ForEach(sectionData.cuppings) { CuppingPreview($0) }
                         
-                        if samples != [] {
+                        if !sectionData.samples.isEmpty {
                             LazyVGrid(
                                 columns: [
                                     GridItem(
@@ -139,7 +153,9 @@ struct MainTabView: View {
                                 ],
                                 spacing: .extraSmall
                             ) {
-                                ForEach(samples) { SamplePreview($0, showCupping: true, animationId: folderFilter.animationId) }
+                                ForEach(sectionData.samples) {
+                                    SamplePreview($0, showCupping: true, animationId: folderFilter.animationId)
+                                }
                             }
                         }
                     }

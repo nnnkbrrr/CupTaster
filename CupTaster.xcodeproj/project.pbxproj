@@ -88,6 +88,7 @@
 		63AC0EB42B88FD13001C65E8 /* Safari Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AC0EB32B88FD13001C65E8 /* Safari Controller.swift */; };
 		63B75D952A6D6549002C350A /* Samples Controller Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B75D942A6D6549002C350A /* Samples Controller Model.swift */; };
 		63B75D972A6D6799002C350A /* Samples Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B75D962A6D6799002C350A /* Samples Controller.swift */; };
+		63C05E982BBC554E00E70A1D /* Search View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C05E972BBC554E00E70A1D /* Search View.swift */; };
 		63C9FBE52BB0542F009EF005 /* Onboarding Page Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9FBE42BB0542F009EF005 /* Onboarding Page Contents.swift */; };
 		63C9FBE72BB0585E009EF005 /* Onboarding Form Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9FBE62BB0585E009EF005 /* Onboarding Form Picker.swift */; };
 		63C9FBEA2BB06AD3009EF005 /* Onboarding Additional Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9FBE92BB06AD3009EF005 /* Onboarding Additional Fields.swift */; };
@@ -210,6 +211,7 @@
 		63AC0EB32B88FD13001C65E8 /* Safari Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Safari Controller.swift"; sourceTree = "<group>"; };
 		63B75D942A6D6549002C350A /* Samples Controller Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Samples Controller Model.swift"; sourceTree = "<group>"; };
 		63B75D962A6D6799002C350A /* Samples Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Samples Controller.swift"; sourceTree = "<group>"; };
+		63C05E972BBC554E00E70A1D /* Search View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search View.swift"; sourceTree = "<group>"; };
 		63C9FBE42BB0542F009EF005 /* Onboarding Page Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Page Contents.swift"; sourceTree = "<group>"; };
 		63C9FBE62BB0585E009EF005 /* Onboarding Form Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Form Picker.swift"; sourceTree = "<group>"; };
 		63C9FBE92BB06AD3009EF005 /* Onboarding Additional Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Additional Fields.swift"; sourceTree = "<group>"; };
@@ -400,8 +402,11 @@
 		63A88CFE2A4C90C20006AA0F /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				63DD44E22B6FCFA100F1D256 /* Cupping Preview.swift */,
-				63729F932A6D7B9300EF0FEE /* Sample Preview.swift */,
+				63A88CFC2A4C90880006AA0F /* Main Tab.swift */,
+				63198EA02A570846004634ED /* Main Tab Empty.swift */,
+				631A44C32B6E7842006B6AA7 /* Main Tab Folders.swift */,
+				63C05E972BBC554E00E70A1D /* Search View.swift */,
+				63C05E962BBC551200E70A1D /* Previews */,
 				63A88CFF2A4C90CC0006AA0F /* Cuppings */,
 				6319F8672A5D59E700EECD62 /* Settings */,
 			);
@@ -411,9 +416,6 @@
 		63A88CFF2A4C90CC0006AA0F /* Cuppings */ = {
 			isa = PBXGroup;
 			children = (
-				63A88CFC2A4C90880006AA0F /* Main Tab.swift */,
-				631A44C32B6E7842006B6AA7 /* Main Tab Folders.swift */,
-				63198EA02A570846004634ED /* Main Tab Empty.swift */,
 				6372A3702B4FEBD300925E0B /* Main Tab New Cupping Modal.swift */,
 				639AB6942A57258300CB04F7 /* Cupping.swift */,
 				63DD44E82B71403900F1D256 /* Cupping Settings Modal.swift */,
@@ -494,6 +496,15 @@
 				63A88D162A4C9B8C0006AA0F /* CFManager.swift */,
 			);
 			path = "Cupping Forms";
+			sourceTree = "<group>";
+		};
+		63C05E962BBC551200E70A1D /* Previews */ = {
+			isa = PBXGroup;
+			children = (
+				63DD44E22B6FCFA100F1D256 /* Cupping Preview.swift */,
+				63729F932A6D7B9300EF0FEE /* Sample Preview.swift */,
+			);
+			path = Previews;
 			sourceTree = "<group>";
 		};
 		63C9FBE82BB06AB1009EF005 /* Pages */ = {
@@ -723,6 +734,7 @@
 				631422712B3AC21C00683F7F /* Rose Chart.swift in Sources */,
 				63A1A9182A558685008D30CE /* Sizing & Spacing.swift in Sources */,
 				631A44C42B6E7842006B6AA7 /* Main Tab Folders.swift in Sources */,
+				63C05E982BBC554E00E70A1D /* Search View.swift in Sources */,
 				634D5A4D2A5ED5F200A18B63 /* Sample.swift in Sources */,
 				63DC7A582801BE7800010318 /* ContentView.swift in Sources */,
 				6327BEB828609432000CB3AB /* DataModel.xcdatamodeld in Sources */,

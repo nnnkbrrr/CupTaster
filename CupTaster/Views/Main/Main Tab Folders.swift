@@ -35,7 +35,7 @@ struct MainTabToolbar: View {
                     }
                 }
             }
-            .padding(.horizontal, .regular)
+            .padding(.horizontal, .small)
             .frame(height: .extraLarge)
         }
     }
