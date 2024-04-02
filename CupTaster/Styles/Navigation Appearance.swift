@@ -63,7 +63,7 @@ struct NavigationToolbarViewModifier<ToolbarContent: View>: ViewModifier {
 }
 
 extension View {
-    func navigationToolbar<ToolbarContent: View>(content: @escaping () -> ToolbarContent) -> some View {
+    func navigationToolbar<ToolbarContent: View>(@ViewBuilder content: @escaping () -> ToolbarContent) -> some View {
         modifier(NavigationToolbarViewModifier(toolbarContent: content))
     }
 }

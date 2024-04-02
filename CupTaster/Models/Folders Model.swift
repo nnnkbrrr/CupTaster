@@ -59,7 +59,11 @@ class FolderFilter: Identifiable, Hashable {
         self.predicate = predicate
     }
     
-    static let all: FolderFilter = .init(name: "All", ordinalNumber: -2) { return $0.filter { $0 is Cupping } }
+    static let all: FolderFilter = .init(name: "All", ordinalNumber: -2) {
+        if SearchModel.shared.searchValue == "" {
+            return $0.filter { $0 is Cupping }
+        } else { return $0 }
+    }
     static let favorites: FolderFilter = .init(name: "Favorites", ordinalNumber: -1) { return $0.filter { $0.isFavorite } }
     static let pinnedFolders: [FolderFilter] = [.all, .favorites]
     

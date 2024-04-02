@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+class SearchModel: ObservableObject {
+    static let shared: SearchModel = .init()
+    
+    @Published var searchIsActive: Bool = false
+    @Published var searchValue: String = ""
+    
+    private init() { }
+}
+
 struct MainTabView: View {
     @Environment(\.managedObjectContext) private var moc
     
@@ -27,6 +36,9 @@ struct MainTabView: View {
     @State var selectedFolderFilter: FolderFilter = FolderFilter.all
     @State var prevSelectedFolderFilterOrdinalNumber: Int = FolderFilter.all.ordinalNumber
     
+    @Namespace var namespace
+    @FocusState var searchBarIsFocusd: Bool
+    @ObservedObject var searchModel: SearchModel = .shared
     @State var newCuppingModalIsActive: Bool = false
     
     init() {
@@ -42,7 +54,10 @@ struct MainTabView: View {
             }()
             
             ScrollView {
-                let sectionsData: [SectionData] = getSectionsData(folderFilter: selectedFolderFilter)
+                let sectionsData: [SectionData] = getSectionsData(
+                    folderFilter: selectedFolderFilter,
+                    searchValue: searchModel.searchValue
+                )
                 
                 if sectionsData.isEmpty { isEmpty } else {
                     LazyVStack(alignment: .leading, spacing: 0) {
@@ -60,44 +75,90 @@ struct MainTabView: View {
                 }
             }
             .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
-            .navigationBarTitle(folderFilterName, displayMode: .inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    NavigationLink(destination: SettingsTabView()) {
-                        Image(systemName: "gearshape")
-                    }
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        newCuppingModalIsActive = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
-                
-                ToolbarItem(placement: .principal) {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .font(.caption)
-                        
-                        Text(folderFilterName)
-                            .font(.subheadline)
-                    }
-                    .foregroundStyle(.gray)
-                    .padding(7)
-                    .padding(.trailing, .extraSmall)
-                    .background(.bar)
-                    .clipShape(Capsule())
-                    .id(selectedFolderFilter.animationId)
-                    .onTapGesture {
-                        withAnimation {
-                            newCuppingModalIsActive = true
+            .navigationBarTitle(folderFilterName)
+            .navigationBarHidden(true)
+            .navigationToolbar {
+                VStack(spacing: .small) {
+                    HStack(spacing: .small) {
+                        if !searchModel.searchIsActive {
+                            NavigationLink(destination: SettingsTabView()) {
+                                Image(systemName: "gearshape")
+                                    .font(.title3)
+                                    .foregroundStyle(.accent)
+                            }
+                            
+                            Spacer()
+                            
+                            HStack {
+                                Image(systemName: "magnifyingglass")
+                                    .font(.caption)
+                                    .matchedGeometryEffect(id: "search-bar-image", in: namespace)
+                                
+                                Text(folderFilterName)
+                                    .font(.subheadline)
+                                    .matchedGeometryEffect(id: "search-bar-text", in: namespace)
+                            }
+                            .foregroundStyle(.gray)
+                            .padding(7)
+                            .padding(.trailing, .extraSmall)
+                            .background(
+                                Capsule()
+                                    .foregroundStyle(.bar)
+                                    .matchedGeometryEffect(id: "search-bar-background", in: namespace)
+                            )
+                            .id(selectedFolderFilter.animationId)
+                            .onTapGesture {
+                                withAnimation(.smooth) {
+                                    searchModel.searchIsActive = true
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        searchBarIsFocusd = true
+                                    }
+                                }
+                            }
+                            
+                            Spacer()
+                            
+                            Image(systemName: "plus")
+                                .font(.title3)
+                                .foregroundStyle(.accent)
+                                .onTapGesture {
+                                    newCuppingModalIsActive = true
+                                }
+                        } else {
+                            HStack {
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundColor(.gray)
+                                    .font(.caption)
+                                    .matchedGeometryEffect(id: "search-bar-image", in: namespace)
+                                
+                                TextField("Search", text: $searchModel.searchValue)
+                                    .focused($searchBarIsFocusd)
+                                    .matchedGeometryEffect(id: "search-bar-text", in: namespace)
+                            }
+                            .frame(height: 37)
+                            .padding(.horizontal, .regular)
+                            .background(
+                                Rectangle()
+                                    .foregroundStyle(.bar)
+                                    .cornerRadius()
+                                    .matchedGeometryEffect(id: "search-bar-background", in: namespace)
+                            )
+                            
+                            Button("Cancel") {
+                                withAnimation(.smooth) {
+                                    searchModel.searchValue = ""
+                                    searchBarIsFocusd = false
+                                    searchModel.searchIsActive = false
+                                }
+                            }
                         }
                     }
+                    .padding(.horizontal, .regular)
+                    .frame(height: 35)
+
+                    MainTabToolbar(allFolderFilters: allFolderFilters, selectedFolderFilter: $selectedFolderFilter)
                 }
             }
-            .navigationToolbar { MainTabToolbar(allFolderFilters: allFolderFilters, selectedFolderFilter: $selectedFolderFilter) }
         }
         .navigationViewStyle(.stack)
         .adaptiveSizeSheet(isPresented: $newCuppingModalIsActive) {
@@ -185,16 +246,41 @@ struct MainTabView: View {
 }
 
 extension MainTabView {
-    func getSectionsData(folderFilter: FolderFilter) -> [MainTabView.SectionData] {
+    func getSectionsData(folderFilter: FolderFilter, searchValue: String) -> [MainTabView.SectionData] {
         let filteredCuppings: [Cupping] = {
-            if let folderCuppings = folderFilter.folder?.cuppings { return Array(folderCuppings) }
-            else { return folderFilter.predicate(Array(cuppings)).compactMap { $0 as? Cupping ?? nil } }
+            if let folderCuppings = folderFilter.folder?.cuppings {
+                if searchValue != "" {
+                    return Array(folderCuppings).filter { $0.name.contains(searchValue) }
+                }
+                return Array(folderCuppings)
+            } else {
+                return folderFilter.predicate(Array(cuppings)).compactMap {
+                    if let cupping: Cupping = $0 as? Cupping {
+                        if searchValue == "" || cupping.name.contains(searchValue) {
+                            return cupping
+                        }
+                    }
+                    return nil
+                }
+            }
         }()
         let filteredSamples: [Sample] = {
-            if let folderSamples = folderFilter.folder?.samples { return Array(folderSamples) }
-            else { return folderFilter.predicate(Array(samples)).compactMap { $0 as? Sample ?? nil } }
+            if let folderSamples = folderFilter.folder?.samples {
+                if searchValue != "" {
+                    return Array(folderSamples).filter { $0.name.contains(searchValue) }
+                }
+                return Array(folderSamples)
+            } else {
+                return folderFilter.predicate(Array(samples)).compactMap {
+                    if let sample: Sample = $0 as? Sample {
+                        if searchValue == "" || sample.name.contains(searchValue) {
+                            return sample
+                        }
+                    }
+                    return nil
+                }
+            }
         }()
-        
         var groupedFolderElements: [MonthAndYear: (cuppings: [Cupping], samples: [Sample])] = [:]
 
         for cupping in filteredCuppings {
