@@ -250,13 +250,13 @@ extension MainTabView {
         let filteredCuppings: [Cupping] = {
             if let folderCuppings = folderFilter.folder?.cuppings {
                 if searchValue != "" {
-                    return Array(folderCuppings).filter { $0.name.contains(searchValue) }
+                    return Array(folderCuppings).filter { $0.name.lowercased().contains(searchValue.lowercased()) }
                 }
                 return Array(folderCuppings)
             } else {
                 return folderFilter.predicate(Array(cuppings)).compactMap {
                     if let cupping: Cupping = $0 as? Cupping {
-                        if searchValue == "" || cupping.name.contains(searchValue) {
+                        if searchValue == "" || cupping.name.lowercased().contains(searchValue.lowercased()) {
                             return cupping
                         }
                     }
@@ -267,13 +267,13 @@ extension MainTabView {
         let filteredSamples: [Sample] = {
             if let folderSamples = folderFilter.folder?.samples {
                 if searchValue != "" {
-                    return Array(folderSamples).filter { $0.name.contains(searchValue) }
+                    return Array(folderSamples).filter { $0.name.lowercased().contains(searchValue.lowercased()) }
                 }
                 return Array(folderSamples)
             } else {
                 return folderFilter.predicate(Array(samples)).compactMap {
                     if let sample: Sample = $0 as? Sample {
-                        if searchValue == "" || sample.name.contains(searchValue) {
+                        if searchValue == "" || sample.name.lowercased().contains(searchValue.lowercased()) {
                             return sample
                         }
                     }
