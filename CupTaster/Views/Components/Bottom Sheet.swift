@@ -9,8 +9,8 @@ import SwiftUI
 import Combine
 
 struct BottomSheetConfiguration {
-    static let spacing: CGFloat = .large
-    static let verticalPadding: CGFloat = .extraSmall
+    static let spacing: CGFloat = .regular
+    static let verticalPadding: CGFloat = .small
     
     struct Capsule {
         static let width: CGFloat = 40

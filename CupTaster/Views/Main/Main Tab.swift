@@ -75,7 +75,7 @@ struct MainTabView: View {
                 }
             }
             .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
-            .navigationBarTitle(folderFilterName)
+            .navigationBarTitle(folderFilterName, displayMode: .inline)
             .navigationBarHidden(true)
             .navigationToolbar {
                 VStack(spacing: .small) {
@@ -92,11 +92,17 @@ struct MainTabView: View {
                             HStack {
                                 Image(systemName: "magnifyingglass")
                                     .font(.caption)
-                                    .matchedGeometryEffect(id: "search-bar-image", in: namespace)
+                                    .matchedGeometryEffect(
+                                        id: "search-bar-image-\(selectedFolderFilter.animationId)",
+                                        in: namespace
+                                    )
                                 
                                 Text(folderFilterName)
                                     .font(.subheadline)
-                                    .matchedGeometryEffect(id: "search-bar-text", in: namespace)
+                                    .matchedGeometryEffect(
+                                        id: "search-bar-text-\(selectedFolderFilter.animationId)",
+                                        in: namespace
+                                    )
                             }
                             .foregroundStyle(.gray)
                             .padding(7)
@@ -104,9 +110,18 @@ struct MainTabView: View {
                             .background(
                                 Capsule()
                                     .foregroundStyle(.bar)
-                                    .matchedGeometryEffect(id: "search-bar-background", in: namespace)
+                                    .matchedGeometryEffect(
+                                        id: "search-bar-background-\(selectedFolderFilter.animationId)",
+                                        in: namespace
+                                    )
                             )
                             .id(selectedFolderFilter.animationId)
+                            .transition(
+                                .asymmetric(
+                                    insertion: .move(edge: .top).combined(with: .scale),
+                                    removal: .opacity
+                                )
+                            )
                             .onTapGesture {
                                 withAnimation(.smooth) {
                                     searchModel.searchIsActive = true
@@ -128,12 +143,18 @@ struct MainTabView: View {
                             HStack {
                                 Image(systemName: "magnifyingglass")
                                     .foregroundColor(.gray)
-                                    .font(.caption)
-                                    .matchedGeometryEffect(id: "search-bar-image", in: namespace)
+                                    .font(.subheadline)
+                                    .matchedGeometryEffect(
+                                        id: "search-bar-image-\(selectedFolderFilter.animationId)",
+                                        in: namespace
+                                    )
                                 
-                                TextField("Search", text: $searchModel.searchValue)
+                                TextField("Search in \(folderFilterName)", text: $searchModel.searchValue)
                                     .focused($searchBarIsFocusd)
-                                    .matchedGeometryEffect(id: "search-bar-text", in: namespace)
+                                    .matchedGeometryEffect(
+                                        id: "search-bar-text-\(selectedFolderFilter.animationId)",
+                                        in: namespace
+                                    )
                             }
                             .frame(height: 37)
                             .padding(.horizontal, .regular)
@@ -141,7 +162,10 @@ struct MainTabView: View {
                                 Rectangle()
                                     .foregroundStyle(.bar)
                                     .cornerRadius()
-                                    .matchedGeometryEffect(id: "search-bar-background", in: namespace)
+                                    .matchedGeometryEffect(
+                                        id: "search-bar-background-\(selectedFolderFilter.animationId)", 
+                                        in: namespace
+                                    )
                             )
                             
                             Button("Cancel") {

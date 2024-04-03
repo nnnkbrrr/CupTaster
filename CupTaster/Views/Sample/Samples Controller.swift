@@ -27,13 +27,13 @@ struct SamplesControllerView: View {
                     )
                 
                 SampleBottomSheetView()
+                    .ignoresSafeArea(sampleGesturesControllerModel.bottomSheetIsExpanded ? [] : .keyboard)
             }
             .zIndex(1.1)
             .background(Color.backgroundPrimary)
             .safeAreaInset(edge: .top, spacing: 0) {
                 SamplesControllerPagesView()
             }
-            .ignoresSafeArea(sampleGesturesControllerModel.bottomSheetIsExpanded ? [] : .keyboard)
             .overlay {
                 if samplesControllerModel.stopwatchOverlayIsActive {
                     ZStack(alignment: .top) {

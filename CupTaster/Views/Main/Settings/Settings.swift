@@ -56,12 +56,6 @@ struct SettingsTabView: View {
                     } trailingContent: {
                         SettingsLeadingNavigationIndicator()
                     }
-                    
-#warning("section")
-                    SettingsNavigationSection(title: "Help with translation", systemImageName: "globe") {
-                        Text("Empty")
-                    }
-                    .disabled(true)
                 }
                 
                 // MARK: - Tester

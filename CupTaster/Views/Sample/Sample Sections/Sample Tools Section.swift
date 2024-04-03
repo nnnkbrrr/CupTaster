@@ -90,6 +90,10 @@ extension SampleView {
         @Environment(\.managedObjectContext) private var moc
         @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
         
+        @State var noteTitle: String = ""
+        @State var noteValue: String = ""
+        @State var noteGeneralInfoModalIsActive: Bool = false
+        
         @State var cameraPhotoPickerIsActive: Bool = false
         @State var libraryPhotoPickerIsActive: Bool = false
         @State var qrScannerIsActive: Bool = false
@@ -97,14 +101,65 @@ extension SampleView {
         
         var body: some View {
             SampleToolsSection(tools: [
-                .init(systemImageName: "textformat", disabled: true) {
-#warning("action")
-                },
+                .init(systemImageName: "textformat") { noteGeneralInfoModalIsActive = true },
                 .init(systemImageName: "photo") { libraryPhotoPickerIsActive = true },
                 .init(systemImageName: "camera", disabled: CameraManager.isAuthorized == false) { cameraPhotoPickerIsActive = true },
                 .init(systemImageName: "qrcode.viewfinder", disabled: CameraManager.isAuthorized == false) { qrScannerIsActive = true },
                 .init(systemImageName: "doc") { fileImporterIsActive = true }
             ])
+            .adaptiveSizeSheet(isPresented: $noteGeneralInfoModalIsActive) {
+                VStack(spacing: .extraSmall) {
+                    TextField("Title", text: $noteTitle)
+                        .resizableText(weight: .light)
+                        .submitLabel(.done)
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.center)
+                        .padding(.vertical, .regular)
+                        .onChange(of: noteTitle) { title in
+                            let noteTitleLengthLimit: Int = 50
+                            if title.count > noteTitleLengthLimit {
+                                noteTitle = String(title.prefix(noteTitleLengthLimit))
+                            }
+                        }
+                        .bottomSheetBlock()
+                    
+                    TextField("Note", text: $noteValue)
+                        .resizableText(weight: .light)
+                        .submitLabel(.done)
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.center)
+                        .padding(.vertical, .regular)
+                        .onChange(of: noteValue) { value in
+                            let noteTitleLengthLimit: Int = 50
+                            if value.count > noteTitleLengthLimit {
+                                noteValue = String(value.prefix(noteTitleLengthLimit))
+                            }
+                        }
+                        .bottomSheetBlock()
+                    
+                    HStack(spacing: .extraSmall) {
+                        Button("Cancel") {
+                            withAnimation {
+                                noteGeneralInfoModalIsActive = false
+                            }
+                        }
+                        .buttonStyle(.bottomSheetBlock)
+                        
+                        Button("Add") {
+                            withAnimation {
+                                if noteTitle != "" || noteValue != "" {
+                                    addNote(title: noteTitle, value: noteValue)
+                                }
+                                noteTitle = ""
+                                noteValue = ""
+                                noteGeneralInfoModalIsActive = false
+                            }
+                        }
+                        .buttonStyle(.accentBottomSheetBlock)
+                    }
+                }
+                .padding(.small)
+            }
             .fullScreenCover(isPresented: $cameraPhotoPickerIsActive) {
                 ImagePickerController(sourceType: .camera) { uiImage in
                     addImage(uiImage: uiImage)
@@ -123,6 +178,16 @@ extension SampleView {
             .fileImporter(isPresented: $fileImporterIsActive, allowedContentTypes: [.item]) { result in
                 addFile(result)
             }
+        }
+        
+        func addNote(title: String, value: String) {
+            guard let sample: Sample = samplesControllerModel.selectedSample else { return }
+            let newSGIField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
+            newSGIField.title = title
+            newSGIField.value = value
+            newSGIField.ordinalNumber = Int16((sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0) + 1)
+            newSGIField.sample = sample
+            try? moc.save()
         }
         
         func addLink(response: (Result<ScanResult, ScanError>)) {
