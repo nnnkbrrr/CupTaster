@@ -82,7 +82,7 @@ struct SettingsTabView: View {
                 .padding(.vertical, 10)
                 .contentShape(Rectangle())
                 .onTapGesture(count: 10) {
-                    testingManager.isVisible = true
+                    testingManager.isVisible.toggle()
                 }
             }
             .padding(.small)

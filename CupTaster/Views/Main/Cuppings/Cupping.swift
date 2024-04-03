@@ -79,6 +79,41 @@ struct CuppingView: View {
                 }
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    let usedNames: [String] = cupping.samples.map { $0.name }
+                    let defaultName: String = SampleNameGeneratorModel.generateSampleDefaultName(usedNames: usedNames)
+                    
+                    let sample: Sample = Sample(context: moc)
+                    
+                    sample.name = defaultName
+                    sample.ordinalNumber = Int16(cupping.samples.count)
+                    
+                    if let cuppingForm = cupping.form {
+                        for groupConfig in cuppingForm.qcGroupConfigurations {
+                            let qcGroup: QCGroup = QCGroup(context: moc)
+                            qcGroup.sample = sample
+                            qcGroup.configuration = groupConfig
+                            for qcConfig in groupConfig.qcConfigurations {
+                                let qualityCriteria = QualityCriteria(context: moc)
+                                qualityCriteria.title = qcConfig.title
+                                qualityCriteria.value = qcConfig.value
+                                qualityCriteria.group = qcGroup
+                                qualityCriteria.configuration = qcConfig
+                            }
+                        }
+                    }
+                    
+                    cupping.addToSamples(sample)
+                    sample.calculateFinalScore()
+                    
+                    try? moc.save()
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
         .defaultNavigationBar()
         .adaptiveSizeSheet(isPresented: $settingsModalIsActive) {
             CuppingSettingsView(
@@ -95,6 +130,5 @@ struct CuppingView: View {
                 }
             )
         }
-#warning("add new sample navigation tool")
     }
 }
