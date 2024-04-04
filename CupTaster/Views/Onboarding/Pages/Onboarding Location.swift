@@ -19,9 +19,6 @@ struct Onboarding_LocationPage: View {
     var body: some View {
         OnboardingPageContents("Location", description: "You can turn on location services to attach location to the conducted cuppings.") {
             VStack(spacing: .large) {
-                Image(systemName: "location")
-                    .font(.system(size: 75, weight: .light))
-                
                 if locationManager.authorized {
                     HStack {
                         Text("Location services are enabled")

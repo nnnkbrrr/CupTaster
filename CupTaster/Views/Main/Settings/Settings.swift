@@ -28,8 +28,7 @@ struct SettingsTabView: View {
                 
                 SettingsSection {
                     SettingsNavigationSection(title: "Default Cupping Form", systemImageName: "doc.plaintext") { Settings_CuppingFormsView() }
-#warning("section")
-                    SettingsNavigationSection(title: "General Info Fields", systemImageName: "info") { Text("Empty") }.disabled(true)
+                    SettingsNavigationSection(title: "General Info Fields", systemImageName: "info") { Settings_GeneralInfoView() }
                     SettingsNavigationSection(title: "Folders", systemImageName: "folder") { Settings_FoldersView() }
                     SettingsNavigationSection(title: "Location", systemImageName: "location") { Settings_LocationView() }
                 }

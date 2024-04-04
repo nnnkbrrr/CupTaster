@@ -14,7 +14,6 @@ struct Onboarding_GreetingsView: View {
     var body: some View {
         Spacer()
         
-        #warning("logo is different")
         Image("Logo")
             .resizable()
             .aspectRatio(contentMode: .fit)

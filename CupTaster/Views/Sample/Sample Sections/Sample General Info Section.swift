@@ -18,7 +18,12 @@ extension SampleView {
             }
         }
         
-        private struct WrappedGeneralInfoSection: View {
+        fileprivate struct WrappedGeneralInfoSection: View {
+            @Environment(\.managedObjectContext) private var moc
+            @FetchRequest(
+                entity: SampleGeneralInfo.entity(),
+                sortDescriptors: [NSSortDescriptor(keyPath: \SampleGeneralInfo.title, ascending: false)]
+            ) var generalInfoFields: FetchedResults<SampleGeneralInfo>
             @ObservedObject var sample: Sample
             
             var body: some View {
@@ -32,6 +37,16 @@ extension SampleView {
                     ],
                     spacing: .extraSmall
                 ) {
+                    let sgiTemplates: [SampleGeneralInfo] = generalInfoFields.filter { $0.sample == nil }
+                    let sortedSGITemplates: [SampleGeneralInfo] = sgiTemplates.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
+                    let uniqueSGITemplates: [SampleGeneralInfo] = sortedSGITemplates.filter { template in
+                        return !sample.generalInfo.map { $0.title }.contains(template.title)
+                    }
+                    
+                    ForEach(uniqueSGITemplates) { sgiTemplate in
+                        SampleGeneralInfoFieldView.TemplateView(sgiTemplate: sgiTemplate)
+                    }
+                    
                     ForEach(sample.generalInfo.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })) {
                         SampleGeneralInfoFieldView(generalInfo: $0)
                     }
@@ -114,7 +129,6 @@ struct SampleGeneralInfoFieldView: View {
                 TextField(textFieldPrompt, text: $generalInfo.value, onCommit: { try? moc.save() })
                     .submitLabel(.done)
                     .resizableText(initialSize: 15)
-                    .frame(height: 15)
                     .onChange(of: generalInfo.value) { note in
                         if note.count > 25 { generalInfo.value = String(note.prefix(25)) }
                         try? moc.save()
@@ -171,6 +185,38 @@ struct SampleGeneralInfoFieldView: View {
                 .background(Color.backgroundTertiary)
                 .cornerRadius(5)
                 .onTapGesture { action() }
+        }
+    }
+    
+    struct TemplateView: View {
+        @Environment(\.managedObjectContext) private var moc
+        let sgiTemplate: SampleGeneralInfo
+        
+        var body: some View {
+            HStack(spacing: .small) {
+                Image(systemName: "plus")
+                    .foregroundColor(.gray)
+                
+                Text(sgiTemplate.title)
+                    .resizableText(initialSize: 15)
+                    .frame(height: 15, alignment: .top)
+                    .foregroundStyle(.gray)
+            }
+            .padding(.leading, .regular)
+            .padding(.trailing, .extraSmall)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(height: .smallElementContainer)
+            .background(Color.backgroundSecondary)
+            .cornerRadius()
+            .onTapGesture {
+                guard let sample: Sample = SamplesControllerModel.shared.selectedSample else { return }
+                let newSGIField: SampleGeneralInfo = SampleGeneralInfo(context: moc)
+                newSGIField.title = sgiTemplate.title
+                newSGIField.value = ""
+                newSGIField.ordinalNumber = Int16((sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0) + 1)
+                newSGIField.sample = sample
+                try? moc.save()
+            }
         }
     }
 }

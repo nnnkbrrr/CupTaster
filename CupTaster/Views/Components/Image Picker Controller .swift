@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-#warning("add image compression quality and png/jpeg toggle to settings")
 extension UIImage {
     func encodeToData() -> Data? {
         self.jpegData(compressionQuality: 1.0)

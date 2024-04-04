@@ -12,7 +12,7 @@ struct Onboarding_AdditionalFieldsPage: View {
     
     var body: some View {
 #warning("Additional Fields Picker")
-        OnboardingPageContents("Additional Fields", description: "description") {
+        OnboardingPageContents("Additional Fields", description: "These fields will available on all cupping forms. You can add more later in settings.") {
             Text("Additional Fields Picker")
         } conditionIsFulfilled: {
             return true

@@ -12,7 +12,7 @@ struct Onboarding_FormPickerPage: View {
     
     var body: some View {
 #warning("Cupping Form Picker")
-        OnboardingPageContents("Cupping Form", description: "description") {
+        OnboardingPageContents("Cupping Form", description: "This Cupping Form will be used as a default form, later you can add more forms.") {
             Text("Cupping Form Picker")
         } conditionIsFulfilled: {
             return true
