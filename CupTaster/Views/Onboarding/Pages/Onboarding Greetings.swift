@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct Onboarding_GreetingsView: View {
-    let namespace: Namespace.ID
-    @Binding var currentPage: OnboardingView.OnboardingPage
+    @ObservedObject var onboardingModel: OnboardingModel
     
     var body: some View {
         Spacer()
@@ -17,7 +16,7 @@ struct Onboarding_GreetingsView: View {
         Image("Logo")
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .matchedGeometryEffect(id: "onboarding-logo", in: namespace)
+            .matchedGeometryEffect(id: "onboarding-logo", in: NamespaceControllerModel.shared.namespace)
             .frame(width: 100, height: 100)
         
         Group {
@@ -39,7 +38,7 @@ struct Onboarding_GreetingsView: View {
             .clipShape(Circle())
             .onTapGesture {
                 withAnimation(.smooth) {
-                    currentPage.nextPage()
+                    onboardingModel.nextPage()
                 }
             }
     }

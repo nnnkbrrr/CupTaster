@@ -9,47 +9,82 @@ import SwiftUI
 import CoreData
 import CloudKit
 
-struct OnboardingView: View {
-    @Binding var onboardingIsCompleted: Bool
+class OnboardingModel: ObservableObject {
+    @ObservedObject var testingManager: TestingManager = .shared
+    @ObservedObject var locationManager: LocationManager = .shared
+    let generalInfoFields: FetchedResults<SampleGeneralInfo>
     
-    @Namespace var namespace
-    enum OnboardingPage {
+    @Binding var onboardingIsCompleted: Bool
+    @ObservedObject var currentPageModel: CurrentPageModel = .shared
+    
+    enum Page {
         case greetings, formPicker, additionalFields, location
         static var allCases: [Self] = [.greetings, .formPicker, .additionalFields, .location]
-        mutating func nextPage() {
-            switch self {
-                case .greetings: self = .formPicker
-                case .formPicker: self = .additionalFields
-                case .additionalFields: self = .location
-                case .location: return
-            }
-        }
     }
-    @State var currentPage: OnboardingPage = .greetings
+    
+    init(onboardingIsCompleted: Binding<Bool>, generalInfoFields: FetchedResults<SampleGeneralInfo>) {
+        self._onboardingIsCompleted = onboardingIsCompleted
+        self.generalInfoFields = generalInfoFields
+    }
+    
+    func nextPage() {
+        if currentPageModel.page == .greetings {
+            currentPageModel.page = .formPicker
+            if CFManager.shared.defaultCFDescription == "" || !testingManager.skipFilledOnboardingPages { return }
+        }
+        
+        if currentPageModel.page == .formPicker {
+            currentPageModel.page = .additionalFields
+            if generalInfoFields.isEmpty || !testingManager.skipFilledOnboardingPages { return }
+        }
+        
+        if currentPageModel.page == .additionalFields {
+            currentPageModel.page = .location
+            if locationManager.authorizationStatus == .notDetermined || !testingManager.skipFilledOnboardingPages { return }
+        }
+        
+        onboardingIsCompleted = true
+        testingManager.showOnboarding = false
+    }
+    
+    class CurrentPageModel: ObservableObject {
+        static let shared: CurrentPageModel = .init()
+        @Published var page: OnboardingModel.Page = .greetings
+        private init() { }
+    }
+}
+
+struct OnboardingView: View {
+    @ObservedObject var onboardingModel: OnboardingModel
+    @ObservedObject var currentPageModel: OnboardingModel.CurrentPageModel = OnboardingModel.CurrentPageModel.shared
+    
+    init(onboardingIsCompleted: Binding<Bool>, generalInfoFields: FetchedResults<SampleGeneralInfo>) {
+        self.onboardingModel = .init(onboardingIsCompleted: onboardingIsCompleted, generalInfoFields: generalInfoFields)
+    }
     
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: .large) {
-                if currentPage != .greetings {
+                if currentPageModel.page != .greetings {
                     Image("Logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .matchedGeometryEffect(id: "onboarding-logo", in: namespace)
+                        .matchedGeometryEffect(id: "onboarding-logo", in: NamespaceControllerModel.shared.namespace)
                         .frame(width: 50, height: 50)
                 }
                 
-                switch currentPage {
-                    case .greetings: Onboarding_GreetingsView(namespace: namespace, currentPage: $currentPage)
-                    case .formPicker: Onboarding_FormPickerPage(currentPage: $currentPage)
-                    case .additionalFields: Onboarding_AdditionalFieldsPage(currentPage: $currentPage)
-                    case .location: Onboarding_LocationPage(currentPage: $currentPage, onboardingIsCompleted: $onboardingIsCompleted)
+                switch currentPageModel.page {
+                    case .greetings: Onboarding_GreetingsView(onboardingModel: onboardingModel)
+                    case .formPicker: Onboarding_FormPickerPage(onboardingModel: onboardingModel)
+                    case .additionalFields: Onboarding_AdditionalFieldsPage(onboardingModel: onboardingModel)
+                    case .location: Onboarding_LocationPage(onboardingModel: onboardingModel)
                 }
                 
                 HStack(spacing: .small) {
-                    ForEach(OnboardingPage.allCases, id: \.self) { page in
+                    ForEach(OnboardingModel.Page.allCases, id: \.self) { page in
                         Circle()
                             .frame(width: 5, height: 5)
-                            .foregroundStyle(Color.primary.opacity(currentPage == page ? 1 : 0))
+                            .foregroundStyle(Color.primary.opacity(currentPageModel.page == page ? 1 : 0))
                             .overlay {
                                 Circle()
                                     .stroke(Color.primary, lineWidth: 1)
@@ -127,7 +162,7 @@ extension OnboardingView {
                 subscribeToChanges()
             }
         }
-
+        
         func subscribeToChanges() {
             for obj in moc.registeredObjects {
                 if !importedObjects.contains(obj) {

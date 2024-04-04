@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Onboarding_FormPickerPage: View {
-    @Binding var currentPage: OnboardingView.OnboardingPage
+    @ObservedObject var onboardingModel: OnboardingModel
     
     var body: some View {
 #warning("Cupping Form Picker")
@@ -18,7 +18,7 @@ struct Onboarding_FormPickerPage: View {
             return true
         } action: {
             withAnimation(.smooth) {
-                currentPage.nextPage()
+                onboardingModel.nextPage()
             }
         }
     }

@@ -12,6 +12,10 @@ class TestingManager: ObservableObject {
     @PublishedAppStorage("show-tester-overlay") var testerOverlayIsVisible: Bool = false
     
     @Published var showMainPageEmptyState: Bool = false
+    
+    @Published var showOnboarding: Bool = false
+    @Published var skipFilledOnboardingPages: Bool = true
+    
     @Published var hideSampleOverlay: Bool = false
     
     public static let shared: TestingManager = .init()
@@ -19,6 +23,8 @@ class TestingManager: ObservableObject {
 }
 
 struct TesterPanelView: View {
+    @FetchRequest(entity: SampleGeneralInfo.entity(), sortDescriptors: []) var generalInfoFields: FetchedResults<SampleGeneralInfo>
+    
     @ObservedObject var testingManager: TestingManager = .shared
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
     @ObservedObject var locationManager: LocationManager = .shared
@@ -32,7 +38,6 @@ struct TesterPanelView: View {
     @AppStorage("onboarding-is-completed") private var onboardingIsCompleted: Bool = false
     @AppStorage("tester-selected-page") private var currentPage: Int = 0
     @State private var stopwatchModalIsActive: Bool = false
-    @State private var onboardingModalIsActive: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -139,21 +144,19 @@ struct TesterPanelView: View {
                         
                         Spacer()
                         
-                        TesterButton(title: "Show", systemImageName: "eye") {
-                            onboardingModalIsActive = true
-                        }
-                        .fullScreenCover(isPresented: $onboardingModalIsActive) {
-                            ZStack(alignment: .topTrailing) {
-                                OnboardingView(onboardingIsCompleted: $onboardingIsCompleted)
-                                
-                                Button("Done") { onboardingModalIsActive = false }
-                                    .buttonStyle(.bordered)
-                                    .padding(.small)
-                            }
+                        TesterButton(
+                            title: "Skip pages",
+                            systemImageName: testingManager.skipFilledOnboardingPages ? "arrowshape.bounce.right" : "arrowshape.right"
+                        ) {
+                            testingManager.skipFilledOnboardingPages.toggle()
                         }
                         
-                        TesterButton(title: "Reset", systemImageName: "arrow.clockwise") {
-                            onboardingIsCompleted = false
+                        TesterButton(title: testingManager.showOnboarding ? "Hide" : "Show", systemImageName: testingManager.showOnboarding ? "eye.slash.fill" : "eye.fill") {
+                            testingManager.showOnboarding.toggle()
+                        }
+                        
+                        TesterButton(title: "Reset page", systemImageName: "arrow.clockwise") {
+                            OnboardingModel.CurrentPageModel.shared.page = .greetings
                         }
                     }
                     .tag(4)

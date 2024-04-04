@@ -10,8 +10,7 @@ import CoreLocation
 
 #warning("last page end onboarding")
 struct Onboarding_LocationPage: View {
-    @Binding var currentPage: OnboardingView.OnboardingPage
-    @Binding var onboardingIsCompleted: Bool
+    @ObservedObject var onboardingModel: OnboardingModel
     
     @ObservedObject var locationManager: LocationManager = .shared
     @State var showLocationAuthorizationSheet: Bool = false
@@ -74,7 +73,7 @@ struct Onboarding_LocationPage: View {
             return true
         } action: {
             withAnimation(.smooth) {
-                onboardingIsCompleted = true
+                onboardingModel.nextPage()
             }
         }
     }

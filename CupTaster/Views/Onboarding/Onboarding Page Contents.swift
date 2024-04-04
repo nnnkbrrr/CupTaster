@@ -32,7 +32,7 @@ struct OnboardingPageContents<Content: View>: View {
         }
         .multilineTextAlignment(.center)
         .transition(
-            .asymmetric(insertion: .move(edge: .top), removal: .move(edge: .bottom))
+            .asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading))
             .combined(with: .scale)
             .combined(with: .opacity)
         )
@@ -41,7 +41,8 @@ struct OnboardingPageContents<Content: View>: View {
         
         content()
             .transition(
-                .move(edge: .bottom)
+                .asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading))
+                .combined(with: .scale)
                 .combined(with: .opacity)
             )
         
