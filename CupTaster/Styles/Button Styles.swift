@@ -28,19 +28,26 @@ extension ButtonStyle where Self == PrimaryButtonStyle {
 }
 
 struct CapsuleButtonStyle: ButtonStyle {
+    let extraWide: Bool
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.subheadline.bold())
             .foregroundStyle(Color(uiColor: .systemBackground))
             .frame(height: .smallElement)
-            .frame(maxWidth: .infinity)
+            .padding(.horizontal, extraWide ? 0 : .extraLarge)
+            .frame(maxWidth: extraWide ? .infinity : nil)
             .background(Color.primary)
             .clipShape(Capsule())
     }
 }
 
 extension ButtonStyle where Self == CapsuleButtonStyle {
+    static func capsule(extraWide: Bool = true) -> Self {
+        return .init(extraWide: extraWide)
+    }
+    
     static var capsule: Self {
-        return .init()
+        return .init(extraWide: true)
     }
 }

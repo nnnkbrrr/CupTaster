@@ -11,6 +11,7 @@ class TestingManager: ObservableObject {
     @PublishedAppStorage("tester-tab-visibility") var isVisible: Bool = false
     @PublishedAppStorage("show-tester-overlay") var testerOverlayIsVisible: Bool = false
     
+    @Published var showMainPageEmptyState: Bool = false
     @Published var hideSampleOverlay: Bool = false
     
     public static let shared: TestingManager = .init()
@@ -66,6 +67,9 @@ struct TesterPanelView: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
+                            TesterButton(title: "Empty State", systemImageName: testingManager.showMainPageEmptyState ? "eye.slash.fill" : "eye.fill") {
+                                testingManager.showMainPageEmptyState.toggle()
+                            }
                             TesterButton(title: "Sample Overlay", systemImageName: testingManager.hideSampleOverlay ? "eye.slash.fill" : "eye.fill") {
                                 testingManager.hideSampleOverlay.toggle()
                             }

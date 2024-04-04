@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+#warning("Cups symbol in criteria view")
+
 class CupsCheckboxesEvaluation: Evaluation {
     let name: String = "Cups Checkboxes"
     let sortOrder: Int = 2

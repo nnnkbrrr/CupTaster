@@ -53,13 +53,13 @@ struct MainTabView: View {
                 else { return selectedFolderFilter.name ?? "New Folder" }
             }()
             
-            ScrollView {
-                let sectionsData: [SectionData] = getSectionsData(
-                    folderFilter: selectedFolderFilter,
-                    searchValue: searchModel.searchValue
-                )
-                
-                if sectionsData.isEmpty { isEmpty } else {
+            let sectionsData: [SectionData] = getSectionsData(
+                folderFilter: selectedFolderFilter,
+                searchValue: searchModel.searchValue
+            )
+            
+            if (sectionsData.isEmpty && cuppings.isEmpty) || TestingManager.shared.showMainPageEmptyState { isEmpty } else {
+                ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0) {
                         ForEach(sectionsData) { sectionData in
                             MonthSection(sectionData: sectionData, folderFilter: selectedFolderFilter)
@@ -73,114 +73,124 @@ struct MainTabView: View {
                         removal: .opacity.combined(with: .scale(scale: 0.75))
                     ))
                 }
-            }
-            .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
-            .navigationBarTitle(folderFilterName, displayMode: .inline)
-            .navigationBarHidden(true)
-            .navigationToolbar {
-                VStack(spacing: .small) {
-                    HStack(spacing: .small) {
-                        if !searchModel.searchIsActive {
-                            NavigationLink(destination: SettingsTabView()) {
-                                Image(systemName: "gearshape")
-                                    .font(.title3)
-                                    .foregroundStyle(.accent)
-                            }
-                            
-                            Spacer()
-                            
-                            HStack {
-                                Image(systemName: "magnifyingglass")
-                                    .font(.caption)
-                                    .matchedGeometryEffect(
-                                        id: "search-bar-image-\(selectedFolderFilter.animationId)",
-                                        in: namespace
-                                    )
+                .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
+                .navigationBarTitle(folderFilterName, displayMode: .inline)
+                .navigationBarHidden(true)
+                .overlay {
+                    if sectionsData.isEmpty {
+                        if searchModel.searchValue != "" {
+                            noResults
+                        } else {
+                            folderIsEmpty
+                        }
+                    }
+                }
+                .navigationToolbar {
+                    VStack(spacing: .small) {
+                        HStack(spacing: .small) {
+                            if !searchModel.searchIsActive {
+                                NavigationLink(destination: SettingsTabView()) {
+                                    Image(systemName: "gearshape")
+                                        .font(.title2)
+                                        .foregroundStyle(.accent)
+                                }
                                 
-                                Text(folderFilterName)
-                                    .font(.subheadline)
-                                    .matchedGeometryEffect(
-                                        id: "search-bar-text-\(selectedFolderFilter.animationId)",
-                                        in: namespace
-                                    )
-                            }
-                            .foregroundStyle(.gray)
-                            .padding(7)
-                            .padding(.trailing, .extraSmall)
-                            .background(
-                                Capsule()
-                                    .foregroundStyle(.bar)
-                                    .matchedGeometryEffect(
-                                        id: "search-bar-background-\(selectedFolderFilter.animationId)",
-                                        in: namespace
-                                    )
-                            )
-                            .id(selectedFolderFilter.animationId)
-                            .transition(
-                                .asymmetric(
-                                    insertion: .move(edge: .top).combined(with: .scale),
-                                    removal: .opacity
+                                Spacer()
+                                
+                                HStack {
+                                    Image(systemName: "magnifyingglass")
+                                        .font(.caption)
+                                        .matchedGeometryEffect(
+                                            id: "search-bar-image-\(selectedFolderFilter.animationId)",
+                                            in: namespace
+                                        )
+                                    
+                                    Text(folderFilterName)
+                                        .font(.subheadline)
+                                        .matchedGeometryEffect(
+                                            id: "search-bar-text-\(selectedFolderFilter.animationId)",
+                                            in: namespace
+                                        )
+                                }
+                                .foregroundStyle(.gray)
+                                .padding(7)
+                                .padding(.trailing, .extraSmall)
+                                .background(
+                                    Capsule()
+                                        .foregroundStyle(.bar)
+                                        .matchedGeometryEffect(
+                                            id: "search-bar-background-\(selectedFolderFilter.animationId)",
+                                            in: namespace
+                                        )
                                 )
-                            )
-                            .onTapGesture {
-                                withAnimation(.smooth) {
-                                    searchModel.searchIsActive = true
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                        searchBarIsFocusd = true
+                                .id(selectedFolderFilter.animationId)
+                                .transition(
+                                    .asymmetric(
+                                        insertion: .move(edge: .top).combined(with: .scale),
+                                        removal: .opacity
+                                    )
+                                )
+                                .onTapGesture {
+                                    withAnimation(.smooth) {
+                                        searchModel.searchIsActive = true
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                            searchBarIsFocusd = true
+                                        }
+                                    }
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "plus")
+                                    .font(.title2)
+                                    .foregroundStyle(.accent)
+                                    .onTapGesture {
+                                        newCuppingModalIsActive = true
+                                    }
+                            } else {
+                                HStack {
+                                    Image(systemName: "magnifyingglass")
+                                        .foregroundColor(.gray)
+                                        .font(.subheadline)
+                                        .matchedGeometryEffect(
+                                            id: "search-bar-image-\(selectedFolderFilter.animationId)",
+                                            in: namespace
+                                        )
+                                    
+                                    TextField("Search in \(folderFilterName)", text: $searchModel.searchValue)
+                                        .focused($searchBarIsFocusd)
+                                        .matchedGeometryEffect(
+                                            id: "search-bar-text-\(selectedFolderFilter.animationId)",
+                                            in: namespace
+                                        )
+                                        .submitLabel(.done)
+                                }
+                                .frame(height: 37)
+                                .padding(.horizontal, .regular)
+                                .background(
+                                    Rectangle()
+                                        .foregroundStyle(.bar)
+                                        .cornerRadius()
+                                        .matchedGeometryEffect(
+                                            id: "search-bar-background-\(selectedFolderFilter.animationId)",
+                                            in: namespace
+                                        )
+                                )
+                                
+                                Button("Cancel") {
+                                    withAnimation(.smooth) {
+                                        searchModel.searchValue = ""
+                                        searchBarIsFocusd = false
+                                        searchModel.searchIsActive = false
                                     }
                                 }
                             }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "plus")
-                                .font(.title3)
-                                .foregroundStyle(.accent)
-                                .onTapGesture {
-                                    newCuppingModalIsActive = true
-                                }
-                        } else {
-                            HStack {
-                                Image(systemName: "magnifyingglass")
-                                    .foregroundColor(.gray)
-                                    .font(.subheadline)
-                                    .matchedGeometryEffect(
-                                        id: "search-bar-image-\(selectedFolderFilter.animationId)",
-                                        in: namespace
-                                    )
-                                
-                                TextField("Search in \(folderFilterName)", text: $searchModel.searchValue)
-                                    .focused($searchBarIsFocusd)
-                                    .matchedGeometryEffect(
-                                        id: "search-bar-text-\(selectedFolderFilter.animationId)",
-                                        in: namespace
-                                    )
-                            }
-                            .frame(height: 37)
-                            .padding(.horizontal, .regular)
-                            .background(
-                                Rectangle()
-                                    .foregroundStyle(.bar)
-                                    .cornerRadius()
-                                    .matchedGeometryEffect(
-                                        id: "search-bar-background-\(selectedFolderFilter.animationId)", 
-                                        in: namespace
-                                    )
-                            )
-                            
-                            Button("Cancel") {
-                                withAnimation(.smooth) {
-                                    searchModel.searchValue = ""
-                                    searchBarIsFocusd = false
-                                    searchModel.searchIsActive = false
-                                }
-                            }
                         }
+                        .padding(.horizontal, .regular)
+                        .frame(height: 35)
+                        
+                        MainTabToolbar(allFolderFilters: allFolderFilters, selectedFolderFilter: $selectedFolderFilter)
                     }
-                    .padding(.horizontal, .regular)
-                    .frame(height: 35)
-
-                    MainTabToolbar(allFolderFilters: allFolderFilters, selectedFolderFilter: $selectedFolderFilter)
                 }
             }
         }
