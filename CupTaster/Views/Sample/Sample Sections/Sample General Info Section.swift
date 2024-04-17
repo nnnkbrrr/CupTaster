@@ -127,13 +127,13 @@ struct SampleGeneralInfoFieldView: View {
                     .foregroundStyle(.gray)
                 
                 TextField(textFieldPrompt, text: $generalInfo.value, onCommit: {
-                    if TestingManager.shared.allowSaves { try? moc.save() }
+                    save(moc)
                 })
                 .submitLabel(.done)
                 .resizableText(initialSize: 15)
                 .onChange(of: generalInfo.value) { note in
                     if note.count > 25 { generalInfo.value = String(note.prefix(25)) }
-                    if TestingManager.shared.allowSaves { try? moc.save() }
+                    save(moc)
                 }
             }
         }
@@ -162,7 +162,7 @@ struct SampleGeneralInfoFieldView: View {
                             }
                         }
                         
-                        if TestingManager.shared.allowSaves { try? moc.save() }
+                        save(moc)
                     }
                 } label: {
                     Label("Delete", systemImage: "trash")
@@ -217,7 +217,7 @@ struct SampleGeneralInfoFieldView: View {
                 newSGIField.value = ""
                 newSGIField.ordinalNumber = Int16((sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0) + 1)
                 newSGIField.sample = sample
-                if TestingManager.shared.allowSaves { try? moc.save() }
+                save(moc)
             }
         }
     }

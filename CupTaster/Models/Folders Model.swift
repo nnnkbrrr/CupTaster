@@ -89,14 +89,14 @@ extension FolderFilter {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { cupping.isFavorite = true }
         else { folder?.addToCuppings(cupping) }
-        if TestingManager.shared.allowSaves { try? context.save() }
+        save(context)
     }
     
     func removeCupping(_ cupping: Cupping, context: NSManagedObjectContext) {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { cupping.isFavorite = false }
         else { folder?.removeFromCuppings(cupping) }
-        if TestingManager.shared.allowSaves { try? context.save() }
+        save(context)
     }
     
     // Samples
@@ -111,13 +111,13 @@ extension FolderFilter {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { sample.isFavorite = true }
         else { folder?.addToSamples(sample) }
-        if TestingManager.shared.allowSaves { try? context.save() }
+        save(context)
     }
     
     func removeSample(_ sample: Sample, context: NSManagedObjectContext) {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { sample.isFavorite = false }
         else { folder?.removeFromSamples(sample) }
-        if TestingManager.shared.allowSaves { try? context.save() }
+        save(context)
     }
 }

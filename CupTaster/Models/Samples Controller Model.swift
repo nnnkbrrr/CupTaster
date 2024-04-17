@@ -129,6 +129,6 @@ extension SamplesControllerModel {
             }
         }
         
-        if TestingManager.shared.allowSaves { try? moc.save() }
+        save(moc)
     }
 }

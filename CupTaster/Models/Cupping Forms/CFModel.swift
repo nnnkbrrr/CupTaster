@@ -25,7 +25,7 @@ extension CFManager {
                 let data: Data = try Data(contentsOf: url)
                 let form: CuppingForm = try JSONDecoder(context: context).decode(CuppingForm.self, from: data)
                 
-                if TestingManager.shared.allowSaves { try context.save() }
+                save(context)
                 
                 return form
             } catch {

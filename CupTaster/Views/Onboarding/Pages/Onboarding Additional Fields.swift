@@ -55,7 +55,7 @@ struct Onboarding_AdditionalFieldsPage: View {
                     
                     let sgiTemplates: [SampleGeneralInfo] = generalInfoFields.filter { $0.sample == nil }
                     generalInfo.ordinalNumber = Int16(sgiTemplates.count)
-                    if TestingManager.shared.allowSaves { try? moc.save() }
+                    save(moc)
                 }
                 onboardingModel.nextPage()
             }

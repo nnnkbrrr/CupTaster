@@ -8,7 +8,6 @@
 import SwiftUI
 import CoreLocation
 
-#warning("last page end onboarding")
 struct Onboarding_LocationPage: View {
     @ObservedObject var onboardingModel: OnboardingModel
     

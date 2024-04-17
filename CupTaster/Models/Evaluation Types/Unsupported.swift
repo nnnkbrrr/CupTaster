@@ -16,7 +16,7 @@ class UnsupportedEvaluation: Evaluation {
     func body(for criteria: QualityCriteria, value: Binding<Double>) -> some View {
         VStack(alignment: .leading) {
             Text("Unsupported Quality Criteria")
-            Text("This cupping has a deprecated cupping form. Some of the quality criteria might not be displayed.")
+            Text("This cupping has a deprecated cupping form")
                 .foregroundStyle(.gray)
         }
         .font(.caption)
@@ -24,5 +24,6 @@ class UnsupportedEvaluation: Evaluation {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.backgroundSecondary)
         .cornerRadius(.extraSmall)
+        .padding(.horizontal, .small)
     }
 }

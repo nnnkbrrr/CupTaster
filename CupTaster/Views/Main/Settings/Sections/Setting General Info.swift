@@ -30,7 +30,7 @@ struct Settings_GeneralInfoView: View {
                                 let generalInfo: SampleGeneralInfo = .init(context: moc)
                                 generalInfo.title = sgiTitle
                                 generalInfo.ordinalNumber = Int16(sgiTemplates.count)
-                                if TestingManager.shared.allowSaves { try? moc.save() }
+                                save(moc)
                                 
                                 sgiTitle = ""
                             }
@@ -68,7 +68,7 @@ struct Settings_GeneralInfoView: View {
                                     let generalInfo: SampleGeneralInfo = .init(context: moc)
                                     generalInfo.title = suggestion
                                     generalInfo.ordinalNumber = Int16(sgiTemplates.count)
-                                    if TestingManager.shared.allowSaves { try? moc.save() }
+                                    save(moc)
                                 } label: {
                                     Image(systemName: "plus")
                                         .foregroundStyle(Color.gray)
@@ -123,7 +123,7 @@ struct Settings_GeneralInfoView: View {
             let sortedSGITemplates: [SampleGeneralInfo] = sgiTemplates.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
             for (index, sgi) in sortedSGITemplates.enumerated() { sgi.ordinalNumber = Int16(index) }
             
-            if TestingManager.shared.allowSaves { try? moc.save() }
+            save(moc)
         }
     }
 }

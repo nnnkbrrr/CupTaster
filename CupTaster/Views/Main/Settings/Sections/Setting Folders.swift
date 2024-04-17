@@ -67,7 +67,7 @@ struct Settings_FoldersView: View {
                     folder.name = newFolderTitle
                     folder.ordinalNumber = Int16(folders.count)
                     for cupping in newFolderCuppings { folder.addToCuppings(cupping) }
-                    if TestingManager.shared.allowSaves { try? moc.save() }
+                    save(moc)
                     newFolderModalIsActive = false
                 }
             )
@@ -123,7 +123,7 @@ extension Settings_FoldersView {
                     if folderName.count > Settings_FoldersView.nameLengthLimit {
                         folder.name = String(folderName.prefix(Settings_FoldersView.nameLengthLimit))
                     }
-                    if TestingManager.shared.allowSaves { try? moc.save() }
+                    save(moc)
                 }
                 .frame(height: 60)
                 .background(Color.backgroundSecondary)
@@ -131,7 +131,7 @@ extension Settings_FoldersView {
                 .offset(offset)
                 .offset(y: moveRows.rows.contains(folder.ordinalNumber) && offset == .zero ? rowOffsetValue * (moveRows.edge == .top ? -1 : 1) : 0)
                 .onChange(of: folder.name) { _ in
-                    if TestingManager.shared.allowSaves { try? moc.save() }
+                    save(moc)
                 }
                 .overlay(alignment: .trailing) {
                     Color.clear
@@ -171,7 +171,7 @@ extension Settings_FoldersView {
                             moveRows.reset()
                             orderValidation()
                             
-                            if TestingManager.shared.allowSaves { try? moc.save() }
+                            save(moc)
                         } onCancel: {
                             self.offset = .zero
                             moveRows.reset()
@@ -181,7 +181,7 @@ extension Settings_FoldersView {
                 SwipeAction {
                     withAnimation {
                         moc.delete(folder)
-                        if TestingManager.shared.allowSaves { try? moc.save() }
+                        save(moc)
                     }
                 } label: { _ in
                     VStack(spacing: .extraSmall) {

@@ -43,3 +43,9 @@ extension JSONDecoder {
         self.userInfo[.managedObjectContext] = context
     }
 }
+
+// MARK: For testing
+
+func save(_ context: NSManagedObjectContext) {
+    save(context)
+}

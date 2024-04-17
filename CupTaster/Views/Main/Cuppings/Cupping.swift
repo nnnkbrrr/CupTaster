@@ -31,7 +31,7 @@ struct CuppingView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             withAnimation {
                                 moc.delete(cupping)
-                                if TestingManager.shared.allowSaves { try? moc.save() }
+                                save(moc)
                             }
                         }
                     }
@@ -108,7 +108,7 @@ struct CuppingView: View {
                     cupping.addToSamples(sample)
                     sample.calculateFinalScore()
                     
-                    if TestingManager.shared.allowSaves { try? moc.save() }
+                    save(moc)
                 } label: {
                     Image(systemName: "plus")
                 }
@@ -124,7 +124,7 @@ struct CuppingView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         withAnimation {
                             moc.delete(cupping)
-                            if TestingManager.shared.allowSaves { try? moc.save() }
+                            save(moc)
                         }
                     }
                 }

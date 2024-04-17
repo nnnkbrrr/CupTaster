@@ -42,7 +42,7 @@ extension CuppingView {
                             if cupping.name.count > nameLengthLimit {
                                 cupping.name = String(cupping.name.prefix(nameLengthLimit))
                             }
-                            if TestingManager.shared.allowSaves { try? moc.save() }
+                            save(moc)
                         }
                         .bottomSheetBlock()
                     
@@ -123,7 +123,7 @@ extension CuppingView {
                                             (location.latitude, location.longitude) = (coordinates.latitude, coordinates.longitude)
                                             location.address = address
                                         }
-                                        if TestingManager.shared.allowSaves { try? moc.save() }
+                                        save(moc)
                                     }
                                     .edgesIgnoringSafeArea(.all)
                                 }

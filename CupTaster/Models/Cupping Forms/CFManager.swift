@@ -15,20 +15,10 @@ public class CFManager: ObservableObject {
     
     static let shared = CFManager()
     private init() {
-        let SCA_CFModel = CFModel(
-            title: "SCA",
-            version: "1.1"
-        )
-        #warning("cupping forms")
-//        let SCI_CFModel = CFModel(
-//            title: "SCI",
-//            version: "1.0"
-//        )
-//        let CoE_CFModel = CFModel(
-//            title: "CoE",
-//            version: "1.0"
-//        )
-        allCFModels = [SCA_CFModel]//, SCI_CFModel, CoE_CFModel]
+        let SCA_en_CFModel = CFModel(title: "SCA", version: "1.1")
+        let SCA_ru_CFModel = CFModel(title: "SCA на русском", version: "1.1")
+        
+        allCFModels = [SCA_en_CFModel, SCA_ru_CFModel]
     }
 }
 

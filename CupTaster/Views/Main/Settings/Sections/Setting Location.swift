@@ -89,7 +89,7 @@ struct Settings_LocationView: View {
                                 SwipeAction {
                                     withAnimation {
                                         moc.delete(location)
-                                        if TestingManager.shared.allowSaves { try? moc.save() }
+                                        save(moc)
                                     }
                                 } label: { _ in
                                     VStack(spacing: .extraSmall) {
@@ -127,7 +127,7 @@ struct Settings_LocationAdjustmentView: View {
                 SettingsSection {
                     SettingsTextFieldSection(text: $location.address, prompt: "Unknown")
                         .onChange(of: location.address) { _ in
-                            if TestingManager.shared.allowSaves { try? moc.save() }
+                            save(moc)
                         }
                         .submitLabel(.done)
                 }
@@ -158,7 +158,7 @@ struct Settings_LocationAdjustmentView: View {
                                 (location.latitude, location.longitude) = (coordinates.latitude, coordinates.longitude)
                                 location.address = address
                             }
-                            if TestingManager.shared.allowSaves { try? moc.save() }
+                            save(moc)
                         }
                         .edgesIgnoringSafeArea(.all)
                     }
@@ -174,7 +174,7 @@ struct Settings_LocationAdjustmentView: View {
                                 (location.latitude, location.longitude) = (coordinates.latitude, coordinates.longitude)
                                 location.address = address
                             }
-                            if TestingManager.shared.allowSaves { try? moc.save() }
+                            save(moc)
                         }
                         .edgesIgnoringSafeArea(.all)
                     }

@@ -20,10 +20,10 @@ public protocol Evaluation {
 extension String {
     var unwrappedEvaluation: any Evaluation {
         switch self {
-        case "slider": return SliderEvaluation()
-        case "radio": return RadioEvaluation()
-        case "cups_checkboxes": return CupsCheckboxesEvaluation()
-        default: return UnsupportedEvaluation()
+            case "slider": return SliderEvaluation()
+            case "radio": return RadioEvaluation()
+            case "cups_checkboxes": return CupsCheckboxesEvaluation()
+            default: return UnsupportedEvaluation()
         }
     }
 }

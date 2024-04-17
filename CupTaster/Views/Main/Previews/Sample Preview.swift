@@ -84,7 +84,7 @@ struct SamplePreview: View {
                         Button {
                             sample.cupping.objectWillChange.send()
                             sample.isFavorite.toggle()
-                            if TestingManager.shared.allowSaves { try? moc.save() }
+                            save(moc)
                         } label: {
                             if sample.isFavorite {
                                 Label("Remove from Favorites", systemImage: "heart.slash.fill")
@@ -104,7 +104,7 @@ struct SamplePreview: View {
                         Button(role: .destructive) {
                             withAnimation {
                                 samplesControllerModel.deleteSample(sample, moc: moc)
-                                if TestingManager.shared.allowSaves { try? moc.save() }
+                                save(moc)
                             }
                         } label: {
                             Label("Delete", systemImage: "trash")

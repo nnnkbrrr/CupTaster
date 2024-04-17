@@ -247,7 +247,7 @@ struct TesterPanelView: View {
         
         sample.calculateFinalScore()
         
-        if testingManager.allowSaves { try? moc.save() }
+        save(moc)
     }
 }
 

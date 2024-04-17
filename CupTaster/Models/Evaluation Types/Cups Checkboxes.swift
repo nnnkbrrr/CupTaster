@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-#warning("Cups symbol in criteria view")
-
 class CupsCheckboxesEvaluation: Evaluation {
     let name: String = "Cups Checkboxes"
     let sortOrder: Int = 2
@@ -73,8 +71,10 @@ private struct CupsCheckboxesView: View {
                     let isActive: Bool = values[checkbox - 1]
                     
                     ZStack {
-                        Image(systemName: isActive ? "cup.and.saucer" : "cup.and.saucer.fill")
-                            .font(.largeTitle.weight(.ultraLight))
+                        Image(isActive ? "cup" : "cup.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 35, height: 35)
                             .foregroundColor(.accentColor)
                             .scaleEffect(isActive ? 0.8 : 1)
                             .opacity(isActive ? 0.5 : 1)

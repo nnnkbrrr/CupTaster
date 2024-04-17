@@ -80,8 +80,6 @@
 		63A88D062A4C92E00006AA0F /* AppStorage Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A88D052A4C92E00006AA0F /* AppStorage Extensions.swift */; };
 		63A88D0A2A4C98E00006AA0F /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A88D092A4C98E00006AA0F /* Evaluation.swift */; };
 		63A88D0F2A4C9B250006AA0F /* SCA.json in Resources */ = {isa = PBXBuildFile; fileRef = 63A88D0E2A4C9B250006AA0F /* SCA.json */; };
-		63A88D112A4C9B390006AA0F /* SCI.json in Resources */ = {isa = PBXBuildFile; fileRef = 63A88D102A4C9B390006AA0F /* SCI.json */; };
-		63A88D132A4C9B580006AA0F /* CoE.json in Resources */ = {isa = PBXBuildFile; fileRef = 63A88D122A4C9B580006AA0F /* CoE.json */; };
 		63A88D152A4C9B780006AA0F /* CFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A88D142A4C9B780006AA0F /* CFModel.swift */; };
 		63A88D172A4C9B8C0006AA0F /* CFManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A88D162A4C9B8C0006AA0F /* CFManager.swift */; };
 		63AC0EAE2B88E396001C65E8 /* Image Picker Controller .swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AC0EAD2B88E396001C65E8 /* Image Picker Controller .swift */; };
@@ -94,6 +92,7 @@
 		63C9FBE72BB0585E009EF005 /* Onboarding Form Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9FBE62BB0585E009EF005 /* Onboarding Form Picker.swift */; };
 		63C9FBEA2BB06AD3009EF005 /* Onboarding Additional Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9FBE92BB06AD3009EF005 /* Onboarding Additional Fields.swift */; };
 		63C9FBEC2BB06AF2009EF005 /* Onboarding Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9FBEB2BB06AF2009EF005 /* Onboarding Location.swift */; };
+		63CB3C4F2BD00906001DD593 /* SCA на русском.json in Resources */ = {isa = PBXBuildFile; fileRef = 63CB3C4E2BD00906001DD593 /* SCA на русском.json */; };
 		63CCA3802B7A6F060087103A /* Setting Tester Panel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CCA37F2B7A6F060087103A /* Setting Tester Panel.swift */; };
 		63CCA3832B7A70C40087103A /* Settings Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CCA3822B7A70C40087103A /* Settings Sections.swift */; };
 		63CCA3852B7A775A0087103A /* Publushed App Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CCA3842B7A775A0087103A /* Publushed App Storage.swift */; };
@@ -204,8 +203,6 @@
 		63A88D052A4C92E00006AA0F /* AppStorage Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage Extensions.swift"; sourceTree = "<group>"; };
 		63A88D092A4C98E00006AA0F /* Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
 		63A88D0E2A4C9B250006AA0F /* SCA.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SCA.json; sourceTree = "<group>"; };
-		63A88D102A4C9B390006AA0F /* SCI.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SCI.json; sourceTree = "<group>"; };
-		63A88D122A4C9B580006AA0F /* CoE.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CoE.json; sourceTree = "<group>"; };
 		63A88D142A4C9B780006AA0F /* CFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFModel.swift; sourceTree = "<group>"; };
 		63A88D162A4C9B8C0006AA0F /* CFManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFManager.swift; sourceTree = "<group>"; };
 		63AC0EAD2B88E396001C65E8 /* Image Picker Controller .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image Picker Controller .swift"; sourceTree = "<group>"; };
@@ -218,6 +215,7 @@
 		63C9FBE62BB0585E009EF005 /* Onboarding Form Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Form Picker.swift"; sourceTree = "<group>"; };
 		63C9FBE92BB06AD3009EF005 /* Onboarding Additional Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Additional Fields.swift"; sourceTree = "<group>"; };
 		63C9FBEB2BB06AF2009EF005 /* Onboarding Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Location.swift"; sourceTree = "<group>"; };
+		63CB3C4E2BD00906001DD593 /* SCA на русском.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SCA на русском.json"; sourceTree = "<group>"; };
 		63CCA37F2B7A6F060087103A /* Setting Tester Panel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting Tester Panel.swift"; sourceTree = "<group>"; };
 		63CCA3822B7A70C40087103A /* Settings Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings Sections.swift"; sourceTree = "<group>"; };
 		63CCA3842B7A775A0087103A /* Publushed App Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publushed App Storage.swift"; sourceTree = "<group>"; };
@@ -324,6 +322,7 @@
 		6320A3A92A72BF000069E6B9 /* Evaluation Types */ = {
 			isa = PBXGroup;
 			children = (
+				63A88D092A4C98E00006AA0F /* Evaluation.swift */,
 				6320A3AA2A72BF160069E6B9 /* Slider Evaluation.swift */,
 				6320A3AC2A72BF3A0069E6B9 /* Radio Evaluation.swift */,
 				6320A3AE2A72BF7C0069E6B9 /* Cups Checkboxes.swift */,
@@ -469,7 +468,6 @@
 				6342E7672B8BBA3600D08ACB /* Camera Manager.swift */,
 				63343FFD2B7E5F870073658B /* Location Manager.swift */,
 				63F60D552B72C053002A99FE /* Email Manager.swift */,
-				63A88D092A4C98E00006AA0F /* Evaluation.swift */,
 				6320A3A92A72BF000069E6B9 /* Evaluation Types */,
 				63A88D0C2A4C99380006AA0F /* Cupping Forms */,
 			);
@@ -491,9 +489,8 @@
 		63A88D0C2A4C99380006AA0F /* Cupping Forms */ = {
 			isa = PBXGroup;
 			children = (
+				63CB3C4E2BD00906001DD593 /* SCA на русском.json */,
 				63A88D0E2A4C9B250006AA0F /* SCA.json */,
-				63A88D102A4C9B390006AA0F /* SCI.json */,
-				63A88D122A4C9B580006AA0F /* CoE.json */,
 				63A88D142A4C9B780006AA0F /* CFModel.swift */,
 				63A88D162A4C9B8C0006AA0F /* CFManager.swift */,
 			);
@@ -685,9 +682,8 @@
 			files = (
 				633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */,
 				63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */,
-				63A88D132A4C9B580006AA0F /* CoE.json in Resources */,
 				63684CD929AA78C8009C1BDA /* Localizable.strings in Resources */,
-				63A88D112A4C9B390006AA0F /* SCI.json in Resources */,
+				63CB3C4F2BD00906001DD593 /* SCA на русском.json in Resources */,
 				63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */,
 				63A88D0F2A4C9B250006AA0F /* SCA.json in Resources */,
 			);
