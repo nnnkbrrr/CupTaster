@@ -75,20 +75,69 @@ extension CFManager {
         case qcGroupMigrationError(String, String), qualityCriteriaMigrationError(String, String)
     }
     
-//    enum MigrationError: Error, LocalizedError {
-//        case qcGroupMigrationError(String), qualityCriteriaMigrationError(String)
-//        
-//        public var errorDescription: (String, String) {
-//            switch self {
-//                case .qcGroupMigrationError(let description): ("Error: QC", description)
-//                case .qualityCriteriaMigrationError(let description): ("Error: QCG", description)
+//    public func updateSCA(
+//        _ initial: CuppingForm,
+//        allCuppingForms: FetchedResults<CuppingForm>,
+//        context: NSManagedObjectContext,
+//        onSuccess: @escaping () -> ()
+//    ) {
+//#warning("check version")
+//        if let newSCA: CuppingForm = allCuppingForms.first(where: { $0.version == "1.1" }) {
+//            do {
+//                try update(from: initial, to: newSCA)
+//                context.delete(initial)
+//                save(context)
+//                onSuccess()
+//            } catch CFManager.MigrationError.qcGroupMigrationError(let title, let message) {
+//                onSuccess()
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                    showAlert(title: title, message: message)
+//                }
+//            } catch CFManager.MigrationError.qualityCriteriaMigrationError(let title, let message) {
+//                onSuccess()
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                    showAlert(title: title, message: message)
+//                }
+//            } catch {
+//                onSuccess()
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                    showAlert(title: "Error", message: "Unknown Error")
+//                }
+//            }
+//        } else {
+//            onSuccess()
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                showAlert(title: "Error", message: "No available form")
 //            }
 //        }
 //    }
     
-    public func update(from initial: CuppingForm, to final: CuppingForm) throws {
-        if initial.title == "SCA" && initial.version == "1.0" {
+    public func update(
+        from initial: CuppingForm,
+        to final: CuppingForm,
+        context: NSManagedObjectContext,
+        onSuccess: @escaping () -> ()
+    ) {
+        do {
             try fullMigration(from: initial, to: final)
+            context.delete(initial)
+            save(context)
+            onSuccess()
+        } catch CFManager.MigrationError.qcGroupMigrationError(let title, let message) {
+            onSuccess()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                showAlert(title: title, message: message)
+            }
+        } catch CFManager.MigrationError.qualityCriteriaMigrationError(let title, let message) {
+            onSuccess()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                showAlert(title: title, message: message)
+            }
+        } catch {
+            onSuccess()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                showAlert(title: "Error", message: "Unknown Error")
+            }
         }
     }
     

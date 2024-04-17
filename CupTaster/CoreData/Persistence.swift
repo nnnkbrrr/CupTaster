@@ -47,5 +47,7 @@ extension JSONDecoder {
 // MARK: For testing
 
 func save(_ context: NSManagedObjectContext) {
-    save(context)
+    if TestingManager.shared.allowSaves {
+        try? context.save()
+    }
 }

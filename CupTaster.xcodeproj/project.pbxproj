@@ -93,6 +93,7 @@
 		63C9FBEA2BB06AD3009EF005 /* Onboarding Additional Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9FBE92BB06AD3009EF005 /* Onboarding Additional Fields.swift */; };
 		63C9FBEC2BB06AF2009EF005 /* Onboarding Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9FBEB2BB06AF2009EF005 /* Onboarding Location.swift */; };
 		63CB3C4F2BD00906001DD593 /* SCA на русском.json in Resources */ = {isa = PBXBuildFile; fileRef = 63CB3C4E2BD00906001DD593 /* SCA на русском.json */; };
+		63CB3C512BD05C9B001DD593 /* Setting Cupping Forms Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB3C502BD05C9B001DD593 /* Setting Cupping Forms Archive.swift */; };
 		63CCA3802B7A6F060087103A /* Setting Tester Panel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CCA37F2B7A6F060087103A /* Setting Tester Panel.swift */; };
 		63CCA3832B7A70C40087103A /* Settings Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CCA3822B7A70C40087103A /* Settings Sections.swift */; };
 		63CCA3852B7A775A0087103A /* Publushed App Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CCA3842B7A775A0087103A /* Publushed App Storage.swift */; };
@@ -216,6 +217,7 @@
 		63C9FBE92BB06AD3009EF005 /* Onboarding Additional Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Additional Fields.swift"; sourceTree = "<group>"; };
 		63C9FBEB2BB06AF2009EF005 /* Onboarding Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Location.swift"; sourceTree = "<group>"; };
 		63CB3C4E2BD00906001DD593 /* SCA на русском.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SCA на русском.json"; sourceTree = "<group>"; };
+		63CB3C502BD05C9B001DD593 /* Setting Cupping Forms Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting Cupping Forms Archive.swift"; sourceTree = "<group>"; };
 		63CCA37F2B7A6F060087103A /* Setting Tester Panel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting Tester Panel.swift"; sourceTree = "<group>"; };
 		63CCA3822B7A70C40087103A /* Settings Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings Sections.swift"; sourceTree = "<group>"; };
 		63CCA3842B7A775A0087103A /* Publushed App Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publushed App Storage.swift"; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 				63EC8FC22B7F984D0091429B /* Setting Location.swift */,
 				635CE8182B91EA4000D473FE /* Setting Folders.swift */,
 				63CCA37F2B7A6F060087103A /* Setting Tester Panel.swift */,
+				63CB3C502BD05C9B001DD593 /* Setting Cupping Forms Archive.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 				63EC8FC32B7F984D0091429B /* Setting Location.swift in Sources */,
 				6372A3732B4FF46400925E0B /* Bottom Sheet Block.swift in Sources */,
 				633042452B4C5ACE005BD8F2 /* Sample Elements.swift in Sources */,
+				63CB3C512BD05C9B001DD593 /* Setting Cupping Forms Archive.swift in Sources */,
 				63DD44EB2B71503D00F1D256 /* Date Component Extractor.swift in Sources */,
 				63CCA3802B7A6F060087103A /* Setting Tester Panel.swift in Sources */,
 				63A88CFD2A4C90880006AA0F /* Main Tab.swift in Sources */,

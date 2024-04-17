@@ -264,7 +264,7 @@ struct SettingsRow<LeadingContent: View, TrailingContent: View>: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(spacing: .small) {
             if let leadingContent {
                 leadingContent()
                     .frame(width: 40, height: 40)
@@ -285,7 +285,7 @@ struct SettingsRow<LeadingContent: View, TrailingContent: View>: View {
             Text(title)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, systemImageName == nil ? .extraSmall : 0)
+                .padding(.horizontal, systemImageName == nil && leadingContent == nil ? .extraSmall : 0)
             
             trailingContent()
         }
