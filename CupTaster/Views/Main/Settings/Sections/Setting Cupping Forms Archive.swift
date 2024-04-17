@@ -138,6 +138,7 @@ extension Settings_CuppingFormsView {
                                                 self.cuppingFormToMigrate = nil
                                                 self.newerFormToMigrate = nil
                                                 self.newerCFModelToMigrate = nil
+                                                cfManager.setDefaultCuppingForm(cuppingForm: newerFormToMigrate)
                                             }
                                         }
                                         
@@ -147,6 +148,7 @@ extension Settings_CuppingFormsView {
                                                     self.cuppingFormToMigrate = nil
                                                     self.newerFormToMigrate = nil
                                                     self.newerCFModelToMigrate = nil
+                                                    cfManager.setDefaultCuppingForm(cuppingForm: newerFormToMigrate)
                                                 }
                                             }
                                         }
