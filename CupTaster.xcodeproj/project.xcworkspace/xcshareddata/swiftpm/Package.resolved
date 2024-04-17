@@ -1,4 +1,5 @@
 {
+  "originHash" : "6b086b78ba30a24f84d6d107038a512c7a3c7d793951e9bcd7121322a1186195",
   "pins" : [
     {
       "identity" : "cloudkitsyncmonitor",
@@ -19,5 +20,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

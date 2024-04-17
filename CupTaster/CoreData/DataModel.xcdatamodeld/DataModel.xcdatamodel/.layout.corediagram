@@ -3,9 +3,9 @@
     0,
     0
   ],
-  "zoom" : 1,
+  "sidebarWidth" : 0,
   "colours" : [
-    "QCHint",
+    "QCGHint",
     {
       "components" : [
         1,
@@ -15,17 +15,17 @@
       ],
       "colorSpace" : "kCGColorSpaceSRGB"
     },
-    "QCGroup",
+    "SampleGeneralInfo",
     {
-      "colorSpace" : "kCGColorSpaceSRGB",
       "components" : [
         1,
         0.21568627450980393,
         0.37254901960784315,
         0.5
-      ]
+      ],
+      "colorSpace" : "kCGColorSpaceSRGB"
     },
-    "QCConfig",
+    "QualityCriteria",
     {
       "components" : [
         1,
@@ -37,6 +37,16 @@
     },
     "Location",
     {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
+    },
+    "QCGroup",
+    {
       "components" : [
         1,
         0.21568627450980393,
@@ -45,7 +55,7 @@
       ],
       "colorSpace" : "kCGColorSpaceSRGB"
     },
-    "Folder",
+    "QCConfig",
     {
       "components" : [
         1,
@@ -65,47 +75,17 @@
         0.5
       ]
     },
-    "Cupping",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
-    "QCGHint",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
-    "QualityCriteria",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
-    "SampleGeneralInfo",
-    {
-      "colorSpace" : "kCGColorSpaceSRGB",
-      "components" : [
-        1,
-        0.21568627450980393,
-        0.37254901960784315,
-        0.5
-      ]
-    },
     "Sample",
+    {
+      "colorSpace" : "kCGColorSpaceSRGB",
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ]
+    },
+    "QCHint",
     {
       "colorSpace" : "kCGColorSpaceSRGB",
       "components" : [
@@ -117,16 +97,36 @@
     },
     "QCGroupConfig",
     {
-      "colorSpace" : "kCGColorSpaceSRGB",
       "components" : [
         1,
         0.21568627450980393,
         0.37254901960784315,
         0.5
-      ]
+      ],
+      "colorSpace" : "kCGColorSpaceSRGB"
+    },
+    "Folder",
+    {
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ],
+      "colorSpace" : "kCGColorSpaceSRGB"
+    },
+    "Cupping",
+    {
+      "components" : [
+        1,
+        0.21568627450980393,
+        0.37254901960784315,
+        0.5
+      ],
+      "colorSpace" : "kCGColorSpaceSRGB"
     }
   ],
-  "sidebarWidth" : 0,
+  "zoom" : 1,
   "offsets" : [
 
   ]

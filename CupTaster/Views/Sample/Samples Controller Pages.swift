@@ -179,7 +179,7 @@ struct SamplesControllerPagesView: View {
                             if name.count > nameLengthLimit {
                                 sample.name = String(name.prefix(nameLengthLimit))
                             }
-                            try? moc.save()
+                            if TestingManager.shared.allowSaves { try? moc.save() }
                         }
                         .bottomSheetBlock()
                         .matchedGeometryEffect(

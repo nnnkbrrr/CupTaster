@@ -123,7 +123,7 @@ struct QualityCriteriaView: View {
             .onChange(of: criteria.value) { _ in
                 criteria.group.isCompleted = true
                 criteria.group.sample.calculateFinalScore()
-                try? moc.save()
+                if TestingManager.shared.allowSaves { try? moc.save() }
             }
     }
 }

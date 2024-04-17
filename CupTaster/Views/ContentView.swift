@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 import CloudKitSyncMonitor
 
+#warning("variable for storing purchase")
+
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     @FetchRequest(entity: SampleGeneralInfo.entity(), sortDescriptors: []) var generalInfoFields: FetchedResults<SampleGeneralInfo>

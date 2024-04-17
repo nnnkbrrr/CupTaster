@@ -79,3 +79,62 @@ extension CFManager {
         return hintsAreAvailable(in: defaultCF)
     }
 }
+
+extension CFManager {
+    enum MigrationError: Error {
+        case qcGroupMigrationError(String, String), qualityCriteriaMigrationError(String, String)
+    }
+    
+//    enum MigrationError: Error, LocalizedError {
+//        case qcGroupMigrationError(String), qualityCriteriaMigrationError(String)
+//        
+//        public var errorDescription: (String, String) {
+//            switch self {
+//                case .qcGroupMigrationError(let description): ("Error: QC", description)
+//                case .qualityCriteriaMigrationError(let description): ("Error: QCG", description)
+//            }
+//        }
+//    }
+    
+    public func update(from initial: CuppingForm, to final: CuppingForm) throws {
+        if initial.title == "SCA" && initial.version == "1.0" {
+            try fullMigration(from: initial, to: final)
+        }
+    }
+    
+    private func fullMigration(from initial: CuppingForm, to final: CuppingForm) throws {
+        for cupping in initial.cuppings {
+            cupping.form = final
+            let finalQCGroupConfigurations: Set<QCGroupConfig> = final.qcGroupConfigurations
+            
+            for sample in cupping.samples {
+                for qcGroup in sample.qualityCriteriaGroups {
+                    if let qcGroupConfiguration: QCGroupConfig = finalQCGroupConfigurations.first(where: {
+                        $0.title == qcGroup.configuration.title
+                    }) {
+                        qcGroup.configuration = qcGroupConfiguration
+                        let finalCriteriaConfigurations: Set<QCConfig> = qcGroupConfiguration.qcConfigurations
+                        
+                        for criteria in qcGroup.qualityCriteria {
+                            if let criteriaConfiguration: QCConfig = finalCriteriaConfigurations.first(where: {
+                                $0.title == criteria.configuration.title
+                            }) {
+                                criteria.configuration = criteriaConfiguration
+                            } else {
+                                throw MigrationError.qualityCriteriaMigrationError(
+                                    "Error: QC", "\(initial.title) \(initial.version) -> \(final.title) \(final.version)"
+                                )
+                            }
+                        }
+                    } else {
+                        throw MigrationError.qcGroupMigrationError(
+                            "Error: QCG", "\(initial.title) \(initial.version) -> \(final.title) \(final.version)"
+                        )
+                    }
+                }
+                
+                sample.calculateFinalScore()
+            }
+        }
+    }
+}

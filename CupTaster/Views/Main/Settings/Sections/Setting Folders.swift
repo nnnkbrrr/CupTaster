@@ -67,7 +67,7 @@ struct Settings_FoldersView: View {
                     folder.name = newFolderTitle
                     folder.ordinalNumber = Int16(folders.count)
                     for cupping in newFolderCuppings { folder.addToCuppings(cupping) }
-                    try? moc.save()
+                    if TestingManager.shared.allowSaves { try? moc.save() }
                     newFolderModalIsActive = false
                 }
             )
@@ -123,14 +123,16 @@ extension Settings_FoldersView {
                     if folderName.count > Settings_FoldersView.nameLengthLimit {
                         folder.name = String(folderName.prefix(Settings_FoldersView.nameLengthLimit))
                     }
-                    try? moc.save()
+                    if TestingManager.shared.allowSaves { try? moc.save() }
                 }
                 .frame(height: 60)
                 .background(Color.backgroundSecondary)
                 .cornerRadius()
                 .offset(offset)
                 .offset(y: moveRows.rows.contains(folder.ordinalNumber) && offset == .zero ? rowOffsetValue * (moveRows.edge == .top ? -1 : 1) : 0)
-                .onChange(of: folder.name) { _ in try? moc.save() }
+                .onChange(of: folder.name) { _ in
+                    if TestingManager.shared.allowSaves { try? moc.save() }
+                }
                 .overlay(alignment: .trailing) {
                     Color.clear
                         .frame(width: .smallElementContainer, height: .smallElementContainer)
@@ -169,7 +171,7 @@ extension Settings_FoldersView {
                             moveRows.reset()
                             orderValidation()
                             
-                            try? moc.save()
+                            if TestingManager.shared.allowSaves { try? moc.save() }
                         } onCancel: {
                             self.offset = .zero
                             moveRows.reset()
@@ -179,7 +181,7 @@ extension Settings_FoldersView {
                 SwipeAction {
                     withAnimation {
                         moc.delete(folder)
-                        try? moc.save()
+                        if TestingManager.shared.allowSaves { try? moc.save() }
                     }
                 } label: { _ in
                     VStack(spacing: .extraSmall) {

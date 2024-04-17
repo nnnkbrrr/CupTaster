@@ -63,7 +63,7 @@ extension Cupping {
             sample.calculateFinalScore()
         }
         
-        try? moc.save()
+        if TestingManager.shared.allowSaves { try? moc.save() }
     }
 }
 

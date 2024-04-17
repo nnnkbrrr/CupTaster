@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import CoreData
 
 class TestingManager: ObservableObject {
     @PublishedAppStorage("tester-tab-visibility") var isVisible: Bool = false
     @PublishedAppStorage("show-tester-overlay") var testerOverlayIsVisible: Bool = false
+    @PublishedAppStorage("allow-saves") var allowSaves: Bool = true
     
     @Published var showMainPageEmptyState: Bool = false
     
@@ -23,6 +25,7 @@ class TestingManager: ObservableObject {
 }
 
 struct TesterPanelView: View {
+    @Environment(\.managedObjectContext) private var moc
     @FetchRequest(entity: SampleGeneralInfo.entity(), sortDescriptors: []) var generalInfoFields: FetchedResults<SampleGeneralInfo>
     
     @ObservedObject var testingManager: TestingManager = .shared
@@ -72,6 +75,12 @@ struct TesterPanelView: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
+                            TesterButton(
+                                title: testingManager.allowSaves ? "Saves allowed" : "Saves blocked",
+                                systemImageName: testingManager.allowSaves ? "hand.raised.slash" : "hand.raised.fill"
+                            ) {
+                                testingManager.allowSaves.toggle()
+                            }
                             TesterButton(title: "Empty State", systemImageName: testingManager.showMainPageEmptyState ? "eye.slash.fill" : "eye.fill") {
                                 testingManager.showMainPageEmptyState.toggle()
                             }
@@ -183,12 +192,8 @@ struct TesterPanelView: View {
                         
                         TesterButton(title: "Get", systemImageName: "location.magnifyingglass") {
                             Task {
-                                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-                                guard let window = windowScene.windows.first else { return }
                                 let location: String = await locationManager.getLocationAddress() ?? "Undefined"
-                                let alert = UIAlertController(title: "Your Location is", message: location, preferredStyle: .alert)
-                                alert.addAction(UIAlertAction(title: "OK", style: .destructive))
-                                window.rootViewController?.present(alert, animated: true)
+                                showAlert(title: "Your Location is", message: location)
                             }
                         }
                         
@@ -239,6 +244,10 @@ struct TesterPanelView: View {
             }
             qcGroup.isCompleted = true
         }
+        
+        sample.calculateFinalScore()
+        
+        if testingManager.allowSaves { try? moc.save() }
     }
 }
 

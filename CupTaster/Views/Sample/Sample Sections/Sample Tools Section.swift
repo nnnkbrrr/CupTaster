@@ -28,7 +28,7 @@ extension SampleView {
                         samplesControllerModel.selectedSample?.isFavorite.toggle()
                         samplesControllerModel.objectWillChange.send()
                     }
-                    try? moc.save()
+                    if TestingManager.shared.allowSaves { try? moc.save() }
                 },
                 .init(systemImageName: "folder.badge.gearshape") { foldersModalIsActive = true },
                 .init(systemImageName: "trash") { deleteModalIsActive = true }
@@ -187,7 +187,7 @@ extension SampleView {
             newSGIField.value = value
             newSGIField.ordinalNumber = Int16((sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0) + 1)
             newSGIField.sample = sample
-            try? moc.save()
+            if TestingManager.shared.allowSaves { try? moc.save() }
         }
         
         func addLink(response: (Result<ScanResult, ScanError>)) {
@@ -200,7 +200,7 @@ extension SampleView {
             }
             newLinkField.ordinalNumber = Int16((sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0) + 1)
             newLinkField.sample = sample
-            try? moc.save()
+            if TestingManager.shared.allowSaves { try? moc.save() }
         }
         
         func addImage(uiImage: UIImage) {
@@ -210,7 +210,7 @@ extension SampleView {
             newSGIField.ordinalNumber = Int16((sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0) + 1)
             newSGIField.sample = sample
             newSGIField.attachment = uiImage.encodeToData() ?? Data()
-            try? moc.save()
+            if TestingManager.shared.allowSaves { try? moc.save() }
         }
         
         func addFile(_ file: Result<URL, any Error>) {
@@ -232,7 +232,7 @@ extension SampleView {
                 newSGIField.title = "Error"
             }
             
-            try? moc.save()
+            if TestingManager.shared.allowSaves { try? moc.save() }
         }
     }
 }

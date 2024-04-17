@@ -126,13 +126,15 @@ struct SampleGeneralInfoFieldView: View {
                     .frame(height: 12, alignment: .top)
                     .foregroundStyle(.gray)
                 
-                TextField(textFieldPrompt, text: $generalInfo.value, onCommit: { try? moc.save() })
-                    .submitLabel(.done)
-                    .resizableText(initialSize: 15)
-                    .onChange(of: generalInfo.value) { note in
-                        if note.count > 25 { generalInfo.value = String(note.prefix(25)) }
-                        try? moc.save()
-                    }
+                TextField(textFieldPrompt, text: $generalInfo.value, onCommit: {
+                    if TestingManager.shared.allowSaves { try? moc.save() }
+                })
+                .submitLabel(.done)
+                .resizableText(initialSize: 15)
+                .onChange(of: generalInfo.value) { note in
+                    if note.count > 25 { generalInfo.value = String(note.prefix(25)) }
+                    if TestingManager.shared.allowSaves { try? moc.save() }
+                }
             }
         }
         .padding(.leading, .regular)
@@ -160,7 +162,7 @@ struct SampleGeneralInfoFieldView: View {
                             }
                         }
                         
-                        try? moc.save()
+                        if TestingManager.shared.allowSaves { try? moc.save() }
                     }
                 } label: {
                     Label("Delete", systemImage: "trash")
@@ -215,7 +217,7 @@ struct SampleGeneralInfoFieldView: View {
                 newSGIField.value = ""
                 newSGIField.ordinalNumber = Int16((sample.generalInfo.map({ $0.ordinalNumber }).max() ?? 0) + 1)
                 newSGIField.sample = sample
-                try? moc.save()
+                if TestingManager.shared.allowSaves { try? moc.save() }
             }
         }
     }

@@ -66,7 +66,7 @@ struct Onboarding_LocationPage: View {
                         .padding([.horizontal, .bottom], .small)
                     }
                     
-                    Text("or skip this step for now")
+                    Text("or skip this step")
                 }
             }
         } conditionIsFulfilled: {

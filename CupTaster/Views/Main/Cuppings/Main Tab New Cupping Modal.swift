@@ -49,7 +49,7 @@ class NewCupping: ObservableObject {
             folderFilter.addCupping(cupping, context: moc)
         }
         
-        try? moc.save()
+        if TestingManager.shared.allowSaves { try? moc.save() }
     }
 }
 
@@ -168,7 +168,7 @@ struct NewCuppingModalView: View {
                                     (newCupping.latitude, newCupping.longitude) = (coordinates.latitude, coordinates.longitude)
                                     newCupping.address = address
                                 }
-                                try? moc.save()
+                                if TestingManager.shared.allowSaves { try? moc.save() }
                             }
                             .edgesIgnoringSafeArea(.all)
                         }
@@ -198,7 +198,7 @@ struct NewCuppingModalView: View {
                                     (newCupping.latitude, newCupping.longitude) = (coordinates.latitude, coordinates.longitude)
                                     newCupping.address = address
                                 }
-                                try? moc.save()
+                                if TestingManager.shared.allowSaves { try? moc.save() }
                             }
                             .edgesIgnoringSafeArea(.all)
                         }

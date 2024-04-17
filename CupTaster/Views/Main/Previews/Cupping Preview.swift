@@ -68,13 +68,13 @@ struct CuppingPreview: View {
             if cupping.isFavorite {
                 SwipeActionView(systemImage: "heart.slash.fill", title: "Remove", color: .accentColor) {
                     cupping.isFavorite = false
-                    try? moc.save()
+                    if TestingManager.shared.allowSaves { try? moc.save() }
                     context.state.wrappedValue = .closed
                 }
             } else {
                 SwipeActionView(systemImage: "heart.fill", title: "Mark", color: .accentColor) {
                     cupping.isFavorite = true
-                    try? moc.save()
+                    if TestingManager.shared.allowSaves { try? moc.save() }
                     context.state.wrappedValue = .closed
                 }
             }
@@ -87,7 +87,7 @@ struct CuppingPreview: View {
             SwipeActionView(systemImage: "trash.fill", title: "Delete", color: .red) {
                 withAnimation {
                     moc.delete(cupping)
-                    try? moc.save()
+                    if TestingManager.shared.allowSaves { try? moc.save() }
                 }
             }
         }
@@ -96,7 +96,7 @@ struct CuppingPreview: View {
             Section {
                 Button {
                     cupping.isFavorite.toggle()
-                    try? moc.save()
+                    if TestingManager.shared.allowSaves { try? moc.save() }
                 } label: {
                     if cupping.isFavorite {
                         Label("Remove from Favorites", systemImage: "heart.slash.fill")
@@ -116,7 +116,7 @@ struct CuppingPreview: View {
                 Button(role: .destructive) {
                     withAnimation {
                         moc.delete(cupping)
-                        try? moc.save()
+                        if TestingManager.shared.allowSaves { try? moc.save() }
                     }
                 } label: {
                     Label("Delete", systemImage: "trash")

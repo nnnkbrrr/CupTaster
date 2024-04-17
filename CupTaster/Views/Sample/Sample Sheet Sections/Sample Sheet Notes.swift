@@ -83,7 +83,7 @@ private struct NotesTextFieldView: UIViewRepresentable {
             parent.text = textView.text
             parent.updatePlaceholderVisibility(textView)
             parent.updateViewHeight(textView.contentSize.height)
-            try? parent.moc.save()
+            if TestingManager.shared.allowSaves { try? parent.moc.save() }
         }
         
         func textViewDidEndEditing(_ textView: UITextView) {
