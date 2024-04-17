@@ -18,8 +18,6 @@ extension Settings_CuppingFormsView {
         
         @State var deleteAlertActive: Bool = false
         @State var cuppingFormToMigrate: CuppingForm? = nil
-        @State var newerFormToMigrate: CuppingForm? = nil
-        @State var newerCFModelToMigrate: CFManager.CFModel? = nil
         
         var body: some View {
             ScrollView {
@@ -35,7 +33,10 @@ extension Settings_CuppingFormsView {
                                     if migrationIsAvailable {
                                         cuppingFormToMigrate = cuppingForm
                                     } else {
-                                        showAlert(title: "This cupping form is no longer supported", message: "We apologize for the inconvenience. You can export all cuppings data on the main page")
+                                        showAlert(
+                                            title: "This cupping form is no longer supported",
+                                            message: "We apologize for the inconvenience. You can export all cupping data on the main page"
+                                        )
                                     }
                                 } leadingContent: {
                                     Image(systemName: "exclamationmark.triangle")
@@ -82,94 +83,9 @@ extension Settings_CuppingFormsView {
                     }
                     .adaptiveSizeSheet(isPresented: Binding(
                         get: { cuppingFormToMigrate != nil },
-                        set: { _ in
-                            cuppingFormToMigrate = nil
-                            newerFormToMigrate = nil
-                            newerCFModelToMigrate = nil
-                        }
+                        set: { _ in cuppingFormToMigrate = nil }
                     )) {
-                        VStack(spacing: .large) {
-                            if let cuppingFormToMigrate {
-                                Text("There is a newer version of this cupping form available")
-                                    .font(.title)
-                                    .multilineTextAlignment(.center)
-                                    .padding(.horizontal, .regular)
-                                
-                                Text("Select the form you want to upgrade to")
-                                    .foregroundStyle(.gray)
-                                    .multilineTextAlignment(.center)
-                                    .padding(.horizontal, .regular)
-                                
-                                LazyVStack(alignment: .leading, spacing: .extraSmall) {
-                                    SettingsSection {
-                                        let notDeprecatedCuppingForms: [CuppingForm] = cuppingForms.filter { !$0.isDeprecated }
-                                        ForEach(notDeprecatedCuppingForms) { cuppingForm in
-                                            SettingsButtonSection(title: cuppingForm.title) {
-                                                newerFormToMigrate = cuppingForm
-                                                newerCFModelToMigrate = nil
-                                            }
-                                            .opacity(newerFormToMigrate == cuppingForm ? 1 : 0.5)
-                                        }
-                                        
-                                        let availableCuppingFormModels: [CFManager.CFModel] = cfManager.allCFModels.filter {
-                                            $0.getCuppingForm(storedCuppingForms: cuppingForms) == nil
-                                        }
-                                        ForEach(availableCuppingFormModels) { cuppingFormModel in
-                                            SettingsButtonSection(title: cuppingFormModel.title) {
-                                                newerCFModelToMigrate = cuppingFormModel
-                                                newerFormToMigrate = nil
-                                            }
-                                            .opacity(newerCFModelToMigrate?.id == cuppingFormModel.id ? 1 : 0.5)
-                                        }
-                                    }
-                                }
-                                
-                                HStack(spacing: .extraSmall) {
-                                    Button("OK") {
-                                        self.cuppingFormToMigrate = nil
-                                        newerFormToMigrate = nil
-                                        newerCFModelToMigrate = nil
-                                    }
-                                    .buttonStyle(.bottomSheetBlock)
-                                    
-                                    Button("Update") {
-                                        if let newerFormToMigrate {
-                                            cfManager.update(from: cuppingFormToMigrate, to: newerFormToMigrate, context: moc) {
-                                                self.cuppingFormToMigrate = nil
-                                                self.newerFormToMigrate = nil
-                                                self.newerCFModelToMigrate = nil
-                                                cfManager.setDefaultCuppingForm(cuppingForm: newerFormToMigrate)
-                                            }
-                                        }
-                                        
-                                        if let newerCFModelToMigrate {
-                                            if let newerFormToMigrate = newerCFModelToMigrate.createCuppingForm(context: moc) {
-                                                cfManager.update(from: cuppingFormToMigrate, to: newerFormToMigrate, context: moc) {
-                                                    self.cuppingFormToMigrate = nil
-                                                    self.newerFormToMigrate = nil
-                                                    self.newerCFModelToMigrate = nil
-                                                    cfManager.setDefaultCuppingForm(cuppingForm: newerFormToMigrate)
-                                                }
-                                            }
-                                        }
-                                    }
-                                    .buttonStyle(.accentBottomSheetBlock)
-                                    .disabled(newerFormToMigrate == nil && newerCFModelToMigrate == nil)
-                                    .opacity(newerFormToMigrate == nil && newerCFModelToMigrate == nil ? 0.5 : 1)
-                                }
-                            } else {
-                                Text("Error")
-                                    .font(.title)
-                                    .multilineTextAlignment(.center)
-                                    .padding(.horizontal, .regular)
-                                
-                                Button("OK") {
-                                    cuppingFormToMigrate = nil
-                                }
-                                .buttonStyle(.bottomSheetBlock)
-                            }
-                        }
-                        .padding(.small)
+                        DeprectaredCuppingFormMigrationModalView(cuppingFormToMigrate: $cuppingFormToMigrate)
                     }
                 }
                 .padding(.small)
@@ -178,5 +94,104 @@ extension Settings_CuppingFormsView {
             .navigationTitle("Archive")
             .defaultNavigationBar()
         }
+    }
+}
+
+struct DeprectaredCuppingFormMigrationModalView: View {
+    @Environment(\.managedObjectContext) private var moc
+    @FetchRequest(
+        entity: CuppingForm.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \CuppingForm.title, ascending: false)]
+    ) var cuppingForms: FetchedResults<CuppingForm>
+    
+    @StateObject var cfManager = CFManager.shared
+    
+    @Binding var cuppingFormToMigrate: CuppingForm?
+    @State var newerFormToMigrate: CuppingForm? = nil
+    @State var newerCFModelToMigrate: CFManager.CFModel? = nil
+    
+    var body: some View {
+        VStack(spacing: .large) {
+            if let cuppingFormToMigrate {
+                Text("There is a newer version of this cupping form available")
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, .regular)
+                
+                Text("Select a new form to view and edit previous cuppings")
+                    .foregroundStyle(.gray)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, .regular)
+                
+                LazyVStack(alignment: .leading, spacing: .extraSmall) {
+                    SettingsSection {
+                        let notDeprecatedCuppingForms: [CuppingForm] = cuppingForms.filter { !$0.isDeprecated }
+                        ForEach(notDeprecatedCuppingForms) { cuppingForm in
+                            SettingsButtonSection(title: cuppingForm.title) {
+                                newerFormToMigrate = cuppingForm
+                                newerCFModelToMigrate = nil
+                            }
+                            .opacity(newerFormToMigrate == cuppingForm ? 1 : 0.5)
+                        }
+                        
+                        let availableCuppingFormModels: [CFManager.CFModel] = cfManager.allCFModels.filter {
+                            $0.getCuppingForm(storedCuppingForms: cuppingForms) == nil
+                        }
+                        ForEach(availableCuppingFormModels) { cuppingFormModel in
+                            SettingsButtonSection(title: cuppingFormModel.title) {
+                                newerCFModelToMigrate = cuppingFormModel
+                                newerFormToMigrate = nil
+                            }
+                            .opacity(newerCFModelToMigrate?.id == cuppingFormModel.id ? 1 : 0.5)
+                        }
+                    }
+                }
+                
+                HStack(spacing: .extraSmall) {
+                    Button("OK") {
+                        self.cuppingFormToMigrate = nil
+                        newerFormToMigrate = nil
+                        newerCFModelToMigrate = nil
+                    }
+                    .buttonStyle(.bottomSheetBlock)
+                    
+                    Button("Update") {
+                        if let newerFormToMigrate {
+                            cfManager.update(from: cuppingFormToMigrate, to: newerFormToMigrate, context: moc) {
+                                self.cuppingFormToMigrate = nil
+                                self.newerFormToMigrate = nil
+                                self.newerCFModelToMigrate = nil
+                                cfManager.setDefaultCuppingForm(cuppingForm: newerFormToMigrate)
+                            }
+                        }
+                        
+                        if let newerCFModelToMigrate {
+                            if let newerFormToMigrate = newerCFModelToMigrate.createCuppingForm(context: moc) {
+                                cfManager.update(from: cuppingFormToMigrate, to: newerFormToMigrate, context: moc) {
+                                    self.cuppingFormToMigrate = nil
+                                    self.newerFormToMigrate = nil
+                                    self.newerCFModelToMigrate = nil
+                                    cfManager.setDefaultCuppingForm(cuppingForm: newerFormToMigrate)
+                                }
+                            }
+                        }
+                    }
+                    .buttonStyle(.accentBottomSheetBlock)
+                    .disabled(newerFormToMigrate == nil && newerCFModelToMigrate == nil)
+                    .opacity(newerFormToMigrate == nil && newerCFModelToMigrate == nil ? 0.5 : 1)
+                }
+            } else {
+                Text("Error")
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, .regular)
+                
+                Button("OK") {
+                    cuppingFormToMigrate = nil
+                }
+                .buttonStyle(.bottomSheetBlock)
+            }
+        }
+        .padding(.small)
     }
 }

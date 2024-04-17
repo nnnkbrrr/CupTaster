@@ -16,6 +16,8 @@ struct CuppingPreview: View {
     @ObservedObject var cupping: Cupping
     @State var foldersModalIsActive: Bool = false
     
+    @State var migrationCuppingFormCopy: CuppingForm? = nil
+    
     init(_ cupping: Cupping) {
         self.cupping = cupping
     }
@@ -25,43 +27,21 @@ struct CuppingPreview: View {
             if cupping.isFault {
                 EmptyView()
             } else {
-                NavigationLink(destination: CuppingView(cupping)) {
-                    HStack(spacing: .extraSmall) {
-                        VStack(alignment: .leading, spacing: .extraSmall) {
-                            Text(cupping.name == "" ? "New Cupping" : cupping.name)
-                                .multilineTextAlignment(.leading)
-                                .font(.callout)
-                            
-                            Text("\(cupping.form?.title ?? "") • \(cupping.samples.count) Samples • \(cupping.cupsCount) Cups")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                            
-                            if let location: Location = cupping.location {
-                                Text("\(Image(systemName: "mappin.circle")) \(location.address)")
-                                    .multilineTextAlignment(.leading)
-                                    .font(.caption)
-                                    .foregroundStyle(.gray)
-                            }
+                if cupping.form?.isDeprecated ?? false {
+                    Button {
+                        if let cuppingForm: CuppingForm = cupping.form, cuppingForm.title.contains("SCA") {
+                            migrationCuppingFormCopy = cuppingForm
+                        } else {
+                            #warning("export")
+                            showAlert(title: "export", message: "export")
                         }
-                        
-                        Spacer()
-                        
-                        if cupping.isFavorite {
-                            Image(systemName: "heart.fill")
-                                .foregroundStyle(.red)
-                                .font(.caption)
-                        }
-                        
-                        Text(cupping.date.short)
-                            .font(.caption)
-                            .foregroundStyle(.gray)
-                        
-                        Image(systemName: "chevron.right")
-                            .foregroundStyle(.gray)
+                    } label: {
+                        content
                     }
-                    .padding(.regular)
-                    .background(Color.backgroundSecondary)
-                    .cornerRadius()
+                } else {
+                    NavigationLink(destination: CuppingView(cupping)) {
+                        content
+                    }
                 }
             }
         } leadingActions: { context in
@@ -150,5 +130,60 @@ struct CuppingPreview: View {
             }
             .padding(.horizontal, .small)
         }
+        .adaptiveSizeSheet(isPresented: Binding(
+            get: { migrationCuppingFormCopy != nil },
+            set: { _ in migrationCuppingFormCopy = nil }
+        )) {
+            DeprectaredCuppingFormMigrationModalView(cuppingFormToMigrate: $migrationCuppingFormCopy)
+        }
+    }
+    
+    var content: some View {
+        HStack(spacing: .extraSmall) {
+            VStack(alignment: .leading, spacing: .extraSmall) {
+                Text(cupping.name == "" ? "New Cupping" : cupping.name)
+                    .multilineTextAlignment(.leading)
+                    .font(.callout)
+                
+                let titleText: String = "\(cupping.form?.title ?? "")"
+                let samplesText: String = "\(cupping.samples.count) Samples"
+                let cupsText: String = "\(cupping.cupsCount) Cups"
+                
+                HStack {
+                    if cupping.form?.isDeprecated ?? false {
+                        Image(systemName: "exclamationmark.triangle")
+                            .foregroundStyle((cupping.form?.title ?? "").contains("SCA") ? .orange : .gray)
+                    }
+                    Text("\(titleText) • \(samplesText) • \(cupsText)")
+                        .foregroundColor(.gray)
+                }
+                .font(.caption)
+                
+                if let location: Location = cupping.location {
+                    Text("\(Image(systemName: "mappin.circle")) \(location.address)")
+                        .multilineTextAlignment(.leading)
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+                }
+            }
+            
+            Spacer()
+            
+            if cupping.isFavorite {
+                Image(systemName: "heart.fill")
+                    .foregroundStyle(.red)
+                    .font(.caption)
+            }
+            
+            Text(cupping.date.short)
+                .font(.caption)
+                .foregroundStyle(.gray)
+            
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.gray)
+        }
+        .padding(.regular)
+        .background(Color.backgroundSecondary)
+        .cornerRadius()
     }
 }
