@@ -5,6 +5,7 @@
 //  Created by Никита Баранов on 06.10.2022.
 //
 
+import SwiftUI
 import CoreData
 
 @objc(Cupping)
@@ -79,4 +80,99 @@ extension Cupping {
 
     @objc(removeSamples:)
     @NSManaged public func removeFromSamples(_ values: NSSet)
+}
+
+
+extension Cupping {
+    func generateCSV() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first,
+           let viewController = window.rootViewController?.presentedViewController {
+            
+            // generating rows
+            
+            let samples: [Sample] = self.sortedSamples
+            let qcConfigurations: [QCConfig] = {
+                guard let cuppingForm = self.form else { return [] }
+                let qualityCriteria: [Set<QCConfig>.Element] = cuppingForm.qcGroupConfigurations
+                    .sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
+                    .flatMap { $0.qcConfigurations }
+                
+                return qualityCriteria == [] ? [] : qualityCriteria
+            }()
+            
+            var rows: [[String]] = []
+            
+            let qualityCrieriaTitles: [String] = {
+                var row: [String] = []
+                for qcConfiguration in qcConfigurations {
+                    row.append(qcConfiguration.title)
+                }
+                return [""] + row
+            }()
+            
+            rows.append(qualityCrieriaTitles)
+            
+            for sample in samples {
+                var row: [String] = []
+                row.append(sample.name)
+                
+                for qualityCriteriaGroup in sample.sortedQCGroups {
+                    for qualityCriterion in qualityCriteriaGroup.sortedQualityCriteria {
+                        row.append(getQualityCriteriaCSVRowValue(qualityCriteria: qualityCriterion))
+                    }
+                }
+                rows.append(row)
+            }
+            
+            var csvText = ""
+            
+            for row in rows {
+                let rowString = row.joined(separator: ",")
+                csvText.append("\(rowString)\n")
+            }
+            
+            // generating csv
+            
+            var fileURL: URL!
+            
+            do {
+                let path = try FileManager.default.url(
+                    for: .documentDirectory,
+                    in: .allDomainsMask,
+                    appropriateFor: nil,
+                    create: false
+                )
+                
+                fileURL = path.appendingPathComponent("\(self.name == "" ? "New cupping" : self.name).csv")
+                
+                try csvText.write(to: fileURL, atomically: true , encoding: .utf8)
+            } catch {
+                showAlert(title: "Error", message: "oops, something went wrong")
+            }
+            
+            let activityController = UIActivityViewController(activityItems: [fileURL!], applicationActivities: nil)
+            viewController.present(activityController, animated: true, completion: nil)
+        } else {
+            showAlert(title: "Error", message: "oops, something went wrong")
+        }
+    }
+}
+
+extension Cupping {
+    private func getQualityCriteriaCSVRowValue(qualityCriteria: QualityCriteria) -> String {
+        if qualityCriteria.configuration.unwrappedEvaluation is CupsCheckboxesEvaluation {
+            let cupsCount: Int = Int(qualityCriteria.group.sample.cupping.cupsCount)
+            let checkboxes: [Int] = Array(1...cupsCount)
+            let values: [Bool] = CupsCheckboxesEvaluation.checkboxesValues(value: qualityCriteria.value, cupsCount: Int16(cupsCount))
+            
+            return values.map({ $0 ? "x" : "o" }).joined(separator: " ")
+        }
+        
+        if qualityCriteria.configuration.unwrappedEvaluation is RadioEvaluation {
+            return String(format: "%.0f", qualityCriteria.value)
+        }
+        
+        return String(format: "%.2f", qualityCriteria.value)
+    }
 }

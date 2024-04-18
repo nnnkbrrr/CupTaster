@@ -89,13 +89,15 @@ extension CuppingView {
                             .padding(.horizontal, .small)
                         }
                         
-//                        Button { } label: {
-//                            HStack(spacing: .extraSmall) {
-//                                Image(systemName: "square.and.arrow.up")
-//                                Text("Share")
-//                            }
-//                        }
-//                        .buttonStyle(.bottomSheetBlock)
+                        Button {
+                            cupping.generateCSV()
+                        } label: {
+                            HStack(spacing: .extraSmall) {
+                                Image(systemName: "square.and.arrow.up")
+                                Text("Share")
+                            }
+                        }
+                        .buttonStyle(.bottomSheetBlock)
                     }
                     
                     HStack(spacing: .regular) {
