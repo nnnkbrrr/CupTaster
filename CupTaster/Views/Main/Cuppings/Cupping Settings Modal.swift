@@ -90,7 +90,7 @@ extension CuppingView {
                         }
                         
                         Button {
-                            cupping.generateCSV()
+                            cupping.shareCSV()
                         } label: {
                             HStack(spacing: .extraSmall) {
                                 Image(systemName: "square.and.arrow.up")

@@ -84,7 +84,7 @@ extension Cupping {
 
 
 extension Cupping {
-    func generateCSV() {
+    func shareCSV() {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first,
            let viewController = window.rootViewController?.presentedViewController {
@@ -163,7 +163,6 @@ extension Cupping {
     private func getQualityCriteriaCSVRowValue(qualityCriteria: QualityCriteria) -> String {
         if qualityCriteria.configuration.unwrappedEvaluation is CupsCheckboxesEvaluation {
             let cupsCount: Int = Int(qualityCriteria.group.sample.cupping.cupsCount)
-            let checkboxes: [Int] = Array(1...cupsCount)
             let values: [Bool] = CupsCheckboxesEvaluation.checkboxesValues(value: qualityCriteria.value, cupsCount: Int16(cupsCount))
             
             return values.map({ $0 ? "x" : "o" }).joined(separator: " ")
@@ -173,6 +172,58 @@ extension Cupping {
             return String(format: "%.0f", qualityCriteria.value)
         }
         
+        if qualityCriteria.configuration.evaluationType == "multiplePicker" {
+            return getMultiplePickerRepresentableValue(qualityCriteria: qualityCriteria)
+        }
+        
+        if qualityCriteria.configuration.evaluationType == "cups_multiplePicker" {
+            return getCupsMultiplePickerRepresentableValue(qualityCriteria: qualityCriteria)
+        }
+        
         return String(format: "%.2f", qualityCriteria.value)
     }
+}
+
+// MARK: -Support for deprecated forms
+
+// Multiple Picker
+
+private func getMultiplePickerRepresentableValue(qualityCriteria: QualityCriteria) -> String {
+    var allPickerValues: [Int] {
+        let values: [Int] = Int(qualityCriteria.value).digits
+        let pickersCount: Int = Int(qualityCriteria.configuration.upperBound).digits.count
+        switch values.count {
+        case let count where count < pickersCount: return (Array(repeating: 0, count: (pickersCount - values.count)) + values).reversed()
+        default: return values.reversed()
+        }
+    }
+    
+    let qcLowerBound: Double = qualityCriteria.configuration.lowerBound
+    let lowerBoundDigit: Int = Int(copysign(CGFloat(Int(qcLowerBound).digits.first!), qcLowerBound))
+    let lowerBoundIsNegative: Bool = { qcLowerBound.sign == .minus }()
+    
+    return allPickerValues.map({ "\($0 + (lowerBoundIsNegative ? lowerBoundDigit : 0))" }).joined(separator: " | ")
+}
+
+// Cups Multiple Picker
+
+public func getAllMultiplePickerShiftedValues(value: CGFloat, cuppingCupsCount: Int) -> [Int] {
+    let values: [Int] = Int(value).digits
+    switch values.count {
+    case let count where count < cuppingCupsCount: return (Array(repeating: 0, count: (cuppingCupsCount - values.count)) + values).reversed()
+    default: return Array(values.reversed().prefix(cuppingCupsCount))
+    }
+}
+
+public func getAllMultiplePickerValues(value: CGFloat, cuppingCupsCount: Int, lowerBound: CGFloat) -> [Int] {
+    return getAllMultiplePickerShiftedValues(value: value, cuppingCupsCount: cuppingCupsCount).map { $0 + Int(lowerBound) }
+}
+
+private func getCupsMultiplePickerRepresentableValue(qualityCriteria: QualityCriteria) -> String {
+    let cupsCount: Int = Int(qualityCriteria.group.sample.cupping.cupsCount)
+    let values: [Int] = getAllMultiplePickerShiftedValues(value: qualityCriteria.value, cuppingCupsCount: cupsCount).map {
+        $0 + Int(qualityCriteria.configuration.lowerBound)
+    }
+    
+    return values.map({ "\($0)" }).joined(separator: " | ")
 }

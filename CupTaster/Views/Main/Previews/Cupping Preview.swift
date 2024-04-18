@@ -16,6 +16,7 @@ struct CuppingPreview: View {
     @ObservedObject var cupping: Cupping
     @State var foldersModalIsActive: Bool = false
     
+    @State var exportCuppingWithDeprecatedForm: Bool = false
     @State var migrationCuppingFormCopy: CuppingForm? = nil
     
     init(_ cupping: Cupping) {
@@ -32,8 +33,7 @@ struct CuppingPreview: View {
                         if let cuppingForm: CuppingForm = cupping.form, cuppingForm.title.contains("SCA") {
                             migrationCuppingFormCopy = cuppingForm
                         } else {
-                            #warning("export")
-                            showAlert(title: "export", message: "export")
+                            exportCuppingWithDeprecatedForm = true
                         }
                     } label: {
                         content
@@ -135,6 +135,32 @@ struct CuppingPreview: View {
             set: { _ in migrationCuppingFormCopy = nil }
         )) {
             DeprectaredCuppingFormMigrationModalView(cuppingFormToMigrate: $migrationCuppingFormCopy)
+        }
+        .adaptiveSizeSheet(isPresented: $exportCuppingWithDeprecatedForm) {
+            VStack(spacing: .large) {
+                Text("This cupping form is no longer supported")
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, .regular)
+                
+                Text("We apologize for the inconvenience. You can export all the cupping data")
+                    .foregroundStyle(.gray)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, .regular)
+                
+                HStack(spacing: .extraSmall) {
+                    Button("OK") {
+                        exportCuppingWithDeprecatedForm = false
+                    }
+                    .buttonStyle(.bottomSheetBlock)
+                    
+                    Button("Export") {
+                        cupping.shareCSV()
+                    }
+                    .buttonStyle(.accentBottomSheetBlock)
+                }
+            }
+            .padding(.small)
         }
     }
     
