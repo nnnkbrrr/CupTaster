@@ -17,6 +17,8 @@
 		22242C8628EF281200138494 /* QCConfig Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C8528EF281200138494 /* QCConfig Entity.swift */; };
 		22242C8828EF282900138494 /* QCGHint Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22242C8728EF282900138494 /* QCGHint Entity.swift */; };
 		226CF02428F19FAF00F853B9 /* QCHint Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CF02328F19FAF00F853B9 /* QCHint Entity.swift */; };
+		6301EB002BF383230073A16F /* SCA en español.json in Resources */ = {isa = PBXBuildFile; fileRef = 6301EAFE2BF383230073A16F /* SCA en español.json */; };
+		6301EB012BF383230073A16F /* SCA 中文版.json in Resources */ = {isa = PBXBuildFile; fileRef = 6301EAFF2BF383230073A16F /* SCA 中文版.json */; };
 		6305BADC2B9C9F56001A8E51 /* Onboarding Greetings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6305BADB2B9C9F56001A8E51 /* Onboarding Greetings.swift */; };
 		6305BAE02B9C9FD0001A8E51 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6305BADF2B9C9FD0001A8E51 /* Onboarding.swift */; };
 		630704352B7652A00008A846 /* CloudKitSyncMonitor in Frameworks */ = {isa = PBXBuildFile; productRef = 630704342B7652A00008A846 /* CloudKitSyncMonitor */; };
@@ -138,6 +140,8 @@
 		22242C8528EF281200138494 /* QCConfig Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCConfig Entity.swift"; sourceTree = "<group>"; };
 		22242C8728EF282900138494 /* QCGHint Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCGHint Entity.swift"; sourceTree = "<group>"; };
 		226CF02328F19FAF00F853B9 /* QCHint Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QCHint Entity.swift"; sourceTree = "<group>"; };
+		6301EAFE2BF383230073A16F /* SCA en español.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SCA en español.json"; sourceTree = "<group>"; };
+		6301EAFF2BF383230073A16F /* SCA 中文版.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SCA 中文版.json"; sourceTree = "<group>"; };
 		6305BADB2B9C9F56001A8E51 /* Onboarding Greetings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Greetings.swift"; sourceTree = "<group>"; };
 		6305BADF2B9C9FD0001A8E51 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		630AD6122B2361CC0016DBFA /* Sample Final Score Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Final Score Section.swift"; sourceTree = "<group>"; };
@@ -491,6 +495,8 @@
 		63A88D0C2A4C99380006AA0F /* Cupping Forms */ = {
 			isa = PBXGroup;
 			children = (
+				6301EAFE2BF383230073A16F /* SCA en español.json */,
+				6301EAFF2BF383230073A16F /* SCA 中文版.json */,
 				63CB3C4E2BD00906001DD593 /* SCA на русском.json */,
 				63A88D0E2A4C9B250006AA0F /* SCA.json */,
 				63A88D142A4C9B780006AA0F /* CFModel.swift */,
@@ -685,8 +691,10 @@
 			files = (
 				633B68C928916F77005D32C0 /* Launch Screen.storyboard in Resources */,
 				63DC7A5D2801BE7A00010318 /* Preview Assets.xcassets in Resources */,
+				6301EB002BF383230073A16F /* SCA en español.json in Resources */,
 				63684CD929AA78C8009C1BDA /* Localizable.strings in Resources */,
 				63CB3C4F2BD00906001DD593 /* SCA на русском.json in Resources */,
+				6301EB012BF383230073A16F /* SCA 中文版.json in Resources */,
 				63DC7A5A2801BE7A00010318 /* Assets.xcassets in Resources */,
 				63A88D0F2A4C9B250006AA0F /* SCA.json in Resources */,
 			);

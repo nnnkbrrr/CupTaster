@@ -3,25 +3,42 @@
     "finalScoreFormula": "criteria_1_1 + criteria_2_1 + criteria_3_1 + criteria_4_1 + criteria_5_1 + (10 - (10 * criteria_9_1 / cups_count)) + criteria_6_1 + (10 - (10 * criteria_8_1 / cups_count)) + (10 - (10 * criteria_7_1 / cups_count)) + criteria_10_1 - (criteria_11_1 * criteria_11_2 / cups_count * 5)",
     "finalScoreLowerBound": 22,
     "finalScoreUpperBound": 100,
-    "languageCode": "en",
-    "version": "1.1",
+    "languageCode": "ru",
+    "version": "2.0",
     "qcGroupConfigurations": [
         {
-            "title": "Fragrance/Aroma",
+            "title": "Аромат,
             "ordinalNumber": 1,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": " The aromatic aspects include Fragrance (defined as the smell of the ground coffee when still dry) and Aroma (the smell of the coffee when infused with hot water). One can evaluate this at three distinct steps in the cupping process: (1) sniffing the grounds placed into the cup before pouring water onto the coffee; (2) sniffing the aromas released while breaking the crust; and (3) sniffing the aromas released as the coffee steeps. Specific aromas can be noted under “qualities” and the intensity of the dry, break, and wet aroma aspects noted on the 5-point vertical scales. The score finally given should reflect the preference of all three aspects of a sample’s Fragrance/Aroma."
+                "message": "При дегустации кофе важно обращать внимание на три ключевых момента: аромат сухих зерен, аромат при сломе корки (тонкого верхнего слоя кофейной гущи при заваривании), и аромат в процессе заваривания. Замечайте специфические оттенки, такие как фруктовые или ореховые ноты, оцените их интенсивность. Ваша окончательная оценка должна учитывать все эти аспекты, чтобы передать всю полноту аромата и вкусовых ощущений."
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Aroma",
-                    "hints": [],
+                    "title": "Аромат",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Минимальный аромат, едва уловимый"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Тонкий аромат, слабо выраженный"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Приятный аромат, отчетливый"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "CaptПленительный аромат, мощный и сложный"
+                        }
+                    ],
                     "value": 8,
                     "evaluationType": "slider",
                     "step": 0.25,
@@ -32,7 +49,7 @@
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 2,
-                    "title": "Dry",
+                    "title": "Сухой",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "radio",
@@ -44,7 +61,7 @@
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 3,
-                    "title": "Break",
+                    "title": "На сломе",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "radio",
@@ -55,36 +72,36 @@
             ]
         },
         {
-            "title": "Flavor",
+            "title": "Вкус",
             "ordinalNumber": 2,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "Flavor represents the coffee's principal character, the 'mid-range' notes, in between the first impressions given by the coffee's first aroma and acidity to its final aftertaste. It is a combined impression of all the gustatory (taste bud) sensations and retro-nasal aromas that go from the mouth to nose. The score given for Flavor should account for the intensity, quality and complexity of its combined taste and aroma, experienced when the coffee is slurped into the mouth vigorously so as to involve the entire palate in the evaluation."
+                "message": "Когда вы пробуете кофе, сосредоточьтесь на его основной характеристике - вкусе, который проявляется после первичного аромата и кислотности, но до послевкусия. Он включает в себя все вкусы, которые вы ощущаете на языке, а также ароматы, которые вы чувствуете, когда выдыхаете после глотка. Для оценки вкуса энергично проглотите кофе, чтобы полностью задействовать нёбо. При выставлении оценки учитывайте интенсивность, качество и сложность сочетания вкуса и аромата."
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Flavor",
+                    "title": "Вкус",
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "The drink is similar to coffee, without any notes and flavors"
+                            "message": "Напиток похож на кофе, без каких-либо нот и привкусов"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "Coffee that you want to drink, it has a simple bouquet"
+                            "message": "Кофе, который хочется пить, имеет простой букет"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "Very tasty coffee with a bright and memorable bouquet, pleasant sweetness and acidity"
+                            "message": "Очень вкусный кофе с ярким и запоминающимся букетом, приятной сладостью и кислинкой"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "Outstanding coffee that tastes more like juice"
+                            "message": "Выдающийся кофе, который по вкусу больше похож на сок"
                         }
                     ],
                     "value": 8,
@@ -96,36 +113,36 @@
             ]
         },
         {
-            "title": "Aftertaste",
+            "title": "Послевкусие",
             "ordinalNumber": 3,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "Aftertaste is defined as the length of positive flavor (taste and aroma) qualities emanating from the back of the palate and remaining after the coffee is expectorated or swallowed. If the aftertaste were short or unpleasant, a lower score would be given.\r\n'+': Long-lasting, Clean, Dessert, Velvety, Comprehensive, Pleasant, Rounded, Completed\r\n'-': Short, Dry, Bitter, Astringent, Rough, Sand, Metal, Dusty, Dirty"
+                "message": "После того как вы проглотите или выплюнете кофе, обратите внимание на то, какие положительные вкусы и ароматы остаются на задней стенке вашего нёба. Если они непродолжительны или неприятны, это будет означать снижение оценки."
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Aftertaste",
+                    "title": "Послевкусие",
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "Coffee with an unpleasant aftertaste from the column with the '-' sign"
+                            "message": "Непродолжительное послевкусие, вкусы быстро исчезают"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "Coffee, with a short, perhaps slightly astringent aftertaste, a combination of '+' and '-'"
+                            "message": "Умеренное послевкусие, некоторые вкусы сохраняются недолго"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "Coffee, with several positive values without negative notes"
+                            "message": "Приятное послевкусие, вкус остается приятным"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "Outstanding coffee, with very strong and bright positive characteristics"
+                            "message": "Исключительное послевкусие, вкус долго сохраняется и запоминается"
                         }
                     ],
                     "value": 8,
@@ -137,36 +154,36 @@
             ]
         },
         {
-            "title": "Acidity",
+            "title": "Кислотность",
             "ordinalNumber": 4,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "Acidity is often described as 'brightness' when favorable or 'sour' when unfavorable. At its best, acidity contributes to a coffee's liveliness, sweetness, and fresh- fruit character and is almost immediately experienced and evaluated when the coffee is first slurped into the mouth. Acidity that is overly intense or dominating may be unpleasant, however, and excessive acidity may not be appropriate to the flavor profile of the sample. The final score marked on the horizontal tick-mark scale should reflect the panelist’s perceived quality for the Acidity relative to the expected flavor profile based on origin characteristics and/or other factors (degree of roast, intended use, etc.). Coffees expected to be high in Acidity, such as a Kenya coffee, or coffees expected to be low in Acidity, such as a Sumatra coffee, can receive equally high preference scores although their intensity rankings will be quite different.\r\n'+':, Muted, Flat, Caustic, Immature, Simple, Sharp, Unbalanced, Grassy\r\n'-': Clean, Lemon, Apple, Comprehensive, Bright, Structured, Juicy, Soft, Delicate"
+                "message": "Когда вы пробуете кофе, обратите внимание на его кислотность, которую можно описать как «яркость», если она приятная, или «кислинку», если нет. Хорошая кислотность придает кофе живость, сладость и фруктовые нотки. Вы сразу же заметите это, когда сделаете первый глоток. Однако если кислотность слишком интенсивная или чрезмерная, она может не понравиться. Ваша оценка кислотности должна отражать, насколько она соответствует ожидаемому вкусовому профилю, основанному на таких факторах, как страна происхождения и степень обжарки."
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Acidity",
+                    "title": "Кислотность",
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "Coffee with inexpressive or absent acidity"
+                            "message": "Низкая кислотность, кофе не хватает яркости и живости"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "Coffee with a combination of '+' and '-'"
+                            "message": "Умеренная кислотность, заметная, но не слишком сильная"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "The acidity is bright, pleasant. Several positive characteristics."
+                            "message": "Приятная кислотность, добавляет яркости и усиливает вкус"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "Outstanding coffee with very strong and bright positive characteristics and their combination"
+                            "message": "Исключительная кислотность, яркая и живая, усиливает общее впечатление"
                         }
                     ],
                     "value": 8,
@@ -176,10 +193,10 @@
                     "upperBound": 10
                 },
                 {
-                    "lowerBoundTitle": "Low",
-                    "upperBoundTitle": "High",
+                    "lowerBoundTitle": "Низкая",
+                    "upperBoundTitle": "Высокая",
                     "ordinalNumber": 2,
-                    "title": "Intensity",
+                    "title": "Интенсивность",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "radio",
@@ -190,13 +207,13 @@
             ]
         },
         {
-            "title": "Body",
+            "title": "Тело",
             "ordinalNumber": 5,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "The quality of Body is based upon the tactile feeling of the liquid in the mouth, especially as perceived between the tongue and roof of the mouth. Most samples with heavy Body may also receive a high score in terms of quality due to the presence of brew colloids and sucrose. Some samples with lighter Body may also have a pleasant feeling in the mouth, however. Coffees expected to be high in Body, such as a Sumatra coffee, or coffees expected to be low in Body, such as a Mexican coffee, can receive equally high preference scores although their intensity rankings will be quite different.\r\n'+': Dense, Rounded, Smooth, Tea, Silky, Juicy, Syrupy, Butter, Enveloping, Velvety, Cream\r\n'-': Watery, Dry, Astringent, Rough, Rough, Sand, Tart"
+                "message": "Когда вы пьете кофе, обратите внимание на то, как он ощущается во рту, особенно между языком и нёбом. Тяжелое тело часто указывает на высокое качество напитка, поскольку в нем присутствуют коллоиды и сахар. Однако даже кофе с легким телом может иметь приятную консистенцию во рту."
             },
             "qcConfigurations": [
                 {
@@ -207,19 +224,19 @@
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "Coffee with negative characteristics"
+                            "message": "Тонкое тело, не хватает насыщенности и чувствуется водянистость"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "Coffee with a combination of '+' and '-'"
+                            "message": "Среднее тело, несколько насыщенное и сбалансированное"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "The body is round, pleasant. Several positive characteristics."
+                            "message": "Полное тело, богатая и приятная текстура"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "Outstanding coffee with very strong and bright positive characteristics and their combination"
+                            "message": "Исключительно полное тело, роскошная и бархатистая текстура"
                         }
                     ],
                     "value": 8,
@@ -229,10 +246,10 @@
                     "upperBound": 10
                 },
                 {
-                    "lowerBoundTitle": "Thin",
-                    "upperBoundTitle": "Heavy",
+                    "lowerBoundTitle": "Легкое",
+                    "upperBoundTitle": "Тяжелое",
                     "ordinalNumber": 2,
-                    "title": "Level",
+                    "title": "Вес",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "radio",
@@ -243,36 +260,36 @@
             ]
         },
         {
-            "title": "Balance",
+            "title": "Баланс",
             "ordinalNumber": 6,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "How all the various aspects of Flavor, Aftertaste, Acidity and Body of the sample work together and complement or contrast to each other is Balance. If the sample is lacking in certain aroma or taste attributes or if some attributes are overpowering, the Balance score would be reduced.\r\n'+': Delicate, Elegant, Comprehensive, Round, Clean, Sweet, Balanced, Nutritious, Juicy\r\n'-': Delicate, Elegant, Comprehensive, Rounded, Clean, Sweet, Balanced, Nutritious, Juicy"
+                "message": "Подумайте, как вкус, послевкусие, кислотность и тело кофе сочетаются друг с другом - это и есть баланс. Когда эти аспекты хорошо дополняют друг друга, это говорит о более высокой оценке. Однако если некоторых атрибутов не достает или они слишком доминируют, это негативно сказывается на балансе и может привести к снижению оценки."
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Balance",
+                    "title": "Баланс",
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "coffee in which the balance is shifted towards negative or neutral tones"
+                            "message": "Отсутствует баланс, вкусы кажутся разрозненными и плохо сочетающимися"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "coffee with a combination of '+' and '-'"
+                            "message": "Умеренный баланс, некоторые вкусы гармонируют лучше, чем другие"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "A very good balanced cup by many indicators"
+                            "message": "Хороший баланс, вкусы хорошо дополняют друг друга"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "outstanding coffee without negative traits."
+                            "message": "Исключительный баланс, вкусы сливаются воедино, создавая идеальную гармонию"
                         }
                     ],
                     "value": 8,
@@ -284,20 +301,20 @@
             ]
         },
         {
-            "title": "Sweetness",
+            "title": "Сладость",
             "ordinalNumber": 7,
             "scoreFormula": "10 - 10 * criteria_1 / cups_count",
             "scoreLowerBound": 0,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "Sweetness refers to a pleasing fullness of flavor as well as any obvious sweetness and its perception is the result of the presence of certain carbohydrates. The opposite of sweetness in this context is sour, astringency or 'green' flavors. This quality may not be directly perceived as in sucrose-laden products such as soft drinks, but will affect other flavor attributes. 2 points are awarded for each cup displaying this attribute for a maximum score of 10 points."
+                "message": "Под сладостью понимается приятная полнота вкуса, а также любая очевидная сладость, присутствие которой обусловлено наличием определенных углеводов. Важно отметить, что отсутствие кислинки, терпкости или «зеленого» привкуса также относится к сладости. Несмотря на то что она может быть не столь очевидной, как сладость в напитках с высоким содержанием сахара, она существенно влияет на другие характеристики вкуса."
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Sweetness",
+                    "title": "Сладость",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "cups_checkboxes",
@@ -308,20 +325,20 @@
             ]
         },
         {
-            "title": "Clean Cup",
+            "title": "Чистота чашки",
             "ordinalNumber": 8,
             "scoreFormula": "10 - 10 * criteria_1 / cups_count",
             "scoreLowerBound": 0,
             "scoreUpperBound": 10,
             "hint": {
-                "message": " Clean Cup refers to a lack of interfering negative impressions from first ingestion to final aftertaste, a “transparency” of cup. In evaluating this attribute, notice the total flavor experience from the time of the initial ingestion to final swallowing or expectoration. Any non-coffee like tastes or aromas will disqualify an individual cup. 2 points are awarded for each cup displaying the attribute of Clean Cup."
+                "message": "Под чистотой чашки подразумевается кофе, в котором отсутствуют какие-либо негативные вкусы или ароматы с момента первого глотка до того, как вы проглотите или выплюнете его. Если вы заметили необычные вкусы или запахи, не свойственные кофе, то такая чашка не считается чистой."
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Clean Cup",
+                    "title": "Чистота чашки",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "cups_checkboxes",
@@ -332,20 +349,20 @@
             ]
         },
         {
-            "title": "Uniformity",
+            "title": "Однородность",
             "ordinalNumber": 9,
             "scoreFormula": "10 - 10 * criteria_1 / cups_count",
             "scoreLowerBound": 0,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "Uniformity refers to consistency of flavor of the different cups of the sample tasted. If the cups taste different, the rating of this aspect would not be as high."
+                "message": "Однородность - это постоянство вкуса во всех чашках образца. Если вкус каждой чашки одинаков, это говорит о высоком уровне однородности. Если вкус чашек отличается, оценка этого аспекта будет не столь высокой."
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Uniformity",
+                    "title": "Однородность",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "cups_checkboxes",
@@ -356,21 +373,38 @@
             ]
         },
         {
-            "title": "Overall",
+            "title": "Общее впечатление",
             "ordinalNumber": 10,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "The 'overall' scoring aspect is meant to reflect the holistically integrated rating of the sample as perceived by the individual panelist. A sample with many highly pleasant aspects, but not quite 'measuring up' would receive a lower rating. A coffee that met expectations as to its character and reflected particular origin flavor qualities would receive a high score. An exemplary example of preferred characteristics not fully reflected in the individual score of the individual attributes might receive an even higher score. This is the step where the panelists make their personal appraisal."
+                "message": "Общее впечатление - это то, как дегустатор оценивает кофе в целом, принимая во внимание различные факторы, такие как кислотность, тело, баланс, сложность вкуса и послевкусия. Если кофе соответствует ожиданиям и демонстрирует уникальные вкусы своего места происхождения, он получит высокий балл."
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Overall",
-                    "hints": [],
+                    "title": "Общее впечатление",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Ниже среднего, не хватает глубины и характера"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Хороший, приятный, с некоторыми примечательными качествами"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Очень хороший образец, с ярко выраженными характеристиками"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Превосходно, выдающийся образец во всех отношениях, действительно запоминающийся опыт"
+                        }
+                    ],
                     "value": 8,
                     "evaluationType": "slider",
                     "step": 0.25,
@@ -380,20 +414,20 @@
             ]
         },
         {
-            "title": "Defects",
+            "title": "Дефекты",
             "ordinalNumber": 11,
             "scoreFormula": "criteria_1 * criteria_2 / cups_count * -5",
             "scoreLowerBound": -20,
             "scoreUpperBound": 0,
             "hint": {
-                "message": "Defects are negative or poor flavors that detract from the quality of the coffee. The defect must first be classified (as a taint or a fault), then described ('sour', 'rubbery', 'ferment', 'phenolic' for example) and the description written down. The number of cups in which the defect was found is then noted."
+                "message": "Дефекты кофе - это отрицательные или плохие вкусовые качества, снижающие его качество, которые классифицируются как привкус или недостаток. Привкус оценивается в 2 балла, а недостаток - в 4 балла."
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Cups",
+                    "title": "Чашки",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "cups_checkboxes",
@@ -405,15 +439,15 @@
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 2,
-                    "title": "Intensity",
+                    "title": "Интенсивность",
                     "hints": [
                         {
                             "lowerBound": 2,
-                            "message": "A taint is an off-flavor that is noticeable, but not overwhelming, usually found in the aromatic aspects."
+                            "message": "Привкус - это заметный, но не преобладающий вкус, обычно присутствующий в ароматических аспектах"
                         },
                         {
                             "lowerBound": 4,
-                            "message": "A fault is an off-flavor, usually found in the taste aspects, that is either overwhelming or renders the sample unpalatable."
+                            "message": "Недостаток - это нежелательный вкус, обычно проявляющийся во вкусовых характеристиках, который либо преобладает, либо делает образец невкусным"
                         }
                     ],
                     "value": 0,

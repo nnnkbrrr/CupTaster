@@ -1,42 +1,42 @@
 {
-    "title": "SCA",
+    "title": "SCA 中文版",
     "finalScoreFormula": "criteria_1_1 + criteria_2_1 + criteria_3_1 + criteria_4_1 + criteria_5_1 + (10 - (10 * criteria_9_1 / cups_count)) + criteria_6_1 + (10 - (10 * criteria_8_1 / cups_count)) + (10 - (10 * criteria_7_1 / cups_count)) + criteria_10_1 - (criteria_11_1 * criteria_11_2 / cups_count * 5)",
     "finalScoreLowerBound": 22,
     "finalScoreUpperBound": 100,
-    "languageCode": "en",
+    "languageCode": "zh",
     "version": "2.0",
     "qcGroupConfigurations": [
         {
-            "title": "Fragrance/Aroma",
+            "title": "香味/香气",
             "ordinalNumber": 1,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "When you're exploring coffee scents, there are three key moments to pay attention to: the aroma of the dry grounds, the aroma when you break the crust, and the aroma as the coffee steeps. Take note of the specific scents you detect, like fruity or nutty notes, and rate the intensity on a scale. Your final assessment should consider all these aspects to capture the full fragrance and aroma experience."
+                "message": "当你探索咖啡的气味时，有三个关键时刻需要注意：干咖啡渣的香气、你打碎咖啡皮时的香气和咖啡浸泡时的香气。记下你检测到的特定气味，比如水果味或坚果味，并根据等级对其强度进行评分。您的最终评估应考虑所有这些方面，以获取完整的香味和香气体验。"
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Aroma",
+                    "title": "香气",
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "Minimal fragrance, hardly noticeable aroma"
+                            "message": "香气极小，几乎不明显"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "Subtle fragrance, faint aroma detected"
+                            "message": "香气微妙，检测出淡淡的香气"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "Pleasant fragrance, distinct aroma"
+                            "message": "香气怡人，香气独特"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "Captivating fragrance, powerful and complex aroma"
+                            "message": "迷人的香气，浓烈而复杂的香气"
                         }
                     ],
                     "value": 8,
@@ -49,7 +49,7 @@
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 2,
-                    "title": "Dry",
+                    "title": "干",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "radio",
@@ -61,7 +61,7 @@
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 3,
-                    "title": "Break",
+                    "title": "断",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "radio",
@@ -72,36 +72,36 @@
             ]
         },
         {
-            "title": "Flavor",
+            "title": "风味",
             "ordinalNumber": 2,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "When you taste the coffee, focus on its main character, the flavors that come through after the initial aroma and acidity but before the aftertaste. This includes all the tastes you perceive on your tongue, as well as the aromas you sense when you breathe out after sipping. To evaluate flavor, slurp the coffee vigorously to fully engage your palate. Consider the intensity, quality, and complexity of the combined taste and aroma when giving your score."
+                "message": "当你品尝咖啡时，要关注它的主要特征，即在最初的香气和酸度之后，但在回味之前产生的味道。这包括你在舌头上感受到的所有味道，以及你在啜饮后呼气时感受到的香气。为了评估味道，用力地喝咖啡，使你的味觉充分活跃。评分时要考虑味道和香气的强度、质量和复杂性。"
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Flavor",
+                    "title": "风味",
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "The drink is similar to coffee, without any notes and flavors"
+                            "message": "这种饮料类似于咖啡，没有任何味道和味道"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "Coffee that you want to drink, it has a simple bouquet"
+                            "message": "你想喝的咖啡，它有一束简单的花束"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "Very tasty coffee with a bright and memorable bouquet, pleasant sweetness and acidity"
+                            "message": "非常美味的咖啡，明亮而令人难忘的香气，令人愉快的甜味和酸度"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "Outstanding coffee that tastes more like juice"
+                            "message": "口感更像果汁的优质咖啡"
                         }
                     ],
                     "value": 8,
@@ -113,36 +113,36 @@
             ]
         },
         {
-            "title": "Aftertaste",
+            "title": "余味",
             "ordinalNumber": 3,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "After you swallow or spit out the coffee, notice the lingering positive flavors and aromas that remain at the back of your palate. If these qualities are short or unpleasant, it would warrant a lower score."
+                "message": "在你吞下或吐出咖啡后，注意到残留在味觉后部的积极味道和香气。如果这些品质是短暂的或令人不快的，那么就有理由得到更低的分数。"
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Aftertaste",
+                    "title": "余味",
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "Short-lived aftertaste, flavors fade quickly"
+                            "message": "回味短暂，味道迅速消失"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "Moderate aftertaste, some flavors linger briefly"
+                            "message": "中等回味，一些味道稍有残留"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "Pleasant aftertaste, flavors linger pleasantly"
+                            "message": "愉悦回味，味道持久愉悦"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "Exceptional aftertaste, flavors linger long and are memorable"
+                            "message": "杰出回味，味道持久且难忘"
                         }
                     ],
                     "value": 8,
@@ -154,36 +154,36 @@
             ]
         },
         {
-            "title": "Acidity",
+            "title": "酸度",
             "ordinalNumber": 4,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "When you taste the coffee, pay attention to its acidity, which can be described as «brightness» when it's pleasant or «sour» when it's not. Good acidity adds liveliness, sweetness, and fruity notes to the coffee. You'll notice it right away when you take your first sip. However, if the acidity is too intense or overpowering, it might not be enjoyable. Your score for acidity should reflect how well it fits with the expected flavor profile based on factors like origin and roast level"
+                "message": "当你品尝咖啡时，要注意它的酸度，当它令人愉快时，可以用“明亮”来形容，当它不令人愉快时可以用“酸”来形容。良好的酸度为咖啡增添了活力、甜味和水果味。当你喝第一口的时候，你会立刻注意到的。然而，如果酸度太浓或太浓，可能就不会令人愉快。你的酸度得分应该反映出它在多大程度上符合基于产地和烘焙水平等因素的预期风味。"
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Acidity",
+                    "title": "酸度",
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "Low acidity, the coffee lacks brightness and liveliness"
+                            "message": "酸度低，咖啡缺乏亮度和活力"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "Moderate acidity, noticeable but not overpowering"
+                            "message": "中等酸度，明显但不强烈"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "Pleasant acidity, adds brightness and enhances flavor"
+                            "message": "令人愉悦的酸度，增加亮度，增强风味"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "Exceptional acidity, vibrant and lively, enhances the overall experience"
+                            "message": "非凡的酸度，充满活力和活力，增强整体体验"
                         }
                     ],
                     "value": 8,
@@ -193,10 +193,10 @@
                     "upperBound": 10
                 },
                 {
-                    "lowerBoundTitle": "Low",
-                    "upperBoundTitle": "High",
+                    "lowerBoundTitle": "低",
+                    "upperBoundTitle": "高",
                     "ordinalNumber": 2,
-                    "title": "Intensity",
+                    "title": "强度",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "radio",
@@ -207,36 +207,36 @@
             ]
         },
         {
-            "title": "Body",
+            "title": "口感",
             "ordinalNumber": 5,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "When you sip the coffee, notice how it feels in your mouth, particularly between your tongue and the roof of your mouth. A heavy body often indicates a high-quality coffee because of the presence of brew colloids and sugars. However, even lighter-bodied coffees can offer a pleasant mouthfeel."
+                "message": "当你啜饮咖啡时，注意它在你嘴里的感觉，尤其是在你的舌头和上颚之间。由于存在冲泡胶体和糖，厚重的咖啡体通常表明咖啡是高质量的。然而，即使是酒体较轻的咖啡也能提供令人愉悦的口感。"
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Body",
+                    "title": "口感",
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "Thin body, lacks substance and feels watery"
+                            "message": "薄体，缺乏实质感，感觉水味"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "Medium body, somewhat substantial with a balanced feel"
+                            "message": "中等体，有一定的实质感，口感平衡"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "Full body, rich and satisfying texture"
+                            "message": "浓体，丰富而令人满足的口感"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "Exceptionally full body, luxurious and velvety texture"
+                            "message": "特别浓体，奢华丝滑的口感"
                         }
                     ],
                     "value": 8,
@@ -246,10 +246,10 @@
                     "upperBound": 10
                 },
                 {
-                    "lowerBoundTitle": "Thin",
-                    "upperBoundTitle": "Heavy",
+                    "lowerBoundTitle": "轻",
+                    "upperBoundTitle": "浓",
                     "ordinalNumber": 2,
-                    "title": "Level",
+                    "title": "水平",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "radio",
@@ -260,36 +260,36 @@
             ]
         },
         {
-            "title": "Balance",
+            "title": "平衡",
             "ordinalNumber": 6,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "Consider how the flavor, aftertaste, acidity, and body of the coffee interact with each other — that's balance. When these aspects complement each other well, it contributes to a higher score. However, if certain attributes are missing or if some are too dominant, it affects the balance negatively and could result in a lower score."
+                "message": "想想咖啡的味道、回味、酸度和咖啡体是如何相互作用的—这就是平衡。当这些方面相互补充得很好时，就有助于获得更高的分数。然而，如果某些属性缺失或某些属性过于显性，则会对平衡产生负面影响，并可能导致得分较低。"
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Balance",
+                    "title": "平衡",
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "Lacks balance, flavors feel disjointed and not well-integrated"
+                            "message": "缺乏平衡，味道感觉脱节，没有很好地融合"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "Moderately balanced, some flavors harmonize better than others"
+                            "message": "适度均衡，有些味道比其他味道协调得更好"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "Well-balanced, flavors complement each other nicely"
+                            "message": "均衡，味道相得益彰"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "Exceptionally balanced, flavors meld seamlessly, creating a perfect harmony"
+                            "message": "异常均衡，味道无缝融合，创造出完美的和谐"
                         }
                     ],
                     "value": 8,
@@ -301,20 +301,20 @@
             ]
         },
         {
-            "title": "Sweetness",
+            "title": "甜度",
             "ordinalNumber": 7,
             "scoreFormula": "10 - 10 * criteria_1 / cups_count",
             "scoreLowerBound": 0,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "Sweetness refers to a pleasing fullness of flavor as well as any obvious sweetness and its perception is the result of the presence of certain carbohydrates. It's important to note that the absence of sourness, astringency, or «green» flavors also contributes to sweetness. While it might not be as obvious as the sweetness in sugary drinks, it significantly impacts other flavor characteristics."
+                "message": "甜度指的是令人愉悦的味道和任何明显的甜度，它的感知是某些碳水化合物存在的结果。需要注意的是，没有酸味、涩味或“绿色”味道也会增加甜度。虽然它可能不像含糖饮料中的甜度那么明显，但它会显著影响其他风味特征。"
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Sweetness",
+                    "title": "甜度",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "cups_checkboxes",
@@ -325,20 +325,20 @@
             ]
         },
         {
-            "title": "Clean Cup",
+            "title": "干净杯",
             "ordinalNumber": 8,
             "scoreFormula": "10 - 10 * criteria_1 / cups_count",
             "scoreLowerBound": 0,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "Clean Cup refers to a coffee that lacks any negative tastes or aromas from the moment you first sip it until you finish swallowing or spitting it out. If you notice any unusual tastes or smells that aren't typical of coffee, then that cup isn't considered clean."
+                "message": "干净杯是指从你第一口喝到咽下或吐出为止，没有任何负面味道或香气的咖啡。如果你注意到咖啡有任何不寻常的味道或气味，那么那杯咖啡就不算干净。"
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Clean Cup",
+                    "title": "干净杯",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "cups_checkboxes",
@@ -349,20 +349,20 @@
             ]
         },
         {
-            "title": "Uniformity",
+            "title": "均匀性",
             "ordinalNumber": 9,
             "scoreFormula": "10 - 10 * criteria_1 / cups_count",
             "scoreLowerBound": 0,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "Uniformity refers to the consistency of flavor across all the cups in a sample. If each cup tastes the same, it indicates a high level of uniformity. If the cups taste different, the rating of this aspect would not be as high."
+                "message": "均匀性是指样品中所有杯子的风味一致性。如果每一杯的味道都一样，那就表明味道很均匀。如果杯子的味道不同，这方面的评分就不会那么高。"
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Uniformity",
+                    "title": "均匀性",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "cups_checkboxes",
@@ -373,36 +373,36 @@
             ]
         },
         {
-            "title": "Overall",
+            "title": "总体",
             "ordinalNumber": 10,
             "scoreFormula": "criteria_1",
             "scoreLowerBound": 6,
             "scoreUpperBound": 10,
             "hint": {
-                "message": "Overall rating encompasses how the taster rates the coffee as a whole, taking into account various factors such as acidity, body, balance, flavor complexity, and aftertaste. If it matches what's expected and shows the unique flavors of where it's from, it gets a high score."
+                "message": "总体评分包括品尝者对整个咖啡的评分，考虑了酸度、口感、平衡度、风味复杂性和回味等各种因素。如果它符合预期，并显示出它来自哪里的独特风味，它就会获得高分。"
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Overall",
+                    "title": "总体",
                     "hints": [
                         {
                             "lowerBound": 6,
-                            "message": "Below average, lacks depth and character"
+                            "message": "低于平均水平，缺乏深度和个性"
                         },
                         {
                             "lowerBound": 7,
-                            "message": "Good, enjoyable with some notable qualities"
+                            "message": "很好，令人愉快，有一些值得注意的品质"
                         },
                         {
                             "lowerBound": 8,
-                            "message": "Very good, well-rounded with distinct characteristics"
+                            "message": "很好，全面，特点鲜明"
                         },
                         {
                             "lowerBound": 9,
-                            "message": "Excellent, outstanding in every aspect, a truly memorable experience"
+                            "message": "非常棒，各方面都很出色，是一次真正难忘的经历"
                         }
                     ],
                     "value": 8,
@@ -414,20 +414,20 @@
             ]
         },
         {
-            "title": "Defects",
+            "title": "缺陷",
             "ordinalNumber": 11,
             "scoreFormula": "criteria_1 * criteria_2 / cups_count * -5",
             "scoreLowerBound": -20,
             "scoreUpperBound": 0,
             "hint": {
-                "message": "Defects in coffee are negative or poor flavors that diminish its quality, classified as either a taint or a fault. A taint rated with an intensity of 2. A fault rated with an intensity of 4."
+                "message": "咖啡中的缺陷是负面的或糟糕的味道，会降低其质量，被归类为污点或缺陷。等级为2级的污点。强度为4的错误。"
             },
             "qcConfigurations": [
                 {
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "Cups",
+                    "title": "杯数",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "cups_checkboxes",
@@ -439,15 +439,15 @@
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 2,
-                    "title": "Intensity",
+                    "title": "强度",
                     "hints": [
                         {
                             "lowerBound": 2,
-                            "message": "A taint is an off-flavor that is noticeable, but not overwhelming, usually found in the aromatic aspects"
+                            "message": "污点是一种明显但不强烈的异味，通常存在于芳香方面"
                         },
                         {
                             "lowerBound": 4,
-                            "message": "A fault is an off-flavor, usually found in the taste aspects, that is either overwhelming or renders the sample unpalatable"
+                            "message": "错误是味道不好，通常出现在味道方面，它要么让人难以忍受，要么让样品变得不可口"
                         }
                     ],
                     "value": 0,

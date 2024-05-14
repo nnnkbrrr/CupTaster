@@ -15,10 +15,12 @@ public class CFManager: ObservableObject {
     
     static let shared = CFManager()
     private init() {
-        let SCA_en_CFModel = CFModel(title: "SCA", version: "1.1")
-        let SCA_ru_CFModel = CFModel(title: "SCA на русском", version: "1.1")
-        
-        allCFModels = [SCA_en_CFModel, SCA_ru_CFModel]
+        allCFModels = [
+            CFModel(title: "SCA", version: "2.0"),
+            CFModel(title: "SCA en español", version: "2.0"),
+            CFModel(title: "SCA на русском", version: "2.0"),
+            CFModel(title: "SCA 中文版", version: "2.0")
+        ]
     }
 }
 
@@ -112,14 +114,14 @@ extension CFManager {
             for sample in cupping.samples {
                 for qcGroup in sample.qualityCriteriaGroups {
                     if let qcGroupConfiguration: QCGroupConfig = finalQCGroupConfigurations.first(where: {
-                        $0.title == qcGroup.configuration.title
+                        $0.ordinalNumber == qcGroup.configuration.ordinalNumber
                     }) {
                         qcGroup.configuration = qcGroupConfiguration
                         let finalCriteriaConfigurations: Set<QCConfig> = qcGroupConfiguration.qcConfigurations
                         
                         for criteria in qcGroup.qualityCriteria {
                             if let criteriaConfiguration: QCConfig = finalCriteriaConfigurations.first(where: {
-                                $0.title == criteria.configuration.title
+                                $0.ordinalNumber == criteria.configuration.ordinalNumber
                             }) {
                                 criteria.configuration = criteriaConfiguration
                             } else {
