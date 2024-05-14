@@ -50,8 +50,9 @@ extension SampleView {
             
             var body: some View {
                 VStack(spacing: .extraSmall) {
-                    Text(criteria.title.prefix(2))
-                        .font(.caption)
+                    Text(criteria.shortLabel)
+                        .resizableText(initialSize: 12)
+                        .lineLimit(1)
                         .padding(.vertical, .extraSmall)
                     
                     let values: [Bool] = CupsCheckboxesEvaluation.checkboxesValues(value: criteria.value, cupsCount: cupsCount)

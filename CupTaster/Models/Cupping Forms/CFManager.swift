@@ -123,6 +123,7 @@ extension CFManager {
                             if let criteriaConfiguration: QCConfig = finalCriteriaConfigurations.first(where: {
                                 $0.ordinalNumber == criteria.configuration.ordinalNumber
                             }) {
+                                criteria.title = criteriaConfiguration.title
                                 criteria.configuration = criteriaConfiguration
                             } else {
                                 throw MigrationError.qualityCriteriaMigrationError(

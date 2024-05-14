@@ -182,7 +182,6 @@
 		636712F72AF66CE80042DB00 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		636831382B4D8E91008763B1 /* Bottom Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bottom Sheet.swift"; sourceTree = "<group>"; };
 		63684CDA29AA78C8009C1BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		63684CDD29AA7986009C1BDA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6371088A288032F60073348C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63729F932A6D7B9300EF0FEE /* Sample Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Preview.swift"; sourceTree = "<group>"; };
 		63729F952A6DAF6600EF0FEE /* Sample Tools Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sample Tools Section.swift"; sourceTree = "<group>"; };
@@ -660,7 +659,6 @@
 			knownRegions = (
 				en,
 				Base,
-				ru,
 			);
 			mainGroup = 63DC7A492801BE7800010318;
 			packageReferences = (
@@ -831,7 +829,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				63684CDA29AA78C8009C1BDA /* en */,
-				63684CDD29AA7986009C1BDA /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

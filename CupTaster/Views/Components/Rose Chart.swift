@@ -75,7 +75,7 @@ struct RoseChart: View {
                     RoseChartGrid(categoriesCount: qualityCriteria.count, divisionsCount: 4)
                         .stroke(.gray.opacity(0.5), lineWidth: 0.5)
                     
-                    RoseChartLabels(qualityCriteriaLabels: qualityCriteria.map { $0.title }, geometry: geometry)
+                    RoseChartLabels(qualityCriteriaLabels: qualityCriteria.map { $0.shortLabel }, geometry: geometry)
                 }
             }
             .animation(.bouncy(duration: 0.5).delay(0.2), value: selectedSample)
@@ -185,22 +185,10 @@ extension RoseChart {
             let radius: CGFloat = min(rect.maxX - rect.midX, rect.maxY - rect.midY) + 10
             
             ZStack {
-                ForEach(Array(qualityCriteriaLabels.enumerated()), id: \.offset) { index, label in
+                ForEach(Array(qualityCriteriaLabels.enumerated()), id: \.offset) { index, shortLabel in
                     let a: CGFloat = 2 * .pi / CGFloat(qualityCriteriaLabels.count)
                     let pointX: CGFloat = rect.midX + cos((CGFloat(index) + 0.5) * a - .pi / 2) * radius
                     let pointY: CGFloat = rect.midY + sin((CGFloat(index) + 0.5) * a - .pi / 2) * radius
-                    
-                    let labelWords: [String] = label.components(separatedBy: .whitespacesAndNewlines)
-                    
-                    let shortLabel: String = {
-                        if labelWords.count > 1 {
-                            return String(labelWords[0].prefix(1)) + String(labelWords[1].prefix(1))
-                        } else if label.count < 4 {
-                            return label
-                        } else {
-                            return String(label.prefix(2))
-                        }
-                    }()
                     
                     Text(shortLabel)
                         .font(.caption2)

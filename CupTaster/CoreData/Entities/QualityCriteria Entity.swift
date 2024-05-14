@@ -21,6 +21,20 @@ public class QualityCriteria: NSManagedObject, Identifiable {
 }
 
 extension QualityCriteria {
+    var shortLabel: String {
+        let labelWords: [String] = title.components(separatedBy: .whitespacesAndNewlines)
+        
+        if labelWords.count > 1 {
+            return String(labelWords[0].prefix(1)) + String(labelWords[1].prefix(1))
+        } else if title.count < 4 {
+            return title
+        } else {
+            return String(title.prefix(2))
+        }
+    }
+}
+
+extension QualityCriteria {
     var formattedValue: Double {
         return Double(self.configuration.evaluationType.unwrappedEvaluation.getEvaluationValue(self.value, cupsCount: self.group.sample.cupping.cupsCount))
     }
