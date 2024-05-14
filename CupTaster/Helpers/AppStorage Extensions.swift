@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// Date
+
 extension Date: RawRepresentable {
     fileprivate static let formatter = ISO8601DateFormatter()
     
@@ -21,7 +23,7 @@ extension Date: RawRepresentable {
 
 extension Optional: RawRepresentable where Wrapped == Date {
     public var rawValue: String {
-        if let self = self {
+        if let self {
             return Date.formatter.string(from: self)
         } else {
             return ""

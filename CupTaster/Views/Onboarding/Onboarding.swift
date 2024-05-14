@@ -16,6 +16,7 @@ class OnboardingModel: ObservableObject {
     
     @Binding var onboardingIsCompleted: Bool
     @ObservedObject var currentPageModel: CurrentPageModel = .shared
+    @PublishedAppStorage("purchase-identifier") var purchaseIdentifier: String = ""
     
     enum Page {
         case greetings, formPicker, additionalFields, location
@@ -45,6 +46,7 @@ class OnboardingModel: ObservableObject {
         
         onboardingIsCompleted = true
         testingManager.showOnboarding = false
+        purchaseIdentifier = UUID().uuidString
     }
     
     class CurrentPageModel: ObservableObject {

@@ -9,8 +9,6 @@ import SwiftUI
 import CoreData
 import CloudKitSyncMonitor
 
-#warning("variable for storing purchase")
-
 struct ContentView: View {
     @FetchRequest(entity: CuppingForm.entity(), sortDescriptors: []) var cuppingForms: FetchedResults<CuppingForm>
     @FetchRequest(entity: SampleGeneralInfo.entity(), sortDescriptors: []) var generalInfoFields: FetchedResults<SampleGeneralInfo>
@@ -21,6 +19,8 @@ struct ContentView: View {
     @ObservedObject var syncMonitor: SyncMonitor = .shared
     
     @State var iCloudLoading = false
+    
+    @AppStorage("purchase-identifier") var purchaseIdentifier: String = ""
     
     var body: some View {
         Group {
@@ -35,7 +35,10 @@ struct ContentView: View {
                     if syncMonitor.syncStateSummary.inProgress && iCloudLoading == true {
                         OnboardingView.iCloudLoadingView()
                             .onDisappear {
-                                if cuppingForms.count > 0 { onboardingIsCompleted = true }
+                                if cuppingForms.count > 0 {
+                                    onboardingIsCompleted = true
+                                    purchaseIdentifier = UUID().uuidString
+                                }
                             }
                     } else {
                         OnboardingView(onboardingIsCompleted: $onboardingIsCompleted, generalInfoFields: generalInfoFields)

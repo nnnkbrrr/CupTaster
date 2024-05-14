@@ -50,7 +50,7 @@ extension SampleView {
             
             var body: some View {
                 VStack(spacing: .extraSmall) {
-                    Text(criteria.shortLabel)
+                    Text(criteria.group.configuration.shortLabel)
                         .resizableText(initialSize: 12)
                         .lineLimit(1)
                         .padding(.vertical, .extraSmall)
