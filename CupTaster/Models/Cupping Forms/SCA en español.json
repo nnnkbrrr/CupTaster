@@ -427,7 +427,7 @@
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 1,
-                    "title": "tazas",
+                    "title": "Tazas",
                     "hints": [],
                     "value": 0,
                     "evaluationType": "cups_checkboxes",
@@ -439,7 +439,7 @@
                     "lowerBoundTitle": null,
                     "upperBoundTitle": null,
                     "ordinalNumber": 2,
-                    "title": "intensidad",
+                    "title": "Intensidad",
                     "hints": [
                         {
                             "lowerBound": 2,

@@ -190,8 +190,19 @@ extension RoseChart {
                     let pointX: CGFloat = rect.midX + cos((CGFloat(index) + 0.5) * a - .pi / 2) * radius
                     let pointY: CGFloat = rect.midY + sin((CGFloat(index) + 0.5) * a - .pi / 2) * radius
                     
-                    let labelKey: LocalizedStringKey = .init("\(label).short")
-                    Text(labelKey)
+                    let labelWords: [String] = label.components(separatedBy: .whitespacesAndNewlines)
+                    
+                    let shortLabel: String = {
+                        if labelWords.count > 1 {
+                            return String(labelWords[0].prefix(1)) + String(labelWords[1].prefix(1))
+                        } else if label.count < 4 {
+                            return label
+                        } else {
+                            return String(label.prefix(2))
+                        }
+                    }()
+                    
+                    Text(shortLabel)
                         .font(.caption2)
                         .lineLimit(2)
                         .foregroundColor(.primary)
