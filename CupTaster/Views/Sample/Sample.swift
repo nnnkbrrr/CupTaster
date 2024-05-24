@@ -28,6 +28,7 @@ struct SampleView: View {
                                 .sampleBlock(width: gridSize3, height: .smallElementContainer)
                             
                             let matchedGeometryId: String = {
+                                guard UIDevice.current.userInterfaceIdiom == .phone else { return "ipad.radar.chart" }
                                 let activityIndicator: String = samplesControllerModel.isTogglingVisibility ? "" : ".inactive"
                                 var animationId: String {
                                     if let sampleAnimationID = samplesControllerModel.sampleAnimationID { return sampleAnimationID.uuidString }

@@ -194,6 +194,7 @@ struct MainTabView: View {
                 }
             }
         }
+        .navigationViewStyle(.stack)
         .adaptiveSizeSheet(isPresented: $newCuppingModalIsActive) {
             NewCuppingModalView(isPresented: $newCuppingModalIsActive)
         }

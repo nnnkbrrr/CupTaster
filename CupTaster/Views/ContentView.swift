@@ -25,11 +25,25 @@ struct ContentView: View {
     var body: some View {
         Group {
             if onboardingIsCompleted && !iCloudLoading && !testingManager.showOnboarding {
-                ZStack {
-                    MainTabView()
-                    SamplesControllerView().opacity(testingManager.hideSampleOverlay ? 0 : 1)
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    ZStack {
+                        MainTabView()
+                        SamplesControllerView().opacity(testingManager.hideSampleOverlay ? 0 : 1)
+                    }
+                    .allowsHitTesting(!samplesControllerModel.isTogglingVisibility)
+                } else {
+                    HStack(spacing: 0) {
+                        MainTabView()
+                            .zIndex(2)
+                        if samplesControllerModel.isActive {
+                            Divider()
+                        }
+                        SamplesControllerView().opacity(testingManager.hideSampleOverlay ? 0 : 1)
+                            .clipped()
+                            .zIndex(1)
+                            .background(Color.backgroundPrimary, ignoresSafeAreaEdges: .all)
+                    }
                 }
-                .allowsHitTesting(!samplesControllerModel.isTogglingVisibility)
             } else {
                 ZStack {
                     if syncMonitor.syncStateSummary.inProgress && iCloudLoading == true {

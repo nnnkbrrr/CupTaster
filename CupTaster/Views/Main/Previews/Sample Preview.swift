@@ -38,7 +38,7 @@ struct SamplePreview: View {
                 return "\(matchedGeometryAnimationDescription).radar.chart.\(sample.id)"
             }
             
-            if samplesControllerModel.selectedSample != sample {
+            if samplesControllerModel.selectedSample != sample || UIDevice.current.userInterfaceIdiom != .phone {
                 VStack(alignment: .leading) {
                     RoseChart(sample: sample)
                         .frame(maxWidth: .infinity)
@@ -140,6 +140,7 @@ struct SamplePreview: View {
                 .onTapGesture {
                     samplesControllerModel.setSelectedSample(sample, animationId: animationId)
                 }
+                .opacity(samplesControllerModel.selectedSample == sample ? 0.5 : 1)
             } else {
                 Color.clear
                     .frame(minHeight: 200)
