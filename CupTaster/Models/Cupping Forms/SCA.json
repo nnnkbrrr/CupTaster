@@ -1,0 +1,462 @@
+{
+    "title": "SCA",
+    "finalScoreFormula": "criteria_1_1 + criteria_2_1 + criteria_3_1 + criteria_4_1 + criteria_5_1 + (10 - (10 * criteria_9_1 / cups_count)) + criteria_6_1 + (10 - (10 * criteria_8_1 / cups_count)) + (10 - (10 * criteria_7_1 / cups_count)) + criteria_10_1 - (criteria_11_1 * criteria_11_2 / cups_count * 5)",
+    "finalScoreLowerBound": 22,
+    "finalScoreUpperBound": 100,
+    "languageCode": "en",
+    "version": "2.0",
+    "qcGroupConfigurations": [
+        {
+            "title": "Fragrance/Aroma",
+            "ordinalNumber": 1,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "When you're exploring coffee scents, there are three key moments to pay attention to: the aroma of the dry grounds, the aroma when you break the crust, and the aroma as the coffee steeps. Take note of the specific scents you detect, like fruity or nutty notes, and rate the intensity on a scale. Your final assessment should consider all these aspects to capture the full fragrance and aroma experience."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Aroma",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Minimal fragrance, hardly noticeable aroma"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Subtle fragrance, faint aroma detected"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Pleasant fragrance, distinct aroma"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Captivating fragrance, powerful and complex aroma"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 2,
+                    "title": "Dry",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 3,
+                    "title": "Break",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Flavor",
+            "ordinalNumber": 2,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "When you taste the coffee, focus on its main character, the flavors that come through after the initial aroma and acidity but before the aftertaste. This includes all the tastes you perceive on your tongue, as well as the aromas you sense when you breathe out after sipping. To evaluate flavor, slurp the coffee vigorously to fully engage your palate. Consider the intensity, quality, and complexity of the combined taste and aroma when giving your score."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Flavor",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "The drink is similar to coffee, without any notes and flavors"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Coffee that you want to drink, it has a simple bouquet"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Very tasty coffee with a bright and memorable bouquet, pleasant sweetness and acidity"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Outstanding coffee that tastes more like juice"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Aftertaste",
+            "ordinalNumber": 3,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "After you swallow or spit out the coffee, notice the lingering positive flavors and aromas that remain at the back of your palate. If these qualities are short or unpleasant, it would warrant a lower score."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Aftertaste",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Short-lived aftertaste, flavors fade quickly"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Moderate aftertaste, some flavors linger briefly"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Pleasant aftertaste, flavors linger pleasantly"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Exceptional aftertaste, flavors linger long and are memorable"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Acidity",
+            "ordinalNumber": 4,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "When you taste the coffee, pay attention to its acidity, which can be described as «brightness» when it's pleasant or «sour» when it's not. Good acidity adds liveliness, sweetness, and fruity notes to the coffee. You'll notice it right away when you take your first sip. However, if the acidity is too intense or overpowering, it might not be enjoyable. Your score for acidity should reflect how well it fits with the expected flavor profile based on factors like origin and roast level"
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Acidity",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Low acidity, the coffee lacks brightness and liveliness"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Moderate acidity, noticeable but not overpowering"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Pleasant acidity, adds brightness and enhances flavor"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Exceptional acidity, vibrant and lively, enhances the overall experience"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Low",
+                    "upperBoundTitle": "High",
+                    "ordinalNumber": 2,
+                    "title": "Intensity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Body",
+            "ordinalNumber": 5,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "When you sip the coffee, notice how it feels in your mouth, particularly between your tongue and the roof of your mouth. A heavy body often indicates a high-quality coffee because of the presence of brew colloids and sugars. However, even lighter-bodied coffees can offer a pleasant mouthfeel."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Body",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Thin body, lacks substance and feels watery"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Medium body, somewhat substantial with a balanced feel"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Full body, rich and satisfying texture"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Exceptionally full body, luxurious and velvety texture"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Thin",
+                    "upperBoundTitle": "Heavy",
+                    "ordinalNumber": 2,
+                    "title": "Level",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Balance",
+            "ordinalNumber": 6,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Consider how the flavor, aftertaste, acidity, and body of the coffee interact with each other — that's balance. When these aspects complement each other well, it contributes to a higher score. However, if certain attributes are missing or if some are too dominant, it affects the balance negatively and could result in a lower score."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Balance",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Lacks balance, flavors feel disjointed and not well-integrated"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Moderately balanced, some flavors harmonize better than others"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Well-balanced, flavors complement each other nicely"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Exceptionally balanced, flavors meld seamlessly, creating a perfect harmony"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Sweetness",
+            "ordinalNumber": 7,
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
+            "scoreLowerBound": 0,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Sweetness refers to a pleasing fullness of flavor as well as any obvious sweetness and its perception is the result of the presence of certain carbohydrates. It's important to note that the absence of sourness, astringency, or «green» flavors also contributes to sweetness. While it might not be as obvious as the sweetness in sugary drinks, it significantly impacts other flavor characteristics."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Sweetness",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Clean Cup",
+            "ordinalNumber": 8,
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
+            "scoreLowerBound": 0,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Clean Cup refers to a coffee that lacks any negative tastes or aromas from the moment you first sip it until you finish swallowing or spitting it out. If you notice any unusual tastes or smells that aren't typical of coffee, then that cup isn't considered clean."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Clean Cup",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Uniformity",
+            "ordinalNumber": 9,
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
+            "scoreLowerBound": 0,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Uniformity refers to the consistency of flavor across all the cups in a sample. If each cup tastes the same, it indicates a high level of uniformity. If the cups taste different, the rating of this aspect would not be as high."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Uniformity",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Overall",
+            "ordinalNumber": 10,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Overall rating encompasses how the taster rates the coffee as a whole, taking into account various factors such as acidity, body, balance, flavor complexity, and aftertaste. If it matches what's expected and shows the unique flavors of where it's from, it gets a high score."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Overall",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Below average, lacks depth and character"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Good, enjoyable with some notable qualities"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Very good, well-rounded with distinct characteristics"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Excellent, outstanding in every aspect, a truly memorable experience"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Defects",
+            "ordinalNumber": 11,
+            "scoreFormula": "criteria_1 * criteria_2 / cups_count * -5",
+            "scoreLowerBound": -20,
+            "scoreUpperBound": 0,
+            "hint": {
+                "message": "Defects in coffee are negative or poor flavors that diminish its quality, classified as either a taint or a fault. A taint rated with an intensity of 2. A fault rated with an intensity of 4."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Cups",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 2,
+                    "title": "Intensity",
+                    "hints": [
+                        {
+                            "lowerBound": 2,
+                            "message": "A taint is an off-flavor that is noticeable, but not overwhelming, usually found in the aromatic aspects"
+                        },
+                        {
+                            "lowerBound": 4,
+                            "message": "A fault is an off-flavor, usually found in the taste aspects, that is either overwhelming or renders the sample unpalatable"
+                        }
+                    ],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 2,
+                    "lowerBound": 2,
+                    "upperBound": 4
+                }
+            ]
+        }
+    ]
+}

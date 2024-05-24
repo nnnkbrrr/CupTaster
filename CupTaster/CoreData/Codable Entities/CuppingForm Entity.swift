@@ -14,9 +14,12 @@ public class CuppingForm: NSManagedObject, Identifiable, Codable {
     }
     
     @NSManaged public var title: String
-    @NSManaged public var finalScoreFormula: String
     @NSManaged public var version: String
     @NSManaged public var languageCode: String
+    
+    @NSManaged public var finalScoreFormula: String
+    @NSManaged public var finalScoreLowerBound: Double
+    @NSManaged public var finalScoreUpperBound: Double
     
     @NSManaged public var cuppings: Set<Cupping>
     @NSManaged public var qcGroupConfigurations: Set<QCGroupConfig>
@@ -24,16 +27,19 @@ public class CuppingForm: NSManagedObject, Identifiable, Codable {
     // Codable
     
     enum CodingKeys: CodingKey {
-        case title, finalScoreFormula, version, languageCode
+        case title, version, languageCode
+        case finalScoreFormula, finalScoreLowerBound, finalScoreUpperBound
         case qcGroupConfigurations
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(title, forKey: .title)
-        try container.encode(finalScoreFormula, forKey: .finalScoreFormula)
         try container.encode(version, forKey: .version)
         try container.encode(languageCode, forKey: .languageCode)
+        try container.encode(finalScoreFormula, forKey: .finalScoreFormula)
+        try container.encode(finalScoreLowerBound, forKey: .finalScoreLowerBound)
+        try container.encode(finalScoreUpperBound, forKey: .finalScoreUpperBound)
         try container.encode(qcGroupConfigurations, forKey: .qcGroupConfigurations)
     }
     
@@ -45,9 +51,11 @@ public class CuppingForm: NSManagedObject, Identifiable, Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         title = try values.decode(String.self, forKey: .title)
-        finalScoreFormula = try values.decode(String.self, forKey: .finalScoreFormula)
         version = try values.decode(String.self, forKey: .version)
         languageCode = try values.decode(String.self, forKey: .languageCode)
+        finalScoreFormula = try values.decode(String.self, forKey: .finalScoreFormula)
+        finalScoreLowerBound = try values.decode(Double.self, forKey: .finalScoreLowerBound)
+        finalScoreUpperBound = try values.decode(Double.self, forKey: .finalScoreUpperBound)
         qcGroupConfigurations = try values.decode(Set<QCGroupConfig>.self, forKey: .qcGroupConfigurations)
     }
 }

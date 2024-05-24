@@ -14,7 +14,6 @@ public class QCConfig: QualityCriteria, Codable {
     }
 
     @NSManaged public var evaluationType: String
-    
     @NSManaged public var ordinalNumber: Int16
     
     @NSManaged public var lowerBound: Double
@@ -30,7 +29,8 @@ public class QCConfig: QualityCriteria, Codable {
     // Codable
     
     enum CodingKeys: CodingKey {
-        case title, value, evaluationType, ordinalNumber, lowerBound, lowerBoundTitle, step, upperBound, upperBoundTitle
+        case title, value, evaluationType, ordinalNumber
+        case lowerBound, lowerBoundTitle, step, upperBound, upperBoundTitle
         case hints
     }
     
@@ -68,10 +68,16 @@ public class QCConfig: QualityCriteria, Codable {
 }
 
 extension QCConfig {
+    public var unwrappedEvaluation: any Evaluation {
+        self.evaluationType.unwrappedEvaluation
+    }
+}
+
+extension QCConfig {
     static func new(
         context: NSManagedObjectContext,
         title: String,
-        evaluationType: EvaluationType,
+        evaluationType: any Evaluation,
         ordinalNumber: Int,
         bounds: Range<Double>,
         step: Double,
@@ -81,7 +87,7 @@ extension QCConfig {
     ) -> QCConfig {
         let criteria: QCConfig = QCConfig(context: context)
         criteria.title = title
-        criteria.evaluationType = evaluationType.stringValue
+        criteria.evaluationType = evaluationType.name
         criteria.ordinalNumber = Int16(ordinalNumber)
         criteria.lowerBound = bounds.lowerBound
         criteria.upperBound = bounds.upperBound

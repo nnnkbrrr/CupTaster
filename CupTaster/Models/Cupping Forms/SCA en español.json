@@ -1,0 +1,462 @@
+{
+    "title": "SCA en español",
+    "finalScoreFormula": "criteria_1_1 + criteria_2_1 + criteria_3_1 + criteria_4_1 + criteria_5_1 + (10 - (10 * criteria_9_1 / cups_count)) + criteria_6_1 + (10 - (10 * criteria_8_1 / cups_count)) + (10 - (10 * criteria_7_1 / cups_count)) + criteria_10_1 - (criteria_11_1 * criteria_11_2 / cups_count * 5)",
+    "finalScoreLowerBound": 22,
+    "finalScoreUpperBound": 100,
+    "languageCode": "es",
+    "version": "2.0",
+    "qcGroupConfigurations": [
+        {
+            "title": "Fragancia/Aroma",
+            "ordinalNumber": 1,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "A la hora de explorar los aromas del café, hay tres momentos clave a los que prestar atención: el aroma de los posos secos, el aroma al romper la corteza y el aroma a medida que el café reposa. Tome nota de los aromas específicos que detecte, como notas afrutadas o de frutos secos, y puntúe la intensidad en una escala. Su evaluación final debe tener en cuenta todos estos aspectos para captar la experiencia completa de la fragancia y el aroma."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Aroma",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Fragancia mínima, aroma apenas perceptible"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Fragancia sutil, aroma débil detectado"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Fragancia agradable, aroma marcado"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Fragancia cautivadora, aroma potente y complejo"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 2,
+                    "title": "Seco",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 3,
+                    "title": "Espuma",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Sabor",
+            "ordinalNumber": 2,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Cuando pruebe el café, concéntrese en su carácter principal, los sabores que aparecen después del aroma y la acidez iniciales, pero antes del regusto. Esto incluye todos los sabores que se perciben en la lengua, así como los aromas que se perciben al exhalar después de sorber. Para evaluar el sabor, sorba el café enérgicamente para que su paladar lo perciba plenamente. A la hora de puntuar, tenga en cuenta la intensidad, la calidad y la complejidad del sabor y el aroma combinados."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Sabor",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "La bebida es similar al café, sin notas ni sabores"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Café que apetece beber, tiene un aroma sencillo"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Café muy sabroso con un bouquet brillante y memorable, agradable dulzor y acidez"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Café excepcional que sabe más a zumo"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Sabor residual",
+            "ordinalNumber": 3,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Después de tragar o escupir el café, fíjese en los sabores y aromas positivos persistentes que quedan en el fondo del paladar. Si estas cualidades son cortas o desagradables, justificaría una puntuación más baja."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Sabor residual",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Sabor residual de corta duración, los sabores se desvanecen rápidamente"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Sabor residual moderado, algunos sabores persisten brevemente"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Sabor residual agradable, los sabores persisten agradablemente"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Sabor residual excepcional, los sabores persisten mucho tiempo y son memorables"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Acidez",
+            "ordinalNumber": 4,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Cuando pruebe el café, preste atención a su acidez, que puede describirse como «brillante» cuando es agradable o «agria» cuando no lo es. Una buena acidez aporta vivacidad, dulzor y notas afrutadas al café. Lo notará enseguida al dar el primer sorbo. Sin embargo, si la acidez es demasiado intensa o abrumadora, puede que no resulte agradable. La puntuación de la acidez debe reflejar su adecuación al perfil de sabor esperado en función de factores como el origen y el nivel de tueste."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Acidez",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Acidez baja, el café carece de brillo y vivacidad"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Acidez moderada, perceptible pero no abrumadora"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Acidez agradable, añade brillo y realza el sabor"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Acidez excepcional, vibrante y viva, realza la experiencia global"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Baja",
+                    "upperBoundTitle": "Alta",
+                    "ordinalNumber": 2,
+                    "title": "Intensidad",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Cuerpo",
+            "ordinalNumber": 5,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Cuando tome un sorbo de café, fíjese en cómo se siente en la boca, especialmente entre la lengua y el paladar. Un cuerpo pesado suele indicar un café de alta calidad debido a la presencia de coloides de infusión y azúcares. Sin embargo, incluso los cafés de cuerpo más ligero pueden ofrecer una agradable sensación en boca."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Cuerpo",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Ligero, carente de sustancia y sensación acuosa"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Cuerpo medio, algo sustancioso con una sensación equilibrada"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Cuerpo completo, textura rica y satisfactoria"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Cuerpo excepcionalmente pleno, textura lujosa y aterciopelada"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Ligero",
+                    "upperBoundTitle": "Pesado",
+                    "ordinalNumber": 2,
+                    "title": "Nivel",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Balance",
+            "ordinalNumber": 6,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Considere cómo interactúan entre sí el sabor, el regusto, la acidez y el cuerpo del café: eso es Balance. Cuando estos aspectos se complementan bien, contribuyen a una puntuación más alta. Sin embargo, si faltan ciertos atributos o si algunos son demasiado dominantes, el Balance se ve afectado negativamente y podría resultar en una puntuación más baja."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Balance",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Falta Balance, los sabores parecen inconexos y no están bien integrados"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Balance moderado, algunos sabores armonizan mejor que otros"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Equilibrado, los sabores se complementan bien"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Excepcionalmente equilibrado, los sabores se funden a la perfección, creando una armonía perfecta"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Dulzor",
+            "ordinalNumber": 7,
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
+            "scoreLowerBound": 0,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "El dulzor se refiere a una agradable plenitud de sabor, así como a cualquier dulzor evidente, y su percepción es el resultado de la presencia de determinados hidratos de carbono. Es importante señalar que la ausencia de sabores agrios, astringentes o «verdes» también contribuye al dulzor. Aunque puede que no sea tan obvio como el dulzor de las bebidas azucaradas, influye significativamente en otras características del sabor."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Dulzor",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Taza limpia",
+            "ordinalNumber": 8,
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
+            "scoreLowerBound": 0,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Taza limpia se refiere a un café que carece de sabores o aromas negativos desde el primer sorbo hasta que terminas de tragarlo o escupirlo. Si nota sabores u olores extraños que no son típicos del café, esa taza no se considera limpia."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Taza limpia",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Uniformidad",
+            "ordinalNumber": 9,
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
+            "scoreLowerBound": 0,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "La uniformidad se refiere a la consistencia del sabor en todas las tazas de una muestra. Si todas las tazas saben igual, indica un alto nivel de uniformidad. Si las tazas saben diferente, la valoración de este aspecto no sería tan alta."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Uniformidad",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "General",
+            "ordinalNumber": 10,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "La calificación general abarca la forma en que el catador califica el café en su conjunto, teniendo en cuenta diversos factores como la acidez, el cuerpo, el equilibrio, la complejidad del sabor y el retrogusto. Si coincide con lo esperado y muestra los sabores únicos de su lugar de origen, obtiene una puntuación alta."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "General",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Por debajo de la media, le falta profundidad y carácter"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Bueno, agradable con algunas cualidades notables"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Muy bueno, completo y con características distintivas"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Excelente, sobresaliente en todos los aspectos, una experiencia verdaderamente memorable"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Defectos",
+            "ordinalNumber": 11,
+            "scoreFormula": "criteria_1 * criteria_2 / cups_count * -5",
+            "scoreLowerBound": -20,
+            "scoreUpperBound": 0,
+            "hint": {
+                "message": "Los defectos en el café son sabores negativos o pobres que disminuyen su calidad, clasificados como mancha o defecto. Una mancha se clasifica con una intensidad de 2. Un rechazo se clasifica con una intensidad de 4."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Tazas",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 2,
+                    "title": "Intensidad",
+                    "hints": [
+                        {
+                            "lowerBound": 2,
+                            "message": "Un mancha es un sabor desagradable perceptible, pero no abrumador, que suele encontrarse en los aspectos aromáticos"
+                        },
+                        {
+                            "lowerBound": 4,
+                            "message": "Un rechazo es un sabor desagradable, que suele aparecer en los aspectos gustativos y que resulta abrumador o hace que la muestra sea desagradable al paladar"
+                        }
+                    ],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 2,
+                    "lowerBound": 2,
+                    "upperBound": 4
+                }
+            ]
+        }
+    ]
+}

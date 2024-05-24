@@ -21,40 +21,30 @@ public class QCGroup: NSManagedObject, Identifiable {
     @NSManaged public var sample: Sample
 }
 
-extension Sample {
-    public var isCompleted: Bool {
-        return !self.qualityCriteriaGroups.contains(where: { $0.isCompleted == false } )
+
+extension QCGroup {
+    public var sortedQualityCriteria: [QualityCriteria] {
+        self.qualityCriteria.sorted()
     }
     
-    private func getValues() -> [String: Double] {
-        let criteria: [QualityCriteria] = self.qualityCriteriaGroups.map { qcGroup in
-            qcGroup.qualityCriteria
-        }.flatMap { criteria in criteria }
+    var values: [String: Double] {
+        let criteria: [QualityCriteria] = self.sortedQualityCriteria
         
-        func getDictionaryValue(criteria: QualityCriteria) -> Double {
-            switch criteria.configuration!.evaluationType.unwrappedEvaluationType {
-            case .cups_checkboxes: return Double(getFilledCheckboxesCount(value: criteria.value))
-            case .cups_multiplePicker: return Double(getMultiplePickerValue(value: criteria.value, cuppingCupsCount: Int(criteria.group.sample.cupping.cupsCount), lowerBound: criteria.configuration!.lowerBound))
-            default: return criteria.value
-            }
-        }
-
-        var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map {(
-            "qcc_\($0.group.configuration.ordinalNumber)_\($0.configuration!.ordinalNumber)",
-            getDictionaryValue(criteria: $0)
-        )})
+        var dictionary: [String: Double] = Dictionary(uniqueKeysWithValues: criteria.map { criteria in
+            ("criteria_\(criteria.configuration.ordinalNumber)", Double(criteria.formattedValue))
+        })
         
-        dictionary.updateValue(Double(self.cupping.cupsCount), forKey: "CupsCount")
+        dictionary.updateValue(Double(self.sample.cupping.cupsCount), forKey: "cups_count")
         return dictionary
     }
     
-    public func calculateFinalScore() {
-        if let formula: String = self.cupping.form?.finalScoreFormula {
-            let expression = NSExpression(format: formula)
-            let values = getValues()
-            let expressionValue = expression.expressionValue(with: values, context: nil)
-            self.finalScore = expressionValue as? Double ?? 0
-        }
+    var score: Double {
+        let formula: String = self.configuration.scoreFormula
+        let expression = NSExpression(format: formula)
+        let values = values
+        let expressionValue = expression.expressionValue(with: values, context: nil)
+        
+        return expressionValue as? Double ?? 0
     }
 }
 

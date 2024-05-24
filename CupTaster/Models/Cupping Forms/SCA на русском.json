@@ -1,0 +1,462 @@
+{
+    "title": "SCA на русском",
+    "finalScoreFormula": "criteria_1_1 + criteria_2_1 + criteria_3_1 + criteria_4_1 + criteria_5_1 + (10 - (10 * criteria_9_1 / cups_count)) + criteria_6_1 + (10 - (10 * criteria_8_1 / cups_count)) + (10 - (10 * criteria_7_1 / cups_count)) + criteria_10_1 - (criteria_11_1 * criteria_11_2 / cups_count * 5)",
+    "finalScoreLowerBound": 22,
+    "finalScoreUpperBound": 100,
+    "languageCode": "ru",
+    "version": "2.0",
+    "qcGroupConfigurations": [
+        {
+            "title": "Аромат",
+            "ordinalNumber": 1,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "При дегустации кофе важно обращать внимание на три ключевых момента: аромат сухих зерен, аромат при сломе корки (тонкого верхнего слоя кофейной гущи при заваривании), и аромат в процессе заваривания. Замечайте специфические оттенки, такие как фруктовые или ореховые ноты, оцените их интенсивность. Ваша окончательная оценка должна учитывать все эти аспекты, чтобы передать всю полноту аромата и вкусовых ощущений."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Аромат",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Минимальный аромат, едва уловимый"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Тонкий аромат, слабо выраженный"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Приятный аромат, отчетливый"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Пленительный аромат, мощный и сложный"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 2,
+                    "title": "Сухой",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 3,
+                    "title": "На сломе",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Вкус",
+            "ordinalNumber": 2,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Когда вы пробуете кофе, сосредоточьтесь на его основной характеристике - вкусе, который проявляется после первичного аромата и кислотности, но до послевкусия. Он включает в себя все вкусы, которые вы ощущаете на языке, а также ароматы, которые вы чувствуете, когда выдыхаете после глотка. Для оценки вкуса энергично проглотите кофе, чтобы полностью задействовать нёбо. При выставлении оценки учитывайте интенсивность, качество и сложность сочетания вкуса и аромата."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Вкус",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Напиток похож на кофе, без каких-либо нот и привкусов"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Кофе, который хочется пить, имеет простой букет"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Очень вкусный кофе с ярким и запоминающимся букетом, приятной сладостью и кислинкой"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Выдающийся кофе, который по вкусу больше похож на сок"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Послевкусие",
+            "ordinalNumber": 3,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "После того как вы проглотите или выплюнете кофе, обратите внимание на то, какие положительные вкусы и ароматы остаются на задней стенке вашего нёба. Если они непродолжительны или неприятны, это будет означать снижение оценки."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Послевкусие",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Непродолжительное послевкусие, вкусы быстро исчезают"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Умеренное послевкусие, некоторые вкусы сохраняются недолго"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Приятное послевкусие, вкус остается приятным"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Исключительное послевкусие, вкус долго сохраняется и запоминается"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Кислотность",
+            "ordinalNumber": 4,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Когда вы пробуете кофе, обратите внимание на его кислотность, которую можно описать как «яркость», если она приятная, или «кислинку», если нет. Хорошая кислотность придает кофе живость, сладость и фруктовые нотки. Вы сразу же заметите это, когда сделаете первый глоток. Однако если кислотность слишком интенсивная или чрезмерная, она может не понравиться. Ваша оценка кислотности должна отражать, насколько она соответствует ожидаемому вкусовому профилю, основанному на таких факторах, как страна происхождения и степень обжарки."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Кислотность",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Низкая кислотность, кофе не хватает яркости и живости"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Умеренная кислотность, заметная, но не слишком сильная"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Приятная кислотность, добавляет яркости и усиливает вкус"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Исключительная кислотность, яркая и живая, усиливает общее впечатление"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Низкая",
+                    "upperBoundTitle": "Высокая",
+                    "ordinalNumber": 2,
+                    "title": "Интенсивность",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Тело",
+            "ordinalNumber": 5,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Когда вы пьете кофе, обратите внимание на то, как он ощущается во рту, особенно между языком и нёбом. Тяжелое тело часто указывает на высокое качество напитка, поскольку в нем присутствуют коллоиды и сахар. Однако даже кофе с легким телом может иметь приятную консистенцию во рту."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Тело",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Тонкое тело, не хватает насыщенности и чувствуется водянистость"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Среднее тело, несколько насыщенное и сбалансированное"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Полное тело, богатая и приятная текстура"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Исключительно полное тело, роскошная и бархатистая текстура"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                },
+                {
+                    "lowerBoundTitle": "Легкое",
+                    "upperBoundTitle": "Тяжелое",
+                    "ordinalNumber": 2,
+                    "title": "Вес",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 1,
+                    "lowerBound": 1,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Баланс",
+            "ordinalNumber": 6,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Подумайте, как вкус, послевкусие, кислотность и тело кофе сочетаются друг с другом - это и есть баланс. Когда эти аспекты хорошо дополняют друг друга, это говорит о более высокой оценке. Однако если некоторых атрибутов не достает или они слишком доминируют, это негативно сказывается на балансе и может привести к снижению оценки."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Баланс",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Отсутствует баланс, вкусы кажутся разрозненными и плохо сочетающимися"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Умеренный баланс, некоторые вкусы гармонируют лучше, чем другие"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Хороший баланс, вкусы хорошо дополняют друг друга"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Исключительный баланс, вкусы сливаются воедино, создавая идеальную гармонию"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Сладость",
+            "ordinalNumber": 7,
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
+            "scoreLowerBound": 0,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Под сладостью понимается приятная полнота вкуса, а также любая очевидная сладость, присутствие которой обусловлено наличием определенных углеводов. Важно отметить, что отсутствие кислинки, терпкости или «зеленого» привкуса также относится к сладости. Несмотря на то что она может быть не столь очевидной, как сладость в напитках с высоким содержанием сахара, она существенно влияет на другие характеристики вкуса."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Сладость",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Чистота чашки",
+            "ordinalNumber": 8,
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
+            "scoreLowerBound": 0,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Под чистотой чашки подразумевается кофе, в котором отсутствуют какие-либо негативные вкусы или ароматы с момента первого глотка до того, как вы проглотите или выплюнете его. Если вы заметили необычные вкусы или запахи, не свойственные кофе, то такая чашка не считается чистой."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Чистота чашки",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Однородность",
+            "ordinalNumber": 9,
+            "scoreFormula": "10 - 10 * criteria_1 / cups_count",
+            "scoreLowerBound": 0,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Однородность - это постоянство вкуса во всех чашках образца. Если вкус каждой чашки одинаков, это говорит о высоком уровне однородности. Если вкус чашек отличается, оценка этого аспекта будет не столь высокой."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Однородность",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                }
+            ]
+        },
+        {
+            "title": "Общее впечатление",
+            "ordinalNumber": 10,
+            "scoreFormula": "criteria_1",
+            "scoreLowerBound": 6,
+            "scoreUpperBound": 10,
+            "hint": {
+                "message": "Общее впечатление - это то, как дегустатор оценивает кофе в целом, принимая во внимание различные факторы, такие как кислотность, тело, баланс, сложность вкуса и послевкусия. Если кофе соответствует ожиданиям и демонстрирует уникальные вкусы своего места происхождения, он получит высокий балл."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Общее впечатление",
+                    "hints": [
+                        {
+                            "lowerBound": 6,
+                            "message": "Ниже среднего, не хватает глубины и характера"
+                        },
+                        {
+                            "lowerBound": 7,
+                            "message": "Хороший, приятный, с некоторыми примечательными качествами"
+                        },
+                        {
+                            "lowerBound": 8,
+                            "message": "Очень хороший образец, с ярко выраженными характеристиками"
+                        },
+                        {
+                            "lowerBound": 9,
+                            "message": "Превосходно, выдающийся образец во всех отношениях, действительно запоминающийся опыт"
+                        }
+                    ],
+                    "value": 8,
+                    "evaluationType": "slider",
+                    "step": 0.25,
+                    "lowerBound": 6,
+                    "upperBound": 10
+                }
+            ]
+        },
+        {
+            "title": "Дефекты",
+            "ordinalNumber": 11,
+            "scoreFormula": "criteria_1 * criteria_2 / cups_count * -5",
+            "scoreLowerBound": -20,
+            "scoreUpperBound": 0,
+            "hint": {
+                "message": "Дефекты кофе - это отрицательные или плохие вкусовые качества, снижающие его качество, которые классифицируются как привкус или недостаток. Привкус оценивается в 2 балла, а недостаток - в 4 балла."
+            },
+            "qcConfigurations": [
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 1,
+                    "title": "Чашки",
+                    "hints": [],
+                    "value": 0,
+                    "evaluationType": "cups_checkboxes",
+                    "step": 1,
+                    "lowerBound": 0,
+                    "upperBound": 5
+                },
+                {
+                    "lowerBoundTitle": null,
+                    "upperBoundTitle": null,
+                    "ordinalNumber": 2,
+                    "title": "Интенсивность",
+                    "hints": [
+                        {
+                            "lowerBound": 2,
+                            "message": "Привкус - это заметный, но не преобладающий вкус, обычно присутствующий в ароматических аспектах"
+                        },
+                        {
+                            "lowerBound": 4,
+                            "message": "Недостаток - это нежелательный вкус, обычно проявляющийся во вкусовых характеристиках, который либо преобладает, либо делает образец невкусным"
+                        }
+                    ],
+                    "value": 0,
+                    "evaluationType": "radio",
+                    "step": 2,
+                    "lowerBound": 2,
+                    "upperBound": 4
+                }
+            ]
+        }
+    ]
+}
