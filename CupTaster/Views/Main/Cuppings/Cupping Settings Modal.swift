@@ -32,6 +32,10 @@ extension CuppingView {
                 EmptyView()
             } else {
                 VStack(spacing: .extraSmall) {
+                    if TestingManager.shared.cuppingDatePickerIsVisible {
+                        DatePicker("", selection: $cupping.date, displayedComponents: [.date])
+                    }
+                    
                     TextField("Cupping Name", text: $cupping.name)
                         .resizableText(weight: .light)
                         .submitLabel(.done)

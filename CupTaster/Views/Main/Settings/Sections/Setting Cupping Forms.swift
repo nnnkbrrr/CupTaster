@@ -133,7 +133,7 @@ struct Settings_CuppingFormsView: View {
             )) {
                 VStack(spacing: .large) {
                     if let cuppingFormToMigrate {
-                        Text("There is a newer version of this cupping form available")
+                        Text("A newer version of this cupping form is available")
                             .font(.title)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, .regular)

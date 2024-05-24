@@ -13,6 +13,7 @@ import CoreData
 class NewCupping: ObservableObject {
     @Published var name: String = ""
     @Published var cupsCount: Int = 5
+    @Published var date: Date = Date()
     @Published var samplesCount: Int = 10
     @Published var folderFilters: [FolderFilter] = []
     @Published var location: Location?
@@ -28,7 +29,7 @@ class NewCupping: ObservableObject {
         cupping.name = name
         cupping.setup(
             moc: moc,
-            date: Date(),
+            date: date,
             cuppingForm: cuppingForm,
             cupsCount: cupsCount,
             samplesCount: samplesCount
@@ -80,6 +81,10 @@ struct NewCuppingModalView: View {
     
     var body: some View {
         VStack(spacing: .extraSmall) {
+            if TestingManager.shared.cuppingDatePickerIsVisible {
+                DatePicker("", selection: $newCupping.date, displayedComponents: [.date])
+            }
+            
             TextField("Cupping Name", text: $newCupping.name)
                 .resizableText(weight: .light)
                 .submitLabel(.done)

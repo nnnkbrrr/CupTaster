@@ -194,7 +194,6 @@ struct MainTabView: View {
                 }
             }
         }
-        .navigationViewStyle(.stack)
         .adaptiveSizeSheet(isPresented: $newCuppingModalIsActive) {
             NewCuppingModalView(isPresented: $newCuppingModalIsActive)
         }
@@ -316,7 +315,7 @@ extension MainTabView {
             }
         }()
         var groupedFolderElements: [MonthAndYear: (cuppings: [Cupping], samples: [Sample])] = [:]
-
+        
         for cupping in filteredCuppings {
             let key = cupping.date.getMonthAndYear()
             groupedFolderElements[key, default: (cuppings: [], samples: [])].cuppings.append(cupping)

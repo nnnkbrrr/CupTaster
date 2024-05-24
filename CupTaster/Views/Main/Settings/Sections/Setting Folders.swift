@@ -60,7 +60,11 @@ struct Settings_FoldersView: View {
         .modalView(
             isPresented: $newFolderModalIsActive,
             toolbar: .init(
-                leadingToolbarItem: .init("Cancel") { newFolderModalIsActive = false },
+                leadingToolbarItem: .init("Cancel") {
+                    newFolderTitle = ""
+                    newFolderCuppings = []
+                    newFolderModalIsActive = false
+                },
                 title: "New Folder",
                 trailingToolbarItem: .init("Add") {
                     let folder: Folder = .init(context: moc)
@@ -69,6 +73,8 @@ struct Settings_FoldersView: View {
                     for cupping in newFolderCuppings { folder.addToCuppings(cupping) }
                     save(moc)
                     newFolderModalIsActive = false
+                    newFolderTitle = ""
+                    newFolderCuppings = []
                 }
             )
         ) {

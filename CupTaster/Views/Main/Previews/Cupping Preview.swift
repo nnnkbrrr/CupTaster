@@ -143,7 +143,7 @@ struct CuppingPreview: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, .regular)
                 
-                Text("We apologize for the inconvenience. You can export all the cupping data")
+                Text("We apologize for the inconvenience. You can export all your cupping data.")
                     .foregroundStyle(.gray)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, .regular)

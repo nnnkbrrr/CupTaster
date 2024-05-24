@@ -35,7 +35,7 @@ extension Settings_CuppingFormsView {
                                     } else {
                                         showAlert(
                                             title: "This cupping form is no longer supported",
-                                            message: "We apologize for the inconvenience. You can export all cupping data on the main page"
+                                            message: "We apologize for the inconvenience. You can export all your cupping data on the main page."
                                         )
                                     }
                                 } leadingContent: {
@@ -113,12 +113,12 @@ struct DeprectaredCuppingFormMigrationModalView: View {
     var body: some View {
         VStack(spacing: .large) {
             if let cuppingFormToMigrate {
-                Text("There is a newer version of this cupping form available")
+                Text("A newer version of this cupping form is available")
                     .font(.title)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, .regular)
                 
-                Text("Select a new form to view and edit previous cuppings")
+                Text("Select the form you want to upgrade to")
                     .foregroundStyle(.gray)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, .regular)

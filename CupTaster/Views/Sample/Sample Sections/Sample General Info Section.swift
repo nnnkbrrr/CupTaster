@@ -43,12 +43,12 @@ extension SampleView {
                         return !sample.generalInfo.map { $0.title }.contains(template.title)
                     }
                     
-                    ForEach(uniqueSGITemplates) { sgiTemplate in
-                        SampleGeneralInfoFieldView.TemplateView(sgiTemplate: sgiTemplate)
-                    }
-                    
                     ForEach(sample.generalInfo.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })) {
                         SampleGeneralInfoFieldView(generalInfo: $0)
+                    }
+                    
+                    ForEach(uniqueSGITemplates) { sgiTemplate in
+                        SampleGeneralInfoFieldView.TemplateView(sgiTemplate: sgiTemplate)
                     }
                 }
             }

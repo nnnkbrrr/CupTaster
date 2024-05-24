@@ -12,6 +12,7 @@ class TestingManager: ObservableObject {
     @PublishedAppStorage("tester-tab-visibility") var isVisible: Bool = false
     @PublishedAppStorage("show-tester-overlay") var testerOverlayIsVisible: Bool = false
     @PublishedAppStorage("allow-saves") var allowSaves: Bool = true
+    @PublishedAppStorage("cupping-date-picker-is-visible") var cuppingDatePickerIsVisible: Bool = false
     
     @Published var showMainPageEmptyState: Bool = false
     
@@ -80,6 +81,9 @@ struct TesterPanelView: View {
                                 systemImageName: testingManager.allowSaves ? "hand.raised.slash" : "hand.raised.fill"
                             ) {
                                 testingManager.allowSaves.toggle()
+                            }
+                            TesterButton(title: "Cupping date", systemImageName: testingManager.cuppingDatePickerIsVisible ? "eye.fill" : "eye.slash.fill") {
+                                testingManager.cuppingDatePickerIsVisible.toggle()
                             }
                             TesterButton(title: "Empty State", systemImageName: testingManager.showMainPageEmptyState ? "eye.slash.fill" : "eye.fill") {
                                 testingManager.showMainPageEmptyState.toggle()
