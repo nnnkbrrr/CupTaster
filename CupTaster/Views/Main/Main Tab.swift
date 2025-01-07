@@ -145,6 +145,7 @@ struct MainTabView: View {
                                     .font(.title2)
                                     .foregroundStyle(.accent)
                                     .onTapGesture {
+                                        NewCupping.shared.reset()
                                         newCuppingModalIsActive = true
                                     }
                             } else {

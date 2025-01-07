@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 import MapKit
 
-extension CLLocationCoordinate2D: Identifiable, Equatable {
+extension CLLocationCoordinate2D: @retroactive Identifiable, @retroactive Equatable {
     public typealias ID = String
     public var id: String { "\(self.latitude).\(self.longitude)" }
     

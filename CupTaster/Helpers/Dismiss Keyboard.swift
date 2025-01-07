@@ -28,7 +28,7 @@ extension UIApplication {
     }
 }
 
-extension UIApplication: UIGestureRecognizerDelegate {
+extension UIApplication: @retroactive UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return !otherGestureRecognizer.isKind(of: UILongPressGestureRecognizer.self)
     }

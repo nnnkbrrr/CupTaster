@@ -438,6 +438,7 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
         
         .dragGesture(
             gestureType: gestureType,
+            direction: .horizontal,
             onStart: { },
             onUpdate: { value in
                 $velocity.update(value)

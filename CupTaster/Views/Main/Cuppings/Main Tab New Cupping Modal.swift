@@ -11,6 +11,8 @@ import CoreLocation
 import CoreData
 
 class NewCupping: ObservableObject {
+    static let shared: NewCupping = .init()
+    
     @Published var name: String = ""
     @Published var cupsCount: Int = 5
     @Published var date: Date = Date()
@@ -22,7 +24,7 @@ class NewCupping: ObservableObject {
     @Published var latitude: Double?
     @Published var longitude: Double?
     
-    init() { }
+    private init() { }
     
     func create(cuppingForm: CuppingForm, context moc: NSManagedObjectContext) {
         let cupping: Cupping = .init(context: moc)
@@ -52,6 +54,19 @@ class NewCupping: ObservableObject {
         
         save(moc)
     }
+    
+    func reset() {
+        name = ""
+        cupsCount = 5
+        date = Date()
+        samplesCount = 10
+        folderFilters = []
+        location = nil
+        address = "Location is unavailable"
+        horizontalAccuracy = nil
+        latitude = nil
+        longitude = nil
+    }
 }
 
 struct NewCuppingModalView: View {
@@ -74,10 +89,9 @@ struct NewCuppingModalView: View {
     @State var cuppingFormPickerIsActive: Bool = false
     @State var foldersModalIsActive = false
     @State var loadingAddress: Bool = true
+    @ObservedObject var newCupping = NewCupping.shared
     
     private let nameLengthLimit = 50
-    
-    @ObservedObject var newCupping: NewCupping = .init()
     
     var body: some View {
         VStack(spacing: .extraSmall) {

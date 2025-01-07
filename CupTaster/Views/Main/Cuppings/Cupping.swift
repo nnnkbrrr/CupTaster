@@ -47,7 +47,8 @@ struct CuppingView: View {
                         ],
                         spacing: .extraSmall
                     ) {
-                        ForEach(cupping.sortedSamples) { sample in
+                        let sortedSamples = cupping.sortedSamples
+                        ForEach(sortedSamples) { sample in
                             SamplePreview(sample)
                         }
                     }
