@@ -40,184 +40,184 @@ struct TesterPanelView: View {
     
     @AppStorage("default-cupping-form-description") private(set) var defaultCFDescription: String = ""
     @AppStorage("onboarding-is-completed") private var onboardingIsCompleted: Bool = false
-    @AppStorage("tester-selected-page") private var currentPage: Int = 0
     @State private var stopwatchModalIsActive: Bool = false
     
+    @Binding var isPresented: Bool
+    @State var opacity: CGFloat = 1
+    
     var body: some View {
-        ZStack(alignment: .bottom) {
-            HStack(spacing: 5) {
-                ForEach(0..<6) { index in
-                    Circle()
-                        .frame(width: 5, height: 5)
-                        .foregroundColor(currentPage == index ? .white : .gray)
+        ScrollView {
+            LazyVStack(alignment: .leading) {
+                TesterButton(title: "Hide tester button", systemImageName: "eye.slash") {
+                    testingManager.testerOverlayIsVisible = false
                 }
-            }
-            .animation(.bouncy, value: currentPage)
-            .frame(height: 5)
-            .padding(.horizontal)
-            .allowsHitTesting(false)
-            
-            TabView(selection: $currentPage) {
-                Group {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("CupTaster Testing Panel")
-                            Text("\(appVersion) (\(buildVersion)) / iOS \(systemVersion) / \(languageCode)")
+                
+                Section("Primary") {
+                    TesterButton(
+                        title: testingManager.allowSaves ? "Saves allowed" : "Saves blocked",
+                        systemImageName: testingManager.allowSaves ? "hand.raised.slash" : "hand.raised.fill"
+                    ) {
+                        testingManager.allowSaves.toggle()
+                    }
+                    TesterButton(title: "Show cupping date selector", systemImageName: testingManager.cuppingDatePickerIsVisible ? "eye.fill" : "eye.slash.fill") {
+                        testingManager.cuppingDatePickerIsVisible.toggle()
+                    }
+                    TesterButton(title: "Empty State", systemImageName: testingManager.showMainPageEmptyState ? "eye.slash.fill" : "eye.fill") {
+                        testingManager.showMainPageEmptyState.toggle()
+                    }
+                    TesterButton(title: "Sample Overlay", systemImageName: testingManager.hideSampleOverlay ? "eye.slash.fill" : "eye.fill") {
+                        testingManager.hideSampleOverlay.toggle()
+                    }
+                    TesterButton(title: "Lock", systemImageName: samplesControllerModel.isTogglingVisibility ? "lock" : "lock.open") {
+                        samplesControllerModel.isTogglingVisibility.toggle()
+                    }
+                    TesterButton(title: "Stopwatch", systemImageName: "stopwatch") {
+                        stopwatchModalIsActive = true
+                    }
+                    .adaptiveSizeSheet(isPresented: $stopwatchModalIsActive) {
+                        StopwatchTimeSelectorView()
+                    }
+                    TesterButton(title: "Reset Default Cupping Form", systemImageName: "arrow.clockwise") {
+                        defaultCFDescription = ""
+                    }
+                }
+                
+                Section("Cupping") {
+                    if let cupping = samplesControllerModel.cupping {
+                        VStack(alignment: .leading) {
+                            Text("Cupping: \(cupping.name)")
+                            Text("Samples: \(cupping.samples.count)")
+                            Text("Selected Sample Index: \(samplesControllerModel.selectedSampleIndex)")
                         }
                         .foregroundStyle(.gray)
                         
                         Spacer()
                         
-                        TesterButton(title: "Hide", systemImageName: "eye.slash") {
-                            testingManager.testerOverlayIsVisible = false
-                        }
-                    }
-                    .tag(0)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            TesterButton(
-                                title: testingManager.allowSaves ? "Saves allowed" : "Saves blocked",
-                                systemImageName: testingManager.allowSaves ? "hand.raised.slash" : "hand.raised.fill"
-                            ) {
-                                testingManager.allowSaves.toggle()
-                            }
-                            TesterButton(title: "Cupping date", systemImageName: testingManager.cuppingDatePickerIsVisible ? "eye.fill" : "eye.slash.fill") {
-                                testingManager.cuppingDatePickerIsVisible.toggle()
-                            }
-                            TesterButton(title: "Empty State", systemImageName: testingManager.showMainPageEmptyState ? "eye.slash.fill" : "eye.fill") {
-                                testingManager.showMainPageEmptyState.toggle()
-                            }
-                            TesterButton(title: "Sample Overlay", systemImageName: testingManager.hideSampleOverlay ? "eye.slash.fill" : "eye.fill") {
-                                testingManager.hideSampleOverlay.toggle()
-                            }
-                            TesterButton(title: "Lock", systemImageName: samplesControllerModel.isTogglingVisibility ? "lock" : "lock.open") {
-                                samplesControllerModel.isTogglingVisibility.toggle()
-                            }
-                            TesterButton(title: "Stopwatch", systemImageName: "stopwatch") {
-                                stopwatchModalIsActive = true
-                            }
-                            .adaptiveSizeSheet(isPresented: $stopwatchModalIsActive) {
-                                StopwatchTimeSelectorView()
-                            }
-                            TesterButton(title: "Reset Default Cupping Form", systemImageName: "arrow.clockwise") {
-                                defaultCFDescription = ""
-                            }
-                        }
-                    }
-                    .tag(1)
-                    
-                    HStack {
-                        if let cupping = samplesControllerModel.cupping {
-                            VStack(alignment: .leading) {
-                                Text("Cupping: \(cupping.name)")
-                                Text("Samples: \(cupping.samples.count)")
-                                Text("Selected Sample Index: \(samplesControllerModel.selectedSampleIndex)")
-                            }
-                            .foregroundStyle(.gray)
-                            
-                            Spacer()
-                            
-                            TesterButton(title: "Randomly Fill", systemImageName: "wand.and.stars") {
-                                for sample in cupping.samples {
-                                    randomlyFillSample(sample)
-                                }
-                            }
-                        } else {
-                            Text("Select sample to show its cupping testing page")
-                                .foregroundStyle(.gray)
-                        }
-                    }
-                    .tag(2)
-                    
-                    HStack {
-                        if let sample: Sample = samplesControllerModel.selectedSample {
-                            VStack(alignment: .leading) {
-                                Text("Sample: \(sample.name)")
-                                Text("General Info: \((sample.generalInfo.map { $0.title } ).description)")
-                                    .resizableText(initialSize: 12)
-                            }
-                            .foregroundStyle(.gray)
-                            
-                            Spacer()
-                            
-                            TesterButton(title: "Randomly Fill", systemImageName: "wand.and.stars") {
+                        TesterButton(title: "Randomly Fill", systemImageName: "wand.and.stars") {
+                            for sample in cupping.samples {
                                 randomlyFillSample(sample)
                             }
-                        } else {
-                            Text("Select sample to show sample testing page")
-                                .foregroundStyle(.gray)
                         }
-                    }
-                    .tag(3)
-                    
-                    HStack {
-                        Text("Onboarding")
+                    } else {
+                        Text("Select sample to show its cupping testing page")
                             .foregroundStyle(.gray)
-                        
-                        Spacer()
-                        
-                        TesterButton(
-                            title: "Skip pages",
-                            systemImageName: testingManager.skipFilledOnboardingPages ? "arrowshape.bounce.right" : "arrowshape.right"
-                        ) {
-                            testingManager.skipFilledOnboardingPages.toggle()
-                        }
-                        
-                        TesterButton(title: testingManager.showOnboarding ? "Hide" : "Show", systemImageName: testingManager.showOnboarding ? "eye.slash.fill" : "eye.fill") {
-                            testingManager.showOnboarding.toggle()
-                        }
-                        
-                        TesterButton(title: "Reset page", systemImageName: "arrow.clockwise") {
-                            OnboardingModel.CurrentPageModel.shared.page = .greetings
-                        }
                     }
-                    .tag(4)
-                    
-                    HStack {
-                        let locationStatus: String = 
-                        switch locationManager.authorizationStatus {
-                            case .notDetermined: "not determined"
-                            case .restricted: "restricted"
-                            case .denied: "denied"
-                            case .authorizedAlways: "authorized always"
-                            case .authorizedWhenInUse: "authorized when in use"
-                            case .authorized: "authorized"
-                            @unknown default: "unknown"
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Location ") + Text(Image(systemName: locationManager.authorized ? "location.fill" : "location.slash"))
-                            Text("\(locationStatus)")
+                }
+                
+                Section("Sample") {
+                    if let sample: Sample = samplesControllerModel.selectedSample {
+                        VStack(alignment: .leading) {
+                            Text("Sample: \(sample.name)")
+                            Text("General Info: \((sample.generalInfo.map { $0.title } ).description)")
+                                .resizableText(initialSize: 12)
                         }
                         .foregroundStyle(.gray)
                         
                         Spacer()
                         
-                        TesterButton(title: "Get", systemImageName: "location.magnifyingglass") {
-                            Task {
-                                let location: String = await locationManager.getLocationAddress() ?? "Undefined"
-                                showAlert(title: "Your Location is", message: location)
-                            }
+                        TesterButton(title: "Randomly Fill", systemImageName: "wand.and.stars") {
+                            randomlyFillSample(sample)
                         }
-                        
-                        TesterButton(title: "Authorize", systemImageName: "location.viewfinder") {
-                            locationManager.requestAuthorization()
+                    } else {
+                        Text("Select sample to show sample testing page")
+                            .foregroundStyle(.gray)
+                    }
+                }
+                
+                Section("Onboarding") {
+                    Spacer()
+                    
+                    TesterButton(
+                        title: "Skip pages",
+                        systemImageName: testingManager.skipFilledOnboardingPages ? "arrowshape.bounce.right" : "arrowshape.right"
+                    ) {
+                        testingManager.skipFilledOnboardingPages.toggle()
+                    }
+                    
+                    TesterButton(title: testingManager.showOnboarding ? "Hide" : "Show", systemImageName: testingManager.showOnboarding ? "eye.slash.fill" : "eye.fill") {
+                        testingManager.showOnboarding.toggle()
+                    }
+                    
+                    TesterButton(title: "Reset page", systemImageName: "arrow.clockwise") {
+                        OnboardingModel.CurrentPageModel.shared.page = .greetings
+                    }
+                }
+                
+                Section("Location") {
+                    let locationStatus: String =
+                    switch locationManager.authorizationStatus {
+                        case .notDetermined: "not determined"
+                        case .restricted: "restricted"
+                        case .denied: "denied"
+                        case .authorizedAlways: "authorized always"
+                        case .authorizedWhenInUse: "authorized when in use"
+                        case .authorized: "authorized"
+                        @unknown default: "unknown"
+                    }
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Location ") + Text(Image(systemName: locationManager.authorized ? "location.fill" : "location.slash"))
+                        Text("\(locationStatus)")
+                    }
+                    .foregroundStyle(.gray)
+                    
+                    Spacer()
+                    
+                    TesterButton(title: "Get", systemImageName: "location.magnifyingglass") {
+                        Task {
+                            let location: String = await locationManager.getLocationAddress() ?? "Undefined"
+                            showAlert(title: "Your Location is", message: location)
                         }
                     }
-                    .tag(5)
+                    
+                    TesterButton(title: "Authorize", systemImageName: "location.viewfinder") {
+                        locationManager.requestAuthorization()
+                    }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .contentShape(Rectangle())
             }
-            .font(.caption)
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .frame(height: .smallElement)
+            .padding()
         }
-        .frame(height: .smallElement)
-        .clipped()
+        .navigationToolbar {
+            HStack(spacing: .small) {
+                ZStack {
+                    HStack {
+                        Button("Done") { isPresented = false }
+                        
+                        Spacer()
+                        
+                        Image(systemName: "square.on.square.intersection.dashed")
+                            .foregroundStyle(.accent)
+                            .onLongPressGesture(minimumDuration: 0, maximumDistance: 100) {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    self.opacity = 0
+                                }
+                            } onPressingChanged: { isPressing in
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    if isPressing {
+                                        self.opacity = 0
+                                    } else {
+                                        self.opacity = 1
+                                    }
+                                }
+                            }
+                    }
+                    
+                    Spacer()
+                    
+                    VStack(spacing: 2) {
+                        Text("CupTaster Testing Panel")
+                        Text("\(appVersion) (\(buildVersion)) / iOS \(systemVersion) / \(languageCode)")
+                    }
+                    .font(.system(size: 8))
+                }
+            }
+            .padding(.horizontal, .regular)
+            .frame(height: 35)
+        }
+        .background(Color.backgroundPrimary.opacity(0.5))
+        .opacity(opacity)
     }
-    
+        
     func randomlyFillSample(_ sample: Sample) {
         sample.name = sampleNames.randomElement() ?? ""
         
@@ -319,10 +319,10 @@ extension TesterPanelView {
                     Text(title)
                         .multilineTextAlignment(.leading)
                 }
-                .foregroundStyle(.primary)
+                .foregroundStyle(.accent)
                 .frame(height: 35)
                 .padding(.horizontal, .small)
-                .background(Color.gray.opacity(0.5))
+                .background(Color.backgroundSecondary)
                 .cornerRadius(10)
             }
             .buttonStyle(.plain)
