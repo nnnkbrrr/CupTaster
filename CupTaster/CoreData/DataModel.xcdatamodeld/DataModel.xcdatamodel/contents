@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23D56" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24B91" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Cupping" representedClassName="Cupping" syncable="YES">
         <attribute name="cupsCount" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="-978318000" usesScalarValueType="NO"/>
@@ -76,6 +76,23 @@
         <attribute name="value" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="configuration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCConfig" inverseName="qualityCriteria" inverseEntity="QCConfig"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QCGroup" inverseName="qualityCriteria" inverseEntity="QCGroup"/>
+    </entity>
+    <entity name="Recipe" representedClassName="Recipe" syncable="YES">
+        <attribute name="coffeeAmount" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="grindSize" optional="YES" attributeType="String"/>
+        <attribute name="isPinned" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="temperature" optional="YES" attributeType="String"/>
+        <attribute name="waterAmount" optional="YES" attributeType="String"/>
+        <relationship name="steps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RecipeStep" inverseName="recipe" inverseEntity="RecipeStep"/>
+    </entity>
+    <entity name="RecipeStep" representedClassName="RecipeStep" syncable="YES">
+        <attribute name="coffeeAmount" optional="YES" attributeType="String"/>
+        <attribute name="ordinalNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="String"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Recipe" inverseName="steps" inverseEntity="Recipe"/>
     </entity>
     <entity name="Sample" representedClassName="Sample" syncable="YES">
         <attribute name="finalScore" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

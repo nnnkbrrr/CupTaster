@@ -1,29 +1,12 @@
 //
-//  Setting Tester.swift
+//  Tester Panel View.swift
 //  CupTaster
 //
-//  Created by Nikita on 12.02.2024.
+//  Created by Nikita on 1/9/25.
 //
 
 import SwiftUI
 import CoreData
-
-class TestingManager: ObservableObject {
-    @PublishedAppStorage("tester-tab-visibility") var isVisible: Bool = false
-    @PublishedAppStorage("show-tester-overlay") var testerOverlayIsVisible: Bool = false
-    @PublishedAppStorage("allow-saves") var allowSaves: Bool = true
-    @PublishedAppStorage("cupping-date-picker-is-visible") var cuppingDatePickerIsVisible: Bool = false
-    
-    @Published var showMainPageEmptyState: Bool = false
-    
-    @Published var showOnboarding: Bool = false
-    @Published var skipFilledOnboardingPages: Bool = true
-    
-    @Published var hideSampleOverlay: Bool = false
-    
-    public static let shared: TestingManager = .init()
-    private init() { }
-}
 
 struct TesterPanelView: View {
     @Environment(\.managedObjectContext) private var moc
@@ -48,10 +31,6 @@ struct TesterPanelView: View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading) {
-                TesterButton(title: "Hide tester button", systemImageName: "eye.slash") {
-                    testingManager.testerOverlayIsVisible = false
-                }
-                
                 Section("Primary") {
                     TesterButton(
                         title: testingManager.allowSaves ? "Saves allowed" : "Saves blocked",
@@ -59,7 +38,11 @@ struct TesterPanelView: View {
                     ) {
                         testingManager.allowSaves.toggle()
                     }
-                    TesterButton(title: "Show cupping date selector", systemImageName: testingManager.cuppingDatePickerIsVisible ? "eye.fill" : "eye.slash.fill") {
+                    
+                    TesterButton(title: testingManager.showRecipesTab ? "Hide recipes tab" : "Show recipes tab", systemImageName: "list.clipboard") {
+                        testingManager.showRecipesTab.toggle()
+                    }
+                    TesterButton(title: "Cupping date selector", systemImageName: testingManager.cuppingDatePickerIsVisible ? "eye.fill" : "eye.slash.fill") {
                         testingManager.cuppingDatePickerIsVisible.toggle()
                     }
                     TesterButton(title: "Empty State", systemImageName: testingManager.showMainPageEmptyState ? "eye.slash.fill" : "eye.fill") {
@@ -188,16 +171,12 @@ struct TesterPanelView: View {
                         Image(systemName: "square.on.square.intersection.dashed")
                             .foregroundStyle(.accent)
                             .onLongPressGesture(minimumDuration: 0, maximumDistance: 100) {
-                                withAnimation(.easeInOut(duration: 0.2)) {
+                                withAnimation(.easeInOut(duration: 0.1)) {
                                     self.opacity = 0
                                 }
                             } onPressingChanged: { isPressing in
-                                withAnimation(.easeInOut(duration: 0.2)) {
-                                    if isPressing {
-                                        self.opacity = 0
-                                    } else {
-                                        self.opacity = 1
-                                    }
+                                withAnimation(.easeInOut(duration: 0.1)) {
+                                    self.opacity = isPressing ? 0 : 1
                                 }
                             }
                     }
@@ -252,81 +231,6 @@ struct TesterPanelView: View {
         sample.calculateFinalScore()
         
         save(moc)
-    }
-}
-
-extension TesterPanelView {
-    struct TesterSectionView<TrailingContent: View>: View {
-        let title: String
-        @Binding var systemImageName: String?
-        let trailingContent: () -> TrailingContent
-        
-        init(title: String, systemImageName: String? = nil, trailingContent: @escaping () -> TrailingContent = { EmptyView() } ) {
-            self.title = title
-            self._systemImageName = .constant(systemImageName)
-            self.trailingContent = trailingContent
-        }
-        
-        var body: some View {
-            HStack(spacing: 5) {
-                if let systemImageName {
-                    Image(systemName: systemImageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 15, height: 15)
-                }
-                
-                Text(title)
-                    .multilineTextAlignment(.leading)
-                
-                trailingContent()
-            }
-            .foregroundStyle(.primary)
-            .frame(height: 35)
-            .padding(.horizontal, .small)
-            .background(Color.gray.opacity(0.5))
-            .cornerRadius(10)
-        }
-    }
-    
-    struct TesterButton: View {
-        let title: String
-        @Binding var systemImageName: String
-        let action: () -> ()
-        
-        init(title: String, systemImageName: String, action: @escaping () -> ()) {
-            self.title = title
-            self._systemImageName = .constant(systemImageName)
-            self.action = action
-        }
-        
-        init(title: String, systemImageName: @escaping () -> String, action: @escaping () -> ()) {
-            self.title = title
-            self._systemImageName = Binding(get: { systemImageName() }, set: { _ in})
-            self.action = action
-        }
-        
-        var body: some View {
-            Button {
-                action()
-            } label: {
-                HStack(spacing: 5) {
-                    Image(systemName: systemImageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 15, height: 15)
-                    
-                    Text(title)
-                        .multilineTextAlignment(.leading)
-                }
-                .foregroundStyle(.accent)
-                .frame(height: 35)
-                .padding(.horizontal, .small)
-                .background(Color.backgroundSecondary)
-                .cornerRadius(10)
-            }
-            .buttonStyle(.plain)
-        }
     }
 }
 
