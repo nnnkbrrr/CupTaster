@@ -68,7 +68,7 @@ struct SampleBottomSheetView: View {
                             }) || sample.cupping.cupsCount > 1
                         },
                         selection: Binding(
-                            get: { selectedQCGroup },
+                            get: { samplesControllerModel.selectedQCGroup! },
                             set: { samplesControllerModel.changeSelectedQCGroup(qcGroup: $0) }
                         ),
                         elementWidth: SampleBottomSheetConfiguration.QCGroup.elementSize,
