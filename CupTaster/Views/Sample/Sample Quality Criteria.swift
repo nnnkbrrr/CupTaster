@@ -35,21 +35,24 @@ struct QCGroupView: View {
                     .font(.caption)
             }
         }
-        .animation(.easeInOut, value: samplesControllerModel.selectedSample)
         .simultaneousGesture(
             TapGesture()
                 .onEnded {
-                    guard samplesControllerModel.selectedQCGroup == qcGroup else { return }
-                    if qcGroup.isCompleted {
-                        for criteria in qcGroup.qualityCriteria {
-                            criteria.value = criteria.configuration.value
-                        }
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            qcGroup.isCompleted = false
+                    if samplesControllerModel.selectedQCGroup == qcGroup {
+                        if qcGroup.isCompleted {
+                            for criteria in qcGroup.qualityCriteria {
+                                criteria.value = criteria.configuration.value
+                            }
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                qcGroup.isCompleted = false
+                            }
+                        } else {
+                            qcGroup.isCompleted = true
                         }
                     } else {
-                        qcGroup.isCompleted = true
+                        UISelectionFeedbackGenerator().selectionChanged()
+                        samplesControllerModel.changeSelectedQCGroup(qcGroup: qcGroup)
                     }
                 }
         )

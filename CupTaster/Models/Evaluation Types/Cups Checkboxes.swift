@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-class CupsCheckboxesEvaluation: Evaluation {
+class CupsCheckboxesEvaluation: @preconcurrency Evaluation {
     let name: String = "Cups Checkboxes"
     let sortOrder: Int = 2
     
     func getEvaluationValue(_ value: CGFloat, cupsCount: Int16) -> CGFloat { return CGFloat(Int(value).digits.reduce(0, +)) }
     
-    func body(for criteria: QualityCriteria, value: Binding<Double>) -> some View {
+    @MainActor func body(for criteria: QualityCriteria, value: Binding<Double>) -> some View {
         return CupsCheckboxesView(
             value: value,
             lowerBoundTitle: criteria.configuration.lowerBoundTitle,

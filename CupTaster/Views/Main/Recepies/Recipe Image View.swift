@@ -140,12 +140,16 @@ fileprivate struct RecipeImageView: View {
                     Text("\(recipe.notes)")
                         .foregroundStyle(.gray)
                         .font(.caption)
+                        .frame(width: 350, alignment: .leading)
+                        .multilineTextAlignment(.leading)
+                        .padding(.top, .small)
                 }
             }
             .foregroundStyle(Color.white)
             .font(.system(size: 15, design: .monospaced))
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(width: 350, alignment: .leading)
+        .frame(maxHeight: .infinity)
         .padding(.large)
         .background(Color.black)
     }

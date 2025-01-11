@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Navigation {
-    static func configureWithoutBackground() {
+    @MainActor static func configureWithoutBackground() {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.backgroundColor = .clear
         navigationBarAppearance.backgroundEffect = .none

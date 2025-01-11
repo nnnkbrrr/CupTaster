@@ -378,15 +378,15 @@ extension LocationPickerController: MKMapViewDelegate {
 }
 
 extension LocationPickerController: CLLocationManagerDelegate {
-    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    nonisolated public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
-            case .notDetermined: locationManager.requestWhenInUseAuthorization()
+            case .notDetermined: manager.requestWhenInUseAuthorization()
             default: break
         }
     }
     
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.locationManager.stopUpdatingLocation()
+    nonisolated public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        manager.stopUpdatingLocation()
     }
     
     private func setPrompt(_ prompt: String? = nil) {

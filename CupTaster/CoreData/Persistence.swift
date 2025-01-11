@@ -9,10 +9,11 @@ import CoreData
 import CloudKit
 
 struct PersistenceController {
-    static let shared = PersistenceController()
+    @MainActor static let shared = PersistenceController()
     
     let container: NSPersistentCloudKitContainer
     
+    @MainActor
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "DataModel")
         
@@ -26,7 +27,8 @@ struct PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
 }
@@ -46,7 +48,7 @@ extension JSONDecoder {
 
 // MARK: For testing
 
-func save(_ context: NSManagedObjectContext) {
+@MainActor func save(_ context: NSManagedObjectContext) {
     if TestingManager.shared.allowSaves {
         try? context.save()
     }

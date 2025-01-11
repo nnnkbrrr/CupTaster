@@ -147,7 +147,11 @@ struct TesterPanelView: View {
                     Spacer()
                     
                     TesterButton(title: "Get", systemImageName: "location.magnifyingglass") {
-                        Task {
+                        Task { [weak locationManager] in
+                            guard let locationManager = locationManager else {
+                                showAlert(title: "Error", message: "Location is unavailable.")
+                                return
+                            }
                             let location: String = await locationManager.getLocationAddress() ?? "Undefined"
                             showAlert(title: "Your Location is", message: location)
                         }

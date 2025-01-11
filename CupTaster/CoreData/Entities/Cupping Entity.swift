@@ -31,7 +31,7 @@ extension Cupping {
         self.samples.sorted(by: { $0.ordinalNumber < $1.ordinalNumber })
     }
     
-    public func setup(moc: NSManagedObjectContext, date: Date, cuppingForm: CuppingForm, cupsCount: Int, samplesCount: Int) {
+    @MainActor public func setup(moc: NSManagedObjectContext, date: Date, cuppingForm: CuppingForm, cupsCount: Int, samplesCount: Int) {
         self.cupsCount = Int16(cupsCount)
         self.form = cuppingForm
         self.date = date
@@ -84,7 +84,7 @@ extension Cupping {
 
 
 extension Cupping {
-    func shareCSV() {
+    @MainActor func shareCSV() {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first,
            let viewController = window.rootViewController?.presentedViewController {

@@ -21,6 +21,6 @@ class TestingManager: ObservableObject {
     
     @Published var hideSampleOverlay: Bool = false
     
-    public static let shared: TestingManager = .init()
+    @MainActor public static let shared: TestingManager = .init()
     private init() { }
 }

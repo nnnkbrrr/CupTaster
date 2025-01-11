@@ -20,11 +20,6 @@ struct RecipesTabView: View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading) {
-                if recipes.isEmpty {
-                    Text("Рецептов пока нет")
-                        .padding(.regular)
-                }
-                
                 let pinnedRecipes: [Recipe] = recipes.filter { $0.isPinned }
                 let recentRecipes: [Recipe] = recipes.filter { !$0.isPinned }
                 
@@ -37,10 +32,15 @@ struct RecipesTabView: View {
                 
                 ForEach(pinnedRecipes) { RecipePreview(recipe: $0, activeRecipe: $activeRecipe) }
                 
-                Text("Recent")
-                    .font(.title3)
-                    .padding(.top, .regular)
-                    .padding([.bottom, .leading], .extraSmall)
+                if !recipes.isEmpty {
+                    Text("Recent")
+                        .font(.title3)
+                        .padding(.top, .regular)
+                        .padding([.bottom, .leading], .extraSmall)
+                } else {
+                    Text("Рецептов пока нет")
+                        .padding(.regular)
+                }
                 
                 ForEach(recentRecipes) { RecipePreview(recipe: $0, activeRecipe: $activeRecipe) }
             }
@@ -85,11 +85,13 @@ struct RecipesTabView: View {
         @Binding var activeRecipe: ObjectIdentifier?
         
         var body: some View {
-            SwipeView(gestureType: .simultaneous) {
+            SwipeView(gestureType: .highPriority) {
                 NavigationLink(destination: RecipeView(recipe: recipe), tag: recipe.id, selection: $activeRecipe) {
                     HStack {
                         VStack(alignment: .leading, spacing: .extraSmall) {
                             Text(recipe.name == "" ? "Новый рецепт" : recipe.name)
+                                .lineLimit(1)
+                            
                             Text(recipe.date, style: .date)
                                 .foregroundStyle(.gray)
                                 .font(.caption)

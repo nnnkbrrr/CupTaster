@@ -40,8 +40,6 @@ extension SampleView {
                 }
             }
             .padding(.small)
-            .animation(.smooth, value: samplesControllerModel.selectedSample)
-            .animation(.smooth, value: SamplesControllerModel.shared.cupping)
         }
         
         struct CheckboxesSummaryColumn: View {
@@ -73,7 +71,6 @@ extension SampleView {
                             }
                         }
                         .animation(.smooth, value: criteria.value)
-                        .animation(.smooth, value: SamplesControllerModel.shared.cupping)
                     }
                 }
             }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 class SearchModel: ObservableObject {
-    static let shared: SearchModel = .init()
+    @MainActor static let shared: SearchModel = .init()
     
     @Published var searchIsActive: Bool = false
     @Published var searchValue: String = ""

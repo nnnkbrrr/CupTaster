@@ -56,7 +56,7 @@ struct SheetModifier<SheetContent: View>: ViewModifier {
                         .onTapGesture { isPresented = false }
                 )
                 .dragGesture(
-                    gestureType: .simultaneous,
+                    gestureType: .highPriority,
                     direction: .vertical,
                     onUpdate: { value in
                         let translation: CGFloat = value.translation.height

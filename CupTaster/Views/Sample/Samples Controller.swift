@@ -18,7 +18,7 @@ struct SamplesControllerView: View {
             ZStack(alignment: .bottom) {
                 SampleView()
                     .dragGesture (
-                        gestureType: .simultaneous,
+                        gestureType: .highPriority,
                         direction: .horizontal,
                         onStart: { sampleGesturesControllerModel.onSwipeStarted() },
                         onUpdate: { sampleGesturesControllerModel.onSwipeUpdated(value: $0) },
@@ -34,7 +34,7 @@ struct SamplesControllerView: View {
             .safeAreaInset(edge: .top, spacing: 0) {
                 SamplesControllerPagesView()
                     .dragGesture (
-                        gestureType: .simultaneous,
+                        gestureType: .highPriority,
                         direction: .horizontal,
                         onStart: { sampleGesturesControllerModel.onSwipeStarted() },
                         onUpdate: { sampleGesturesControllerModel.onSwipeUpdated(value: $0) },

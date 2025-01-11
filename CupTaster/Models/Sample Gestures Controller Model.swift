@@ -9,8 +9,12 @@ import SwiftUI
 
 class SampleGesturesControllerModel: ObservableObject {
     @ObservedObject var samplesControllerModel: SamplesControllerModel = .shared
-    static let shared: SampleGesturesControllerModel = .init()
-    private init() { }
+    @MainActor static let shared: SampleGesturesControllerModel = .init()
+    
+    @MainActor
+    private init() {
+        self.samplesControllerModel = SamplesControllerModel.shared
+    }
     
     // Sample Swipe Gestures
     
@@ -19,7 +23,7 @@ class SampleGesturesControllerModel: ObservableObject {
     @Published private(set) var lastSampleRotationAngle: Angle = .degrees(0)
     @Published private var swipeTransition: Bool = false
     @Published public var samplePickerGestureIsActive: Bool = false
-    let impactStyle: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    let impactStyle: UIImpactFeedbackGenerator.FeedbackStyle = .medium
     
     // Sample Bottom Sheet Gestures
     
@@ -29,7 +33,7 @@ class SampleGesturesControllerModel: ObservableObject {
 }
 
 extension SampleGesturesControllerModel {
-    func onSwipeStarted() {
+    @MainActor func onSwipeStarted() {
         withAnimation(.bouncy(duration: 0.2)) {
             samplesControllerModel.stopwatchOverlayIsActive = false
         }
@@ -37,7 +41,7 @@ extension SampleGesturesControllerModel {
         samplesControllerModel.changeSelectedSample(sample: nil)
     }
     
-    func onSwipeUpdated(value: DragGesture.Value) {
+    @MainActor func onSwipeUpdated(value: DragGesture.Value) {
         guard let cupping = samplesControllerModel.cupping, cupping.samples.count > 0 else { return }
         let translation: CGFloat = value.translation.width
         
@@ -55,13 +59,13 @@ extension SampleGesturesControllerModel {
                     firstSampleRotationAngle = .zero
                     if samplesControllerModel.selectedSampleIndex != cupping.samples.count - 1 {
                         setSelectedSampleIndex(cupping.samples.count - 1)
-                        impactStyle.impactOccurred()
+                        UIImpactFeedbackGenerator(style: impactStyle).impactOccurred()
                     }
                 } else {
                     swipeTransition = false
                     if samplesControllerModel.selectedSampleIndex != 0 {
                         setSelectedSampleIndex(0)
-                        impactStyle.impactOccurred()
+                        UIImpactFeedbackGenerator(style: impactStyle).impactOccurred()
                     }
                     firstSampleRotationAngle = .degrees(angle)
                     lastSampleRotationAngle = .zero
@@ -79,7 +83,7 @@ extension SampleGesturesControllerModel {
                     self.swipeTransition = true
                     if samplesControllerModel.selectedSampleIndex != 0 {
                         setSelectedSampleIndex(0)
-                        impactStyle.impactOccurred()
+                        UIImpactFeedbackGenerator(style: impactStyle).impactOccurred()
                     }
                     self.firstSampleRotationAngle = .degrees(180 + angle)
                     self.lastSampleRotationAngle = .zero
@@ -87,7 +91,7 @@ extension SampleGesturesControllerModel {
                     self.swipeTransition = false
                     if samplesControllerModel.selectedSampleIndex != cupping.samples.count - 1 {
                         setSelectedSampleIndex(cupping.samples.count - 1)
-                        impactStyle.impactOccurred()
+                        UIImpactFeedbackGenerator(style: impactStyle).impactOccurred()
                     }
                     self.lastSampleRotationAngle = .degrees(angle)
                     self.firstSampleRotationAngle = .zero
@@ -96,7 +100,7 @@ extension SampleGesturesControllerModel {
         }
     }
     
-    func onSwipeEnded(value: DragGesture.Value) {
+    @MainActor func onSwipeEnded(value: DragGesture.Value) {
         guard let cupping = samplesControllerModel.cupping, cupping.samples.count > 0 else { return }
         
         let translation: CGFloat = value.translation.width
@@ -122,7 +126,7 @@ extension SampleGesturesControllerModel {
         samplePickerGestureIsActive = false
     }
     
-    func onSwipeCanceled() {
+    @MainActor func onSwipeCanceled() {
         guard let cupping = samplesControllerModel.cupping, cupping.samples.count > 0 else { return }
         
         if [swipeOffset, firstSampleRotationAngle.degrees, lastSampleRotationAngle.degrees].contains(where: { $0 != 0 }) {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-func showAlert(title: String, message: String) {
+@MainActor func showAlert(title: String, message: String) {
     guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
     guard let window = windowScene.windows.first else { return }
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

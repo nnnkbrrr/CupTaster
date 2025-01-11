@@ -135,7 +135,6 @@ struct SampleBottomSheetView: View {
             )
             .opacity(sampleGesturesControllerModel.bottomSheetIsExpanded ? 1 : 0)
         }
-        .animation(.easeInOut(duration: 0.5), value: samplesControllerModel.selectedSample)
         .padding(.vertical, SampleBottomSheetConfiguration.verticalPadding)
         .modifier(SheetModifier())
     }
@@ -190,7 +189,8 @@ extension SampleBottomSheetView {
                     )
                     .offset(y: sampleGesturesControllerModel.bottomSheetOffset)
                     .dragGesture(
-                        gestureType: .simultaneous,
+                        gestureType: .highPriority,
+                        minimumDistance: 0,
                         direction: .vertical,
                         onUpdate: { value in
                             let translation: CGFloat = value.translation.height

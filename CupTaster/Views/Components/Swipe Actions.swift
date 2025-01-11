@@ -174,7 +174,7 @@ public struct SwipeOptions {
 // MARK: - Environment
 
 public struct SwipeContextKey: EnvironmentKey {
-    public static let defaultValue = SwipeContext(state: .constant(nil), side: .leading)
+    nonisolated(unsafe) public static let defaultValue = SwipeContext(state: .constant(nil), side: .leading)
 }
 
 public struct SwipeViewGroupSelectionKey: EnvironmentKey {
@@ -415,7 +415,9 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
 
                         /// Unwrap the value first (if it's not the edge action, `allow` is `nil`).
                         if let allow {
-                            swipeToTriggerLeadingEdge = allow
+                            DispatchQueue.main.async {
+                                swipeToTriggerLeadingEdge = allow
+                            }
                         }
                     }
             },
@@ -427,7 +429,9 @@ public struct SwipeView<Label, LeadingActions, TrailingActions>: View where Labe
                     .environment(\.swipeContext, context)
                     .onPreferenceChange(AllowSwipeToTriggerKey.self) { allow in
                         if let allow {
-                            swipeToTriggerTrailingEdge = allow
+                            DispatchQueue.main.async {
+                                swipeToTriggerTrailingEdge = allow
+                            }
                         }
                     }
             },
@@ -1404,7 +1408,7 @@ struct ContentSizeReaderPreferenceKey: PreferenceKey {
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) { value = nextValue() }
 }
 
-struct AllowSwipeToTriggerKey: PreferenceKey {
-    static var defaultValue: Bool? = nil
+struct AllowSwipeToTriggerKey: @preconcurrency PreferenceKey {
+    @MainActor static var defaultValue: Bool? = nil
     static func reduce(value: inout Bool?, nextValue: () -> Bool?) { value = nextValue() }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 fileprivate class GestureBinding: ObservableObject {
-    static let shared: GestureBinding = .init()
+    @MainActor static let shared: GestureBinding = .init()
     @Published var isActive: Bool
     init() { self.isActive = false }
 }
@@ -71,19 +71,6 @@ struct TargetHorizontalScrollView<
             HStack(alignment: .top, spacing: spacing) {
                 ForEach(data, id: \.index) { element in
                     targetContent(element.value)
-                        .simultaneousGesture(
-                            TapGesture()
-                                .onEnded {
-                                    gestureIsActive = true
-                                    selection = element.value
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { gestureIsActive = false }
-                                    onSelectionChange(element.value)
-                                    generateSelectionFeedback()
-                                    withAnimation(.smooth) {
-                                        offset = -(elementWidth + spacing) * Double((data.first(where: { $1 == element.value })?.index ?? 0))
-                                    }
-                                }
-                        )
                 }
             }
             .frame(maxWidth: .infinity)

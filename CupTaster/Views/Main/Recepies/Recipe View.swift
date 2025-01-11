@@ -113,12 +113,26 @@ struct RecipeView: View {
                 .onTapGesture { focusedField = .waterAmount }
             }
             
-            TextField("Add notes", text: $recipe.notes)
-                .focused($focusedField, equals: .notes)
-                .padding(.extraSmall)
-                .font(.caption)
-                .foregroundStyle(.gray)
-                .onChange(of: focusedField) { _ in save(moc) }
+            ZStack {
+                if recipe.notes == "" {
+                    Text("Add notes")
+                } else {
+                    Text(recipe.notes)
+                }
+            }
+            .padding(.extraSmall)
+            .font(.caption)
+            .foregroundStyle(.gray)
+            .background {
+                TextField("Add notes", text: $recipe.notes)
+                    .opacity(0)
+                    .offset(y: 150)
+                    .focused($focusedField, equals: .notes)
+                    .onChange(of: focusedField) { _ in save(moc) }
+            }
+            .onTapGesture {
+                focusedField = .notes
+            }
         }
     }
     
@@ -133,7 +147,7 @@ struct RecipeView: View {
                 .padding([.bottom, .leading], .extraSmall)
             
             ForEach(recipe.sortedSteps) { step in
-                SwipeView(gestureType: .simultaneous) {
+                SwipeView(gestureType: .highPriority) {
                     RecipeStepView(step: step)
                 } trailingActions: { _ in
                     SwipeActionView(systemImage: "trash.fill", title: "Delete", color: .red) {
@@ -161,6 +175,18 @@ struct RecipeView: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.top, .small)
+        }
+    }
+}
+
+private extension View {
+    func transparentScrolling() -> some View {
+        if #available(iOS 16.0, *) {
+            return scrollContentBackground(.hidden)
+        } else {
+            return onAppear {
+                UITextView.appearance().backgroundColor = .clear
+            }
         }
     }
 }

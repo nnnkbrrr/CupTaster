@@ -32,6 +32,7 @@ extension View {
 struct DragGestureViewModifier: ViewModifier {
     @GestureState private var isDragging: Bool = false
     @State var gestureState: GestureStatus = .idle
+    let minimumDistance: CGFloat
     
     enum GestureStatus: Equatable { case idle, started, active, ended, cancelled }
     
@@ -46,6 +47,7 @@ struct DragGestureViewModifier: ViewModifier {
     
     init(
         gestureType: GestureType = .unspecified,
+        minimumDistance: CGFloat = 30,
         direction: Direction? = nil,
         onStart: @escaping () -> Void = { },
         onUpdate: @escaping (DragGesture.Value) -> () = { _ in },
@@ -59,12 +61,13 @@ struct DragGestureViewModifier: ViewModifier {
         
         self.direction = direction
         self.gestureType = gestureType
+        self.minimumDistance = minimumDistance
     }
     
     func body(content: Content) -> some View {
         content
             .gestureWithType(gestureType) {
-                DragGesture()
+                DragGesture(minimumDistance: minimumDistance)
                     .updating($isDragging) { _, isDragging, _ in isDragging = true }
                     .onChanged(onDragChange(_:))
                     .onEnded(onDragEnded(_:))
@@ -116,6 +119,7 @@ struct DragGestureViewModifier: ViewModifier {
 extension View {
     func dragGesture(
         gestureType: GestureType = .unspecified,
+        minimumDistance: CGFloat = 30,
         direction: Direction? = nil,
         onStart: @escaping () -> Void = {},
         onUpdate: @escaping (DragGesture.Value) -> () = { _ in },
@@ -125,6 +129,7 @@ extension View {
         modifier(
             DragGestureViewModifier(
                 gestureType: gestureType,
+                minimumDistance: minimumDistance,
                 direction: direction,
                 onStart: { onStart() },
                 onUpdate: { onUpdate($0) },

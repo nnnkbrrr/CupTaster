@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-class SliderEvaluation: Evaluation {
+class SliderEvaluation: @preconcurrency Evaluation {
     let name: String = "Slider"
     let sortOrder: Int = 0
     
     func getEvaluationValue(_ value: CGFloat, cupsCount: Int16 = 0) -> CGFloat { return value }
     
-    func body(for criteria: QualityCriteria, value: Binding<Double>) -> some View {
+    @MainActor func body(for criteria: QualityCriteria, value: Binding<Double>) -> some View {
         let config = criteria.configuration
         return SliderView(
             value: value,

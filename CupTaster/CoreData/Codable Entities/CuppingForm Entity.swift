@@ -65,13 +65,13 @@ extension CuppingForm {
         return "\(self.title).v.\(self.version).\(self.languageCode)"
     }
     
-    var isDeprecated: Bool {
+    @MainActor var isDeprecated: Bool {
         return !CFManager.shared.allCFModels.contains { cfModel in
             self.title == cfModel.title && self.version == cfModel.version
         }
     }
     
-    var isDefault: Bool {
+    @MainActor var isDefault: Bool {
         return self.shortDescription == CFManager.shared.defaultCFDescription
     }
 }

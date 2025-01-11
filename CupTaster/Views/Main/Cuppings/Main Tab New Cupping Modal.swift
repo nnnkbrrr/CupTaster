@@ -11,7 +11,7 @@ import CoreLocation
 import CoreData
 
 class NewCupping: ObservableObject {
-    static let shared: NewCupping = .init()
+    @MainActor static let shared: NewCupping = .init()
     
     @Published var name: String = ""
     @Published var cupsCount: Int = 5
@@ -26,7 +26,7 @@ class NewCupping: ObservableObject {
     
     private init() { }
     
-    func create(cuppingForm: CuppingForm, context moc: NSManagedObjectContext) {
+    @MainActor func create(cuppingForm: CuppingForm, context moc: NSManagedObjectContext) {
         let cupping: Cupping = .init(context: moc)
         cupping.name = name
         cupping.setup(
@@ -336,34 +336,37 @@ struct NewCuppingModalView: View {
             .padding(.horizontal, .small)
         }
         .padding([.horizontal, .bottom], .small)
-        .onAppear {
-            Task {
-                if locationManager.attachLocation {
-                    if let locationData = await locationManager.getLocationData() {
-                        let coordinates: CLLocation = .init(latitude: locationData.latitude, longitude: locationData.longitude)
-                        
-                        var minDistance: Double = Double.greatestFiniteMagnitude
-                        for location in locations {
-                            let distance: Double = coordinates.distance(from: location.coordinates)
-                            if distance < locationManager.unionDistance && distance < minDistance {
-                                minDistance = distance
-                                newCupping.location = location
-                                newCupping.address = location.address
-                            }
+        .onAppear { setup() }
+    }
+    
+    func setup() {
+        Task { [weak locationManager] in
+            guard let locationManager = locationManager else { return }
+            if locationManager.attachLocation {
+                if let locationData = await locationManager.getLocationData() {
+                    let coordinates: CLLocation = .init(latitude: locationData.latitude, longitude: locationData.longitude)
+                    
+                    var minDistance: Double = Double.greatestFiniteMagnitude
+                    for location in locations {
+                        let distance: Double = coordinates.distance(from: location.coordinates)
+                        if distance < locationManager.unionDistance && distance < minDistance {
+                            minDistance = distance
+                            newCupping.location = location
+                            newCupping.address = location.address
                         }
-                        
-                        if newCupping.location == nil {(
-                            newCupping.address,
-                            newCupping.horizontalAccuracy,
-                            newCupping.latitude,
-                            newCupping.longitude
-                        ) = locationData }
                     }
+                    
+                    if newCupping.location == nil {(
+                        newCupping.address,
+                        newCupping.horizontalAccuracy,
+                        newCupping.latitude,
+                        newCupping.longitude
+                    ) = locationData }
                 }
-                
-                withAnimation {
-                    loadingAddress = false
-                }
+            }
+            
+            withAnimation {
+                loadingAddress = false
             }
         }
     }

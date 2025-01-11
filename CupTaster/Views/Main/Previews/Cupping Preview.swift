@@ -24,7 +24,7 @@ struct CuppingPreview: View {
     }
     
     var body: some View {
-        SwipeView(gestureType: .simultaneous) {
+        SwipeView(gestureType: .highPriority) {
             if cupping.isFault {
                 EmptyView()
             } else {

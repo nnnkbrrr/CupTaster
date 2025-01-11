@@ -59,13 +59,13 @@ class FolderFilter: Identifiable, Hashable {
         self.predicate = predicate
     }
     
-    static let all: FolderFilter = .init(name: "All", ordinalNumber: -2) {
+    @MainActor static let all: FolderFilter = .init(name: "All", ordinalNumber: -2) {
         if SearchModel.shared.searchValue == "" {
             return $0.filter { $0 is Cupping }
         } else { return $0 }
     }
-    static let favorites: FolderFilter = .init(name: "Favorites", ordinalNumber: -1) { return $0.filter { $0.isFavorite } }
-    static let pinnedFolders: [FolderFilter] = [.all, .favorites]
+    @MainActor static let favorites: FolderFilter = .init(name: "Favorites", ordinalNumber: -1) { return $0.filter { $0.isFavorite } }
+    @MainActor static let pinnedFolders: [FolderFilter] = [.all, .favorites]
     
     static func == (lhs: FolderFilter, rhs: FolderFilter) -> Bool {
         return lhs.ordinalNumber == rhs.ordinalNumber
@@ -78,21 +78,21 @@ class FolderFilter: Identifiable, Hashable {
 
 extension FolderFilter {
     // Cuppings
-    func containsCupping(_ cupping: Cupping) -> Bool {
+    @MainActor func containsCupping(_ cupping: Cupping) -> Bool {
         if folder?.cuppings.contains(cupping) ?? false { return true }
         else if self == FolderFilter.all { return true }
         else if self == FolderFilter.favorites { return cupping.isFavorite }
         return false
     }
     
-    func addCupping(_ cupping: Cupping, context: NSManagedObjectContext) {
+    @MainActor func addCupping(_ cupping: Cupping, context: NSManagedObjectContext) {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { cupping.isFavorite = true }
         else { folder?.addToCuppings(cupping) }
         save(context)
     }
     
-    func removeCupping(_ cupping: Cupping, context: NSManagedObjectContext) {
+    @MainActor func removeCupping(_ cupping: Cupping, context: NSManagedObjectContext) {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { cupping.isFavorite = false }
         else { folder?.removeFromCuppings(cupping) }
@@ -100,21 +100,21 @@ extension FolderFilter {
     }
     
     // Samples
-    func containsSample(_ sample: Sample) -> Bool {
+    @MainActor func containsSample(_ sample: Sample) -> Bool {
         if folder?.samples.contains(sample) ?? false { return true }
         else if self == FolderFilter.all { return true }
         else if self == FolderFilter.favorites { return sample.isFavorite }
         return false
     }
     
-    func addSample(_ sample: Sample, context: NSManagedObjectContext) {
+    @MainActor func addSample(_ sample: Sample, context: NSManagedObjectContext) {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { sample.isFavorite = true }
         else { folder?.addToSamples(sample) }
         save(context)
     }
     
-    func removeSample(_ sample: Sample, context: NSManagedObjectContext) {
+    @MainActor func removeSample(_ sample: Sample, context: NSManagedObjectContext) {
         if self == FolderFilter.all { return }
         else if self == FolderFilter.favorites { sample.isFavorite = false }
         else { folder?.removeFromSamples(sample) }
