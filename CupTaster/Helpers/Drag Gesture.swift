@@ -83,14 +83,14 @@ struct DragGestureViewModifier: ViewModifier {
     }
     
     func onDragStarted() {
-        gestureState = .started
         if direction == nil {
+            gestureState = .started
             onStart()
         }
     }
 
     func onDragChange(_ value: DragGesture.Value) {
-        guard gestureState == .started || gestureState == .active else { return }
+        guard gestureState == .started || gestureState == .active || direction != nil else { return }
         
         if direction != nil && gestureDirection == nil {
             gestureDirection = abs(value.translation.height) > abs(value.translation.width) ? .vertical : .horizontal
@@ -99,8 +99,7 @@ struct DragGestureViewModifier: ViewModifier {
         if gestureDirection == direction {
             onStart()
             onUpdate(value)
-        }
-        else if gestureState == .started || gestureState == .active { onDragCanceled() }
+        } else if gestureState == .started || gestureState == .active { onDragCanceled() }
     }
 
     func onDragEnded(_ value: DragGesture.Value) {

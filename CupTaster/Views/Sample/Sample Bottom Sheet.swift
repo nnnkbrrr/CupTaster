@@ -189,7 +189,7 @@ extension SampleBottomSheetView {
                     )
                     .offset(y: sampleGesturesControllerModel.bottomSheetOffset)
                     .dragGesture(
-                        gestureType: .highPriority,
+                        gestureType: .unspecified,
                         minimumDistance: 0,
                         direction: .vertical,
                         onUpdate: { value in
