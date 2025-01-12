@@ -59,8 +59,7 @@ struct SampleBottomSheetView: View {
                         height: SampleBottomSheetConfiguration.Capsule.height
                     )
                 
-                if let sample: Sample = samplesControllerModel.selectedSample,
-                   let selectedQCGroup: QCGroup = samplesControllerModel.selectedQCGroup {
+                if let sample: Sample = samplesControllerModel.selectedSample {
                     TargetHorizontalScrollView(
                         sample.sortedQCGroups.filter { qcGroup in
                             return !qcGroup.qualityCriteria.contains(where: {
@@ -190,7 +189,7 @@ extension SampleBottomSheetView {
                     .offset(y: sampleGesturesControllerModel.bottomSheetOffset)
                     .dragGesture(
                         gestureType: .unspecified,
-                        minimumDistance: 0,
+                        minimumDistance: 5,
                         direction: .vertical,
                         onUpdate: { value in
                             let translation: CGFloat = value.translation.height
