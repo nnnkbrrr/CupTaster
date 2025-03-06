@@ -22,7 +22,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     private let locationManager = CLLocationManager()
-    static let shared: LocationManager = .init()
+    @MainActor static let shared: LocationManager = .init()
     
     override private init () {
         super.init()

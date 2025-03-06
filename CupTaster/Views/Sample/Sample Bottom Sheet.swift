@@ -59,8 +59,7 @@ struct SampleBottomSheetView: View {
                         height: SampleBottomSheetConfiguration.Capsule.height
                     )
                 
-                if let sample: Sample = samplesControllerModel.selectedSample,
-                   let selectedQCGroup: QCGroup = samplesControllerModel.selectedQCGroup {
+                if let sample: Sample = samplesControllerModel.selectedSample {
                     TargetHorizontalScrollView(
                         sample.sortedQCGroups.filter { qcGroup in
                             return !qcGroup.qualityCriteria.contains(where: {
@@ -68,7 +67,7 @@ struct SampleBottomSheetView: View {
                             }) || sample.cupping.cupsCount > 1
                         },
                         selection: Binding(
-                            get: { selectedQCGroup },
+                            get: { samplesControllerModel.selectedQCGroup! },
                             set: { samplesControllerModel.changeSelectedQCGroup(qcGroup: $0) }
                         ),
                         elementWidth: SampleBottomSheetConfiguration.QCGroup.elementSize,
@@ -135,7 +134,6 @@ struct SampleBottomSheetView: View {
             )
             .opacity(sampleGesturesControllerModel.bottomSheetIsExpanded ? 1 : 0)
         }
-        .animation(.easeInOut(duration: 0.5), value: samplesControllerModel.selectedSample)
         .padding(.vertical, SampleBottomSheetConfiguration.verticalPadding)
         .modifier(SheetModifier())
     }
@@ -190,7 +188,8 @@ extension SampleBottomSheetView {
                     )
                     .offset(y: sampleGesturesControllerModel.bottomSheetOffset)
                     .dragGesture(
-                        gestureType: .simultaneous,
+                        gestureType: .unspecified,
+                        minimumDistance: 5,
                         direction: .vertical,
                         onUpdate: { value in
                             let translation: CGFloat = value.translation.height

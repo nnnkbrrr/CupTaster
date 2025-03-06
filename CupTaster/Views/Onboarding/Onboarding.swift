@@ -20,15 +20,18 @@ class OnboardingModel: ObservableObject {
     
     enum Page {
         case greetings, formPicker, additionalFields, location
-        static var allCases: [Self] = [.greetings, .formPicker, .additionalFields, .location]
+        nonisolated(unsafe) static var allCases: [Self] = [.greetings, .formPicker, .additionalFields, .location]
     }
     
+    @MainActor
     init(onboardingIsCompleted: Binding<Bool>, generalInfoFields: FetchedResults<SampleGeneralInfo>) {
         self._onboardingIsCompleted = onboardingIsCompleted
         self.generalInfoFields = generalInfoFields
+        self.testingManager = TestingManager.shared
+        self.locationManager = LocationManager.shared
     }
     
-    func nextPage() {
+    @MainActor func nextPage() {
         if currentPageModel.page == .greetings {
             currentPageModel.page = .formPicker
             if CFManager.shared.defaultCFDescription == "" || !testingManager.skipFilledOnboardingPages { return }
@@ -50,7 +53,7 @@ class OnboardingModel: ObservableObject {
     }
     
     class CurrentPageModel: ObservableObject {
-        static let shared: CurrentPageModel = .init()
+        @MainActor static let shared: CurrentPageModel = .init()
         @Published var page: OnboardingModel.Page = .greetings
         private init() { }
     }
@@ -260,7 +263,9 @@ extension OnboardingView {
                     opacity = CGFloat.random(in: 0.3...0.6)
                 }
                 
-                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + speed/2, execute: { randomize() })
+                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + speed/2, execute: {
+                    Task { await randomize() }
+                })
             }
         }
     }

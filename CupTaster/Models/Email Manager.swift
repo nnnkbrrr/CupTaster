@@ -9,12 +9,12 @@ import Foundation
 import MessageUI
 
 class EmailManager: NSObject {
-    static let shared = EmailManager()
+    @MainActor static let shared = EmailManager()
     private override init() {}
 }
 
 extension EmailManager {
-    func send(subject: String = "", body: String = "", to: String) {
+    @MainActor func send(subject: String = "", body: String = "", to: String) {
         guard let viewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else { return }
         
         if !MFMailComposeViewController.canSendMail() {
@@ -42,8 +42,8 @@ extension EmailManager {
     }
 }
 
-extension EmailManager: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+extension EmailManager: @preconcurrency MFMailComposeViewControllerDelegate {
+    @MainActor func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
 }

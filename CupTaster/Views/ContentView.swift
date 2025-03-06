@@ -18,7 +18,8 @@ struct ContentView: View {
     @ObservedObject var testingManager: TestingManager = .shared
     @ObservedObject var syncMonitor: SyncMonitor = .shared
     
-    @State var iCloudLoading = false
+    @State var iCloudLoading: Bool = false
+    @State var showTesterView: Bool = false
     
     @AppStorage("purchase-identifier") var purchaseIdentifier: String = ""
     
@@ -64,12 +65,19 @@ struct ContentView: View {
                 .onAppear { iCloudLoading = true }
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                if testingManager.testerOverlayIsVisible {
-                    TesterPanelView().ignoresSafeArea(.keyboard)
+        .overlay(alignment: .bottomLeading) {
+            if testingManager.testerOverlayIsVisible {
+                Button {
+                    showTesterView = true
+                } label: {
+                    Image(systemName: "wrench.and.screwdriver")
                 }
+                .buttonStyle(.bordered)
             }
+        }
+        .fullScreenCover(isPresented: $showTesterView) {
+            TesterPanelView(isPresented: $showTesterView)
+                .background(ClearModalBackground(isPresented: $showTesterView, backgroundOpacity: 0))
         }
     }
 }

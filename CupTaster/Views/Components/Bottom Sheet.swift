@@ -56,7 +56,7 @@ struct SheetModifier<SheetContent: View>: ViewModifier {
                         .onTapGesture { isPresented = false }
                 )
                 .dragGesture(
-                    gestureType: .simultaneous,
+                    gestureType: .highPriority,
                     direction: .vertical,
                     onUpdate: { value in
                         let translation: CGFloat = value.translation.height
@@ -97,6 +97,12 @@ struct ClearModalBackground: UIViewRepresentable {
     
     @State var sheetBackground: UIView?
     @State var contentOverlay: UIView?
+    let backgroundOpacity: CGFloat?
+    
+    init(isPresented: Binding<Bool>, backgroundOpacity: CGFloat? = nil) {
+        self._isPresented = isPresented
+        self.backgroundOpacity = backgroundOpacity
+    }
     
     func makeUIView(context: Context) -> UIView {
         let view = UIView()
@@ -109,8 +115,15 @@ struct ClearModalBackground: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
+        var bgOpacity: CGFloat {
+            if let backgroundOpacity { return backgroundOpacity }
+            else {
+                if colorScheme == .dark { return 0.75 }
+                else { return 0.5 }
+            }
+        }
         UIView.animate(withDuration: 0.3) {
-            contentOverlay?.backgroundColor = UIColor(Color.black.opacity(colorScheme == .dark ? 0.75 : 0.5).opacity(isPresented ? 1 : 0))
+            contentOverlay?.backgroundColor = UIColor(Color.black.opacity(bgOpacity).opacity(isPresented ? 1 : 0))
         }
     }
 }

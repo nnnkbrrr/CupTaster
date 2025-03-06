@@ -13,7 +13,7 @@ public class CFManager: ObservableObject {
     
     let allCFModels: [CFModel]
     
-    static let shared = CFManager()
+    @MainActor static let shared = CFManager()
     private init() {
         allCFModels = [
             CFModel(title: "SCA", version: "2.0"),
@@ -34,7 +34,7 @@ extension CFManager {
         self.objectWillChange.send()
     }
     
-    public func getDefaultCuppingForm(from cuppingForms: FetchedResults<CuppingForm>) -> CuppingForm? {
+    @MainActor public func getDefaultCuppingForm(from cuppingForms: FetchedResults<CuppingForm>) -> CuppingForm? {
         if let defaultCuppingForm = cuppingForms.first(where: { $0.shortDescription == defaultCFDescription }) {
             return defaultCuppingForm
         } else if let firstCuppingForm = cuppingForms.first(where: { !$0.isDeprecated } ) {
@@ -66,7 +66,7 @@ extension CFManager {
         return cuppingForm.qcGroupConfigurations.contains { $0.hint != nil }
     }
     
-    public func defaultCFHintsAreAvailable(from cuppingForms: FetchedResults<CuppingForm>) -> Bool {
+    @MainActor public func defaultCFHintsAreAvailable(from cuppingForms: FetchedResults<CuppingForm>) -> Bool {
         guard let defaultCF: CuppingForm = self.getDefaultCuppingForm(from: cuppingForms) else { return false }
         return hintsAreAvailable(in: defaultCF)
     }
@@ -77,7 +77,7 @@ extension CFManager {
         case qcGroupMigrationError(String, String), qualityCriteriaMigrationError(String, String)
     }
     
-    public func update(
+    @MainActor public func update(
         from initial: CuppingForm,
         to final: CuppingForm,
         context: NSManagedObjectContext,

@@ -33,6 +33,14 @@ struct SamplesControllerView: View {
             .background(Color.backgroundPrimary)
             .safeAreaInset(edge: .top, spacing: 0) {
                 SamplesControllerPagesView()
+                    .dragGesture (
+                        gestureType: .highPriority,
+                        direction: .horizontal,
+                        onStart: { sampleGesturesControllerModel.onSwipeStarted() },
+                        onUpdate: { sampleGesturesControllerModel.onSwipeUpdated(value: $0) },
+                        onEnd: { sampleGesturesControllerModel.onSwipeEnded(value: $0) },
+                        onCancel: { sampleGesturesControllerModel.onSwipeCanceled() }
+                    )
             }
             .overlay {
                 if samplesControllerModel.stopwatchOverlayIsActive {
@@ -50,13 +58,6 @@ struct SamplesControllerView: View {
                     .zIndex(3)
                 }
             }
-            .dragGesture (
-                direction: .horizontal,
-                onStart: { sampleGesturesControllerModel.onSwipeStarted() },
-                onUpdate: { sampleGesturesControllerModel.onSwipeUpdated(value: $0) },
-                onEnd: { sampleGesturesControllerModel.onSwipeEnded(value: $0) },
-                onCancel: { sampleGesturesControllerModel.onSwipeCanceled() }
-            )
         }
     }
 }

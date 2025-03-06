@@ -15,7 +15,7 @@ class StopwatchModel: ObservableObject {
     enum State { case idle, started, stopped }
     @Published fileprivate(set) var state: State
     
-    static let shared: StopwatchModel = .init()
+    @MainActor static let shared: StopwatchModel = .init()
     private init() {
         self.state = {
             guard UserDefaults.standard.string(forKey: "stopwatch-time-since") != "" else { return.idle }

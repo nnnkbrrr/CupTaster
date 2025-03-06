@@ -11,6 +11,8 @@ import CoreLocation
 import CoreData
 
 class NewCupping: ObservableObject {
+    @MainActor static let shared: NewCupping = .init()
+    
     @Published var name: String = ""
     @Published var cupsCount: Int = 5
     @Published var date: Date = Date()
@@ -22,9 +24,9 @@ class NewCupping: ObservableObject {
     @Published var latitude: Double?
     @Published var longitude: Double?
     
-    init() { }
+    private init() { }
     
-    func create(cuppingForm: CuppingForm, context moc: NSManagedObjectContext) {
+    @MainActor func create(cuppingForm: CuppingForm, context moc: NSManagedObjectContext) {
         let cupping: Cupping = .init(context: moc)
         cupping.name = name
         cupping.setup(
@@ -52,6 +54,19 @@ class NewCupping: ObservableObject {
         
         save(moc)
     }
+    
+    func reset() {
+        name = ""
+        cupsCount = 5
+        date = Date()
+        samplesCount = 10
+        folderFilters = []
+        location = nil
+        address = "Location is unavailable"
+        horizontalAccuracy = nil
+        latitude = nil
+        longitude = nil
+    }
 }
 
 struct NewCuppingModalView: View {
@@ -74,10 +89,9 @@ struct NewCuppingModalView: View {
     @State var cuppingFormPickerIsActive: Bool = false
     @State var foldersModalIsActive = false
     @State var loadingAddress: Bool = true
+    @ObservedObject var newCupping = NewCupping.shared
     
     private let nameLengthLimit = 50
-    
-    @ObservedObject var newCupping: NewCupping = .init()
     
     var body: some View {
         VStack(spacing: .extraSmall) {
@@ -322,34 +336,37 @@ struct NewCuppingModalView: View {
             .padding(.horizontal, .small)
         }
         .padding([.horizontal, .bottom], .small)
-        .onAppear {
-            Task {
-                if locationManager.attachLocation {
-                    if let locationData = await locationManager.getLocationData() {
-                        let coordinates: CLLocation = .init(latitude: locationData.latitude, longitude: locationData.longitude)
-                        
-                        var minDistance: Double = Double.greatestFiniteMagnitude
-                        for location in locations {
-                            let distance: Double = coordinates.distance(from: location.coordinates)
-                            if distance < locationManager.unionDistance && distance < minDistance {
-                                minDistance = distance
-                                newCupping.location = location
-                                newCupping.address = location.address
-                            }
+        .onAppear { setup() }
+    }
+    
+    func setup() {
+        Task { [weak locationManager] in
+            guard let locationManager = locationManager else { return }
+            if locationManager.attachLocation {
+                if let locationData = await locationManager.getLocationData() {
+                    let coordinates: CLLocation = .init(latitude: locationData.latitude, longitude: locationData.longitude)
+                    
+                    var minDistance: Double = Double.greatestFiniteMagnitude
+                    for location in locations {
+                        let distance: Double = coordinates.distance(from: location.coordinates)
+                        if distance < locationManager.unionDistance && distance < minDistance {
+                            minDistance = distance
+                            newCupping.location = location
+                            newCupping.address = location.address
                         }
-                        
-                        if newCupping.location == nil {(
-                            newCupping.address,
-                            newCupping.horizontalAccuracy,
-                            newCupping.latitude,
-                            newCupping.longitude
-                        ) = locationData }
                     }
+                    
+                    if newCupping.location == nil {(
+                        newCupping.address,
+                        newCupping.horizontalAccuracy,
+                        newCupping.latitude,
+                        newCupping.longitude
+                    ) = locationData }
                 }
-                
-                withAnimation {
-                    loadingAddress = false
-                }
+            }
+            
+            withAnimation {
+                loadingAddress = false
             }
         }
     }

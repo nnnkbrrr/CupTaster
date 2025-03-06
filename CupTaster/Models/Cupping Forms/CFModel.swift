@@ -18,7 +18,7 @@ extension CFManager {
             self.version = version
         }
         
-        func createCuppingForm(context: NSManagedObjectContext) -> CuppingForm? {
+        @MainActor func createCuppingForm(context: NSManagedObjectContext) -> CuppingForm? {
             guard let url: URL = Bundle.main.url(forResource: title, withExtension: "json") else { return nil }
             
             do {

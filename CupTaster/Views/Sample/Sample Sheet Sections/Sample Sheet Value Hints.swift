@@ -41,7 +41,7 @@ extension SampleBottomSheetView {
             }
 
             
-            static private var cache: [String: String] = [:]
+            static nonisolated(unsafe) private var cache: [String: String] = [:]
             static subscript(description: String) -> String? {
                 get { Self.cache[description] }
                 set { Self.cache[description] = newValue }

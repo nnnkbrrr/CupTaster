@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 class SampleNameGeneratorModel {
     enum GenerationMethod: RawRepresentable {
         case alphabetical, numerical

@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 class SamplesControllerModel: ObservableObject {
-    static let shared: SamplesControllerModel = .init()
+    @MainActor static let shared: SamplesControllerModel = .init()
     private init() { }
     
     enum Page { case main, cupping }
@@ -27,13 +27,13 @@ class SamplesControllerModel: ObservableObject {
 }
 
 extension SampleGesturesControllerModel {
-    func setSelectedSampleIndex(_ index: Int) {
+    @MainActor func setSelectedSampleIndex(_ index: Int) {
         SamplesControllerModel.shared.selectedSampleIndex = index
     }
 }
 
 extension SamplesControllerModel {
-    public func setSelectedSample(_ sample: Sample, animationId: UUID? = nil) {
+    @MainActor public func setSelectedSample(_ sample: Sample, animationId: UUID? = nil) {
         if !isTogglingVisibility {
             self.isTogglingVisibility = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -77,7 +77,7 @@ extension SamplesControllerModel {
         }
     }
     
-    public func exit() {
+    @MainActor public func exit() {
         UIApplication.shared.endEditing(true)
         if !isTogglingVisibility {
             self.isTogglingVisibility = true
@@ -98,12 +98,12 @@ extension SamplesControllerModel {
         }
     }
     
-    public func deleteSelectedSample(moc: NSManagedObjectContext) {
+    @MainActor public func deleteSelectedSample(moc: NSManagedObjectContext) {
         guard let sample = selectedSample else { return }
         deleteSample(sample, moc: moc)
     }
     
-    public func deleteSample(_ sample: Sample, moc: NSManagedObjectContext) {
+    @MainActor public func deleteSample(_ sample: Sample, moc: NSManagedObjectContext) {
         let cupping = sample.cupping
         
         let deletedSampleOrdinalNumber: Int16 = sample.ordinalNumber

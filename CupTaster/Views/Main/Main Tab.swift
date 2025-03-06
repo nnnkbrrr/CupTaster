@@ -8,7 +8,7 @@
 import SwiftUI
 
 class SearchModel: ObservableObject {
-    static let shared: SearchModel = .init()
+    @MainActor static let shared: SearchModel = .init()
     
     @Published var searchIsActive: Bool = false
     @Published var searchValue: String = ""
@@ -37,7 +37,7 @@ struct MainTabView: View {
     @State var prevSelectedFolderFilterOrdinalNumber: Int = FolderFilter.all.ordinalNumber
     
     @Namespace var namespace
-    @FocusState var searchBarIsFocusd: Bool
+    @FocusState var searchBarIsFocused: Bool
     @ObservedObject var searchModel: SearchModel = .shared
     @State var newCuppingModalIsActive: Bool = false
     
@@ -92,7 +92,18 @@ struct MainTabView: View {
                                 NavigationLink(destination: SettingsTabView()) {
                                     Image(systemName: "gearshape")
                                         .font(.title2)
+                                        .frame(width: .large, height: .large)
                                         .foregroundStyle(.accent)
+                                }
+                                
+                                if TestingManager.shared.showRecipesTab {
+                                    NavigationLink(destination: RecipesTabView()) {
+                                        Image(systemName: "list.clipboard")
+                                            .font(.title2)
+                                            .frame(width: .large, height: .large)
+                                            .foregroundStyle(.accent)
+                                    }
+                                    .padding(.leading, .small)
                                 }
                                 
                                 Spacer()
@@ -134,7 +145,7 @@ struct MainTabView: View {
                                     withAnimation(.smooth) {
                                         searchModel.searchIsActive = true
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                            searchBarIsFocusd = true
+                                            searchBarIsFocused = true
                                         }
                                     }
                                 }
@@ -143,8 +154,10 @@ struct MainTabView: View {
                                 
                                 Image(systemName: "plus")
                                     .font(.title2)
+                                    .frame(width: .large, height: .large)
                                     .foregroundStyle(.accent)
                                     .onTapGesture {
+                                        NewCupping.shared.reset()
                                         newCuppingModalIsActive = true
                                     }
                             } else {
@@ -158,7 +171,7 @@ struct MainTabView: View {
                                         )
                                     
                                     TextField("Search in \(folderFilterName)", text: $searchModel.searchValue)
-                                        .focused($searchBarIsFocusd)
+                                        .focused($searchBarIsFocused)
                                         .matchedGeometryEffect(
                                             id: "search-bar-text-\(selectedFolderFilter.animationId)",
                                             in: namespace
@@ -180,7 +193,7 @@ struct MainTabView: View {
                                 Button("Cancel") {
                                     withAnimation(.smooth) {
                                         searchModel.searchValue = ""
-                                        searchBarIsFocusd = false
+                                        searchBarIsFocused = false
                                         searchModel.searchIsActive = false
                                     }
                                 }
